@@ -28,7 +28,7 @@
                 </ul>
             </div><!--categories-->
         </header>
-        <v-container class="py-0">
+        <v-container class="py-0 pb-5">
             <v-row>
                 <v-col :cols="10" :lg="8" class="py-0">
                     <DynamicMarkdown
@@ -92,6 +92,10 @@ export default {
 <style lang="sass">
 @import '~/assets/sass/code.sass'
 
+article > header > a
+    color: $permalink-color !important
+    text-decoration: none
+
 .categories-container
     text-transform: uppercase
     font-size: .7rem
@@ -105,21 +109,15 @@ export default {
 
 .categories > li
     display: inline-block
-    /* background: var(--v-secondary-lighten1) */
     border-radius: .4rem
     margin-right: .5rem
     color: $category-color
-
-/* padding: 0 .5rem
-   text-transform: none
-   font-size: .7rem
-   font-weight: bold
-   box-shadow: 1px 1px 3px */
 
 .tags-container
     text-transform: uppercase
     font-size: .7rem
     color: $smallprint-color
+    margin-left: 12px !important
 
 .tags
     list-style-type: none

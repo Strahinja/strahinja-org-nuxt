@@ -128,7 +128,7 @@ export default {
                     tags: attr.tags,
                     description: attr.description,
                     id: attr.id,
-                    name: fileObj.file.name,
+                    name: fileObj.name,
                     related: attr.related,
                     title: attr.title,
                 },
