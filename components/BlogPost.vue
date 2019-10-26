@@ -4,9 +4,18 @@
             <h3 class="display-1">
                 {{ frontmatter.title }}
             </h3>
-            <time :datetime="frontmatter.date" class="subtitle-1">
-                {{ formatDate(frontmatter.date) }}
-            </time>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                    <nuxt-link
+                        :to="'/blog/'+frontmatter.name"
+                        v-on="on">
+                        <time :datetime="frontmatter.date" class="subtitle-1">
+                            {{ formatDate(frontmatter.date) }}
+                        </time>
+                    </nuxt-link>
+                </template>
+                <span>Пермалинк</span>
+            </v-tooltip>
             <div class="categories-container">
                 Категорије:
                 <ul class="categories">
