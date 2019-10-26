@@ -1,0 +1,192 @@
+.v-application code,
+.v-application code[class*="language-"]
+    font-family: 'PxPlus IBM VGA8 for Powerline'
+    font-size: 16px
+    font-weight: normal
+    color: #00d000
+    background: #001000
+    text-align: left
+    word-spacing: normal
+    word-break: normal
+    word-wrap: normal
+    line-height: 1.5
+    -webkit-hyphens: none
+    -moz-hyphens: none
+    -ms-hyphens: none
+    hyphens: none
+    border-radius: .5em
+    box-shadow: none
+
+.v-application pre[class*="language-"]
+    width: 100%
+
+/* Code blocks */
+.v-application pre > code[class*="language-"]
+    width: 45em
+    max-width: 100%
+    overflow-x: auto
+    padding: 1em 2em
+    margin: .5em 0
+    border-radius: 16px
+    //box-shadow: rgba(0,0,0.5) 3px 3px 10px 2px
+    -moz-tab-size: 4
+    -o-tab-size: 4
+    tab-size: 4
+    white-space: pre
+
+.v-application pre > code[class*="language-"]::before,
+.v-application pre > code[class*="language-"]::after
+    display: none
+
+/* Inline code */
+.v-application :not(pre) > code,
+.v-application :not(pre) > code[class*="language-"]
+    padding: .1em
+    white-space: normal
+
+.v-application code .token.important,
+.v-application code .token.bold,
+.v-application code .token.punctuation
+    color: #30ff30
+
+.v-application code .token.function,
+.v-application code .token.function-variable.function
+    color: #007000
+
+.v-application code .token.operator,
+.v-application code .token.entity,
+.v-application code .token.url
+    color: #40ff40
+
+.v-application code .token.selector,
+.v-application code .token.important,
+.v-application code .token.atrule,
+.v-application code .token.keyword,
+.v-application code .token.builtin
+    color: #40ff40
+
+.v-application code .token.boolean,
+.v-application code .token.number,
+.v-application code .token.string,
+.v-application code .token.char,
+.v-application code .token.attr-value,
+.v-application code .token.regex,
+.v-application code .token.variable
+    color: #008000
+
+.v-application code .token.comment,
+.v-application code .token.block-comment,
+.v-application code .token.prolog,
+.v-application code .token.doctype,
+.v-application code .token.cdata
+    color: #40a040
+
+.v-application code .token.tag,
+.v-application code .token.attr-name,
+.v-application code .token.namespace,
+.v-application code .token.deleted
+    color: #40ff40
+
+.v-application code .token.property,
+.v-application code .token.class-name,
+.v-application code .token.constant,
+.v-application code .token.symbol
+    color: #30ff30
+
+.v-application code .token.entity
+    cursor: help
+
+.v-application pre[class*="language-"].line-numbers
+    position: relative
+    padding-left: 3.8em
+    counter-reset: linenumber
+
+.v-application pre[class*="language-"].line-numbers > code
+    position: relative
+    white-space: inherit
+
+.v-application .line-numbers .line-numbers-rows
+    position: absolute
+    pointer-events: none
+    top: 0
+    font-size: 100%
+    left: -3.8em
+    /* works for line-numbers below 1000 lines */
+    width: 3em
+    letter-spacing: -1px
+    border-right: 1px solid #999
+
+    -webkit-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+    user-select: none
+
+.v-application .line-numbers-rows > span
+    pointer-events: none
+    display: block
+    counter-increment: linenumber
+
+.v-application .line-numbers-rows > span:before
+    content: counter(linenumber)
+    color: #999
+    display: block
+    padding-right: 0.8em
+    text-align: right
+
+.v-application div.code-toolbar
+    position: relative
+
+.v-application div.code-toolbar > .toolbar
+    position: absolute
+    top: .3em
+    right: .2em
+    transition: opacity 0.3s ease-in-out
+    opacity: 0
+
+.v-application div.code-toolbar:hover > .toolbar
+    opacity: 1
+
+/* Separate line b/c rules are thrown out if selector is invalid.
+   IE11 and old Edge versions don't support :focus-within. */
+.v-application div.code-toolbar:focus-within > .toolbar
+    opacity: 1
+
+.v-application div.code-toolbar > .toolbar .toolbar-item
+    display: inline-block
+
+.v-application div.code-toolbar > .toolbar a
+    cursor: pointer
+
+.v-application div.code-toolbar > .toolbar button
+    background: none
+    border: 0
+    color: inherit
+    font: inherit
+    line-height: normal
+    overflow: visible
+    padding: 0
+    /* for button */
+    -webkit-user-select: none
+    -moz-user-select: none
+    -ms-user-select: none
+
+.v-application div.code-toolbar > .toolbar a,
+.v-application div.code-toolbar > .toolbar button,
+.v-application div.code-toolbar > .toolbar span
+    color: #bbb
+    font-size: .8em
+    padding: 0 .5em
+    background: #f5f2f0
+    background: rgba(224, 224, 224, 0.2)
+    box-shadow: 0 2px 0 0 rgba(0,0,0,0.2)
+    border-radius: .5em
+
+.v-application div.code-toolbar > .toolbar a:hover,
+.v-application div.code-toolbar > .toolbar a:focus,
+.v-application div.code-toolbar > .toolbar button:hover,
+.v-application div.code-toolbar > .toolbar button:focus,
+.v-application div.code-toolbar > .toolbar span:hover,
+.v-application div.code-toolbar > .toolbar span:focus
+    color: inherit
+    text-decoration: none
+

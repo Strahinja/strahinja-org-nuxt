@@ -1,0 +1,56 @@
+<!doctype html public "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta name="robots" content="noindex">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<meta name="Author" content="Strahinja Radic, rstraxy@sezampro.yu">
+<title>[restaurantPIXIE] - Login</title>
+<script src="js/log.js" type="text/javascript" language="JavaScript"></script><link rel="stylesheet" type="text/css" href="css/login.css">
+</head>
+
+<body onLoad="focusFirst('form1', 'username')" background="images/loginbg.gif">
+<p align="center"><!--webbot bot="ImageMap" startspan
+rectangle="(113,81) (267, 92)  new.html" src="images/login.gif" width="283" height="267"
+border="0" -->
+<map name="FrontPageMap0">
+<area shape="RECT" coords="113, 81, 267, 92" href="new.html">
+</map>
+<img src="images/login.gif" width="283" height="267" border="0" usemap="#FrontPageMap0"><!--webbot bot="ImageMap" i-checksum="2898" endspan --></p>
+<div align="center">
+  <form method="POST" enctype="application/x-www-form-urlencoded" name="form1">
+    <table border="0" cellpadding="0">
+      <tr>
+        <td valign="middle" align="center" colspan="2" height="15" class="headtd">LOGIN
+        </td>
+      </tr>
+      <tr>
+        <td valign="middle" align="right">* Your name:
+        </td>
+        <td valign="top" align="left">
+          <input type="text" size="20" tabindex="1" name="username">
+        </td>
+      </tr>
+      <tr>
+        <td valign="middle" align="right">* Your password:
+        </td>
+        <td valign="top" align="left">
+          <input type="password" name="password" size="20" tabindex="2">
+        </td>
+      </tr>
+      <tr>
+        <td valign="middle" align="right">
+        </td>
+        <td valign="top" align="left">
+          <input type="reset" value="Login" tabindex="3" name="btnLogin" onClick="doFalseLogin()">
+          <input type="reset" value="Oops!" tabindex="4" name="btnReset" onClick="focusFirst('form1', 'username')">
+        </td>
+      </tr>
+      <tr>
+        <td valign="bottom" align="left" colspan="2" height="30"><img src="images/black.gif" width="170" height="2" border="0"><br>* = required field
+        </td>
+      </tr>
+    </table>
+  </form>
+</div>
+</body>
+</html>

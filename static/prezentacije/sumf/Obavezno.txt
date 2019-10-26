@@ -1,0 +1,4 @@
+Svi tekstovi iz *.html dokumenata moraju postojati na sajtu.
+Takodje mozete videti (u tim *.html dokumentima) kako je ranije izgledao sajt SUMF-a.
+
+										OZONS

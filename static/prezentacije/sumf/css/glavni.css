@@ -1,0 +1,27 @@
+body {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #000000; text-align: justify; background-color: #FFFFFF}
+p { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #000000 }
+a:active {  color: #6666FF; text-decoration: none}
+a:hover {  color: #6666FF; text-decoration: none; font-weight: bold}
+a:link {  color: #9999FF; text-decoration: underline}
+a:visited {  color: #009999; text-decoration: none}
+td { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #000000}
+.polucrn { font-family: Verdana, Arial, Helvetica, sans-serif; font-weight: bold; font-size: 12px}
+h3 { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: bold}
+.engleski { font-style: italic}
+h2 { font-size: 16px; font-weight: bold; text-align: center}
+.vecipolucrn { font-weight: bold; font-size: 18px}
+.dugme {  font-size: 10px; font-weight: bold; background-color: #CCCCFF }
+.unos {  font-size: 10px; background-color: #FFFFCC}
+h1 { font-size: 18px; font-weight: bold ; text-align: center}
+li { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #000000 }
+em { font-weight: bold; font-size: 11px}
+strong { font-weight: bold; font-size: 11px }
+.mikro {  font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px}
+
+.crno {  font-family: Verdana, Arial, Helvetica, sans-serif; font-weight: bold; color: #FFFFFF; background-color: #000000; font-size: 11px}
+.belo {  font-family: Verdana, Arial, Helvetica, sans-serif; color: #000000; background-color: #FFe7a9}
+.vecebelo { font-family: Verdana, Arial, Helvetica, sans-serif; color: #000000; background-color: #FFFFCC; font-size: 18px; font-weight: bold}
+.belo2 { font-family: Verdana, Arial, Helvetica, sans-serif; color: #000000; background-color: #FFFFCC}
+.crno2 { font-family: Verdana, Arial, Helvetica, sans-serif; font-weight: bold; color: #FFFFFF; background-color: #666600; font-size: 11px }
+.belobelo { font-family: Verdana, Arial, Helvetica, sans-serif; color: #000000; background-color: #FFFFFF}
+h4 { font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 10px; font-weight: bold ; font-style: italic}

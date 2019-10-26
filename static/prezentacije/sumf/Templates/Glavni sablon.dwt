@@ -1,0 +1,248 @@
+<html>
+<head>
+<!-- #BeginEditable "NaslovProzor" -->
+<title>{SUMF} - Indeks</title>
+<!-- #EndEditable -->
+
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<link rel="stylesheet" href="../css/glavni.css">
+<script language="JavaScript">
+<!--
+function MM_jumpMenu(targ,selObj,restore){ //v3.0
+  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
+  if (restore) selObj.selectedIndex=0;
+}
+//-->
+</script>
+</head>
+
+<body bgcolor="#FFFFFF">
+<br>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+    <td align="right" valign="top" class="belo2" rowspan="2" width="10%"> 
+      <table border="0" cellspacing="0" cellpadding="0">
+        <tr> 
+          <td align="right" valign="top" width="13" class="belobelo"><img src="../img/sumf-01.gif" width="13" height="13" border="0"></td>
+          <td class="crno">СУМФ - <a href="../win1/index.html">индекс</a></td>
+          <td class="crno" width="13">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td class="belo2" width="13">&nbsp;</td>
+          <td class="mikro"> 
+            <form name="form1">
+              Распоред:<br>
+              <!-- #BeginEditable "Raspored" -->
+              <select name="jezik" onChange="MM_jumpMenu('parent',this,0)" class="mikro">
+                <option value="../iso5/index.html">ISO 8859-5 (Cirilica)</option>
+                <option value="../win1/index.html" selected>WIN 1251 (Cirilica)</option>
+                <option value="../iso2/index.html">ISO 8859-2 (Latinica)</option>
+                <option value="../win0/index.html">WIN 1250 (Latinica)</option>
+                <option value="../ascii/index.html">ASCII (Latinica)</option>
+              </select>
+              <!-- #EndEditable --> 
+            </form>
+          </td>
+          <td class="belo2" width="13">&nbsp;</td>
+        </tr>
+      </table>
+      <table border="0" cellspacing="0" cellpadding="0" width="100" align="center">
+        <tr> 
+          <td class="belo2" width="13" align="right" valign="top"><img src="../img/sumf2-01.gif" width="13" height="13" border="0"></td>
+          <td class="crno2" align="center" valign="middle">Разно</td>
+          <td class="belo2" width="13" align="left" valign="top"><img src="../img/sumf2-02.gif" width="13" height="13" border="0"></td>
+        </tr>
+        <tr> 
+          <td class="belo" width="13" rowspan="6">&nbsp;</td>
+          <td class="belo" align="center"> 
+            <p><a href="../win1/novosti.html">Новости</a></p>
+          </td>
+          <td class="belo" width="13" rowspan="6">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td class="belo" align="center">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td class="belo" align="center"><a href="../win1/bit.html">Билтен - 
+            БИТ</a></td>
+        </tr>
+        <tr> 
+          <td class="belo" align="center">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td class="belo" align="center"><a href="../win1/rokovi.html">Рокови</a></td>
+        </tr>
+        <tr> 
+          <td class="belo" align="center">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="belo" width="13">&nbsp;</td>
+          <td class="belo" align="center"><a href="../win1/kapuera.html">Капуера</a></td>
+          <td class="belo" width="13">&nbsp;</td>
+        </tr>
+        <tr>
+          <td class="belo" width="13">&nbsp;</td>
+          <td class="belo" align="center">&nbsp;</td>
+          <td class="belo" width="13">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td class="crno2" width="13">&nbsp;</td>
+          <td class="crno2" align="center" valign="middle">Документи</td>
+          <td class="crno2" width="13">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td class="belo" width="13" rowspan="8">&nbsp;</td>
+          <td class="belo" align="center"> 
+            <p><a href="../win1/statut.html">Статут</a></p>
+          </td>
+          <td class="belo" width="13" rowspan="8">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td class="belo" align="center">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td class="belo" align="center"><a href="../win1/program.html">Програм</a></td>
+        </tr>
+        <tr> 
+          <td class="belo" align="center">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td class="belo" align="center"><a href="../win1/istun.html">Историјат</a></td>
+        </tr>
+        <tr> 
+          <td class="belo" align="center">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td class="belo" align="center"><a href="../win1/istmat.html">Историја 
+            математике</a></td>
+        </tr>
+        <tr> 
+          <td class="belo" align="center">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td class="crno2" width="13">&nbsp;</td>
+          <td class="crno2" align="center" valign="middle">Организација</td>
+          <td class="crno2" width="13">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td class="belo" rowspan="6">&nbsp;</td>
+          <td class="belo" align="center"> 
+            <p><a href="../win1/organi.html">Органи</a></p>
+          </td>
+          <td class="belo" rowspan="6">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td class="belo" align="center">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td class="belo" align="center"><a href="../win1/poslovnik.html">Пословник</a> 
+          </td>
+        </tr>
+        <tr> 
+          <td class="belo" align="center">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td class="belo" align="center"><a href="../win1/clanovi.html">Чланови</a></td>
+        </tr>
+        <tr> 
+          <td class="belo" align="center">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td class="belo" rowspan="2">&nbsp;</td>
+          <td class="belo" align="center"><a href="../win1/ankete.php3">Анкете</a></td>
+          <td class="belo" rowspan="2">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td class="belo" align="center">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td align="right" width="13" valign="bottom"><img src="../img/sumf2-03.gif" width="13" height="13" border="0"></td>
+          <td class="crno2">&nbsp;</td>
+          <td align="left" width="13" valign="bottom"><img src="../img/sumf2-04.gif" width="13" height="13" border="0"></td>
+        </tr>
+        <tr> 
+          <td align="right" width="13" valign="bottom">&nbsp;</td>
+          <td class="belo2" align="center"><span class="mikro">дизајн:<br>
+            <b>[</b><a href="http://alas.matf.bg.ac.yu/~mr99164">страхиња</a><b>]</b></span> 
+            <br>
+          </td>
+          <td align="left" width="13" valign="bottom">&nbsp;</td>
+        </tr>
+      </table>
+      <div align="center"><br>
+        <img src="../img/sumf-mgrb.gif" width="50" height="50" border="0" alt="Grb SUMF"> 
+      </div>
+    </td>
+    <td align="left" valign="top" colspan="2" rowspan="3"> 
+      <table border="0" cellspacing="0" cellpadding="0" width="100%" height="100%">
+        <tr> 
+          <td class="crno" width="13">&nbsp;</td>
+          <td class="crno" nowrap>&nbsp;</td>
+          <td width="13" align="left" valign="top" class="belobelo"><img src="../img/sumf-02.gif" width="12" height="13" border="0"></td>
+        </tr>
+        <tr> 
+          <td class="belo2" width="13">&nbsp;</td>
+          <td class="vecebelo"><!-- #BeginEditable "Naslov" -->Студентска унија 
+            математичког факултета<!-- #EndEditable --></td>
+          <td class="belo2" width="13">&nbsp;</td>
+        </tr>
+        <tr class="belo2"> 
+          <td class="belo2" width="13">&nbsp;</td>
+          <td class="belo2" align="right"><!-- #BeginEditable "Datum" -->6. октобар 
+            2001.<!-- #EndEditable --></td>
+          <td class="belobelo" width="13" align="left" valign="bottom"><img src="../img/sumf3-04.gif" width="13" height="13" border="0"></td>
+        </tr>
+        <tr class="belo2"> 
+          <td class="belobelo" align="left" valign="top" height="100%"><img src="../img/sumf3-01.gif" width="13" height="13" border="0"></td>
+          <td class="belobelo" height="100%"><!-- #BeginEditable "Tekst" --> 
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <hr size="1" align="center" width="90%" noshade>
+            <p>&nbsp;</p>
+            <h1>Добродошли!</h1>
+            <p>Добродошли на сајт Студентске уније математичког факултета. За 
+              више детаља активирајте неку од веза лево.</p>
+            <p>&nbsp;</p>
+            <hr width="90%" noshade size="1">
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <p>&nbsp;</p>
+            <!-- #EndEditable --></td>
+          <td class="belobelo" height="100%">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="13" class="belobelo" align="left" valign="bottom"><img src="../img/sumf3-03.gif" width="13" height="13" border="0"></td>
+          <td bgcolor="#FFFFCC" class="belobelo">&nbsp; </td>
+          <td class="belobelo">&nbsp;</td>
+        </tr>
+        <tr> 
+          <td width="13" class="belo2">&nbsp;</td>
+          <td bgcolor="#FFFFCC" class="belo2">&nbsp;</td>
+          <td class="belobelo" align="left" valign="top"><img src="../img/sumf3-02.gif" width="13" height="13" border="0"></td>
+        </tr>
+        <tr class="belo2"> 
+          <td width="13" class="crno">&nbsp;</td>
+          <td class="crno">&nbsp;</td>
+          <td align="left" valign="bottom" class="belobelo"><img src="../img/sumf-04.gif" width="13" height="13"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr> </tr>
+  <tr> 
+    <td align="left" valign="bottom" class="belo2" width="10%"> 
+      <table border="0" cellspacing="0" cellpadding="0" width="100%">
+        <tr> 
+          <td width="13" class="crno"><img src="../img/sumf-03.gif" width="13" height="13" border="0"></td>
+          <td class="crno">&nbsp;</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

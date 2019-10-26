@@ -1,0 +1,22 @@
+User-agent: *
+Disallow: /*?cat
+Disallow: /*?cxisttekst
+Disallow: /*?m
+Disallow: /*?p
+Disallow: /*?paged
+Disallow: /*?rss
+Disallow: /*?sxtampa
+Disallow: /tekstovi
+Allow: /tekstovi/razno/gv
+Allow: /tekstovi/razno/tri-hajduka
+Allow: /tekstovi/matematika/*.pdf
+Allow: /tekstovi/softver/*.pdf
+Allow: /tekstovi/softver/gnu/*.pdf
+Allow: /tekstovi/softver/gnu/*.html
+Allow: /tekstovi/softver/gnu/*.tar.*
+Disallow: /doku
+Disallow: /kontakt
+Disallow: /galerija
+Allow: /favicon.ico
+
+Sitemap: http://strahinja.org/sitemap.xml
