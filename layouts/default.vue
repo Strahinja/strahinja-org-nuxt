@@ -28,7 +28,9 @@
                         <v-list-item-title>{{ $store.state.pages.homePage.title }}</v-list-item-title>
                     </v-list-item>
                     <v-list-item
-                        v-for="(page, pageIndex) in $store.state.pages.pages"
+                        v-for="(page, pageIndex) in
+                            $store.state.pages.pages.filter(page =>
+                                page.includedInNavigation)"
                         :key="pageIndex"
                         :to="page.url">
                         <v-list-item-action>

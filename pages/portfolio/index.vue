@@ -17,11 +17,11 @@
                         <v-btn
                             v-if="showBackButton"
                             fab depressed dark small
-                            v-on="on"
                             :to="'/'"
                             color="secondary"
                             class="hidden-xs-only text-center align-center mr-3
-                               mt-1">
+                               mt-1"
+                            v-on="on">
                             <v-icon dark class="align-center">
                                 mdi-arrow-left
                             </v-icon>
@@ -74,7 +74,9 @@ export default {
                 this.$store.state.pages.pages[this.pageIndex].text: '',
             url: 'http://strahinja.org' + (this.$store.state.pages.pages && this.pageIndex != -1 ?
                 this.$store.state.pages.pages[this.pageIndex].url.path : ''),
-            image: 'http://strahinja.org/img/preview-portfolio-strahinja-org.png',
+            image: 'http://strahinja.org' + (this.$store.state.pages.pages && this.pageIndex != -1 ?
+                this.$store.state.pages.pages[this.pageIndex].image.path
+                : 'http://strahinja.org/img/preview-home-strahinja-org.png'),
             imageAlt: 'Стилизована ознака сликарске палете са умањеним логом са'
                 + ' иницијалима СР и текстом //strahinja.org',
         };

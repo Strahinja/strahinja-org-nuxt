@@ -132,7 +132,9 @@ export default {
                 this.$store.state.pages.pages[this.pageIndex].text: '',
             url: 'http://strahinja.org' + (this.$store.state.pages.pages && this.pageIndex != -1 ?
                 this.$store.state.pages.pages[this.pageIndex].url.path : ''),
-            image: 'http://strahinja.org/img/preview-profile-strahinja-org.png',
+            image: 'http://strahinja.org' + (this.$store.state.pages.pages && this.pageIndex != -1 ?
+                this.$store.state.pages.pages[this.pageIndex].image.path
+                : 'http://strahinja.org/img/preview-home-strahinja-org.png'),
             imageAlt: 'Стилизована ознака профила са умањеним логом са'
                 + ' иницијалима СР и текстом //strahinja.org',
         };

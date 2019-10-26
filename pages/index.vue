@@ -72,20 +72,6 @@
                                     url="https://nuxtjs.org">
                                     <LogoNuxt class="madewith-icon" />
                                 </made-with>
-                                <!--<made-with-->
-                                <!--v-if="$breakpoint.is.xsOnly"-->
-                                <!--title="Nuxt.js"-->
-                                <!--:height="50"-->
-                                <!--url="https://nuxtjs.org">-->
-                                <!--<LogoNuxt class="madewith-icon" />-->
-                                <!--</made-with>-->
-                                <!--<made-with-->
-                                <!--v-else-->
-                                <!--title="Nuxt.js"-->
-                                <!--:height="100"-->
-                                <!--url="https://nuxtjs.org">-->
-                                <!--<LogoNuxt class="madewith-icon" />-->
-                                <!--</made-with>-->
                             </li>
                             <li
                                 :class="{
@@ -100,20 +86,6 @@
                                     url="https://vuejs.org">
                                     <LogoVue class="madewith-icon" />
                                 </made-with>
-                                <!--<made-with-->
-                                <!--v-if="$breakpoint.is.xsOnly"-->
-                                <!--title="Vue.js"-->
-                                <!--:height="50"-->
-                                <!--url="https://vuejs.org">-->
-                                <!--<LogoVue class="madewith-icon" />-->
-                                <!--</made-with>-->
-                                <!--<made-with-->
-                                <!--v-else-->
-                                <!--title="Vue.js"-->
-                                <!--:height="100"-->
-                                <!--url="https://vuejs.org">-->
-                                <!--<LogoVue class="madewith-icon" />-->
-                                <!--</made-with>-->
                             </li>
                             <li
                                 :class="{
@@ -126,20 +98,6 @@
                                     url="https://vuetifyjs.com">
                                     <LogoVuetify class="madewith-icon" />
                                 </made-with>
-                                <!--<made-with-->
-                                <!--v-if="$breakpoint.is.xsOnly"-->
-                                <!--title="Vuetify"-->
-                                <!--:height="50"-->
-                                <!--url="https://vuetifyjs.com">-->
-                                <!--<LogoVuetify class="madewith-icon" />-->
-                                <!--</made-with>-->
-                                <!--<made-with-->
-                                <!--v-else-->
-                                <!--title="Vuetify"-->
-                                <!--:height="100"-->
-                                <!--url="https://vuetifyjs.com">-->
-                                <!--<LogoVuetify class="madewith-icon" />-->
-                                <!--</made-with>-->
                             </li>
                         </ul>
                     </v-col>

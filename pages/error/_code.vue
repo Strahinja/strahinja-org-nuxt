@@ -18,11 +18,11 @@
                         <v-btn
                             v-if="showBackButton"
                             fab depressed dark small
-                            v-on="on"
                             :to="'/'"
                             color="secondary"
                             class="hidden-xs-only text-center align-center mr-3
-                               mt-1">
+                               mt-1"
+                            v-on="on">
                             <v-icon dark class="align-center">
                                 mdi-arrow-left
                             </v-icon>
@@ -77,7 +77,7 @@ export default {
     data()
     {
         return {
-            image: 'http://strahinja.org/img/preview-strahinja-org.png',
+            image: 'http://strahinja.org/img/preview-home-strahinja-org.png',
             imageAlt: 'Иницијали СР и текст //strahinja.org',
             title: 'Грешка',
             messages: {

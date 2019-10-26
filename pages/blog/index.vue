@@ -54,6 +54,50 @@ import BlogPost from '~/components/BlogPost.vue';
 export default {
     name: 'Blog',
     components: { BlogPost },
+    head()
+    {
+        let globals = {
+            title: this.$store.state.pages.pages && this.pageIndex != -1 ?
+                this.$store.state.pages.pages[this.pageIndex].title : null,
+            description: this.$store.state.pages.pages && this.pageIndex != -1 ?
+                this.$store.state.pages.pages[this.pageIndex].text: '',
+            url: 'http://strahinja.org' + (this.$store.state.pages.pages && this.pageIndex != -1 ?
+                this.$store.state.pages.pages[this.pageIndex].url.path : ''),
+            image: 'http://strahinja.org' + (this.$store.state.pages.pages && this.pageIndex != -1 ?
+                this.$store.state.pages.pages[this.pageIndex].image.path
+                : 'http://strahinja.org/img/preview-home-strahinja-org.png'),
+            imageAlt: 'Цртеж врха пенкала са умањеним логом са иницијалима'
+                + ' СР и текстом //strahinja.org',
+        };
+        return {
+            meta: [
+                { hid: 'og:url', property: 'og:url', content: globals.url },
+                { hid: 'og:title', property: 'og:title', content: globals.title },
+                { hid: 'og:description', property: 'og:description', content: globals.description },
+                { hid: 'og:image', property: 'og:image', content: globals.image},
+                { hid: 'og:image:alt', property: 'og:image:alt', content: globals.imageAlt },
+                { hid: 'twitter:url', name: 'twitter:url', content: globals.url },
+                { hid: 'twitter:title', name: 'twitter:title', content: globals.title },
+                { hid: 'twitter:description', name: 'twitter:description', content: globals.description },
+                { hid: 'twitter:image', name: 'twitter:image', content:
+                    globals.image},
+                { hid: 'name', itemprop: 'name', content: globals.title },
+                { hid: 'description', itemprop: 'description', content: globals.description },
+                { hid: 'image', itemprop: 'image', content: globals.image},
+            ],
+            link: [
+                { hid: 'canonical', rel: 'canonical', href: globals.url }
+            ],
+            title: globals.title,
+            description: globals.description,
+        };
+    },
+    data ()
+    {
+        return {
+            pageIndex: this.$store.state.pages.routeIds.PAGE_BLOG_INDEX,
+        };
+    },
     computed: {
         showBackButton()
         {
