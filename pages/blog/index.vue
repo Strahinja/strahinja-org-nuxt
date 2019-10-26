@@ -114,7 +114,7 @@ export default {
         {
             return {
                 name: key,
-                file: resolve(key)
+                file: resolve(key).replace(/\.md$/, '')
             };
         }).forEach(fileObj =>
         {
