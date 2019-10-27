@@ -7,7 +7,7 @@
             <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                     <nuxt-link
-                        :to="'/blog/'+frontmatter.name"
+                        :to="`/blog/${frontmatter.name}`"
                         v-on="on">
                         <time :datetime="frontmatter.date" class="subtitle-1">
                             {{ formatDate(frontmatter.date) }}

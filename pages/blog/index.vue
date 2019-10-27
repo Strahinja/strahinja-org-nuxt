@@ -114,11 +114,12 @@ export default {
         {
             return {
                 name: key,
-                file: resolve(key).replace(/\.md$/, '')
+                file: resolve(key)
             };
         }).forEach(fileObj =>
         {
             const attr = fileObj.file.attributes;
+            const path = require('path');
             console.log('index.asyncData: attr = ', attr);
             filesList.push({
                 frontmatter: {
@@ -128,7 +129,8 @@ export default {
                     tags: attr.tags,
                     description: attr.description,
                     id: attr.id,
-                    name: fileObj.name,
+                    name: fileObj.name
+                        .replace(/\.\//, '').replace(/\.md$/, ''),
                     related: attr.related,
                     title: attr.title,
                 },
