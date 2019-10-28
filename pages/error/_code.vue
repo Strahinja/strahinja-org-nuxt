@@ -50,21 +50,21 @@ export default {
     {
         return {
             meta: [
-                { hid: 'og:url', property: 'og:url', content: this.url },
-                { hid: 'og:title', property: 'og:title', content: this.title },
-                { hid: 'og:description', property: 'og:description', content:
+                { hid: 'og:url', name: 'og:url', property: 'og:url', content: this.url },
+                { hid: 'og:title', name: 'og:title', property: 'og:title', content: this.title },
+                { hid: 'og:description', name: 'og:description', property: 'og:description', content:
                     this.messageDescriptions[this.code] },
-                { hid: 'og:image', property: 'og:image', content: this.image},
-                { hid: 'og:image:alt', property: 'og:image:alt', content: this.imageAlt },
+                { hid: 'og:image', name: 'og:image', property: 'og:image', content: this.image},
+                { hid: 'og:image:alt', name: 'og:image:alt', property: 'og:image:alt', content: this.imageAlt },
                 { hid: 'twitter:url', name: 'twitter:url', content: this.url },
                 { hid: 'twitter:title', name: 'twitter:title', content: this.title },
                 { hid: 'twitter:description', name: 'twitter:description',
                     content: this.messageDescriptions[this.code] },
                 { hid: 'twitter:image', name: 'twitter:image', content:
                     this.image},
-                { hid: 'name', itemprop: 'name', content: this.title },
-                { hid: 'description', itemprop: 'description', content: this.description },
-                { hid: 'image', itemprop: 'image', content: this.image},
+                { hid: 'name', name: 'name', itemprop: 'name', content: this.title },
+                { hid: 'description', name: 'description', itemprop: 'description', content: this.description },
+                { hid: 'image', name: 'image', itemprop: 'image', content: this.image},
                 { name: 'robots', content: 'noindex' }
             ],
             link: [

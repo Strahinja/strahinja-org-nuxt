@@ -1,6 +1,7 @@
 <script>
 export default {
     name: 'DynamicMarkdown',
+    //eslint-disable-next-line vue/require-prop-types
     props: [ 'renderFunc', 'staticRenderFuncs', 'extraComponent' ],
     computed: {
         extraComponentLoader()
@@ -10,7 +11,7 @@ export default {
                 return null;
             }
             return () =>
-                require(`~/components/vebnik/${this.extraComponent}.vue`);
+                require(`~/components/blog/${this.extraComponent}.vue`);
         }
     },
     mounted()

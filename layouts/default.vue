@@ -70,7 +70,6 @@
                         v-if="showBackButton"
                         icon dark
                         :to="'/'"
-                        color="secondary"
                         class="hidden-sm-and-up text-center align-center">
                         <v-icon dark class="align-center">
                             mdi-arrow-left
@@ -244,7 +243,7 @@ export default {
             title: null,
             description: 'Лична веб страна Страхиње Радића',
             url: url,
-            image: url + '/static/img/preview-home-strahinja-org.png',
+            image: `${url}/static/img/preview-home-strahinja-org.png`,
             imageAlt: 'Лого са иницијалима СР и текст //strahinja.org',
             imageWidth: 1127,
             imageHeight: 492,
@@ -265,19 +264,27 @@ export default {
                 { name: 'viewport',
                     content: 'width=device-width, initial-scale=1'
                 },
-                { hid: 'og:type', property: 'og:type', content: 'website' },
-                { hid: 'og:url', property: 'og:url', content: globals.url },
-                { hid: 'og:title',
+                { hid: 'og:type', name: 'og:type',
+                    property: 'og:type', content: 'website' },
+                { hid: 'og:url', name: 'og:url',
+                    property: 'og:url', content: globals.url },
+                { hid: 'og:title', name: 'og:title',
                     property: 'og:title',
                     content: globals.title,
                     template: titlefun
                 },
-                { hid: 'og:description', property: 'og:description', content: globals.description },
-                { hid: 'og:image', property: 'og:image', content: globals.image },
-                { hid: 'og:image:type', property: 'og:image:type', content: globals.imageType },
-                { hid: 'og:image:width', property: 'og:image:width', content: globals.imageWidth },
-                { hid: 'og:image:height', property: 'og:image:height', content: globals.imageHeight },
-                { hid: 'og:image:alt', property: 'og:image:alt', content: globals.imageAlt },
+                { hid: 'og:description', name: 'og:description',
+                    property: 'og:description', content: globals.description },
+                { hid: 'og:image', name: 'og:image',
+                    property: 'og:image', content: globals.image },
+                { hid: 'og:image:type', name: 'og:image:type',
+                    property: 'og:image:type', content: globals.imageType },
+                { hid: 'og:image:width', name: 'og:image:width',
+                    property: 'og:image:width', content: globals.imageWidth },
+                { hid: 'og:image:height', name: 'og:image:height',
+                    property: 'og:image:height', content: globals.imageHeight },
+                { hid: 'og:image:alt', name: 'og:image:alt',
+                    property: 'og:image:alt', content: globals.imageAlt },
                 { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
                 { hid: 'twitter:url', name: 'twitter:url', content: globals.url },
                 { hid: 'twitter:title',
@@ -288,12 +295,14 @@ export default {
                 { hid: 'twitter:creator', name: 'twitter:creator', content: '@strahinja_radic' },
                 { hid: 'twitter:description', name: 'twitter:description', content: globals.description },
                 { hid: 'twitter:image', name: 'twitter:image', content: globals.image },
-                { hid: 'name', itemprop: 'name',
+                { hid: 'name', name: 'name', itemprop: 'name',
                     content: globals.title,
                     template: titlefun
                 },
-                { hid: 'description', itemprop: 'description', content: globals.description },
-                { hid: 'image', itemprop: 'image', content: globals.image },
+                { hid: 'description', name: 'description',
+                    itemprop: 'description', content: globals.description },
+                { hid: 'image', name: 'image',
+                    itemprop: 'image', content: globals.image },
 
                 { name: 'google-site-verification',
                     content: 'IabK5ejyfSF3lFra1K5Gkr0cqO2wXBs7IQlBEgMR9xE' }

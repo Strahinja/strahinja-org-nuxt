@@ -4,7 +4,14 @@ import dark from './theme/dunedain-dark';
 import FMMode from 'frontmatter-markdown-loader/mode';
 import path from 'path';
 import markdownIt from 'markdown-it';
+import markdownItAbbr from 'markdown-it-abbr';
+import markdownItAnchor from 'markdown-it-anchor';
+import markdownItAttribution from 'markdown-it-attribution';
+import markdownItFootnote from 'markdown-it-footnote';
+import markdownItKatex from 'markdown-it-katex';
+import markdownItKbd from 'markdown-it-kbd';
 import markdownItPrism from 'markdown-it-prism';
+import markdownItTocDoneRight from 'markdown-it-toc-done-right';
 
 var dynamicRoutes = getDynamicPaths({
     '/blog': '*.md'
@@ -60,15 +67,19 @@ export default {
         ['@nuxtjs/dotenv', {
             filename: '.env.production'
         } ],
-        '@nuxtjs/svg'
-        //'nuxt-svg-loader',
-        //'vue-svg-loader',
-        /*['nuxt-svgicon', {
-            sourcePath: '',
-            targetPath: '',
-            subDir: '.'
-        }]*/
+        '@nuxtjs/svg',
+        '@nuxtjs/sitemap' // Must be last
     ],
+    /*
+     ** Sitemap configuration
+     */
+    sitemap: {
+        hostname: 'http://strahinja.org',
+        exclude: [
+            '/noindex'
+        ],
+        routes: dynamicRoutes
+    },
     /*
      ** Axios module configuration
      ** See https://axios.nuxtjs.org/options
@@ -130,26 +141,21 @@ export default {
                 loader: 'frontmatter-markdown-loader',
                 include: path.resolve(__dirname, 'static/blog'),
                 options: {
-                    mode: [FMMode.HTML, FMMode.VUE_RENDER_FUNCTIONS],
-                    //mode: [FMMode.HTML],
+                    mode: [FMMode.VUE_RENDER_FUNCTIONS],
                     vue: {
                         root: 'markdown-body'
                     },
-                    markdownIt: markdownIt({html: true}).use(markdownItPrism)
+                    markdownIt: markdownIt({html: true})
+                        .use(markdownItAbbr)
+                        .use(markdownItAnchor)
+                        .use(markdownItAttribution)
+                        .use(markdownItFootnote)
+                        .use(markdownItKatex)
+                        .use(markdownItKbd)
+                        .use(markdownItPrism)
+                        .use(markdownItTocDoneRight)
                 }
             });
-
-            /*if (ctx.dev && ctx.isClient)
-            {
-                config.module.rules.push({
-                    enforce: 'pre',
-                    test: /\.(js|vue)$/,
-                    exclude: /(node_modules)/,
-                    options: {
-                        fix: true
-                    }
-                });
-            }*/
         }
     }
 };

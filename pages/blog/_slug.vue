@@ -17,7 +17,8 @@
                         <v-btn
                             v-if="showBackButton"
                             fab depressed dark small
-                            :to="'/'"
+                            :to="'/blog'"
+                            v-on="on"
                             color="secondary"
                             class="hidden-xs-only text-center align-center mr-3
                                mt-1">
@@ -26,7 +27,7 @@
                             </v-icon>
                         </v-btn>
                     </template>
-                    <span>Назад на почетну</span>
+                    <span>Назад на списак чланака</span>
                 </v-tooltip>
             </v-col>
             <v-col
@@ -67,19 +68,19 @@ export default {
         };
         return {
             meta: [
-                { hid: 'og:url', property: 'og:url', content: globals.url },
-                { hid: 'og:title', property: 'og:title', content: globals.title },
-                { hid: 'og:description', property: 'og:description', content: globals.description },
-                { hid: 'og:image', property: 'og:image', content: globals.image},
-                { hid: 'og:image:alt', property: 'og:image:alt', content: globals.imageAlt },
+                { hid: 'og:url', name: 'og:url', property: 'og:url', content: globals.url },
+                { hid: 'og:title', name: 'og:title', property: 'og:title', content: globals.title },
+                { hid: 'og:description', name: 'og:description', property: 'og:description', content: globals.description },
+                { hid: 'og:image', name: 'og:image', property: 'og:image', content: globals.image},
+                { hid: 'og:image:alt', name: 'og:image:alt', property: 'og:image:alt', content: globals.imageAlt },
                 { hid: 'twitter:url', name: 'twitter:url', content: globals.url },
                 { hid: 'twitter:title', name: 'twitter:title', content: globals.title },
                 { hid: 'twitter:description', name: 'twitter:description', content: globals.description },
                 { hid: 'twitter:image', name: 'twitter:image', content:
                     globals.image},
-                { hid: 'name', itemprop: 'name', content: globals.title },
-                { hid: 'description', itemprop: 'description', content: globals.description },
-                { hid: 'image', itemprop: 'image', content: globals.image},
+                { hid: 'name', name: 'name', itemprop: 'name', content: globals.title },
+                { hid: 'description', name: 'description', itemprop: 'description', content: globals.description },
+                { hid: 'image', name: 'image', itemprop: 'image', content: globals.image},
             ],
             link: [
                 { hid: 'canonical', rel: 'canonical', href: globals.url }

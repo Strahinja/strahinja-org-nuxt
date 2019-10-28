@@ -1,5 +1,7 @@
 <template>
-    <article class="mb-10">
+    <article
+        class="mb-10"
+        :class="{'folded': folded}">
         <header>
             <h3 class="display-1">
                 {{ frontmatter.title }}
@@ -7,9 +9,11 @@
             <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
                     <nuxt-link
-                        :to="`/blog/${frontmatter.name}`"
-                        v-on="on">
-                        <time :datetime="frontmatter.date" class="subtitle-1">
+                        :to="`/blog/${frontmatter.name}`">
+                        <time
+                            :datetime="frontmatter.date"
+                            class="subtitle-1"
+                            v-on="on">
                             {{ formatDate(frontmatter.date) }}
                         </time>
                     </nuxt-link>
@@ -37,6 +41,15 @@
                         :extra-component="markdown.extraComponent" />
                 </v-col>
             </v-row>
+            <div v-if="folded" v-ripple class="folded-overlay-container col-lg-8 col-10">
+                <nuxt-link :to="`/blog/${frontmatter.name}`">
+                    <v-btn fab color="accent" class="black--text">
+                        <v-icon :to="`/blog/${frontmatter.name}`">
+                            mdi-dots-horizontal
+                        </v-icon>
+                    </v-btn>
+                </nuxt-link>
+            </div><!--folded-overlay-->
         </v-container>
         <footer>
             <div v-if="hasTags" class="tags-container">
@@ -59,6 +72,7 @@ export default {
     name: 'BlogPost',
     components: { DynamicMarkdown },
     props: {
+        folded: { type: Boolean, default: false },
         frontmatter: { type: Object, default: () => ({}) },
         markdown: { type: Object, default: () => ({}) }
     },
@@ -79,6 +93,7 @@ export default {
                 'јан', 'феб', 'мар',
                 'апр', 'мај', 'јун',
                 'јул', 'авг', 'сеп',
+
                 'окт', 'нов', 'дец',
             ];
             return '' + day + '. '
@@ -91,10 +106,55 @@ export default {
 
 <style lang="sass">
 @import '~/assets/sass/code.sass'
+@import '~/assets/sass/markdown.sass'
 
 article > header > a
     color: $permalink-color !important
     text-decoration: none
+
+article.folded > .container
+    position: relative
+    max-height: 15em
+    overflow: hidden
+
+article.folded .folded-overlay-container
+    position: absolute
+    text-align: center
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+
+article.folded .folded-overlay-container a
+    display: block
+    position: absolute
+    cursor: pointer
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+    text-decoration: none
+
+article.folded .folded-overlay-container a::before
+    content: ' '
+    display: inline-block
+    height: 100%
+    vertical-align: middle
+
+article.folded .folded-overlay-container a::after
+    content: ' '
+    display: block
+    position: absolute
+    top: 100%
+    height: 4em
+    margin-top: -4em
+    left: 0
+    right: 0
+    background: linear-gradient(0deg, #fff, transparent)
+
+article.folded .folded-overlay-container a .v-btn
+    display: inline-block
+    vertical-align: middle
 
 .categories-container
     text-transform: uppercase

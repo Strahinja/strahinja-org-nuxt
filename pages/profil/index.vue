@@ -132,27 +132,27 @@ export default {
                 this.$store.state.pages.pages[this.pageIndex].text: '',
             url: 'http://strahinja.org' + (this.$store.state.pages.pages && this.pageIndex != -1 ?
                 this.$store.state.pages.pages[this.pageIndex].url.path : ''),
-            image: 'http://strahinja.org' + (this.$store.state.pages.pages && this.pageIndex != -1 ?
-                this.$store.state.pages.pages[this.pageIndex].image.path
-                : 'http://strahinja.org/img/preview-home-strahinja-org.png'),
+            image: this.$store.state.pages.pages && this.pageIndex != -1 ?
+                this.$store.state.pages.pages[this.pageIndex].image
+                : 'http://strahinja.org/img/preview-profile-strahinja-org.png',
             imageAlt: 'Стилизована ознака профила са умањеним логом са'
                 + ' иницијалима СР и текстом //strahinja.org',
         };
         return {
             meta: [
-                { hid: 'og:url', property: 'og:url', content: globals.url },
-                { hid: 'og:title', property: 'og:title', content: globals.title },
-                { hid: 'og:description', property: 'og:description', content: globals.description },
-                { hid: 'og:image', property: 'og:image', content: globals.image},
-                { hid: 'og:image:alt', property: 'og:image:alt', content: globals.imageAlt },
+                { hid: 'og:url', name: 'og:url', property: 'og:url', content: globals.url },
+                { hid: 'og:title', name: 'og:title', property: 'og:title', content: globals.title },
+                { hid: 'og:description', name: 'og:description', property: 'og:description', content: globals.description },
+                { hid: 'og:image', name: 'og:image', property: 'og:image', content: globals.image},
+                { hid: 'og:image:alt', name: 'og:image:alt', property: 'og:image:alt', content: globals.imageAlt },
                 { hid: 'twitter:url', name: 'twitter:url', content: globals.url },
                 { hid: 'twitter:title', name: 'twitter:title', content: globals.title },
                 { hid: 'twitter:description', name: 'twitter:description', content: globals.description },
                 { hid: 'twitter:image', name: 'twitter:image', content:
                     globals.image},
-                { hid: 'name', itemprop: 'name', content: globals.title },
-                { hid: 'description', itemprop: 'description', content: globals.description },
-                { hid: 'image', itemprop: 'image', content: globals.image},
+                { hid: 'name', name: 'name', itemprop: 'name', content: globals.title },
+                { hid: 'description', name: 'description', itemprop: 'description', content: globals.description },
+                { hid: 'image', name: 'image', itemprop: 'image', content: globals.image},
             ],
             link: [
                 { hid: 'canonical', rel: 'canonical', href: globals.url }
