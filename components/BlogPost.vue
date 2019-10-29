@@ -161,9 +161,11 @@ article.folded > .container
 article .folded-overlay
     position: relative
     text-align: center
+    opacity: 1
 
 article.folded .folded-overlay
     position: absolute
+    opacity: 1
     top: 0
     bottom: 0
     left: 0
