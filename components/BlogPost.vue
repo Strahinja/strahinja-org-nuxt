@@ -147,7 +147,6 @@ article > header a
 
 article > .container
     height: auto
-    opacity: 1
     transition: all .3s ease
 
 article.folded > .container
@@ -155,17 +154,21 @@ article.folded > .container
     max-height: 15em
     height: 15em
     overflow: hidden
-    opacity: .5
     transition: all .3s ease
+
+article > .container .row
+    opacity: 1
+    transition: all .3s ease
+
+article.folded > .container .row
+    opacity: .5
 
 article .folded-overlay
     position: relative
     text-align: center
-    opacity: 1
 
 article.folded .folded-overlay
     position: absolute
-    opacity: 1
     top: 0
     bottom: 0
     left: 0
