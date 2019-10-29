@@ -10,7 +10,7 @@
                 <v-list>
                     <v-list-item
                         v-if="$breakpoint.is.mdAndDown"
-                        :to="$store.state.pages.homePage.url">
+                        :to="$store.state.pages.pages[$store.state.pages.routeIds.PAGE_HOME].url">
                         <v-list-item-action>
                             <Strahinjaorg class="icon-normal" />
                         </v-list-item-action>
@@ -21,11 +21,19 @@
                     <v-divider v-if="$breakpoint.is.mdAndDown" />
                     <v-list-item
                         v-if="$breakpoint.is.lgAndUp"
-                        :to="$store.state.pages.homePage.url">
+                        :to="$store.state.pages.pages[$store.state.pages.routeIds.PAGE_HOME].url">
                         <v-list-item-action>
-                            <v-icon>{{ $store.state.pages.homePage.icon }}</v-icon>
+                            <v-icon>
+                                {{ $store.state.pages.pages[
+                                    $store.state.pages.routeIds.PAGE_HOME
+                                ].icon }}
+                            </v-icon>
                         </v-list-item-action>
-                        <v-list-item-title>{{ $store.state.pages.homePage.title }}</v-list-item-title>
+                        <v-list-item-title>
+                            {{ $store.state.pages.pages[
+                                $store.state.pages.routeIds.PAGE_HOME
+                            ].title }}
+                        </v-list-item-title>
                     </v-list-item>
                     <v-list-item
                         v-for="(page, pageIndex) in
@@ -69,7 +77,7 @@
                     <v-btn
                         v-if="showBackButton"
                         icon dark
-                        :to="'/'"
+                        :to="$store.state.pages.pages[$store.state.pages.pageIndex].parentUrl"
                         class="hidden-sm-and-up text-center align-center">
                         <v-icon dark class="align-center">
                             mdi-arrow-left
@@ -149,7 +157,8 @@
                 <v-card-text class="primary text-center">
                     <v-spacer />
                     <v-tooltip
-                        v-for="(footerLink, footerLinkIndex) in footerLinks"
+                        v-for="(footerLink, footerLinkIndex) in
+                            $store.state.pages.footerLinks"
                         :key="footerLinkIndex"
                         bottom>
                         <template v-slot:activator="{ on }">
@@ -325,53 +334,9 @@ export default {
     {
         return {
             clipped: true,
+            parentUrl: '/',
             miniVariant: false,
             extraProps: {},
-            footerLinks: [
-                {
-                    url: {
-                        path: 'https://linkedin.com/in/strahinja-radic'
-                    },
-                    iconType: 'v-icon',
-                    iconName: 'mdi-linkedin',
-                    text: 'LinkedIn'
-                },
-                {
-                    url: { path: 'https://github.com/Strahinja' },
-                    iconType: 'v-icon',
-                    iconName: 'mdi-github-circle',
-                    text: 'GitHub'
-                },
-                {
-                    url: { path: 'https://codepen.io/Strahinja/' },
-                    iconType: 'v-icon',
-                    iconName: 'mdi-codepen',
-                    text: 'CodePen'
-                },
-                {
-                    url: {
-                        path:
-                            'https://jsfiddle.net/user/strahinja_radic/fiddles/'
-                    },
-                    iconType: 'v-icon',
-                    iconName: 'mdi-jsfiddle',
-                    text: 'JSFiddle'
-                },
-                {
-                    url: { path: 'https://twitter.com/strahinja_radic' },
-                    iconType: 'v-icon',
-                    iconName: 'mdi-twitter',
-                    text: 'Twitter'
-                },
-                {
-                    url: {
-                        path: 'https://www.facebook.com/strahinja.radic.prog'
-                    },
-                    iconType: 'v-icon',
-                    iconName: 'mdi-facebook',
-                    text: 'Facebook'
-                }
-            ],
             showNav: false,
             searchText: '',
             showSearch: false,
@@ -396,7 +361,24 @@ export default {
         return {
         };
     },
+    updated()
+    {
+        this.setparentUrl();
+    },
+    mounted()
+    {
+        this.setparentUrl();
+    },
     methods: {
+        setparentUrl()
+        {
+            if (this.$store.state.pages.pageIndex != -1 &&
+                this.$store.state.pages.pages[this.$store.state.pages.pageIndex])
+            {
+                this.parentUrl =
+                    this.$store.state.pages.pages[this.$store.state.pages.pageIndex].parentUrl;
+            }
+        },
         searchBtnClick()
         {
             if (!this.showSearch)

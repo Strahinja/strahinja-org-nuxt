@@ -39,45 +39,37 @@
             <v-col
                 :cols="12"
                 :sm="10">
-                <h3 class="display-1">
-                    Портфолио
-                </h3>
-
-                <v-progress-linear
-                    indeterminate
-                    class="my-5"
-                    :active="loading" />
-
-                <v-container class="px-0 mx-0" fluid>
-                    <v-row
-                        :class="{'breakout-row': $breakpoint.is.smAndDown}">
-                        <v-col
-                            v-for="(item, itemIndex) in portfolio"
-                            :key="itemIndex"
-                            :cols="12" :sm="6" :md="4" class="mb-2">
-                            <portfolio-item :item="item" :item-index="itemIndex" />
-                        </v-col>
-                    </v-row>
-                </v-container>
+                <h3>Чланци са ознаком #{{ tagId }}</h3>
+            </v-col>
+            <v-col
+                :cols="12"
+                :sm="10">
+                <section>
+                    <BlogPost
+                        v-for="(file, fileIndex) in files"
+                        :key="fileIndex"
+                        :folded="true"
+                        :frontmatter="file.frontmatter"
+                        :markdown="file.markdown"
+                        :standalone="false" />
+                </section>
             </v-col>
         </v-row>
     </v-container>
 </template>
 
 <script>
-import axios from 'axios';
-import PortfolioItem from '~/components/PortfolioItem';
-
 export default {
-    name: 'Portfolio',
-    components: { PortfolioItem },
+    name: 'BlogByTag',
     head()
     {
         let idx = this.$store.state.pages.pageIndex;
         let globals = {
             title: this.$store.state.pages.pages[idx].title,
             description: this.$store.state.pages.pages[idx].text,
-            url: 'http://strahinja.org/' + this.$store.state.pages.pages[idx].url.path,
+            url: 'http://strahinja.org/'
+                + this.$store.state.pages.pages[idx].url.path
+                + '/' + this.tagId,
             image: this.$store.state.pages.pages[idx].image,
             imageAlt: this.$store.state.pages.pages[idx].imageAlt,
         };
@@ -98,31 +90,62 @@ export default {
                 { hid: 'image', name: 'image', itemprop: 'image', content: globals.image},
             ],
             link: [
+                {
+                    rel: 'stylesheet',
+                    href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css'
+                },
                 { hid: 'canonical', rel: 'canonical', href: globals.url }
             ],
             title: globals.title,
             description: globals.description,
         };
     },
-    data()
+    async asyncData({params})
     {
-        return {
-            pageIndex: this.$store.state.pages.routeIds.PAGE_PORTFOLIO,
-            apiPortfolio: process.env.VUE_APP_API_PATH + '/portfolio?c=12',
-            portfolio: [],
-            loading: false,
-        };
-    },
-    computed: {
-        showBackButton()
+        const resolve = await require.context('~/static/blog', true, /\.md$/);
+        let filesList = [];
+        await resolve.keys().map(key =>
         {
-            return this.$breakpoint.is.smAndUp;
-        }
-    },
-    created()
-    {
-        // console.log('created: calling this.getPortfolio()');
-        this.getPortfolio();
+            return {
+                name: key,
+                file: resolve(key)
+            };
+        }).forEach(fileObj =>
+        {
+            const attr = fileObj.file.attributes;
+            console.log('tag.asyncData: attr = ', attr);
+            filesList.push({
+                frontmatter: {
+                    colors: attr.colors,
+                    date: attr.date,
+                    categories: attr.categories,
+                    tags: attr.tags,
+                    description: attr.description,
+                    id: attr.id,
+                    name: fileObj.name
+                        .replace(/\.\//, '').replace(/\.md$/, ''),
+                    related: attr.related,
+                    title: attr.title,
+                },
+                markdown: {
+                    renderFunc: fileObj.file.vue.render,
+                    staticRenderFuncs: fileObj.file.vue.staticRenderFns,
+                    extraComponent: attr.extraComponent
+                }
+            });
+        });
+        filesList = filesList.filter(filesListItem =>
+        {
+            return filesListItem.tags && filesListItem.tags.indexOf(params.id) != -1;
+        });
+        filesList.sort((fileListItem1, fileListItem2) =>
+        {
+            return fileListItem1.date > fileListItem2.date;
+        });
+        return {
+            files: filesList,
+            tagId: params.id,
+        };
     },
     updated()
     {
@@ -136,36 +159,12 @@ export default {
         setpageIndex()
         {
             this.$store.commit('pages/setPageIndex', { newIndex:
-                this.$store.state.pages.routeIds.PAGE_PORTFOLIO });
-        },
-        getPortfolio()
-        {
-            this.loading = true;
-            axios
-                .get(this.apiPortfolio)
-                .then(data =>
-                {
-                    this.loading = false;
-                    if (data.data)
-                    {
-                        if (data.data.data)
-                        {
-                            if (data.data.code === 200)
-                            {
-                                this.portfolio = data.data.data;
-                            }
-                        }
-                    }
-                })
-                .catch(data =>
-                {
-                    console.log('error: data = ', data);
-                    this.loading = false;
-                });
+                this.$store.state.pages.routeIds.PAGE_BLOG_TAG_INDEX });
         }
-    }
+    },
 };
 </script>
 
 <style lang="sass" scoped>
 </style>
+

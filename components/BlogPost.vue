@@ -1,22 +1,37 @@
 <template>
     <article
         class="mb-10"
-        :class="{'folded': folded}">
+        :class="{'folded': folded,
+                 'standalone': standalone}">
         <header>
-            <h3 class="display-1">
+            <h3 v-if="standalone" class="display-1">
                 {{ frontmatter.title }}
             </h3>
+            <h4 v-else>
+                {{ frontmatter.title }}
+            </h4>
             <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                    <nuxt-link
-                        :to="`/blog/${frontmatter.name}`">
-                        <time
-                            :datetime="frontmatter.date"
-                            class="subtitle-1"
-                            v-on="on">
-                            {{ formatDate(frontmatter.date) }}
-                        </time>
-                    </nuxt-link>
+                    <h4 v-if="standalone">
+                        <nuxt-link
+                            :to="`/blog/${frontmatter.name}`">
+                            <time
+                                :datetime="frontmatter.date"
+                                v-on="on">
+                                {{ formatDate(frontmatter.date) }}
+                            </time>
+                        </nuxt-link>
+                    </h4>
+                    <h5 v-else>
+                        <nuxt-link
+                            :to="`/blog/${frontmatter.name}`">
+                            <time
+                                :datetime="frontmatter.date"
+                                v-on="on">
+                                {{ formatDate(frontmatter.date) }}
+                            </time>
+                        </nuxt-link>
+                    </h5>
                 </template>
                 <span>Пермалинк</span>
             </v-tooltip>
@@ -41,14 +56,21 @@
                         :extra-component="markdown.extraComponent" />
                 </v-col>
             </v-row>
-            <div v-if="folded" v-ripple class="folded-overlay-container col-lg-8 col-10">
-                <nuxt-link :to="`/blog/${frontmatter.name}`">
-                    <v-btn fab color="accent" class="black--text">
-                        <v-icon :to="`/blog/${frontmatter.name}`">
-                            mdi-dots-horizontal
+            <div v-ripple class="folded-overlay col-lg-8 col-10" @click="toggleFolded">
+                <div class="folded-overlay-inner">
+                    <v-btn
+                        color="accent"
+                        class="black--text"
+                        elevation="12">
+                        <v-icon>
+                            {{ folded
+                                ? 'mdi-chevron-down'
+                                : 'mdi-chevron-up' }}
                         </v-icon>
+                        <span v-if="folded">Прикажи чланак</span>
+                        <span v-else>Сакриј чланак</span>
                     </v-btn>
-                </nuxt-link>
+                </div><!--folded-overlay-inner-->
             </div><!--folded-overlay-->
         </v-container>
         <footer>
@@ -58,7 +80,9 @@
                     <li
                         v-for="(tag, tagIndex) in frontmatter.tags"
                         :key="tagIndex">
-                        #{{ tag }}
+                        <nuxt-link :to="tagUrl(tag)">
+                            #{{ tag }}
+                        </nuxt-link>
                     </li>
                 </ul>
             </div><!--tags-container-->
@@ -74,7 +98,8 @@ export default {
     props: {
         folded: { type: Boolean, default: false },
         frontmatter: { type: Object, default: () => ({}) },
-        markdown: { type: Object, default: () => ({}) }
+        markdown: { type: Object, default: () => ({}) },
+        standalone: { type: Boolean, default: true },
     },
     computed: {
         hasTags()
@@ -93,13 +118,21 @@ export default {
                 'јан', 'феб', 'мар',
                 'апр', 'мај', 'јун',
                 'јул', 'авг', 'сеп',
-
                 'окт', 'нов', 'дец',
             ];
             return '' + day + '. '
                 + monthNames[month] + ' '
                 + year + '.';
         },
+        tagUrl(tag)
+        {
+            return `/blog/tag/${tag}`;
+            //return `http://strahinja.org/blog/tag/${tag}`;
+        },
+        toggleFolded()
+        {
+            this.folded = !this.folded;
+        }
     },
 };
 </script>
@@ -108,24 +141,37 @@ export default {
 @import '~/assets/sass/code.sass'
 @import '~/assets/sass/markdown.sass'
 
-article > header > a
+article > header a
     color: $permalink-color !important
     text-decoration: none
+
+article > .container
+    height: auto
+    /* transition: height .3s ease */
 
 article.folded > .container
     position: relative
     max-height: 15em
+    height: 15em
     overflow: hidden
+    /* transition: height .3s ease */
 
-article.folded .folded-overlay-container
-    position: absolute
+article .folded-overlay
+    position: relative
     text-align: center
+    background: rgba(255,255,255,.5)
+
+article.folded .folded-overlay
+    position: absolute
     top: 0
     bottom: 0
     left: 0
     right: 0
 
-article.folded .folded-overlay-container a
+article.standalone .folded-overlay
+    display: none
+
+article.folded .folded-overlay .folded-overlay-inner
     display: block
     position: absolute
     cursor: pointer
@@ -135,13 +181,13 @@ article.folded .folded-overlay-container a
     right: 0
     text-decoration: none
 
-article.folded .folded-overlay-container a::before
+article.folded .folded-overlay .folded-overlay-inner::before
     content: ' '
     display: inline-block
     height: 100%
     vertical-align: middle
 
-article.folded .folded-overlay-container a::after
+article.folded .folded-overlay .folded-overlay-inner::after
     content: ' '
     display: block
     position: absolute
@@ -196,4 +242,8 @@ article.folded .folded-overlay-container a .v-btn
     font-weight: bold
     text-transform: none
     color: $tag-color
+
+.tags > li > a
+    color: $tag-color !important
+    text-decoration: none
 </style>

@@ -1,14 +1,15 @@
 export const state = () => ({
     routeIds: {
-        PAGE_HOME: -1,
-        PAGE_PROFILE: 0,
-        PAGE_PORTFOLIO: 1,
-        PAGE_LINKS: 2,
-        PAGE_BLOG_INDEX: 3,
-        PAGE_BLOG_POST: 4,
-        PAGE_NOINDEX: -1,
+        PAGE_NOINDEX: 0,
+        PAGE_HOME: 0,
+        PAGE_PROFILE: 1,
+        PAGE_PORTFOLIO: 2,
+        PAGE_LINKS: 3,
+        PAGE_BLOG_INDEX: 4,
+        PAGE_BLOG_POST: 5,
+        PAGE_BLOG_TAG_INDEX: 6,
     },
-    homePage: {
+    /*homePage: {
         title: 'Почетна',
         text: '',
         colorClass: 'md-primary',
@@ -17,8 +18,22 @@ export const state = () => ({
         image: 'http://strahinja.org/img/preview-home-strahinja-org.png',
         url: { path: '/' },
         imageUrl: '/static/img/pexels-photo-1179156.jpeg'
-    },
+    },*/
     pages: [
+        {
+            title: 'Почетна',
+            text: '',
+            colorClass: 'md-primary',
+            theme: '',
+            icon: 'mdi-home',
+            image: 'http://strahinja.org/img/preview-home-strahinja-org.png',
+            url: { path: '/' },
+            parentUrl: '/',
+            parentName: 'почетну',
+            includedInNavigation: false,
+            includedInMainToolbar: false,
+            imageUrl: '/static/img/pexels-photo-1179156.jpeg'
+        },
         {
             title: 'Профил',
             text: 'Сажетак онога чим сам се до сада бавио',
@@ -26,7 +41,11 @@ export const state = () => ({
             theme: 'green-card',
             icon: 'mdi-clipboard-account',
             image: 'http://strahinja.org/img/preview-profile-strahinja-org.png',
+            imageAlt: 'Стилизована ознака профила са умањеним логом са'
+                + ' иницијалима СР и текстом //strahinja.org',
             url: { path: '/profil' },
+            parentUrl: '/',
+            parentName: 'почетну',
             includedInNavigation: true,
             includedInMainToolbar: true,
             imageUrl: '/static/img/pexels-photo-375882.jpeg'
@@ -38,7 +57,11 @@ export const state = () => ({
             theme: '',
             icon: 'mdi-palette',
             image: 'http://strahinja.org/img/preview-portfolio-strahinja-org.png',
+            imageAlt: 'Стилизована ознака сликарске палете са умањеним логом са'
+                + ' иницијалима СР и текстом //strahinja.org',
             url: { path: '/portfolio' },
+            parentUrl: '/',
+            parentName: 'почетну',
             includedInNavigation: true,
             includedInMainToolbar: true,
             imageUrl: '/static/img/pexels-photo-65543.jpeg'
@@ -50,7 +73,11 @@ export const state = () => ({
             theme: '',
             icon: 'mdi-bookmark-multiple',
             image: 'http://strahinja.org/img/preview-links-strahinja-org.png',
+            imageAlt: 'Стилизована ознака обележивача са умањеним логом са'
+                + ' иницијалима СР и текстом //strahinja.org',
             url: { path: '/veze' },
+            parentUrl: '/',
+            parentName: 'почетну',
             includedInNavigation: true,
             includedInMainToolbar: false,
             imageUrl: '/static/img/pexels-photo-1887836.jpeg'
@@ -62,10 +89,14 @@ export const state = () => ({
             theme: '',
             icon: 'mdi-fountain-pen-tip',
             image: 'http://strahinja.org/img/preview-blog-strahinja-org.png',
+            imageAlt: 'Цртеж врха пенкала са умањеним логом са иницијалима'
+                + ' СР и текстом //strahinja.org',
             url: { path: '/blog' },
+            parentUrl: '/',
+            parentName: 'почетну',
             includedInNavigation: true,
             includedInMainToolbar: true,
-            imageUrl: ''
+            imageUrl: '',
         },
         {
             title: 'Чланак блога',
@@ -74,13 +105,80 @@ export const state = () => ({
             theme: '',
             icon: 'mdi-fountain-pen-tip',
             image: 'http://strahinja.org/img/preview-blog-strahinja-org.png',
+            imageAlt: 'Цртеж врха пенкала са умањеним логом са иницијалима'
+                + ' СР и текстом //strahinja.org',
             url: { path: '/blog' },
+            parentUrl: '/blog',
+            parentName: 'списак чланака',
+            includedInNavigation: false,
+            includedInMainToolbar: false,
+            imageUrl: ''
+        },
+        {
+            title: 'Чланци са ознаком',
+            text: 'Мој веб дневник',
+            colorClass: '',
+            theme: '',
+            icon: 'mdi-fountain-pen-tip',
+            image: 'http://strahinja.org/img/preview-blog-strahinja-org.png',
+            url: { path: '/blog/tag' },
+            parentUrl: '/blog',
+            parentName: 'списак чланака',
             includedInNavigation: false,
             includedInMainToolbar: false,
             imageUrl: ''
         }
-    ]
+    ],
+    pageIndex: 0,
+    footerLinks: [
+        {
+            url: {
+                path: 'https://linkedin.com/in/strahinja-radic'
+            },
+            iconType: 'v-icon',
+            iconName: 'mdi-linkedin',
+            text: 'LinkedIn'
+        },
+        {
+            url: { path: 'https://github.com/Strahinja' },
+            iconType: 'v-icon',
+            iconName: 'mdi-github-circle',
+            text: 'GitHub'
+        },
+        {
+            url: { path: 'https://codepen.io/Strahinja/' },
+            iconType: 'v-icon',
+            iconName: 'mdi-codepen',
+            text: 'CodePen'
+        },
+        {
+            url: {
+                path: 'https://jsfiddle.net/user/strahinja_radic/fiddles/'
+            },
+            iconType: 'v-icon',
+            iconName: 'mdi-jsfiddle',
+            text: 'JSFiddle'
+        },
+        {
+            url: { path: 'https://twitter.com/strahinja_radic' },
+            iconType: 'v-icon',
+            iconName: 'mdi-twitter',
+            text: 'Twitter'
+        },
+        {
+            url: {
+                path: 'https://www.facebook.com/strahinja.radic.prog'
+            },
+            iconType: 'v-icon',
+            iconName: 'mdi-facebook',
+            text: 'Facebook'
+        }
+    ],
 });
 
 export const mutations = {
+    setPageIndex(state, payload)
+    {
+        state.pageIndex = payload.newIndex;
+    }
 };

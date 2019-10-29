@@ -48,7 +48,8 @@ export default {
      ** Plugins to load before mounting the App
      */
     plugins: [
-        '~/plugins/breakpoint.js'
+        '~/plugins/breakpoint.js',
+        '~/plugins/jsonld.js'
     ],
     /*
      ** Nuxt.js dev-modules

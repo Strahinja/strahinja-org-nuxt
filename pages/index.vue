@@ -7,42 +7,40 @@
                 Лична страница Страхиње Радића
             </h1>
         </splash>
-        <client-only>
-            <v-toolbar
-                flat
-                class="main-toolbar">
-                <v-spacer />
-                <v-tooltip
-                    v-for="(page, pageIndexHome) in
-                        $store.state.pages.pages.filter(page =>
-                            page.includedInMainToolbar)"
-                    :key="pageIndexHome"
-                    bottom>
-                    <template v-slot:activator="{ on }">
-                        <v-btn
-                            :to="page.url.path"
-                            :x-large="$breakpoint.is.smAndUp"
-                            :large="$breakpoint.is.xsOnly"
-                            :rounded="$breakpoint.is.smAndUp"
-                            :fab="$breakpoint.is.xsOnly"
-                            class="black--text"
-                            :class="{
-                                'mx-4': $breakpoint.is.smAndUp,
-                                'mx-2': $breakpoint.is.xsOnly
-                            }"
-                            color="accent"
-                            v-on="on">
-                            <v-icon>{{ page.icon }}</v-icon>
-                            <span v-if="$breakpoint.is.smAndUp">
-                                {{ page.title }}
-                            </span>
-                        </v-btn>
-                    </template>
-                    <span>{{ page.text }}</span>
-                </v-tooltip>
-                <v-spacer />
-            </v-toolbar>
-        </client-only>
+        <v-toolbar
+            flat
+            class="main-toolbar">
+            <v-spacer />
+            <v-tooltip
+                v-for="(page, pageIndexHome) in
+                    $store.state.pages.pages.filter(page =>
+                        page.includedInMainToolbar)"
+                :key="pageIndexHome"
+                bottom>
+                <template v-slot:activator="{ on }">
+                    <v-btn
+                        :to="page.url.path"
+                        :x-large="$breakpoint.is.smAndUp"
+                        :large="$breakpoint.is.xsOnly"
+                        :rounded="$breakpoint.is.smAndUp"
+                        :fab="$breakpoint.is.xsOnly"
+                        class="black--text"
+                        :class="{
+                            'mx-4': $breakpoint.is.smAndUp,
+                            'mx-2': $breakpoint.is.xsOnly
+                        }"
+                        color="accent"
+                        v-on="on">
+                        <v-icon>{{ page.icon }}</v-icon>
+                        <span v-if="$breakpoint.is.smAndUp">
+                            {{ page.title }}
+                        </span>
+                    </v-btn>
+                </template>
+                <span>{{ page.text }}</span>
+            </v-tooltip>
+            <v-spacer />
+        </v-toolbar>
         <v-col class="filler text-center mt-10">
             <v-container class="pa-0">
                 <v-row class="ma-0">
@@ -133,6 +131,7 @@ export default {
             twitterApiUrl: '//api.twitter.com/1.1/statuses/user_timeline.json',
             loading: false,
             // twitterStatuses: []
+            parentUrl: '/',
         };
     },
     created()
@@ -140,7 +139,20 @@ export default {
         this.loading = true;
         // this.loadTwitterStatuses();
     },
+    updated()
+    {
+        this.setpageIndex();
+    },
+    mounted()
+    {
+        this.setpageIndex();
+    },
     methods: {
+        setpageIndex()
+        {
+            this.$store.commit('pages/setPageIndex', { newIndex:
+                this.$store.state.pages.routeIds.PAGE_HOME });
+        }
         /*loadTwitterStatuses () {
       axios.get(this.twitterApiUrl, {
         params: {

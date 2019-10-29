@@ -18,7 +18,7 @@
                         <v-btn
                             v-if="showBackButton"
                             fab depressed dark small
-                            :to="'/'"
+                            :to="parentUrl"
                             color="secondary"
                             class="hidden-xs-only text-center align-center mr-3
                                mt-1"
@@ -92,7 +92,8 @@ export default {
                 404: 'Страница тренутно није доступна или је'
                     + ' УРЛ који сте унели погрешан. Проверите'
                     + ' УРЛ или покушајте поново касније.'
-            }
+            },
+            parentUrl: '/',
         };
     },
     computed: {

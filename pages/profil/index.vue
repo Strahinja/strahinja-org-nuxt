@@ -17,7 +17,7 @@
                         <v-btn
                             v-if="showBackButton"
                             fab depressed dark small
-                            :to="'/'"
+                            :to="$store.state.pages.pages[$store.state.pages.pageIndex].parentUrl"
                             color="secondary"
                             class="hidden-xs-only text-center align-center mr-3
                                mt-1"
@@ -27,7 +27,13 @@
                             </v-icon>
                         </v-btn>
                     </template>
-                    <span>Назад на почетну</span>
+                    <span>Назад на
+                        {{
+                            $store.state.pages.pages[
+                                $store.state.pages.pageIndex
+                            ].parentName
+                        }}
+                    </span>
                 </v-tooltip>
             </v-col>
             <v-col
@@ -125,18 +131,13 @@ export default {
     components: { SkillsCategory },
     head()
     {
+        let idx = this.$store.state.pages.pageIndex;
         let globals = {
-            title: this.$store.state.pages.pages && this.pageIndex != -1 ?
-                this.$store.state.pages.pages[this.pageIndex].title : null,
-            description: this.$store.state.pages.pages && this.pageIndex != -1 ?
-                this.$store.state.pages.pages[this.pageIndex].text: '',
-            url: 'http://strahinja.org' + (this.$store.state.pages.pages && this.pageIndex != -1 ?
-                this.$store.state.pages.pages[this.pageIndex].url.path : ''),
-            image: this.$store.state.pages.pages && this.pageIndex != -1 ?
-                this.$store.state.pages.pages[this.pageIndex].image
-                : 'http://strahinja.org/img/preview-profile-strahinja-org.png',
-            imageAlt: 'Стилизована ознака профила са умањеним логом са'
-                + ' иницијалима СР и текстом //strahinja.org',
+            title: this.$store.state.pages.pages[idx].title,
+            description: this.$store.state.pages.pages[idx].text,
+            url: 'http://strahinja.org/' + this.$store.state.pages.pages[idx].url.path,
+            image: this.$store.state.pages.pages[idx].image,
+            imageAlt: this.$store.state.pages.pages[idx].imageAlt,
         };
         return {
             meta: [
@@ -181,13 +182,28 @@ export default {
                 { name: 'Енглески', color: 'red', percent: 100 },
                 { name: 'Руски', color: 'blue', percent: 80 },
                 { name: 'Шпански', color: 'green', percent: 60 }
-            ]
+            ],
         };
     },
     computed: {
         showBackButton()
         {
             return this.$breakpoint.is.smAndUp;
+        }
+    },
+    updated()
+    {
+        this.setpageIndex();
+    },
+    mounted()
+    {
+        this.setpageIndex();
+    },
+    methods: {
+        setpageIndex()
+        {
+            this.$store.commit('pages/setPageIndex', { newIndex:
+                this.$store.state.pages.routeIds.PAGE_PROFILE });
         }
     },
 };

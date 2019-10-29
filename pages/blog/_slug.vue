@@ -17,7 +17,7 @@
                         <v-btn
                             v-if="showBackButton"
                             fab depressed dark small
-                            :to="'/blog'"
+                            :to="$store.state.pages.pages[$store.state.pages.pageIndex].parentUrl"
                             v-on="on"
                             color="secondary"
                             class="hidden-xs-only text-center align-center mr-3
@@ -27,7 +27,13 @@
                             </v-icon>
                         </v-btn>
                     </template>
-                    <span>Назад на списак чланака</span>
+                    <span>Назад на
+                        {{
+                            $store.state.pages.pages[
+                                $store.state.pages.pageIndex
+                            ].parentName
+                        }}
+                    </span>
                 </v-tooltip>
             </v-col>
             <v-col
@@ -52,20 +58,21 @@ export default {
     components: { BlogPost },
     head()
     {
+        let idx = this.$store.state.pages.pageIndex;
         let globals = {
-            title: this.frontmatter && this.frontmatter.title ?
-                this.frontmatter.title : 'Ненасловљени чланак',
-            description: this.frontmatter && this.frontmatter.description ?
-                this.frontmatter.description : 'Чланак без описа',
-            url: this.frontmatter && this.frontmatter.name ?
-                `http://strahinja.org/blog/${this.frontmatter.name}` :
-                'http://strahinja.org/blog',
-            image: this.frontmatter && this.frontmatter.image ?
-                this.frontmatter.image :
-                'http://strahinja.org/img/preview-blog-strahinja-org.png',
-            imageAlt: 'Цртеж врха пенкала са умањеним логом са иницијалима'
-                + ' СР и текстом //strahinja.org',
+            title: this.$store.state.pages.pages[idx].title,
+            description: this.$store.state.pages.pages[idx].text,
+            url: 'http://strahinja.org/' + this.$store.state.pages.pages[idx].url.path,
+            image: this.$store.state.pages.pages[idx].image,
+            imageAlt: this.$store.state.pages.pages[idx].imageAlt,
         };
+        /*let tagsMeta = [];
+        this.frontmatter.tags.forEach(tag => {
+            tagsMeta.push({
+                rel: 'tag',
+                href: `http://strahinja.org/tags/${tag}` 
+            });
+        });*/
         return {
             meta: [
                 { hid: 'og:url', name: 'og:url', property: 'og:url', content: globals.url },
@@ -83,8 +90,13 @@ export default {
                 { hid: 'image', name: 'image', itemprop: 'image', content: globals.image},
             ],
             link: [
-                { hid: 'canonical', rel: 'canonical', href: globals.url }
-            ],
+                {
+                    rel: 'stylesheet',
+                    href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css'
+                },
+                { hid: 'canonical', rel: 'canonical', href: globals.url },
+                { hid: 'directory', rel: 'directory', href: globals.parentUrl } 
+            ],//.concat(tagsMeta),
             title: globals.title,
             description: globals.description,
         };
@@ -93,6 +105,56 @@ export default {
     {
         return {
             pageIndex: this.$store.state.pages.routeIds.PAGE_BLOG_POST,
+        };
+    },
+    updated()
+    {
+        this.setpageIndex();
+    },
+    mounted()
+    {
+        this.setpageIndex();
+    },
+    methods: {
+        setpageIndex()
+        {
+            this.$store.commit('pages/setPageIndex', { newIndex:
+                this.$store.state.pages.routeIds.PAGE_BLOG_POST });
+        }
+    },
+    jsonld()
+    {
+        let globals = {
+            title: this.frontmatter && this.frontmatter.title ?
+                this.frontmatter.title : 'Ненасловљени чланак',
+            description: this.frontmatter && this.frontmatter.description ?
+                this.frontmatter.description : 'Чланак без описа',
+            parentUrl: 'http://strahinja.org/blog',
+            url: this.frontmatter && this.frontmatter.name ?
+                `http://strahinja.org/blog/${this.frontmatter.name}` :
+                'http://strahinja.org/blog',
+            date: this.frontmatter && this.frontmatter.date ?
+                this.frontmatter.date : new Date().toISOString(),
+            image: this.frontmatter && this.frontmatter.image ?
+                this.frontmatter.image :
+                'http://strahinja.org/img/preview-blog-strahinja-org.png',
+            imageAlt: 'Цртеж врха пенкала са умањеним логом са иницијалима'
+                + ' СР и текстом //strahinja.org',
+        };
+        return {
+            '@context': 'http://schema.org',
+            '@type': 'Article',
+            'name': this.frontmatter && this.frontmatter.title ?
+                this.frontmatter.title : 'Ненасловљени чланак',
+            'author': {
+                '@type': 'Person',
+                'name': 'Страхиња Радић'
+            },
+            'datePublished': this.frontmatter && this.frontmatter.date ?
+                this.frontmatter.date : new Date().toISOString(),
+            'url': this.frontmatter && this.frontmatter.name ?
+                `http://strahinja.org/blog/${this.frontmatter.name}` :
+                'http://strahinja.org/blog' 
         };
     },
     computed: {
@@ -133,6 +195,6 @@ export default {
 };
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
 </style>
 
