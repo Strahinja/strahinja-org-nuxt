@@ -147,19 +147,20 @@ article > header a
 
 article > .container
     height: auto
-    /* transition: height .3s ease */
+    opacity: 1
+    transition: all .3s ease
 
 article.folded > .container
     position: relative
     max-height: 15em
     height: 15em
     overflow: hidden
-    /* transition: height .3s ease */
+    opacity: .5
+    transition: all .3s ease
 
 article .folded-overlay
     position: relative
     text-align: center
-    background: rgba(255,255,255,.5)
 
 article.folded .folded-overlay
     position: absolute

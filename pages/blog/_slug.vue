@@ -60,10 +60,19 @@ export default {
     {
         let idx = this.$store.state.pages.pageIndex;
         let globals = {
-            title: this.$store.state.pages.pages[idx].title,
-            description: this.$store.state.pages.pages[idx].text,
-            url: 'http://strahinja.org/' + this.$store.state.pages.pages[idx].url.path,
-            image: this.$store.state.pages.pages[idx].image,
+            title: this.frontmatter && this.frontmatter.title ?
+                this.frontmatter.title : 'Ненасловљени чланак',
+            description: this.frontmatter && this.frontmatter.description ?
+                this.frontmatter.description : 'Чланак без описа',
+            parentUrl: 'http://strahinja.org/blog',
+            url: this.frontmatter && this.frontmatter.name ?
+                `http://strahinja.org/blog/${this.frontmatter.name}` :
+                'http://strahinja.org/blog',
+            date: this.frontmatter && this.frontmatter.date ?
+                this.frontmatter.date : new Date().toISOString(),
+            image: this.frontmatter && this.frontmatter.image ?
+                this.frontmatter.image :
+                this.$store.state.pages.pages[idx].image,
             imageAlt: this.$store.state.pages.pages[idx].imageAlt,
         };
         /*let tagsMeta = [];
