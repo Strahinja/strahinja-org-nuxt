@@ -13,7 +13,7 @@
             <v-spacer />
             <v-tooltip
                 v-for="(page, pageIndexHome) in
-                    $store.state.pages.pages.filter(page =>
+                    $store.state.pages.list.filter(page =>
                         page.includedInMainToolbar)"
                 :key="pageIndexHome"
                 bottom>
@@ -116,6 +116,11 @@ import LogoNuxt from '~/assets/svg/logo-nuxt.svg?inline';
 export default {
     name: 'Home',
     components: { Splash, LogoVue, LogoVuetify, LogoNuxt, MadeWith },
+    middleware ({store})
+    {
+        store.commit('pages/setPageIndex', { newIndex:
+            store.state.pages.routeIds.PAGE_HOME });
+    },
     head ()
     {
         return {
@@ -139,20 +144,7 @@ export default {
         this.loading = true;
         // this.loadTwitterStatuses();
     },
-    updated()
-    {
-        this.setpageIndex();
-    },
-    mounted()
-    {
-        this.setpageIndex();
-    },
     methods: {
-        setpageIndex()
-        {
-            this.$store.commit('pages/setPageIndex', { newIndex:
-                this.$store.state.pages.routeIds.PAGE_HOME });
-        }
         /*loadTwitterStatuses () {
       axios.get(this.twitterApiUrl, {
         params: {

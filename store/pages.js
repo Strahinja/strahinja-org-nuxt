@@ -1,5 +1,6 @@
 export const state = () => ({
     routeIds: {
+        PAGE_NOTSET: 0,
         PAGE_NOINDEX: 0,
         PAGE_HOME: 0,
         PAGE_PROFILE: 1,
@@ -9,17 +10,10 @@ export const state = () => ({
         PAGE_BLOG_POST: 5,
         PAGE_BLOG_TAG_INDEX: 6,
     },
-    /*homePage: {
-        title: 'Почетна',
-        text: '',
-        colorClass: 'md-primary',
-        theme: '',
-        icon: 'mdi-home',
-        image: 'http://strahinja.org/img/preview-home-strahinja-org.png',
-        url: { path: '/' },
-        imageUrl: '/static/img/pexels-photo-1179156.jpeg'
-    },*/
-    pages: [
+    currentPageLoading: true,
+    globalMeta: {
+    },
+    list: [
         {
             title: 'Почетна',
             text: '',
@@ -100,7 +94,7 @@ export const state = () => ({
         },
         {
             title: 'Чланак блога',
-            text: 'Мој веб дневник',
+            text: 'Страница чланка блога',
             colorClass: '',
             theme: '',
             icon: 'mdi-fountain-pen-tip',
@@ -116,11 +110,13 @@ export const state = () => ({
         },
         {
             title: 'Чланци са ознаком',
-            text: 'Мој веб дневник',
+            text: 'Чланци са задатом ознаком',
             colorClass: '',
             theme: '',
             icon: 'mdi-fountain-pen-tip',
             image: 'http://strahinja.org/img/preview-blog-strahinja-org.png',
+            imageAlt: 'Цртеж врха пенкала са умањеним логом са иницијалима'
+                + ' СР и текстом //strahinja.org',
             url: { path: '/blog/tag' },
             parentUrl: '/blog',
             parentName: 'списак чланака',

@@ -17,7 +17,7 @@
                         <v-btn
                             v-if="showBackButton"
                             fab depressed dark small
-                            :to="$store.state.pages.pages[$store.state.pages.pageIndex].parentUrl"
+                            :to="$store.state.pages.list[$store.state.pages.pageIndex].parentUrl"
                             color="secondary"
                             class="hidden-xs-only text-center align-center mr-3
                                mt-1"
@@ -29,7 +29,7 @@
                     </template>
                     <span>Назад на
                         {{
-                            $store.state.pages.pages[
+                            $store.state.pages.list[
                                 $store.state.pages.pageIndex
                             ].parentName
                         }}
@@ -47,16 +47,22 @@
                             </h3>
                         </v-col>
                         <v-col :cols="6" class="text-right">
-                            <v-btn
-                                color="accent"
-                                class="black--text">
-                                <a
-                                    href="/doku/cv-strahinja-radic.pdf"
-                                    target="_blank" class="button-link">
-                                    <v-icon>mdi-file-pdf-box</v-icon>
-                                    <span class="hidden-xs-only">Преузми&nbsp;</span>PDF
-                                </a>
-                            </v-btn>
+                            <v-tooltip bottom>
+                                <template v-slot:activator="{ on }">
+                                    <v-btn
+                                        color="accent"
+                                        class="black--text"
+                                        v-on="on">
+                                        <a
+                                            href="/doku/cv-strahinja-radic.pdf"
+                                            target="_blank" class="button-link">
+                                            <v-icon>mdi-file-pdf-box</v-icon>
+                                            <span class="hidden-xs-only">Преузми&nbsp;</span>PDF
+                                        </a>
+                                    </v-btn>
+                                </template>
+                                <span>Преузми PDF фајл</span>
+                            </v-tooltip>
                         </v-col>
                     </v-row>
                 </v-container>
@@ -129,15 +135,20 @@ import SkillsCategory from '~/components/SkillsCategory';
 export default {
     name: 'Profile',
     components: { SkillsCategory },
+    middleware ({store})
+    {
+        store.commit('pages/setPageIndex', { newIndex:
+            store.state.pages.routeIds.PAGE_PROFILE });
+    },
     head()
     {
         let idx = this.$store.state.pages.pageIndex;
         let globals = {
-            title: this.$store.state.pages.pages[idx].title,
-            description: this.$store.state.pages.pages[idx].text,
-            url: 'http://strahinja.org/' + this.$store.state.pages.pages[idx].url.path,
-            image: this.$store.state.pages.pages[idx].image,
-            imageAlt: this.$store.state.pages.pages[idx].imageAlt,
+            title: this.$store.state.pages.list[idx].title,
+            description: this.$store.state.pages.list[idx].text,
+            url: 'http://strahinja.org/' + this.$store.state.pages.list[idx].url.path,
+            image: this.$store.state.pages.list[idx].image,
+            imageAlt: this.$store.state.pages.list[idx].imageAlt,
         };
         return {
             meta: [
@@ -165,7 +176,10 @@ export default {
     data()
     {
         return {
-            pageIndex: this.$store.state.pages.routeIds.PAGE_PROFILE,
+            frontmatter: {
+            },
+            markdown: {
+            },
             skillsLeftSide: [
                 { name: 'Vue.js', color: 'blue lighten-1', percent: 70 },
                 { name: 'Angular 2', color: 'purple lighten-1', percent: 70 },
@@ -189,21 +203,6 @@ export default {
         showBackButton()
         {
             return this.$breakpoint.is.smAndUp;
-        }
-    },
-    updated()
-    {
-        this.setpageIndex();
-    },
-    mounted()
-    {
-        this.setpageIndex();
-    },
-    methods: {
-        setpageIndex()
-        {
-            this.$store.commit('pages/setPageIndex', { newIndex:
-                this.$store.state.pages.routeIds.PAGE_PROFILE });
         }
     },
 };

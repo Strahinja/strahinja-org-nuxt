@@ -17,7 +17,7 @@
                         <v-btn
                             v-if="showBackButton"
                             fab depressed dark small
-                            :to="$store.state.pages.pages[$store.state.pages.pageIndex].parentUrl"
+                            :to="$store.state.pages.list[$store.state.pages.pageIndex].parentUrl"
                             color="secondary"
                             class="hidden-xs-only text-center align-center mr-3
                                mt-1"
@@ -29,7 +29,7 @@
                     </template>
                     <span>Назад на
                         {{
-                            $store.state.pages.pages[
+                            $store.state.pages.list[
                                 $store.state.pages.pageIndex
                             ].parentName
                         }}
@@ -71,15 +71,20 @@ import PortfolioItem from '~/components/PortfolioItem';
 export default {
     name: 'Portfolio',
     components: { PortfolioItem },
+    middleware ({store})
+    {
+        store.commit('pages/setPageIndex', { newIndex:
+            store.state.pages.routeIds.PAGE_PORTFOLIO });
+    },
     head()
     {
         let idx = this.$store.state.pages.pageIndex;
         let globals = {
-            title: this.$store.state.pages.pages[idx].title,
-            description: this.$store.state.pages.pages[idx].text,
-            url: 'http://strahinja.org/' + this.$store.state.pages.pages[idx].url.path,
-            image: this.$store.state.pages.pages[idx].image,
-            imageAlt: this.$store.state.pages.pages[idx].imageAlt,
+            title: this.$store.state.pages.list[idx].title,
+            description: this.$store.state.pages.list[idx].text,
+            url: 'http://strahinja.org/' + this.$store.state.pages.list[idx].url.path,
+            image: this.$store.state.pages.list[idx].image,
+            imageAlt: this.$store.state.pages.list[idx].imageAlt,
         };
         return {
             meta: [
@@ -124,20 +129,7 @@ export default {
         // console.log('created: calling this.getPortfolio()');
         this.getPortfolio();
     },
-    updated()
-    {
-        this.setpageIndex();
-    },
-    mounted()
-    {
-        this.setpageIndex();
-    },
     methods: {
-        setpageIndex()
-        {
-            this.$store.commit('pages/setPageIndex', { newIndex:
-                this.$store.state.pages.routeIds.PAGE_PORTFOLIO });
-        },
         getPortfolio()
         {
             this.loading = true;

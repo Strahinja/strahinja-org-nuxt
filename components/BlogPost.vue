@@ -4,37 +4,44 @@
         :class="{'folded': folded,
                  'standalone': standalone}">
         <header>
-            <h3 v-if="standalone" class="display-1">
-                {{ frontmatter.title }}
-            </h3>
-            <h4 v-else>
-                {{ frontmatter.title }}
-            </h4>
-            <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                    <h4 v-if="standalone">
-                        <nuxt-link
-                            :to="`/blog/${frontmatter.name}`">
-                            <time
-                                :datetime="frontmatter.date"
-                                v-on="on">
-                                {{ formatDate(frontmatter.date) }}
-                            </time>
-                        </nuxt-link>
-                    </h4>
-                    <h5 v-else>
-                        <nuxt-link
-                            :to="`/blog/${frontmatter.name}`">
-                            <time
-                                :datetime="frontmatter.date"
-                                v-on="on">
-                                {{ formatDate(frontmatter.date) }}
-                            </time>
-                        </nuxt-link>
-                    </h5>
-                </template>
-                <span>Пермалинк</span>
-            </v-tooltip>
+            <nuxt-link
+                :to="`/blog/${frontmatter.name}`">
+                <h3 v-if="standalone" :id="frontmatter.id" class="display-1">
+                    {{ frontmatter.title }}
+                </h3>
+                <h4 v-else :id="frontmatter.id">
+                    {{ frontmatter.title }}
+                </h4>
+            </nuxt-link>
+            <!--eslint-disable-next-line vue/html-self-closing-->
+            <a :name="frontmatter.name"></a>
+            <client-only>
+                <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                        <h4 v-if="standalone">
+                            <nuxt-link
+                                :to="`/blog/${frontmatter.name}`">
+                                <time
+                                    :datetime="frontmatter.date"
+                                    v-on="on">
+                                    {{ formatDate(frontmatter.date) }}
+                                </time>
+                            </nuxt-link>
+                        </h4>
+                        <h5 v-else>
+                            <nuxt-link
+                                :to="`/blog/${frontmatter.name}`">
+                                <time
+                                    :datetime="frontmatter.date"
+                                    v-on="on">
+                                    {{ formatDate(frontmatter.date) }}
+                                </time>
+                            </nuxt-link>
+                        </h5>
+                    </template>
+                    <span>Пермалинк</span>
+                </v-tooltip>
+            </client-only>
             <div class="categories-container">
                 Категорије:
                 <ul class="categories">
@@ -51,6 +58,7 @@
             <v-row>
                 <v-col :cols="10" :lg="8" class="py-0">
                     <DynamicMarkdown
+                        :highlight="highlight"
                         :render-func="markdown.renderFunc"
                         :static-render-funcs="markdown.staticRenderFuncs"
                         :extra-component="markdown.extraComponent" />
@@ -79,7 +87,8 @@
                 <ul class="tags">
                     <li
                         v-for="(tag, tagIndex) in frontmatter.tags"
-                        :key="tagIndex">
+                        :key="tagIndex"
+                        :class="{'highlight': tag==highlight}">
                         <nuxt-link :to="tagUrl(tag)">
                             #{{ tag }}
                         </nuxt-link>
@@ -98,6 +107,7 @@ export default {
     props: {
         folded: { type: Boolean, default: false },
         frontmatter: { type: Object, default: () => ({}) },
+        highlight: { type: String, default: '' },
         markdown: { type: Object, default: () => ({}) },
         standalone: { type: Boolean, default: true },
     },
@@ -132,6 +142,15 @@ export default {
         toggleFolded()
         {
             this.folded = !this.folded;
+            this.$nextTick(() =>
+            {
+                if (this.folded)
+                {
+                    this.$vuetify.goTo(`#${this.frontmatter.id}`, {
+                        duration: 500
+                    });
+                }
+            });
         }
     },
 };
@@ -252,4 +271,11 @@ article.folded .folded-overlay-container a .v-btn
 .tags > li > a
     color: $tag-color !important
     text-decoration: none
+
+span.highlight,
+.tags > li.highlight > a
+    color: $highlight-color !important
+    background-color: $highlight-background-color !important
+    box-shadow: 1px 1px 3px rgba(0,0,0,.8)
+
 </style>

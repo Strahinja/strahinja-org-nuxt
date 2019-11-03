@@ -1,4 +1,5 @@
 <IfModule mod_rewrite.c>
+  ErrorDocument 404 /404.html
   RewriteEngine On
   RewriteBase /
   RewriteRule ^index\.html$ - [L]
@@ -6,10 +7,6 @@
   RewriteRule \.html$ - [L]
 
   RewriteRule static/img/(.*)$ /img/$1 [L]
-
-  RewriteRule (profil|portfolio|veze|razno)$ /$1.html [L]
-  RewriteRule (pomocy.php)$ /$1/index.html [L]
-  RewriteRule (tekstovi/razno/tri-hajduka|tekstovi/razno/gv)$ /$1.html [L]
 
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d

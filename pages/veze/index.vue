@@ -17,7 +17,7 @@
                         <v-btn
                             v-if="showBackButton"
                             fab depressed dark small
-                            :to="$store.state.pages.pages[$store.state.pages.pageIndex].parentUrl"
+                            :to="$store.state.pages.list[$store.state.pages.pageIndex].parentUrl"
                             color="secondary"
                             class="hidden-xs-only text-center align-center mr-3
                                mt-1"
@@ -29,7 +29,7 @@
                     </template>
                     <span>Назад на
                         {{
-                            $store.state.pages.pages[
+                            $store.state.pages.list[
                                 $store.state.pages.pageIndex
                             ].parentName
                         }}
@@ -152,15 +152,20 @@ import LinkItem from '~/components/LinkItem';
 export default {
     name: 'Links',
     components: { LinkItem },
+    middleware ({store})
+    {
+        store.commit('pages/setPageIndex', { newIndex:
+            store.state.pages.routeIds.PAGE_LINKS });
+    },
     head()
     {
         let idx = this.$store.state.pages.pageIndex;
         let globals = {
-            title: this.$store.state.pages.pages[idx].title,
-            description: this.$store.state.pages.pages[idx].text,
-            url: 'http://strahinja.org/' + this.$store.state.pages.pages[idx].url.path,
-            image: this.$store.state.pages.pages[idx].image,
-            imageAlt: this.$store.state.pages.pages[idx].imageAlt,
+            title: this.$store.state.pages.list[idx].title,
+            description: this.$store.state.pages.list[idx].text,
+            url: 'http://strahinja.org/' + this.$store.state.pages.list[idx].url.path,
+            image: this.$store.state.pages.list[idx].image,
+            imageAlt: this.$store.state.pages.list[idx].imageAlt,
         };
         return {
             meta: [
@@ -210,14 +215,6 @@ export default {
             return this.$breakpoint.is.smAndUp;
         }
     },
-    updated()
-    {
-        this.setpageIndex();
-    },
-    mounted()
-    {
-        this.setpageIndex();
-    },
     created()
     {
         this.loading = true;
@@ -246,11 +243,6 @@ export default {
         );
     },
     methods: {
-        setpageIndex()
-        {
-            this.$store.commit('pages/setPageIndex', { newIndex:
-                this.$store.state.pages.routeIds.PAGE_LINKS });
-        },
         getLinks(
             count = this.itemsPerPage,
             offset = 0,
@@ -385,22 +377,6 @@ export default {
                 }
             );
         },
-        /*extractCategories () {
-        for (let linkIndex = 0; linkIndex < this.links.length;
-             linkIndex++) {
-          let category = this.links[linkIndex].cat_name;
-          let textId = this.links[linkIndex].txt_id;
-          let textIdIndex = this.categories.map(function(cat) {
-            return cat.txt_id;
-          }).indexOf(textId);
-          if (textIdIndex === -1) {
-            this.categories.push({
-              cat_name: category,
-              txt_id: textId
-            });
-          }
-        }
-      }*/
     },
 };
 </script>

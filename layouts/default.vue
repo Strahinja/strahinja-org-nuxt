@@ -1,91 +1,101 @@
 <template>
     <v-app :class="{'sm-and-down': $breakpoint.is.smAndDown}">
-        <client-only>
-            <v-navigation-drawer
-                v-model="showNav"
-                app
-                :mini-variant="miniVariant"
-                :clipped="clipped"
-                fixed>
-                <v-list>
-                    <v-list-item
-                        v-if="$breakpoint.is.mdAndDown"
-                        :to="$store.state.pages.pages[$store.state.pages.routeIds.PAGE_HOME].url">
-                        <v-list-item-action>
-                            <Strahinjaorg class="icon-normal" />
-                        </v-list-item-action>
-                        <v-list-item-title class="title">
-                            //strahinja.org
-                        </v-list-item-title>
-                    </v-list-item>
-                    <v-divider v-if="$breakpoint.is.mdAndDown" />
-                    <v-list-item
-                        v-if="$breakpoint.is.lgAndUp"
-                        :to="$store.state.pages.pages[$store.state.pages.routeIds.PAGE_HOME].url">
-                        <v-list-item-action>
-                            <v-icon>
-                                {{ $store.state.pages.pages[
-                                    $store.state.pages.routeIds.PAGE_HOME
-                                ].icon }}
-                            </v-icon>
-                        </v-list-item-action>
-                        <v-list-item-title>
-                            {{ $store.state.pages.pages[
+        <div
+            v-show="loading"
+            class="loading">
+            <v-progress-circular
+                :size="50"
+                color="white"
+                indeterminate />
+        </div><!--loaded-->
+        <v-navigation-drawer
+            v-model="showNav"
+            app
+            :mini-variant="miniVariant"
+            :clipped="clipped"
+            fixed>
+            <v-list>
+                <v-list-item
+                    v-if="$breakpoint.is.mdAndDown"
+                    :to="$store.state.pages.list[$store.state.pages.routeIds.PAGE_HOME].url">
+                    <v-list-item-action>
+                        <Strahinjaorg class="icon-normal" />
+                    </v-list-item-action>
+                    <v-list-item-title class="title">
+                        //strahinja.org
+                    </v-list-item-title>
+                </v-list-item>
+                <v-divider v-if="$breakpoint.is.mdAndDown" />
+                <v-list-item
+                    v-if="$breakpoint.is.lgAndUp"
+                    :to="$store.state.pages.list[$store.state.pages.routeIds.PAGE_HOME].url">
+                    <v-list-item-action>
+                        <v-icon>
+                            {{ $store.state.pages.list[
                                 $store.state.pages.routeIds.PAGE_HOME
-                            ].title }}
-                        </v-list-item-title>
-                    </v-list-item>
-                    <v-list-item
-                        v-for="(page, pageIndex) in
-                            $store.state.pages.pages.filter(page =>
-                                page.includedInNavigation)"
-                        :key="pageIndex"
-                        :to="page.url">
-                        <v-list-item-action>
-                            <v-icon>{{ page.icon }}</v-icon>
-                        </v-list-item-action>
-                        <v-list-item-title>{{ page.title }}</v-list-item-title>
-                    </v-list-item>
-                </v-list>
-            </v-navigation-drawer>
-        </client-only>
+                            ].icon }}
+                        </v-icon>
+                    </v-list-item-action>
+                    <v-list-item-title>
+                        {{ $store.state.pages.list[
+                            $store.state.pages.routeIds.PAGE_HOME
+                        ].title }}
+                    </v-list-item-title>
+                </v-list-item>
+                <v-list-item
+                    v-for="(page, pageIndex) in
+                        $store.state.pages.list.filter(page =>
+                            page.includedInNavigation)"
+                    :key="pageIndex"
+                    :to="page.url">
+                    <v-list-item-action>
+                        <v-icon>{{ page.icon }}</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-title>{{ page.title }}</v-list-item-title>
+                </v-list-item>
+            </v-list>
+        </v-navigation-drawer>
         <v-app-bar
             app
             :clipped-left="clipped"
             dark
             color="primary"
             class="full-width-toolbar">
-            <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                    <v-app-bar-nav-icon
-                        v-on="on"
-                        @click="showNav = !showNav" />
-                </template>
-                <span>Главни мени</span>
-            </v-tooltip>
+            <client-only>
+                <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                        <v-app-bar-nav-icon
+                            v-on="on"
+                            @click="showNav = !showNav" />
+                    </template>
+                    <span>Главни мени</span>
+                </v-tooltip>
+            </client-only>
             <v-toolbar-title class="mr-4">
                 <router-link class="hidden-xs-only" :to="'/'">
                     //strahinja.org
                 </router-link>
             </v-toolbar-title>
             <v-divider vertical />
-            <v-tooltip
-                v-if="showBackButton"
-                class="hidden-sm-and-up"
-                bottom>
-                <template v-slot:activator="{ on }">
-                    <v-btn
-                        v-if="showBackButton"
-                        icon dark
-                        :to="$store.state.pages.pages[$store.state.pages.pageIndex].parentUrl"
-                        class="hidden-sm-and-up text-center align-center">
-                        <v-icon dark class="align-center">
-                            mdi-arrow-left
-                        </v-icon>
-                    </v-btn>
-                </template>
-                <span>Назад на почетну</span>
-            </v-tooltip>
+            <client-only>
+                <v-tooltip
+                    v-if="showBackButton"
+                    class="hidden-sm-and-up"
+                    bottom>
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            v-if="showBackButton"
+                            icon dark
+                            :to="$store.state.pages.list[$store.state.pages.pageIndex].parentUrl"
+                            class="hidden-sm-and-up text-center align-center">
+                            <v-icon dark class="align-center">
+                                mdi-arrow-left
+                            </v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Назад на почетну</span>
+                </v-tooltip>
+            </client-only>
             <v-spacer />
             <v-toolbar-items>
                 <client-only>
@@ -120,20 +130,22 @@
                         }">
                         <v-spacer />
                         <div class="vertical-center-slot">
-                            <v-tooltip bottom>
-                                <template v-slot:activator="{ on }">
-                                    <v-btn
-                                        ref="searchBtn"
-                                        icon
-                                        v-on="on"
-                                        @click="searchBtnClick()">
-                                        <v-icon ref="searchIcon">
-                                            mdi-magnify
-                                        </v-icon>
-                                    </v-btn>
-                                </template>
-                                <span>Претрага</span>
-                            </v-tooltip>
+                            <client-only>
+                                <v-tooltip bottom>
+                                    <template v-slot:activator="{ on }">
+                                        <v-btn
+                                            ref="searchBtn"
+                                            icon
+                                            v-on="on"
+                                            @click="searchBtnClick()">
+                                            <v-icon ref="searchIcon">
+                                                mdi-magnify
+                                            </v-icon>
+                                        </v-btn>
+                                    </template>
+                                    <span>Претрага</span>
+                                </v-tooltip>
+                            </client-only>
                         </div><!--vertical-center-slot-->
                     </div>
                 </client-only>
@@ -156,28 +168,30 @@
                 class="flex text-center">
                 <v-card-text class="primary text-center">
                     <v-spacer />
-                    <v-tooltip
-                        v-for="(footerLink, footerLinkIndex) in
-                            $store.state.pages.footerLinks"
-                        :key="footerLinkIndex"
-                        bottom>
-                        <template v-slot:activator="{ on }">
-                            <v-btn
-                                class="mx-2"
-                                text
-                                icon
-                                v-on="on">
-                                <a
-                                    :href="footerLink.url.path"
-                                    target="_blank">
-                                    <v-icon class="white--text">
-                                        {{ footerLink.iconName }}
-                                    </v-icon>
-                                </a>
-                            </v-btn>
-                        </template>
-                        <span>{{ footerLink.text }}</span>
-                    </v-tooltip>
+                    <client-only>
+                        <v-tooltip
+                            v-for="(footerLink, footerLinkIndex) in
+                                $store.state.pages.footerLinks"
+                            :key="footerLinkIndex"
+                            bottom>
+                            <template v-slot:activator="{ on }">
+                                <v-btn
+                                    class="mx-2"
+                                    text
+                                    icon
+                                    v-on="on">
+                                    <a
+                                        :href="footerLink.url.path"
+                                        target="_blank">
+                                        <v-icon class="white--text">
+                                            {{ footerLink.iconName }}
+                                        </v-icon>
+                                    </a>
+                                </v-btn>
+                            </template>
+                            <span>{{ footerLink.text }}</span>
+                        </v-tooltip>
+                    </client-only>
                 </v-card-text>
                 <v-card-actions
                     class="primary darken-1 d-block text-left"
@@ -237,12 +251,16 @@
 </template>
 
 <script>
-//import '~assets/svg/strahinjaorg';
 import Strahinjaorg from '~/assets/svg/strahinjaorg.svg?inline';
 import { mixin as clickaway } from 'vue-clickaway';
 
 export default {
     name: 'App',
+    middleware ({store})
+    {
+        store.commit('pages/setPageIndex', { newIndex:
+            store.state.pages.routeIds.PAGE_NOTSET });
+    },
     components: { Strahinjaorg },
     mixins: [clickaway],
     head()
@@ -263,7 +281,6 @@ export default {
         {
             return title ? `${title} //strahinja.org` : '//strahinja.org';
         };
-        // console.log('App: metaInfo: globals = ', globals);
         return {
             htmlAttrs: {
                 lang: 'en'
@@ -334,7 +351,6 @@ export default {
     {
         return {
             clipped: true,
-            parentUrl: '/',
             miniVariant: false,
             extraProps: {},
             showNav: false,
@@ -343,42 +359,25 @@ export default {
         };
     },
     computed: {
+        loading()
+        {
+            return this.$store ? this.$store.state.pages.currentPageLoading :
+                true;
+        },
         showBackButton()
         {
-            /*console.log('showBackButton: this.$breakpoint.is.xsOnly = ',
-                        this.$breakpoint.is.xsOnly);
-            console.log('showBackButton: this.$route.path = ', this.$route.path);
-            console.log('showBackButton: return ',
-                        this.$breakpoint.is.xsOnly && this.$route.path != '/'
-                            ? 'true'
-                            : 'false'
-            );*/
             return this.$breakpoint.is.xsOnly && this.$route.path != '/';
         }
     },
-    asyncData()
+    /*asyncData({store})
     {
-        return {
-        };
-    },
-    updated()
-    {
-        this.setparentUrl();
-    },
+        store.state.pages.currentPageLoading = true;
+    },*/
     mounted()
     {
-        this.setparentUrl();
+        this.$store.state.pages.currentPageLoading = false;
     },
     methods: {
-        setparentUrl()
-        {
-            if (this.$store.state.pages.pageIndex != -1 &&
-                this.$store.state.pages.pages[this.$store.state.pages.pageIndex])
-            {
-                this.parentUrl =
-                    this.$store.state.pages.pages[this.$store.state.pages.pageIndex].parentUrl;
-            }
-        },
         searchBtnClick()
         {
             if (!this.showSearch)
@@ -437,7 +436,6 @@ export default {
 </script>
 
 <style lang="sass">
-/* @import '~/assets/css/firaec-opensans-opt.css' */
 @import '~/assets/sass/pxplus.sass'
 @import '~/assets/sass/common.sass'
 

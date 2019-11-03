@@ -13,10 +13,21 @@ import markdownItKbd from 'markdown-it-kbd';
 import markdownItPrism from 'markdown-it-prism';
 import markdownItTocDoneRight from 'markdown-it-toc-done-right';
 
-var dynamicRoutes = getDynamicPaths({
+const fs = require('fs');
+var dynamicMarkdownRoutes = getDynamicMarkdownPaths({
     '/blog': '*.md'
 });
-console.log('nuxt.config.js: dynamicRoutes = ', dynamicRoutes);
+var blogFrontmatter = getMarkdownFrontmatter(dynamicMarkdownRoutes);
+var blogTags = getMarkdownTags(blogFrontmatter);
+console.log('nuxt.config.js: blogTags = ', blogTags);
+fs.writeFileSync('static/blog/blog-frontmatter.json', JSON.stringify(blogFrontmatter));
+fs.writeFileSync('static/blog/blog-tags.json', JSON.stringify(blogTags));
+
+dynamicMarkdownRoutes = dynamicMarkdownRoutes.concat(blogTags.map(tag =>
+{
+    return `/blog/tag/${tag}`;
+}));
+console.log('nuxt.config.js: dynamicMarkdownRoutes = ', dynamicMarkdownRoutes);
 
 export default {
     mode: 'universal',
@@ -52,11 +63,28 @@ export default {
         '~/plugins/jsonld.js'
     ],
     /*
+     ** Router configuration
+     */
+    /*router: {
+        extendRoutes (routes, resolve)
+        {
+            routes.push({
+                name: 'tag',
+                path: '/blog/tag/:id',
+                component: resolve(__dirname, 'pages/blog/tag/_id.vue')
+            });
+
+            routes.push({
+                path: '*',
+                redirect: '/error/404'
+            });
+        }
+    },*/
+    /*
      ** Nuxt.js dev-modules
      */
     buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-        //'@nuxtjs/eslint-module',
         '@nuxtjs/vuetify'
     ],
     /*
@@ -79,7 +107,7 @@ export default {
         exclude: [
             '/noindex'
         ],
-        routes: dynamicRoutes
+        routes: dynamicMarkdownRoutes
     },
     /*
      ** Axios module configuration
@@ -110,16 +138,14 @@ export default {
      ** Generate configuration
      */
     generate: {
-    /*
-     ** You can extend webpack config here
-     */
-        fallback: '/error/404',
+        fallback: true,
         routes: [
-            '/error/200',
-            '/error/401',
-            '/error/404',
-            '/blog',
-        ].concat(dynamicRoutes)
+            '/',
+            '/profil',
+            '/portfolio',
+            '/veze',
+            '/blog'
+        ].concat(dynamicMarkdownRoutes)
     },
     /*
      ** Build configuration
@@ -128,11 +154,12 @@ export default {
     /*
      ** You can extend webpack config here
      */
+        devtools: true,
+        productionTip: false,
         transpile: [
             /static\/blog/
         ],
-        //eslint-disable-next-line no-unused-vars
-        extend (config, ctx)
+        extend (config)
         {
             if (!config.node) config.node = {};
             config.node.fs = 'empty';
@@ -161,7 +188,7 @@ export default {
     }
 };
 
-function getDynamicPaths(urlFilepathTable)
+function getDynamicMarkdownPaths(urlFilepathTable)
 {
     const glob = require('glob');
     return [].concat(
@@ -173,5 +200,42 @@ function getDynamicPaths(urlFilepathTable)
                 .map(filepath => `${url}/${path.basename(filepath, '.md')}`);
         })
     );
+}
+
+function getMarkdownFrontmatter(fileList)
+{
+    let frontmatter = [];
+    const fs = require('fs');
+    const fm = require('front-matter');
+
+    fileList.forEach(file =>
+    {
+        const data = fs.readFileSync(`./static${file}.md`, 'utf8');
+        var content = fm(data);
+        if (content && content.attributes)
+        {
+            frontmatter.push(content.attributes);
+        }
+    });
+    return frontmatter;
+}
+
+function getMarkdownTags(frontmatterList)
+{
+    let tags = [];
+    frontmatterList.forEach(fm =>
+    {
+        if (fm.tags)
+        {
+            fm.tags.forEach(tag =>
+            {
+                if (tags.indexOf(tag) == -1)
+                {
+                    tags.push(tag);
+                }
+            });
+        }
+    });
+    return tags;
 }
 

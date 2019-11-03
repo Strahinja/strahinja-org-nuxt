@@ -9,48 +9,54 @@
                 align="center"
                 class="text-center hidden-xs-only"
                 style="min-width: 60px;">
-                <v-tooltip
-                    v-if="showBackButton"
-                    class="hidden-xs-only"
-                    bottom>
-                    <template v-slot:activator="{ on }">
-                        <v-btn
-                            v-if="showBackButton"
-                            fab depressed dark small
-                            :to="$store.state.pages.pages[$store.state.pages.pageIndex].parentUrl"
-                            color="secondary"
-                            class="hidden-xs-only text-center align-center mr-3
+                <client-only>
+                    <v-tooltip
+                        v-if="showBackButton"
+                        class="hidden-xs-only"
+                        bottom>
+                        <template v-slot:activator="{ on }">
+                            <v-btn
+                                v-if="showBackButton"
+                                fab depressed dark small
+                                :to="$store.state.pages.list[$store.state.pages.pageIndex].parentUrl"
+                                color="secondary"
+                                class="hidden-xs-only text-center align-center mr-3
                                mt-1"
-                            v-on="on">
-                            <v-icon dark class="align-center">
-                                mdi-arrow-left
-                            </v-icon>
-                        </v-btn>
-                    </template>
-                    <span>Назад на
-                        {{
-                            $store.state.pages.pages[
-                                $store.state.pages.pageIndex
-                            ].parentName
-                        }}
-                    </span>
-                </v-tooltip>
+                                v-on="on">
+                                <v-icon dark class="align-center">
+                                    mdi-arrow-left
+                                </v-icon>
+                            </v-btn>
+                        </template>
+                        <span>Назад на
+                            {{
+                                $store.state.pages.list[
+                                    $store.state.pages.pageIndex
+                                ].parentName
+                            }}
+                        </span>
+                    </v-tooltip>
+                </client-only>
             </v-col>
             <v-col
                 :cols="12"
                 :sm="10">
-                <h3>Чланци са ознаком #{{ tagId }}</h3>
+                <h3 class="display-1">
+                    Чланци са ознаком
+                    <span class="highlight">#{{ tagId }}</span>
+                </h3>
             </v-col>
             <v-col
                 :cols="12"
                 :sm="10">
                 <section>
                     <BlogPost
-                        v-for="(file, fileIndex) in files"
-                        :key="fileIndex"
+                        v-for="(post, postIndex) in posts"
+                        :key="postIndex"
                         :folded="true"
-                        :frontmatter="file.frontmatter"
-                        :markdown="file.markdown"
+                        :frontmatter="post.frontmatter"
+                        :markdown="post.markdown"
+                        :highlight="tagId"
                         :standalone="false" />
                 </section>
             </v-col>
@@ -59,20 +65,30 @@
 </template>
 
 <script>
+import BlogPost from '~/components/BlogPost.vue';
+
 export default {
     name: 'BlogByTag',
+    components: { BlogPost },
+    middleware ({store})
+    {
+        store.commit('pages/setPageIndex', { newIndex:
+            store.state.pages.routeIds.PAGE_BLOG_TAG_INDEX });
+    },
     head()
     {
         let idx = this.$store.state.pages.pageIndex;
         let globals = {
-            title: this.$store.state.pages.pages[idx].title,
-            description: this.$store.state.pages.pages[idx].text,
-            url: 'http://strahinja.org/'
-                + this.$store.state.pages.pages[idx].url.path
+            title: this.$store.state.pages.list[idx].title + ` #${this.tagId}`,
+            description: this.$store.state.pages.list[idx].text + ` #${this.tagId}`,
+            url: 'http://strahinja.org'
+                + this.$store.state.pages.list[idx].url.path
                 + '/' + this.tagId,
-            image: this.$store.state.pages.pages[idx].image,
-            imageAlt: this.$store.state.pages.pages[idx].imageAlt,
+            image: this.$store.state.pages.list[idx].image,
+            imageAlt: this.$store.state.pages.list[idx].imageAlt,
         };
+        console.log('tagid.head: idx = ', idx);
+        console.log('tagid.head: globals = ', globals);
         return {
             meta: [
                 { hid: 'og:url', name: 'og:url', property: 'og:url', content: globals.url },
@@ -100,6 +116,13 @@ export default {
             description: globals.description,
         };
     },
+    data()
+    {
+        return {
+            posts: [],
+            tagId: this.$route.params.id,
+        };
+    },
     async asyncData({params})
     {
         const resolve = await require.context('~/static/blog', true, /\.md$/);
@@ -113,7 +136,6 @@ export default {
         }).forEach(fileObj =>
         {
             const attr = fileObj.file.attributes;
-            console.log('tag.asyncData: attr = ', attr);
             filesList.push({
                 frontmatter: {
                     colors: attr.colors,
@@ -136,31 +158,69 @@ export default {
         });
         filesList = filesList.filter(filesListItem =>
         {
-            return filesListItem.tags && filesListItem.tags.indexOf(params.id) != -1;
+            return filesListItem.frontmatter.tags &&
+                filesListItem.frontmatter.tags.indexOf(params.id) != -1;
         });
-        filesList.sort((fileListItem1, fileListItem2) =>
+        await filesList.sort((fileListItem1, fileListItem2) =>
         {
-            return fileListItem1.date > fileListItem2.date;
+            return fileListItem1.frontmatter.date >
+                fileListItem2.frontmatter.date;
         });
+        console.log('tag.asyncData: filesList after sort = ', filesList);
         return {
-            files: filesList,
+            posts: filesList,
             tagId: params.id,
         };
     },
-    updated()
+    async mounted()
     {
-        this.setpageIndex();
-    },
-    mounted()
-    {
-        this.setpageIndex();
-    },
-    methods: {
-        setpageIndex()
+        const resolve = await require.context('~/static/blog', true, /\.md$/);
+        let filesList = [];
+        await resolve.keys().map(key =>
         {
-            this.$store.commit('pages/setPageIndex', { newIndex:
-                this.$store.state.pages.routeIds.PAGE_BLOG_TAG_INDEX });
-        }
+            return {
+                name: key,
+                file: resolve(key)
+            };
+        }).forEach(fileObj =>
+        {
+            const attr = fileObj.file.attributes;
+            filesList.push({
+                frontmatter: {
+                    colors: attr.colors,
+                    date: attr.date,
+                    categories: attr.categories,
+                    tags: attr.tags,
+                    description: attr.description,
+                    image: attr.image,
+                    imageAlt: attr.imageAlt,
+                    id: attr.id,
+                    name: fileObj.name
+                        .replace(/\.\//, '').replace(/\.md$/, ''),
+                    related: attr.related,
+                    title: attr.title,
+                },
+                markdown: {
+                    renderFunc: fileObj.file.vue.render,
+                    staticRenderFuncs: fileObj.file.vue.staticRenderFns,
+                    extraComponent: attr.extraComponent
+                }
+            });
+        });
+        filesList = filesList.filter(filesListItem =>
+        {
+            return filesListItem.frontmatter.tags &&
+                                filesListItem.frontmatter.tags.indexOf(
+                                    this.$route.params.id) != -1;
+        });
+
+        filesList.sort((fileListItem1, fileListItem2) =>
+        {
+            return fileListItem1.frontmatter.date >
+                                fileListItem2.frontmatter.date;
+        });
+        console.log('tag.mounted: filesList after sort = ', filesList);
+        this.posts = filesList;
     },
 };
 </script>

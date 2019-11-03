@@ -17,7 +17,7 @@
                         <v-btn
                             v-if="showBackButton"
                             fab depressed dark small
-                            :to="$store.state.pages.pages[$store.state.pages.pageIndex].parentUrl"
+                            :to="$store.state.pages.list[$store.state.pages.pageIndex].parentUrl"
                             v-on="on"
                             color="secondary"
                             class="hidden-xs-only text-center align-center mr-3
@@ -29,7 +29,7 @@
                     </template>
                     <span>Назад на
                         {{
-                            $store.state.pages.pages[
+                            $store.state.pages.list[
                                 $store.state.pages.pageIndex
                             ].parentName
                         }}
@@ -56,6 +56,11 @@ import BlogPost from '~/components/BlogPost.vue';
 export default {
     name: 'Blog',
     components: { BlogPost },
+    middleware ({store})
+    {
+        store.commit('pages/setPageIndex', { newIndex:
+            store.state.pages.routeIds.PAGE_BLOG_POST });
+    },
     head()
     {
         let idx = this.$store.state.pages.pageIndex;
@@ -72,8 +77,10 @@ export default {
                 this.frontmatter.date : new Date().toISOString(),
             image: this.frontmatter && this.frontmatter.image ?
                 this.frontmatter.image :
-                this.$store.state.pages.pages[idx].image,
-            imageAlt: this.$store.state.pages.pages[idx].imageAlt,
+                this.$store.state.pages.list[idx].image,
+            imageAlt: this.frontmatter && this.frontmatter.imageAlt ?
+                this.frontmatter.imageAlt :
+                this.$store.state.pages.list[idx].imageAlt,
         };
         /*let tagsMeta = [];
         this.frontmatter.tags.forEach(tag => {
@@ -114,22 +121,11 @@ export default {
     {
         return {
             pageIndex: this.$store.state.pages.routeIds.PAGE_BLOG_POST,
+            frontmatter: {
+            },
+            markdown: {
+            }
         };
-    },
-    updated()
-    {
-        this.setpageIndex();
-    },
-    mounted()
-    {
-        this.setpageIndex();
-    },
-    methods: {
-        setpageIndex()
-        {
-            this.$store.commit('pages/setPageIndex', { newIndex:
-                this.$store.state.pages.routeIds.PAGE_BLOG_POST });
-        }
     },
     jsonld()
     {
@@ -166,40 +162,39 @@ export default {
                 'http://strahinja.org/blog' 
         };
     },
+    fetch() {
+    },
     computed: {
         showBackButton()
         {
             return this.$breakpoint.is.smAndUp;
         }
     },
-    //eslint-disable-next-line no-unused-vars
-    async asyncData({params, app})
+    asyncData({params})
     {
-        const fileContent = await import(`~/static/blog/${params.slug}.md`);
-        //const fileContent = await(require(path.resolve(`${params.slug}.md`)));
-        const attr = fileContent.attributes;
-        //console.debug('_slug: fileContent = ', fileContent);
-        //console.log('fileContent(', params.slug, ') = ', fileContent);
-
-        return {
-            frontmatter: {
-                colors: attr.colors,
-                date: attr.date,
-                categories: attr.categories,
-                tags: attr.tags,
-                description: attr.description,
-                image: attr.image,
-                id: attr.id,
-                name: params.slug,
-                related: attr.related,
-                title: attr.title,
-            },
-            markdown: {
-                renderFunc: fileContent.vue.render,
-                staticRenderFuncs: fileContent.vue.staticRenderFns,
-                extraComponent: attr.extraComponent
-            }
-        };
+        return import(`~/static/blog/${params.slug}.md`)
+            .then(res => {
+                return {
+                    frontmatter: {
+                        colors: res.attributes.colors,
+                        date: res.attributes.date,
+                        categories: res.attributes.categories,
+                        tags: res.attributes.tags,
+                        description: res.attributes.description,
+                        image: res.attributes.image,
+                        imageAlt: res.attributes.imageAlt,
+                        id: res.attributes.id,
+                        name: params.slug,
+                        related: res.attributes.related,
+                        title: res.attributes.title,
+                    },
+                    markdown: {
+                        renderFunc: res.vue.render,
+                        staticRenderFuncs: res.vue.staticRenderFns,
+                        extraComponent: res.attributes.extraComponent
+                    }
+                };
+            });
     },
 };
 </script>

@@ -17,7 +17,7 @@
                         <v-btn
                             v-if="showBackButton"
                             fab depressed dark small
-                            :to="$store.state.pages.pages[$store.state.pages.pageIndex].parentUrl"
+                            :to="$store.state.pages.list[$store.state.pages.pageIndex].parentUrl"
                             color="secondary"
                             class="hidden-xs-only text-center align-center mr-3
                                mt-1"
@@ -29,7 +29,7 @@
                     </template>
                     <span>Назад на
                         {{
-                            $store.state.pages.pages[
+                            $store.state.pages.list[
                                 $store.state.pages.pageIndex
                             ].parentName
                         }}
@@ -44,11 +44,11 @@
                         Блог
                     </h3>
                     <BlogPost
-                        v-for="(file, fileIndex) in files"
-                        :key="fileIndex"
+                        v-for="(post, postIndex) in posts"
+                        :key="postIndex"
                         :folded="true"
-                        :frontmatter="file.frontmatter"
-                        :markdown="file.markdown"
+                        :frontmatter="post.frontmatter"
+                        :markdown="post.markdown"
                         :standalone="false" />
                 </section>
             </v-col>
@@ -62,15 +62,20 @@ import BlogPost from '~/components/BlogPost.vue';
 export default {
     name: 'Blog',
     components: { BlogPost },
+    middleware ({store})
+    {
+        store.commit('pages/setPageIndex', { newIndex:
+            store.state.pages.routeIds.PAGE_BLOG_INDEX });
+    },
     head()
     {
         let idx = this.$store.state.pages.pageIndex;
         let globals = {
-            title: this.$store.state.pages.pages[idx].title,
-            description: this.$store.state.pages.pages[idx].text,
-            url: 'http://strahinja.org/' + this.$store.state.pages.pages[idx].url.path,
-            image: this.$store.state.pages.pages[idx].image,
-            imageAlt: this.$store.state.pages.pages[idx].imageAlt,
+            title: this.$store.state.pages.list[idx].title,
+            description: this.$store.state.pages.list[idx].text,
+            url: 'http://strahinja.org' + this.$store.state.pages.list[idx].url.path,
+            image: this.$store.state.pages.list[idx].image,
+            imageAlt: this.$store.state.pages.list[idx].imageAlt,
         };
         return {
             meta: [
@@ -102,17 +107,22 @@ export default {
     data ()
     {
         return {
+            posts: [],
             pageIndex: this.$store.state.pages.routeIds.PAGE_BLOG_INDEX,
         };
     },
     computed: {
+        /*posts()
+        {
+            return this.$store.blog.posts;
+        },*/
+
         showBackButton()
         {
             return this.$breakpoint.is.smAndUp;
         }
     },
-    //eslint-disable-next-line no-unused-vars
-    async asyncData({params, app})
+    async asyncData({params})
     {
         const resolve = await require.context('~/static/blog', true, /\.md$/);
         //console.log('index.asyncData: resolve = ', resolve);
@@ -134,6 +144,8 @@ export default {
                     categories: attr.categories,
                     tags: attr.tags,
                     description: attr.description,
+                    image: attr.image,
+                    imageAlt: attr.imageAlt,
                     id: attr.id,
                     name: fileObj.name
                         .replace(/\.\//, '').replace(/\.md$/, ''),
@@ -147,30 +159,16 @@ export default {
                 }
             });
         });
-        filesList.sort((fileListItem1, fileListItem2) =>
+
+        await filesList.sort((fileListItem1, fileListItem2) =>
         {
-            return fileListItem1.date > fileListItem2.date;
+            return fileListItem1.date > fileListItem2.date ? -1 : 1;
         });
 
         console.log('index.asyncData: after forEach: files = ', filesList);
         return {
-            files: filesList
+            posts: filesList
         };
-    },
-    updated()
-    {
-        this.setpageIndex();
-    },
-    mounted()
-    {
-        this.setpageIndex();
-    },
-    methods: {
-        setpageIndex()
-        {
-            this.$store.commit('pages/setPageIndex', { newIndex:
-                this.$store.state.pages.routeIds.PAGE_BLOG_INDEX });
-        }
     },
 };
 </script>
