@@ -3,6 +3,7 @@
 | File     | Description            |
 |:---------|:-----------------------|
 | gists.js | Store module for gists |
+| index.js | Server init            |
 | pages.js | Store module for pages |
 
 
