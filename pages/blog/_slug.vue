@@ -40,8 +40,12 @@
                 :cols="12"
                 :sm="10">
                 <BlogPost
-                    :frontmatter="frontmatter"
-                    :markdown="markdown" />
+                    :frontmatter="post.frontmatter"
+                    :renderFunc="post.renderFunc"
+                    :staticRenderFuncs="post.staticRenderFns"
+                    :extraComponent="post.extraComponent"
+                    :extraComponentParams="post.extraComponentParams"
+                    />
             </v-col>
         </v-row>
     </v-container>
@@ -50,7 +54,6 @@
 </template>
 
 <script lang="js">
-//import path from 'path';
 import BlogPost from '~/components/BlogPost.vue';
 
 export default {
@@ -64,31 +67,20 @@ export default {
     head()
     {
         let idx = this.$store.state.pages.pageIndex;
+        const fm = this.post.frontmatter;
         let globals = {
-            title: this.frontmatter && this.frontmatter.title ?
-                this.frontmatter.title : 'Ненасловљени чланак',
-            description: this.frontmatter && this.frontmatter.description ?
-                this.frontmatter.description : 'Чланак без описа',
+            title: fm && fm.title ? fm.title : 'Ненасловљени чланак',
+            description: fm && fm.description ? fm.description : 'Чланак без описа',
             parentUrl: 'http://strahinja.org/blog',
-            url: this.frontmatter && this.frontmatter.name ?
-                `http://strahinja.org/blog/${this.frontmatter.name}` :
+            url: fm && fm.name ?
+                `http://strahinja.org/blog/${fm.name}` :
                 'http://strahinja.org/blog',
-            date: this.frontmatter && this.frontmatter.date ?
-                this.frontmatter.date : new Date().toISOString(),
-            image: this.frontmatter && this.frontmatter.image ?
-                this.frontmatter.image :
+            date: fm && fm.date ? fm.date : new Date().toISOString(),
+            image: fm && fm.image ? fm.image :
                 this.$store.state.pages.list[idx].image,
-            imageAlt: this.frontmatter && this.frontmatter.imageAlt ?
-                this.frontmatter.imageAlt :
+            imageAlt: fm && fm.imageAlt ? fm.imageAlt :
                 this.$store.state.pages.list[idx].imageAlt,
         };
-        /*let tagsMeta = [];
-        this.frontmatter.tags.forEach(tag => {
-            tagsMeta.push({
-                rel: 'tag',
-                href: `http://strahinja.org/tags/${tag}` 
-            });
-        });*/
         return {
             meta: [
                 { hid: 'og:url', name: 'og:url', property: 'og:url', content: globals.url },
@@ -121,27 +113,21 @@ export default {
     {
         return {
             pageIndex: this.$store.state.pages.routeIds.PAGE_BLOG_POST,
-            frontmatter: {
-            },
-            markdown: {
-            }
+            post: {}
         };
     },
     jsonld()
     {
+        const fm = this.post.frontmatter;
         let globals = {
-            title: this.frontmatter && this.frontmatter.title ?
-                this.frontmatter.title : 'Ненасловљени чланак',
-            description: this.frontmatter && this.frontmatter.description ?
-                this.frontmatter.description : 'Чланак без описа',
+            title: fm && fm.title ? fm.title : 'Ненасловљени чланак',
+            description: fm && fm.description ? fm.description : 'Чланак без описа',
             parentUrl: 'http://strahinja.org/blog',
-            url: this.frontmatter && this.frontmatter.name ?
-                `http://strahinja.org/blog/${this.frontmatter.name}` :
+            url: fm && fm.name ?
+                `http://strahinja.org/blog/${fm.name}` :
                 'http://strahinja.org/blog',
-            date: this.frontmatter && this.frontmatter.date ?
-                this.frontmatter.date : new Date().toISOString(),
-            image: this.frontmatter && this.frontmatter.image ?
-                this.frontmatter.image :
+            date: fm && fm.date ? fm.date : new Date().toISOString(),
+            image: fm && fm.image ? fm.image :
                 'http://strahinja.org/img/preview-blog-strahinja-org.png',
             imageAlt: 'Цртеж врха пенкала са умањеним логом са иницијалима'
                 + ' СР и текстом //strahinja.org',
@@ -149,52 +135,61 @@ export default {
         return {
             '@context': 'http://schema.org',
             '@type': 'Article',
-            'name': this.frontmatter && this.frontmatter.title ?
-                this.frontmatter.title : 'Ненасловљени чланак',
+            'name': globals.title,
             'author': {
                 '@type': 'Person',
                 'name': 'Страхиња Радић'
             },
-            'datePublished': this.frontmatter && this.frontmatter.date ?
-                this.frontmatter.date : new Date().toISOString(),
-            'url': this.frontmatter && this.frontmatter.name ?
-                `http://strahinja.org/blog/${this.frontmatter.name}` :
-                'http://strahinja.org/blog' 
+            'datePublished': globals.date,
+            'url': globals.url 
         };
-    },
-    fetch() {
     },
     computed: {
         showBackButton()
         {
             return this.$breakpoint.is.smAndUp;
-        }
+        },
     },
-    asyncData({params})
+    async asyncData({params, store})
     {
-        return import(`~/static/blog/${params.slug}.md`)
-            .then(res => {
-                return {
-                    frontmatter: {
-                        colors: res.attributes.colors,
-                        date: res.attributes.date,
-                        categories: res.attributes.categories,
-                        tags: res.attributes.tags,
-                        description: res.attributes.description,
-                        image: res.attributes.image,
-                        imageAlt: res.attributes.imageAlt,
-                        id: res.attributes.id,
-                        name: params.slug,
-                        related: res.attributes.related,
-                        title: res.attributes.title,
-                    },
-                    markdown: {
-                        renderFunc: res.vue.render,
-                        staticRenderFuncs: res.vue.staticRenderFns,
-                        extraComponent: res.attributes.extraComponent
-                    }
-                };
-            });
+        let res = await import(`~/static/blog/${params.slug}.md`);
+        let extraParams = {};
+
+        if (res.attributes && res.attributes.extraComponent &&
+            res.attributes.extraComponent == 'Gist' &&
+            res.attributes.extraComponentParams &&
+            res.attributes.extraComponentParams.gistId)
+        {
+            const gistId = res.attributes.extraComponentParams.gistId;
+            const extraGist = store.getters['gists/gistById'](gistId);
+            extraParams = {...extraParams, ...res.attributes.extraComponentParams};
+            if (extraGist)
+            {
+                extraParams.gist = extraGist.data;
+            }
+        }
+
+        let post = {
+            frontmatter: {
+                colors: res.attributes.colors,
+                date: res.attributes.date,
+                categories: res.attributes.categories,
+                tags: res.attributes.tags,
+                description: res.attributes.description,
+                image: res.attributes.image,
+                imageAlt: res.attributes.imageAlt,
+                id: res.attributes.id,
+                name: params.slug,
+                related: res.attributes.related,
+                title: res.attributes.title,
+            },
+            renderFunc: res.vue.render,
+            staticRenderFns: res.vue.staticRenderFns,
+            extraComponent: res.attributes.extraComponent,
+            extraComponentParams: extraParams
+        };
+        
+        return { post };
     },
 };
 </script>

@@ -1,10 +1,10 @@
 .v-application code,
 .v-application code[class*="language-"]
-    font-family: 'PxPlus IBM VGA8 for Powerline'
-    font-size: 16px
-    font-weight: normal
-    color: #00d000
-    background: #001000
+    font-family: $code-font-family
+    font-size: $code-font-size
+    font-weight: $code-font-weight
+    color: $code-color
+    background: $code-background-color
     text-align: left
     word-spacing: normal
     word-break: normal
@@ -21,9 +21,11 @@
     width: 100%
 
 /* Code blocks */
-.v-application pre > code[class*="language-"]
+.v-application pre > code[class*="language-"],
+.v-application pre > code
     width: 45em
     max-width: 100%
+    max-height: 25em
     overflow-x: auto
     padding: 1em 2em
     margin: .5em 0
@@ -33,6 +35,7 @@
     -o-tab-size: 4
     tab-size: 4
     white-space: pre
+    line-height: 1em
 
 .v-application pre > code[class*="language-"]::before,
 .v-application pre > code[class*="language-"]::after
@@ -47,23 +50,23 @@
 .v-application code .token.important,
 .v-application code .token.bold,
 .v-application code .token.punctuation
-    color: #30ff30
+    color: $code-bold-color
 
 .v-application code .token.function,
 .v-application code .token.function-variable.function
-    color: #007000
+    color: $code-function-color
 
 .v-application code .token.operator,
 .v-application code .token.entity,
 .v-application code .token.url
-    color: #40ff40
+    color: $code-operator-color
 
 .v-application code .token.selector,
 .v-application code .token.important,
 .v-application code .token.atrule,
 .v-application code .token.keyword,
 .v-application code .token.builtin
-    color: #40ff40
+    color: $code-keyword-color
 
 .v-application code .token.boolean,
 .v-application code .token.number,
@@ -72,26 +75,26 @@
 .v-application code .token.attr-value,
 .v-application code .token.regex,
 .v-application code .token.variable
-    color: #008000
+    color: $code-const-color
 
 .v-application code .token.comment,
 .v-application code .token.block-comment,
 .v-application code .token.prolog,
 .v-application code .token.doctype,
 .v-application code .token.cdata
-    color: #40a040
+    color: $code-comment-color
 
 .v-application code .token.tag,
 .v-application code .token.attr-name,
 .v-application code .token.namespace,
 .v-application code .token.deleted
-    color: #40ff40
+    color: $code-tag-color
 
 .v-application code .token.property,
 .v-application code .token.class-name,
 .v-application code .token.constant,
 .v-application code .token.symbol
-    color: #30ff30
+    color: $code-symbol-color
 
 .v-application code .token.entity
     cursor: help

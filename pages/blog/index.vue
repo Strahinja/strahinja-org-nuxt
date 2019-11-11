@@ -48,7 +48,10 @@
                         :key="postIndex"
                         :folded="true"
                         :frontmatter="post.frontmatter"
-                        :markdown="post.markdown"
+                        :render-func="post.renderFunc"
+                        :static-render-funcs="post.staticRenderFuncs"
+                        :extra-component="post.extraComponent"
+                        :extra-component-params="post.extraComponentParams"
                         :standalone="false" />
                 </section>
             </v-col>
@@ -112,31 +115,38 @@ export default {
         };
     },
     computed: {
-        /*posts()
-        {
-            return this.$store.blog.posts;
-        },*/
-
         showBackButton()
         {
             return this.$breakpoint.is.smAndUp;
         }
     },
-    async asyncData({params})
+    async asyncData({store})
     {
         const resolve = await require.context('~/static/blog', true, /\.md$/);
-        //console.log('index.asyncData: resolve = ', resolve);
-        let filesList = [];
+        var filesList = [];
         await resolve.keys().map(key =>
         {
             return {
                 name: key,
                 file: resolve(key)
             };
-        }).forEach(fileObj =>
+        }).forEach(async fileObj =>
         {
             const attr = fileObj.file.attributes;
-            console.log('index.asyncData: attr = ', attr);
+            var myParams = {};
+            if (attr && attr.extraComponent &&
+                attr.extraComponent == 'Gist' &&
+                attr.extraComponentParams &&
+                attr.extraComponentParams.gistId)
+            {
+                const gistId = attr.extraComponentParams.gistId;
+                const filteredGist = store.getters['gists/gistById'](gistId);
+                myParams = {...myParams, ...attr.extraComponentParams};
+                if (filteredGist)
+                {
+                    myParams.gist = filteredGist.data;
+                }
+            }
             filesList.push({
                 frontmatter: {
                     colors: attr.colors,
@@ -152,11 +162,10 @@ export default {
                     related: attr.related,
                     title: attr.title,
                 },
-                markdown: {
-                    renderFunc: fileObj.file.vue.render,
-                    staticRenderFuncs: fileObj.file.vue.staticRenderFns,
-                    extraComponent: attr.extraComponent
-                }
+                renderFunc: fileObj.file.vue.render,
+                staticRenderFuncs: fileObj.file.vue.staticRenderFns,
+                extraComponent: attr.extraComponent,
+                extraComponentParams: myParams
             });
         });
 
@@ -165,7 +174,6 @@ export default {
             return fileListItem1.date > fileListItem2.date ? -1 : 1;
         });
 
-        console.log('index.asyncData: after forEach: files = ', filesList);
         return {
             posts: filesList
         };

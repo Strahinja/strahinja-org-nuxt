@@ -163,7 +163,7 @@ export default {
         let globals = {
             title: this.$store.state.pages.list[idx].title,
             description: this.$store.state.pages.list[idx].text,
-            url: 'http://strahinja.org/' + this.$store.state.pages.list[idx].url.path,
+            url: 'http://strahinja.org' + this.$store.state.pages.list[idx].url.path,
             image: this.$store.state.pages.list[idx].image,
             imageAlt: this.$store.state.pages.list[idx].imageAlt,
         };

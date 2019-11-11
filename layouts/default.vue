@@ -202,7 +202,7 @@
                         <v-row class="ma-0">
                             <v-col class="pa-0" :cols="12">
                                 <a
-                                    href="http://creativecommons.org/licenses/by-nd/4.0/"
+                                    href="http://creativecommons.org/licenses/by/4.0/"
                                     rel="license"><img
                                         alt="Creative Commons License"
                                         class="inline-image"
@@ -227,7 +227,7 @@
                             <v-col class="pa-0" :cols="12">
                                 <div class="d-inline-block mr-1">
                                     <a
-                                        href="http://creativecommons.org/licenses/by-nd/4.0/"
+                                        href="http://creativecommons.org/licenses/by/4.0/"
                                         rel="license"><img
                                             alt="Creative Commons License"
                                             class="inline-image"

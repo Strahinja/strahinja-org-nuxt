@@ -8,6 +8,7 @@ import markdownItAbbr from 'markdown-it-abbr';
 import markdownItAnchor from 'markdown-it-anchor';
 import markdownItAttribution from 'markdown-it-attribution';
 import markdownItFootnote from 'markdown-it-footnote';
+import markdownItGithubHeadings from 'markdown-it-github-headings';
 import markdownItKatex from 'markdown-it-katex';
 import markdownItKbd from 'markdown-it-kbd';
 import markdownItPrism from 'markdown-it-prism';
@@ -19,9 +20,12 @@ var dynamicMarkdownRoutes = getDynamicMarkdownPaths({
 });
 var blogFrontmatter = getMarkdownFrontmatter(dynamicMarkdownRoutes);
 var blogTags = getMarkdownTags(blogFrontmatter);
+var blogGistIds = getMarkdownGistIds(blogFrontmatter);
 console.log('nuxt.config.js: blogTags = ', blogTags);
+console.log('nuxt.config.js: blogGistIds = ', blogGistIds);
 fs.writeFileSync('static/blog/blog-frontmatter.json', JSON.stringify(blogFrontmatter));
 fs.writeFileSync('static/blog/blog-tags.json', JSON.stringify(blogTags));
+fs.writeFileSync('static/blog/blog-gist-ids.json', JSON.stringify(blogGistIds));
 
 dynamicMarkdownRoutes = dynamicMarkdownRoutes.concat(blogTags.map(tag =>
 {
@@ -114,6 +118,8 @@ export default {
      ** See https://axios.nuxtjs.org/options
      */
     axios: {
+        proxyHeaders: false,
+        credentials: false
     },
     /*
      ** vuetify module configuration
@@ -178,6 +184,12 @@ export default {
                         .use(markdownItAnchor)
                         .use(markdownItAttribution)
                         .use(markdownItFootnote)
+                        .use(markdownItGithubHeadings, {
+                            className: 'github-heading',
+                            prefixHeadingIds: true,
+                            prefix: 'head-',
+                            enableHeadingLinkIcons: true,
+                        })
                         .use(markdownItKatex)
                         .use(markdownItKbd)
                         .use(markdownItPrism)
@@ -218,6 +230,23 @@ function getMarkdownFrontmatter(fileList)
         }
     });
     return frontmatter;
+}
+
+function getMarkdownGistIds(frontmatterList)
+{
+    let gistIds = [];
+    frontmatterList.forEach(fm =>
+    {
+        if (fm.extraComponentParams &&
+            fm.extraComponentParams.gistId)
+        {
+            if (gistIds.indexOf(fm.extraComponentParams.gistId) == -1)
+            {
+                gistIds.push(fm.extraComponentParams.gistId);
+            }
+        }
+    });
+    return gistIds;
 }
 
 function getMarkdownTags(frontmatterList)

@@ -54,17 +54,18 @@
                 </ul>
             </div><!--categories-->
         </header>
-        <v-container class="py-0 pb-5">
+        <v-container class="py-0 pb-5 ml-0">
             <v-row>
-                <v-col :cols="10" :lg="8" class="py-0">
+                <v-col :cols="12" :lg="10" class="py-0">
                     <DynamicMarkdown
                         :highlight="highlight"
-                        :render-func="markdown.renderFunc"
-                        :static-render-funcs="markdown.staticRenderFuncs"
-                        :extra-component="markdown.extraComponent" />
+                        :render-func="renderFunc"
+                        :static-render-funcs="staticRenderFuncs"
+                        :extra-component="extraComponent"
+                        :extra-component-params="extraComponentParams" />
                 </v-col>
             </v-row>
-            <div v-ripple class="folded-overlay col-lg-8 col-10" @click="toggleFolded">
+            <div v-ripple class="folded-overlay col-lg-10 col-12" @click="toggleFolded">
                 <div class="folded-overlay-inner">
                     <v-btn
                         color="accent"
@@ -107,15 +108,18 @@ export default {
     props: {
         folded: { type: Boolean, default: false },
         frontmatter: { type: Object, default: () => ({}) },
+        renderFunc: { type: Object, default: () => ({}) },
+        staticRenderFuncs: { type: Array, default: () => ([]) },
+        extraComponent: { type: Object, default: null },
+        extraComponentParams: { type: Object, default: null },
         highlight: { type: String, default: '' },
-        markdown: { type: Object, default: () => ({}) },
         standalone: { type: Boolean, default: true },
     },
     computed: {
         hasTags()
         {
             return this.frontmatter.tags && this.frontmatter.tags.length>0;
-        }
+        },
     },
     methods: {
         formatDate(str)

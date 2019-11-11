@@ -55,7 +55,10 @@
                         :key="postIndex"
                         :folded="true"
                         :frontmatter="post.frontmatter"
-                        :markdown="post.markdown"
+                        :render-func="post.renderFunc"
+                        :static-render-funcs="post.staticRenderFuncs"
+                        :extra-component="post.extraComponent"
+                        :extra-component-params="post.extraComponentParams"
                         :highlight="tagId"
                         :standalone="false" />
                 </section>
@@ -87,8 +90,6 @@ export default {
             image: this.$store.state.pages.list[idx].image,
             imageAlt: this.$store.state.pages.list[idx].imageAlt,
         };
-        console.log('tagid.head: idx = ', idx);
-        console.log('tagid.head: globals = ', globals);
         return {
             meta: [
                 { hid: 'og:url', name: 'og:url', property: 'og:url', content: globals.url },
@@ -123,68 +124,33 @@ export default {
             tagId: this.$route.params.id,
         };
     },
-    async asyncData({params})
+    async asyncData({params, store})
     {
         const resolve = await require.context('~/static/blog', true, /\.md$/);
-        let filesList = [];
+        var filesList = [];
         await resolve.keys().map(key =>
         {
             return {
                 name: key,
                 file: resolve(key)
             };
-        }).forEach(fileObj =>
+        }).forEach(async fileObj =>
         {
             const attr = fileObj.file.attributes;
-            filesList.push({
-                frontmatter: {
-                    colors: attr.colors,
-                    date: attr.date,
-                    categories: attr.categories,
-                    tags: attr.tags,
-                    description: attr.description,
-                    id: attr.id,
-                    name: fileObj.name
-                        .replace(/\.\//, '').replace(/\.md$/, ''),
-                    related: attr.related,
-                    title: attr.title,
-                },
-                markdown: {
-                    renderFunc: fileObj.file.vue.render,
-                    staticRenderFuncs: fileObj.file.vue.staticRenderFns,
-                    extraComponent: attr.extraComponent
+            var myParams = {};
+            if (attr && attr.extraComponent &&
+                attr.extraComponent == 'Gist' &&
+                attr.extraComponentParams &&
+                attr.extraComponentParams.gistId)
+            {
+                const gistId = attr.extraComponentParams.gistId;
+                const filteredGist = store.getters['gists/gistById'](gistId);
+                myParams = {...myParams, ...attr.extraComponentParams};
+                if (filteredGist)
+                {
+                    myParams.gist = filteredGist.data;
                 }
-            });
-        });
-        filesList = filesList.filter(filesListItem =>
-        {
-            return filesListItem.frontmatter.tags &&
-                filesListItem.frontmatter.tags.indexOf(params.id) != -1;
-        });
-        await filesList.sort((fileListItem1, fileListItem2) =>
-        {
-            return fileListItem1.frontmatter.date >
-                fileListItem2.frontmatter.date;
-        });
-        console.log('tag.asyncData: filesList after sort = ', filesList);
-        return {
-            posts: filesList,
-            tagId: params.id,
-        };
-    },
-    async mounted()
-    {
-        const resolve = await require.context('~/static/blog', true, /\.md$/);
-        let filesList = [];
-        await resolve.keys().map(key =>
-        {
-            return {
-                name: key,
-                file: resolve(key)
-            };
-        }).forEach(fileObj =>
-        {
-            const attr = fileObj.file.attributes;
+            }
             filesList.push({
                 frontmatter: {
                     colors: attr.colors,
@@ -200,28 +166,91 @@ export default {
                     related: attr.related,
                     title: attr.title,
                 },
-                markdown: {
-                    renderFunc: fileObj.file.vue.render,
-                    staticRenderFuncs: fileObj.file.vue.staticRenderFns,
-                    extraComponent: attr.extraComponent
-                }
+                renderFunc: fileObj.file.vue.render,
+                staticRenderFuncs: fileObj.file.vue.staticRenderFns,
+                extraComponent: attr.extraComponent,
+                extraComponentParams: myParams
             });
         });
         filesList = filesList.filter(filesListItem =>
         {
             return filesListItem.frontmatter.tags &&
-                                filesListItem.frontmatter.tags.indexOf(
-                                    this.$route.params.id) != -1;
+                filesListItem.frontmatter.tags.indexOf(params.id) != -1;
         });
-
-        filesList.sort((fileListItem1, fileListItem2) =>
+        await filesList.sort((fileListItem1, fileListItem2) =>
         {
             return fileListItem1.frontmatter.date >
-                                fileListItem2.frontmatter.date;
+                fileListItem2.frontmatter.date ? -1 : 1;
         });
-        console.log('tag.mounted: filesList after sort = ', filesList);
-        this.posts = filesList;
+        return {
+            posts: filesList,
+            tagId: params.id,
+        };
     },
+    async mounted()
+    {
+        const resolve = await require.context('~/static/blog', true, /\.md$/);
+        var filesList = [];
+        await resolve.keys().map(key =>
+        {
+            return {
+                name: key,
+                file: resolve(key)
+            };
+        }).forEach(async fileObj =>
+        {
+            const attr = fileObj.file.attributes;
+            var myParams = {};
+            if (attr && attr.extraComponent &&
+                attr.extraComponent == 'Gist' &&
+                attr.extraComponentParams &&
+                attr.extraComponentParams.gistId)
+            {
+                const gistId = attr.extraComponentParams.gistId;
+                const filteredGist = store.getters['gists/gistById'](gistId);
+                myParams = {...myParams, ...attr.extraComponentParams};
+                if (filteredGist)
+                {
+                    myParams.gist = filteredGist.data;
+                }
+            }
+            filesList.push({
+                frontmatter: {
+                    colors: attr.colors,
+                    date: attr.date,
+                    categories: attr.categories,
+                    tags: attr.tags,
+                    description: attr.description,
+                    image: attr.image,
+                    imageAlt: attr.imageAlt,
+                    id: attr.id,
+                    name: fileObj.name
+                        .replace(/\.\//, '').replace(/\.md$/, ''),
+                    related: attr.related,
+                    title: attr.title,
+                },
+                renderFunc: fileObj.file.vue.render,
+                staticRenderFuncs: fileObj.file.vue.staticRenderFns,
+                extraComponent: attr.extraComponent,
+                extraComponentParams: myParams
+            });
+        });
+        filesList = filesList.filter(filesListItem =>
+        {
+            return filesListItem.frontmatter.tags &&
+                filesListItem.frontmatter.tags.indexOf(
+                    this.$route.params.id) != -1;
+        });
+        await filesList.sort((fileListItem1, fileListItem2) =>
+        {
+            return fileListItem1.frontmatter.date >
+                fileListItem2.frontmatter.date ? -1 : 1;
+        });
+        return {
+            posts: filesList,
+            tagId: this.$route.params.id,
+        };
+    }
 };
 </script>
 
