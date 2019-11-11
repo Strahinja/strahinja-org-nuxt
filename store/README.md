@@ -1,6 +1,10 @@
 # STORE
 
-**This directory is not required, you can delete it if you don't want to use it.**
+| File     | Description            |
+|:---------|:-----------------------|
+| gists.js | Store module for gists |
+| pages.js | Store module for pages |
+
 
 This directory contains your Vuex Store files.
 Vuex Store option is implemented in the Nuxt.js framework.
