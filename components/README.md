@@ -12,3 +12,4 @@ Component descriptions:
 | Slicer          | A fancy menu component                  |
 | SlicerItem      | An item for Slicer component            |
 | Splash          | Hero container                          |
+| blog/Gist       | Blog `extraComponent` for gists         |
