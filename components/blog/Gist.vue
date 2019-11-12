@@ -73,10 +73,6 @@ export default {
             let result = '';
             for (let line in linesArray)
             {
-                console.log('Compare ', this.highlightedLine, ' to ',
-                            parseInt(line)+1, ' = ', (this.highlightedLine==parseInt(line)+1 ?
-                                'true' :
-                                'false'));
                 result += (this.highlightedLine==parseInt(line)+1 ?
                     '<tr class="highlighted-line">\n' :
                     '<tr>\n') +
