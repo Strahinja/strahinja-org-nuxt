@@ -17,7 +17,7 @@
                         <v-btn
                             v-if="showBackButton"
                             fab depressed dark small
-                            :to="$store.state.pages.list[$store.state.pages.pageIndex].parentUrl"
+                            :to="parentUrl"
                             color="secondary"
                             class="hidden-xs-only text-center align-center mr-3
                                mt-1"
@@ -28,11 +28,7 @@
                         </v-btn>
                     </template>
                     <span>Назад на
-                        {{
-                            $store.state.pages.list[
-                                $store.state.pages.pageIndex
-                            ].parentName
-                        }}
+                        {{ parentName }}
                     </span>
                 </v-tooltip>
             </v-col>
@@ -54,9 +50,9 @@
                         :cols="12" :md="4" class="mb-3" :class="{'text-center':
                             $breakpoint.is.xsOnly}">
                         <v-pagination
-                            v-model="page"
+                            v-model="pageNumber"
                             color="secondary"
-                            :value="page"
+                            :value="pageNumber"
                             :length="numPages"
                             total-visible="4"
                             @input="paginationChange()" />
@@ -146,7 +142,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import LinkItem from '~/components/LinkItem';
 
 export default {
@@ -154,18 +149,70 @@ export default {
     components: { LinkItem },
     middleware ({store})
     {
-        store.commit('pages/setPageIndex', { newIndex:
+        store.commit('pages/setPageId', { newId:
             store.state.pages.routeIds.PAGE_LINKS });
+    },
+    data()
+    {
+        return {
+            apiLinks: process.env.VUE_APP_API_PATH + '/favorites',
+            apiCategories:
+                process.env.VUE_APP_API_PATH + '/categories?ct=favorite',
+            links: [],
+            linksByCat: [],
+            categories: [],
+            nonemptyCategories: [],
+            linksByCategories: [],
+            displayByCategory: false,
+            numPages: 0,
+            itemsPerPage: 12,
+            pageNumber: 1,
+            loading: false,
+        };
+    },
+    computed:
+    {
+        page()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['pages/pageById'](
+                    this.$store.state.pages.pageId);
+            }
+            else
+            {
+                return null;
+            }
+        },
+        parentUrl()
+        {
+            if (this && this.page)
+            {
+                return this.page.parentUrl;
+            }
+            return '/';
+        },
+        parentName()
+        {
+            if (this && this.page)
+            {
+                return this.page.parentName;
+            }
+            return 'почетну страницу';
+        },
+        showBackButton()
+        {
+            return this.$breakpoint.is.smAndUp;
+        }
     },
     head()
     {
-        let idx = this.$store.state.pages.pageIndex;
         let globals = {
-            title: this.$store.state.pages.list[idx].title,
-            description: this.$store.state.pages.list[idx].text,
-            url: 'http://strahinja.org' + this.$store.state.pages.list[idx].url.path,
-            image: this.$store.state.pages.list[idx].image,
-            imageAlt: this.$store.state.pages.list[idx].imageAlt,
+            title: this.page.title,
+            description: this.page.text,
+            url: 'http://strahinja.org' + this.page.url.path,
+            image: this.page.image,
+            imageAlt: this.page.imageAlt,
         };
         return {
             meta: [
@@ -189,31 +236,6 @@ export default {
             title: globals.title,
             description: globals.description,
         };
-    },
-    data()
-    {
-        return {
-            pageIndex: this.$store.state.pages.routeIds.PAGE_LINKS,
-            apiLinks: process.env.VUE_APP_API_PATH + '/favorites',
-            apiCategories:
-                process.env.VUE_APP_API_PATH + '/categories?ct=favorite',
-            links: [],
-            linksByCat: [],
-            categories: [],
-            nonemptyCategories: [],
-            linksByCategories: [],
-            displayByCategory: false,
-            numPages: 0,
-            itemsPerPage: 12,
-            page: 1,
-            loading: false,
-        };
-    },
-    computed: {
-        showBackButton()
-        {
-            return this.$breakpoint.is.smAndUp;
-        }
     },
     created()
     {
@@ -253,8 +275,8 @@ export default {
             {}
         )
         {
-            axios
-                .get(
+            this.$http
+                .$get(
                     this.apiLinks +
                         '?c=' +
                         count +
@@ -315,8 +337,8 @@ export default {
         {}, callbackCatch = () =>
         {})
         {
-            axios
-                .get(this.apiCategories)
+            this.$http
+                .$get(this.apiCategories)
                 .then(data =>
                 {
                     if (data.data)
@@ -357,7 +379,7 @@ export default {
         },
         getOffset()
         {
-            return (this.page - 1) * this.itemsPerPage;
+            return (this.pageNumber - 1) * this.itemsPerPage;
         },
         paginationChange()
         {

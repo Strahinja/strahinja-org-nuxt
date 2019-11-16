@@ -51,9 +51,9 @@ export default {
         ]
     },
     /*
-     ** Customize the progress-bar color
+     ** Customize the progress-bar
      */
-    loading: { color: '#2e7d32' },
+    loading: '~/components/loading.vue',
     /*
      ** Global CSS
      */
@@ -95,8 +95,7 @@ export default {
      ** Nuxt.js modules
      */
     modules: [
-    // Doc: https://axios.nuxtjs.org/usage
-        '@nuxtjs/axios',
+        '@nuxt/http',
         ['@nuxtjs/dotenv', {
             filename: '.env.production'
         } ],
@@ -114,19 +113,11 @@ export default {
         routes: dynamicMarkdownRoutes
     },
     /*
-     ** Axios module configuration
-     ** See https://axios.nuxtjs.org/options
-     */
-    axios: {
-        proxyHeaders: false,
-        credentials: false
-    },
-    /*
      ** vuetify module configuration
      ** https://github.com/nuxt-community/vuetify-module
      */
     vuetify: {
-        customVariables: ['~assets/variables.scss'],
+        customVariables: ['~assets/sass/variables.sass'],
         defaultAssets: {
             icons: 'mdi'
         },

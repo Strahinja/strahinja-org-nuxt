@@ -12,14 +12,12 @@
             class="main-toolbar">
             <v-spacer />
             <v-tooltip
-                v-for="(page, pageIndexHome) in
-                    $store.state.pages.list.filter(page =>
-                        page.includedInMainToolbar)"
-                :key="pageIndexHome"
+                v-for="(mainToolbarPage, mainToolbarPageIndex) in mainToolbarPages"
+                :key="mainToolbarPageIndex"
                 bottom>
                 <template v-slot:activator="{ on }">
                     <v-btn
-                        :to="page.url.path"
+                        :to="mainToolbarPage.url.path"
                         :x-large="$breakpoint.is.smAndUp"
                         :large="$breakpoint.is.xsOnly"
                         :rounded="$breakpoint.is.smAndUp"
@@ -31,13 +29,13 @@
                         }"
                         color="accent"
                         v-on="on">
-                        <v-icon>{{ page.icon }}</v-icon>
+                        <v-icon>{{ mainToolbarPage.icon }}</v-icon>
                         <span v-if="$breakpoint.is.smAndUp">
-                            {{ page.title }}
+                            {{ mainToolbarPage.title }}
                         </span>
                     </v-btn>
                 </template>
-                <span>{{ page.text }}</span>
+                <span>{{ mainToolbarPage.text }}</span>
             </v-tooltip>
             <v-spacer />
         </v-toolbar>
@@ -106,7 +104,6 @@
 </template>
 
 <script>
-//import axios from 'axios';
 import Splash from '~/components/Splash.vue';
 import MadeWith from '~/components/MadeWith.vue';
 import LogoVue from '~/assets/svg/logo-vue.svg?inline';
@@ -118,7 +115,7 @@ export default {
     components: { Splash, LogoVue, LogoVuetify, LogoNuxt, MadeWith },
     middleware ({store})
     {
-        store.commit('pages/setPageIndex', { newIndex:
+        store.commit('pages/setPageId', { newId:
             store.state.pages.routeIds.PAGE_HOME });
     },
     head ()
@@ -133,33 +130,49 @@ export default {
     {
         return {
             madewithHeight: 75,
-            twitterApiUrl: '//api.twitter.com/1.1/statuses/user_timeline.json',
             loading: false,
-            // twitterStatuses: []
             parentUrl: '/',
         };
+    },
+    computed: {
+        page()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['pages/pageById'](
+                    this.$store.state.pages.pageId);
+            }
+            else
+            {
+                return null;
+            }
+        },
+        navigationPages()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['pages/navigationPages'];
+            }
+            else
+            {
+                return [];
+            }
+        },
+        mainToolbarPages()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['pages/mainToolbarPages'];
+            }
+            else
+            {
+                return [];
+            }
+        },
     },
     created()
     {
         this.loading = true;
-        // this.loadTwitterStatuses();
-    },
-    methods: {
-        /*loadTwitterStatuses () {
-      axios.get(this.twitterApiUrl, {
-        params: {
-          screen_name: 'strahinja_radic'
-        }
-      })
-        .then((response) => {
-          console.log('loadTwitterStatuses: then: response = ',
-            response);
-        })
-        .catch((response) => {
-          console.log('loadTwitterStatuses: catch: response = ',
-            response);
-        });
-    }*/
     },
 };
 </script>

@@ -17,7 +17,7 @@
                         <v-btn
                             v-if="showBackButton"
                             fab depressed dark small
-                            :to="$store.state.pages.list[$store.state.pages.pageIndex].parentUrl"
+                            :to="parentUrl"
                             color="secondary"
                             class="hidden-xs-only text-center align-center mr-3
                                mt-1"
@@ -28,11 +28,7 @@
                         </v-btn>
                     </template>
                     <span>Назад на
-                        {{
-                            $store.state.pages.list[
-                                $store.state.pages.pageIndex
-                            ].parentName
-                        }}
+                        {{ parentName }}
                     </span>
                 </v-tooltip>
             </v-col>
@@ -65,7 +61,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 import PortfolioItem from '~/components/PortfolioItem';
 
 export default {
@@ -73,18 +68,60 @@ export default {
     components: { PortfolioItem },
     middleware ({store})
     {
-        store.commit('pages/setPageIndex', { newIndex:
+        store.commit('pages/setPageId', { newId:
             store.state.pages.routeIds.PAGE_PORTFOLIO });
+    },
+    data()
+    {
+        return {
+            apiPortfolio: process.env.VUE_APP_API_PATH + '/portfolio?c=12',
+            portfolio: [],
+            loading: false,
+        };
+    },
+    computed:
+    {
+        page()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['pages/pageById'](
+                    this.$store.state.pages.pageId);
+            }
+            else
+            {
+                return null;
+            }
+        },
+        parentUrl()
+        {
+            if (this && this.page)
+            {
+                return this.page.parentUrl;
+            }
+            return '/';
+        },
+        parentName()
+        {
+            if (this && this.page)
+            {
+                return this.page.parentName;
+            }
+            return 'почетну страницу';
+        },
+        showBackButton()
+        {
+            return this.$breakpoint.is.smAndUp;
+        }
     },
     head()
     {
-        let idx = this.$store.state.pages.pageIndex;
         let globals = {
-            title: this.$store.state.pages.list[idx].title,
-            description: this.$store.state.pages.list[idx].text,
-            url: 'http://strahinja.org' + this.$store.state.pages.list[idx].url.path,
-            image: this.$store.state.pages.list[idx].image,
-            imageAlt: this.$store.state.pages.list[idx].imageAlt,
+            title: this.page.title,
+            description: this.page.text,
+            url: 'http://strahinja.org' + this.page.url.path,
+            image: this.page.image,
+            imageAlt: this.page.imageAlt,
         };
         return {
             meta: [
@@ -109,21 +146,6 @@ export default {
             description: globals.description,
         };
     },
-    data()
-    {
-        return {
-            pageIndex: this.$store.state.pages.routeIds.PAGE_PORTFOLIO,
-            apiPortfolio: process.env.VUE_APP_API_PATH + '/portfolio?c=12',
-            portfolio: [],
-            loading: false,
-        };
-    },
-    computed: {
-        showBackButton()
-        {
-            return this.$breakpoint.is.smAndUp;
-        }
-    },
     created()
     {
         // console.log('created: calling this.getPortfolio()');
@@ -133,8 +155,8 @@ export default {
         getPortfolio()
         {
             this.loading = true;
-            axios
-                .get(this.apiPortfolio)
+            this.$http
+                .$get(this.apiPortfolio)
                 .then(data =>
                 {
                     this.loading = false;

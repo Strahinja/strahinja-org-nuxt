@@ -1,13 +1,5 @@
 <template>
     <v-app :class="{'sm-and-down': $breakpoint.is.smAndDown}">
-        <div
-            v-show="loading"
-            class="loading">
-            <v-progress-circular
-                :size="50"
-                color="white"
-                indeterminate />
-        </div><!--loaded-->
         <v-navigation-drawer
             v-model="showNav"
             app
@@ -17,7 +9,7 @@
             <v-list>
                 <v-list-item
                     v-if="$breakpoint.is.mdAndDown"
-                    :to="$store.state.pages.list[$store.state.pages.routeIds.PAGE_HOME].url">
+                    :to="homePage.url">
                     <v-list-item-action>
                         <Strahinjaorg class="icon-normal" />
                     </v-list-item-action>
@@ -28,30 +20,24 @@
                 <v-divider v-if="$breakpoint.is.mdAndDown" />
                 <v-list-item
                     v-if="$breakpoint.is.lgAndUp"
-                    :to="$store.state.pages.list[$store.state.pages.routeIds.PAGE_HOME].url">
+                    :to="homePage.url">
                     <v-list-item-action>
                         <v-icon>
-                            {{ $store.state.pages.list[
-                                $store.state.pages.routeIds.PAGE_HOME
-                            ].icon }}
+                            {{ homePage.icon }}
                         </v-icon>
                     </v-list-item-action>
                     <v-list-item-title>
-                        {{ $store.state.pages.list[
-                            $store.state.pages.routeIds.PAGE_HOME
-                        ].title }}
+                        {{ homePage.title }}
                     </v-list-item-title>
                 </v-list-item>
                 <v-list-item
-                    v-for="(page, pageIndex) in
-                        $store.state.pages.list.filter(page =>
-                            page.includedInNavigation)"
-                    :key="pageIndex"
-                    :to="page.url">
+                    v-for="(navigationPage, navigationPageIndex) in navigationPages"
+                    :key="navigationPageIndex"
+                    :to="navigationPage.url">
                     <v-list-item-action>
-                        <v-icon>{{ page.icon }}</v-icon>
+                        <v-icon>{{ navigationPage.icon }}</v-icon>
                     </v-list-item-action>
-                    <v-list-item-title>{{ page.title }}</v-list-item-title>
+                    <v-list-item-title>{{ navigationPage.title }}</v-list-item-title>
                 </v-list-item>
             </v-list>
         </v-navigation-drawer>
@@ -86,7 +72,7 @@
                         <v-btn
                             v-if="showBackButton"
                             icon dark
-                            :to="$store.state.pages.list[$store.state.pages.pageIndex].parentUrl"
+                            :to="parentUrl"
                             class="hidden-sm-and-up text-center align-center">
                             <v-icon dark class="align-center">
                                 mdi-arrow-left
@@ -170,8 +156,7 @@
                     <v-spacer />
                     <client-only>
                         <v-tooltip
-                            v-for="(footerLink, footerLinkIndex) in
-                                $store.state.pages.footerLinks"
+                            v-for="(footerLink, footerLinkIndex) in footerLinks"
                             :key="footerLinkIndex"
                             bottom>
                             <template v-slot:activator="{ on }">
@@ -258,11 +243,106 @@ export default {
     name: 'App',
     middleware ({store})
     {
-        store.commit('pages/setPageIndex', { newIndex:
+        store.commit('pages/setPageId', { newId:
             store.state.pages.routeIds.PAGE_NOTSET });
     },
     components: { Strahinjaorg },
     mixins: [clickaway],
+    data()
+    {
+        return {
+            clipped: true,
+            miniVariant: false,
+            extraProps: {},
+            showNav: false,
+            searchText: '',
+            showSearch: false,
+        };
+    },
+    computed: {
+        page()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['pages/pageById'](
+                    this.$store.state.pages.pageId);
+            }
+            else
+            {
+                return null;
+            }
+        },
+        homePage()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['pages/pageById'](
+                    this.$store.state.pages.routeIds.PAGE_HOME);
+            }
+            else
+            {
+                return null;
+            }
+        },
+        parentUrl()
+        {
+            if (this && this.page)
+            {
+                return this.page.parentUrl;
+            }
+            return '/';
+        },
+        parentName()
+        {
+            if (this && this.page)
+            {
+                return this.page.parentName;
+            }
+            return 'почетну страницу';
+        },
+        navigationPages()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['pages/navigationPages'];
+            }
+            else
+            {
+                return [];
+            }
+        },
+        mainToolbarPages()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['pages/mainToolbarPages'];
+            }
+            else
+            {
+                return [];
+            }
+        },
+        footerLinks()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.state.pages.footerLinks;
+            }
+            else
+            {
+                return [];
+            }
+        },
+        pageLoading()
+        {
+            return this.$store ? this.$store.state.pages.currentPageLoading :
+                true;
+        },
+        showBackButton()
+        {
+            return this.$breakpoint.is.xsOnly && this.$route.path != '/';
+        }
+    },
     head()
     {
         let url = 'http://strahinja.org';
@@ -347,35 +427,13 @@ export default {
             ]
         };
     },
-    data()
-    {
-        return {
-            clipped: true,
-            miniVariant: false,
-            extraProps: {},
-            showNav: false,
-            searchText: '',
-            showSearch: false,
-        };
-    },
-    computed: {
-        loading()
-        {
-            return this.$store ? this.$store.state.pages.currentPageLoading :
-                true;
-        },
-        showBackButton()
-        {
-            return this.$breakpoint.is.xsOnly && this.$route.path != '/';
-        }
-    },
-    /*asyncData({store})
-    {
-        store.state.pages.currentPageLoading = true;
-    },*/
     mounted()
     {
-        this.$store.state.pages.currentPageLoading = false;
+        this.$store.dispatch('pages/stopLoading');
+        this.$nextTick(() =>
+        {
+            this.$nuxt.$loading.finish();
+        });
     },
     methods: {
         searchBtnClick()

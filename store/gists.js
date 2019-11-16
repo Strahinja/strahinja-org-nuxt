@@ -7,49 +7,66 @@ export const state = () => ({
 export const mutations = {
     addGist(state, payload)
     {
-        state.list.push(payload);
+        console.log('store/gists.js.addGist: payload = ', payload);
+        if (!state.list.find(gist => gist.data.id == payload.data.id))
+        {
+            console.log('store/gists.js.addGist: adding');
+            state.list.push(payload);
+            console.log('store/gists.js.addGist: list after: ', state.list);
+        }
+        else
+        {
+            console.log('store/gists.js.addGist: already in list, not adding');
+        }
     }
 };
 
 export const actions = {
-    loadGists({ dispatch, rootGetters })
+    async loadGists({ dispatch, getters })
     {
+        console.log('store/gists.js.loadGists: called');
         for (let gistId of gistIds)
         {
-            if (!rootGetters['gists/gistById'](gistId))
+            if (!getters['gistById'](gistId))
             {
-                dispatch('gists/loadGist', { gistId });
+                await dispatch('loadGist', { gistId });
             }
         }
     },
     async loadGist({ commit }, { gistId })
     {
-        const gist = await this.$axios.get(
-            `https://api.github.com/gists/${gistId}`);
-        if (gist && gist.data)
+        console.log('store/gists.js.loadGist[', gistId, ']: called');
+        try
         {
-            commit('gists/addGist', {
-                gistId: gistId,
-                data: gist.data
-            });
+            console.log('store/gists.js.loadGist: calling http...');
+            const gist = await this.$http.$get(
+                `https://api.github.com/gists/${gistId}`);
+            console.log('store/gists.js.loadGist: gist = ', gist);
+            if (gist)
+            {
+                console.log('store/gists.js.loadGist: gist != null, calling addGist');
+                commit('addGist', {
+                    gistId: gistId,
+                    data: gist
+                });
+                return gist;
+            }
         }
+        catch (e)
+        {
+            console.log('store/gists.js.loadGist: http error: ', e);
+        }
+        finally
+        {
+            console.log('store/gists.js.loadGist: done');
+        }
+        return null;
     }
 };
 
 export const getters = {
     loadedGistsCount: state => state.list.length,
-    gistById: state => filterGistId =>
-    {
-        const filteredGists = state.list.filter(
-            gistToCompare => gistToCompare.gistId == filterGistId);
-        if (filteredGists.length>0)
-        {
-            return filteredGists[0];
-        }
-        else
-        {
-            return null;
-        }
-    }
+    gistById: state => gistId => state.list.find(
+        gist => gist.data.id == gistId),
 };
 

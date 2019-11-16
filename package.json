@@ -13,13 +13,11 @@
   },
   "dependencies": {
     "@mdi/font": "^4.5.95",
-    "@nuxtjs/axios": "^5.3.6",
+    "@nuxt/http": "^0.3.8",
     "@nuxtjs/dotenv": "^1.4.1",
     "@nuxtjs/redirect-module": "^0.3.1",
-    "@nuxtjs/sitemap": "^2.0.0",
+    "@nuxtjs/sitemap": "^2.0.1",
     "@nuxtjs/svg": "^0.1.6",
-    "lodash": "^4.17.15",
-    "lodash.clonedeep": "^4.5.0",
     "markdown-it-abbr": "^1.0.4",
     "markdown-it-anchor": "^5.2.5",
     "markdown-it-attribution": "^0.1.1",
@@ -28,14 +26,11 @@
     "markdown-it-katex": "^2.0.3",
     "markdown-it-kbd": "^2.0.0",
     "markdown-it-toc-done-right": "^4.1.0",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.10.2",
     "nuxt-clipboard2": "^0.2.1",
     "nuxt-jsonld": "^1.4.4",
     "nuxt-svgicon": "^1.2.7",
-    "pure-gist-embed": "tui2tone/gist-embed",
-    "vue-clickaway": "^2.2.2",
-    "vue-embed-gist": "^1.0.2",
-    "vue-meta": "^2.3.1"
+    "vue-clickaway": "^2.2.2"
   },
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
@@ -43,9 +38,9 @@
     "@nuxtjs/eslint-module": "^1.0.0",
     "@nuxtjs/vuetify": "^1.0.0",
     "babel-eslint": "^10.0.1",
-    "eslint": "^6.1.0",
-    "eslint-plugin-nuxt": ">=0.4.2",
-    "frontmatter-markdown-loader": "^2.3.0",
+    "eslint": "^6.6.0",
+    "eslint-plugin-nuxt": ">=0.5.0",
+    "frontmatter-markdown-loader": "2.3.0",
     "markdown-it-prism": "^2.0.3"
   }
 }

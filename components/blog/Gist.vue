@@ -69,19 +69,22 @@ export default {
         },
         formatGistLinesAsHtml(lines)
         {
-            let linesArray = lines.split('\n');
             let result = '';
-            for (let line in linesArray)
+            if (lines && lines.length>0)
             {
-                result += (this.highlightedLine==parseInt(line)+1 ?
-                    '<tr class="highlighted-line">\n' :
-                    '<tr>\n') +
+                let linesArray = lines.split('\n');
+                for (let line in linesArray)
+                {
+                    result += (this.highlightedLine==parseInt(line)+1 ?
+                        '<tr class="highlighted-line">\n' :
+                        '<tr>\n') +
                     '<td class="blob-num js-line-number" data-line-number="' +
                     (parseInt(line)+1).toString() + '"></td>\n' +
                     '<td class="blob-code blob-code-inner js-file-line">' +
                     this.escapeHtml(linesArray[line]) +
                     '</td>\n' +
                     '</tr>\n';
+                }
             }
             return result;
         }

@@ -37,19 +37,11 @@
             <v-col
                 :cols="12"
                 :sm="10">
-                <h3 class="display-1">
-                    Чланци са ознаком
-                    <span class="highlight">#{{ tagId }}</span>
-                </h3>
-            </v-col>
-            <v-col
-                :cols="12"
-                :sm="10">
                 <section>
-                    <pre>
-                    posts.length = {{ posts ? posts.length : '(null)' }}<br>
-                    posts = {{ posts ? posts : '(null)' }}
-                    </pre>
+                    <h3 class="display-1">
+                        Чланци са ознаком
+                        <span class="highlight">#{{ tagId }}</span>
+                    </h3>
                     <BlogPost
                         v-for="(post, postIndex) in posts"
                         :key="postIndex"
@@ -73,20 +65,32 @@ import BlogPost from '~/components/BlogPost.vue';
 export default {
     name: 'BlogByTag',
     components: { BlogPost },
-    middleware ({store})
+    async middleware ({store})
     {
-        store.dispatch('gists/loadGists');
-        store.dispatch('blog/loadPosts');
-        store.commit('pages/setPageIndex', { newIndex:
+        await store.dispatch('gists/loadGists');
+        await store.dispatch('posts/loadPosts');
+        store.commit('pages/setPageId', { newId:
             store.state.pages.routeIds.PAGE_BLOG_TAG_INDEX });
     },
     computed:
     {
+        page()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['pages/pageById'](
+                    this.$store.state.pages.pageId);
+            }
+            else
+            {
+                return null;
+            }
+        },
         posts()
         {
             if (this && this.$store)
             {
-                return this.$store.getters['blog/postsByTag'](this.$route.params.id);
+                return this.$store.getters['posts/postsByTag'](this.$route.params.id);
             }
             return [];
         },
@@ -100,37 +104,40 @@ export default {
         },
         parentUrl()
         {
-            if (this && this.$store)
+            if (this && this.page)
             {
-                return this.$store.state.pages.list[this.$store.state.pages.pageIndex].parentUrl;
+                return this.page.parentUrl;
             }
             return '/';
         },
         parentName()
         {
-            if (this && this.$store)
+            if (this && this.page)
             {
-                return this.$store.state.pages.list[this.$store.state.pages.pageIndex].parentName;
+                return this.page.parentName;
             }
             return 'почетну страницу';
-        }
+        },
+        showBackButton()
+        {
+            return this.$breakpoint.is.smAndUp;
+        },
     },
-    created()
+    async fetch({ store })
     {
-        this.$store.dispatch('gists/loadGists');
-        this.$store.dispatch('blog/loadPosts');
+        await store.dispatch('gists/loadGists');
+        await store.dispatch('posts/loadPosts');
     },
     head()
     {
-        let idx = this.$store.state.pages.pageIndex;
         let globals = {
-            title: this.$store.state.pages.list[idx].title + ` #${this.tagId}`,
-            description: this.$store.state.pages.list[idx].text + ` #${this.tagId}`,
+            title: this.page.title + ` #${this.tagId}`,
+            description: this.page.text + ` #${this.tagId}`,
             url: 'http://strahinja.org'
-                + this.$store.state.pages.list[idx].url.path
+                + this.page.path
                 + '/' + this.tagId,
-            image: this.$store.state.pages.list[idx].image,
-            imageAlt: this.$store.state.pages.list[idx].imageAlt,
+            image: this.page.image,
+            imageAlt: this.page.imageAlt,
         };
         return {
             meta: [

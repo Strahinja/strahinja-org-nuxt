@@ -1,34 +1,37 @@
 export const state = () => ({
     routeIds: {
-        PAGE_NOTSET: 0,
-        PAGE_NOINDEX: 0,
-        PAGE_HOME: 0,
-        PAGE_PROFILE: 1,
-        PAGE_PORTFOLIO: 2,
-        PAGE_LINKS: 3,
-        PAGE_BLOG_INDEX: 4,
-        PAGE_BLOG_POST: 5,
-        PAGE_BLOG_TAG_INDEX: 6,
+        PAGE_NOTSET: 'home',
+        PAGE_NOINDEX: 'home',
+        PAGE_HOME: 'home',
+        PAGE_PROFILE: 'profile',
+        PAGE_PORTFOLIO: 'portfolio',
+        PAGE_LINKS: 'links',
+        PAGE_BLOG_INDEX: 'blog-index',
+        PAGE_BLOG_POST: 'blog-post',
+        PAGE_BLOG_TAG_INDEX: 'blog-tag-index',
+        PAGE_SEARCH_INDEX: 'search-index',
     },
     currentPageLoading: true,
     globalMeta: {
     },
     list: [
         {
+            id: 'home',
             title: 'Почетна',
             text: '',
             colorClass: 'md-primary',
             theme: '',
             icon: 'mdi-home',
             image: 'http://strahinja.org/img/preview-home-strahinja-org.png',
+            imageAlt: 'Стилизовани иницијали СР са текстом //strahinja.org',
             url: { path: '/' },
             parentUrl: '/',
             parentName: 'почетну',
             includedInNavigation: false,
             includedInMainToolbar: false,
-            imageUrl: '/static/img/pexels-photo-1179156.jpeg'
         },
         {
+            id: 'profile',
             title: 'Профил',
             text: 'Сажетак онога чим сам се до сада бавио',
             colorClass: 'light-green lighten-3',
@@ -42,9 +45,9 @@ export const state = () => ({
             parentName: 'почетну',
             includedInNavigation: true,
             includedInMainToolbar: true,
-            imageUrl: '/static/img/pexels-photo-375882.jpeg'
         },
         {
+            id: 'portfolio',
             title: 'Портфолио',
             text: 'Колекција мојих радова',
             colorClass: 'orange lighten-3',
@@ -58,9 +61,9 @@ export const state = () => ({
             parentName: 'почетну',
             includedInNavigation: true,
             includedInMainToolbar: true,
-            imageUrl: '/static/img/pexels-photo-65543.jpeg'
         },
         {
+            id: 'links',
             title: 'Везе',
             text: 'Мени интересантни сајтови',
             colorClass: 'light-blue lighten-4',
@@ -74,9 +77,9 @@ export const state = () => ({
             parentName: 'почетну',
             includedInNavigation: true,
             includedInMainToolbar: false,
-            imageUrl: '/static/img/pexels-photo-1887836.jpeg'
         },
         {
+            id: 'blog-index',
             title: 'Блог',
             text: 'Мој веб дневник',
             colorClass: '',
@@ -90,9 +93,9 @@ export const state = () => ({
             parentName: 'почетну',
             includedInNavigation: true,
             includedInMainToolbar: true,
-            imageUrl: '',
         },
         {
+            id: 'blog-post',
             title: 'Чланак блога',
             text: 'Страница чланка блога',
             colorClass: '',
@@ -106,9 +109,9 @@ export const state = () => ({
             parentName: 'списак чланака',
             includedInNavigation: false,
             includedInMainToolbar: false,
-            imageUrl: ''
         },
         {
+            id: 'blog-tag-index',
             title: 'Чланци са ознаком',
             text: 'Чланци са задатом ознаком',
             colorClass: '',
@@ -122,10 +125,25 @@ export const state = () => ({
             parentName: 'списак чланака',
             includedInNavigation: false,
             includedInMainToolbar: false,
-            imageUrl: ''
+        },
+        {
+            id: 'search-index',
+            title: 'Резултати претраге',
+            text: 'Резултати претраге',
+            colorClass: '',
+            theme: '',
+            icon: 'mdi-fountain-pen-tip',
+            image: 'http://strahinja.org/img/preview-search-strahinja-org.png',
+            imageAlt: 'Цртеж лупе са умањеним логом са иницијалима'
+                + ' СР и текстом //strahinja.org',
+            url: { path: '/search' },
+            parentUrl: '/',
+            parentName: 'почетну',
+            includedInNavigation: false,
+            includedInMainToolbar: false,
         }
     ],
-    pageIndex: 0,
+    pageId: 'home',
     footerLinks: [
         {
             url: {
@@ -172,9 +190,49 @@ export const state = () => ({
     ],
 });
 
-export const mutations = {
-    setPageIndex(state, payload)
+export const getters = {
+    pageById: state => pageId =>
     {
-        state.pageIndex = payload.newIndex;
+        const filteredPages = state.list.filter(
+            page =>
+            {
+                return page.id == pageId;
+            }
+        );
+        if (filteredPages.length>0)
+        {
+            return filteredPages[0];
+        }
+        else
+        {
+            return null;
+        }
+    },
+    navigationPages: state => state.list.filter(
+        page => page.includedInNavigation),
+    mainToolbarPages: state => state.list.filter(
+        page => page.includedInMainToolbar)
+};
+
+export const mutations = {
+    setPageId(state, payload)
+    {
+        state.pageId = payload.newId;
+    },
+    setCurrentPageLoading(state, payload)
+    {
+        state.currentPageLoading = payload;
     }
 };
+
+export const actions = {
+    startLoading({ commit })
+    {
+        commit('setCurrentPageLoading', true);
+    },
+    stopLoading({ commit })
+    {
+        commit('setCurrentPageLoading', false);
+    }
+};
+
