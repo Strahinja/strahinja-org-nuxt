@@ -1,5 +1,8 @@
 @import '~/assets/css/gist-embed.css'
 
+.gist .gist-file
+    border: none
+
 .gist .blob-code,
 .gist .blob-code-inner,
 .gist .gist-meta,
@@ -43,4 +46,13 @@
 .gist .highlighted-line>*
     background-color: $code-tag-color !important
     color: $code-background-color !important
+
+.gist-raw
+    float: right
+
+.gist-raw.xs
+    display: block
+    float: none !important
+    padding-bottom: 0.5em
+    text-align: right
 

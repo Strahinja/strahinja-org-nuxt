@@ -26,8 +26,9 @@ export const mutations = {
 };
 
 export const actions = {
-    async loadPosts({ commit, getters, rootGetters })
+    async loadPosts({ commit, dispatch, getters, rootGetters })
     {
+        await dispatch('gists/loadGists', null, { root: true });
         if (getters['postCount']==0)
         {
             const resolve = await require.context('~/static/blog', true, /\.md$/);

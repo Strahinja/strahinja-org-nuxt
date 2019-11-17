@@ -65,9 +65,9 @@ import BlogPost from '~/components/BlogPost.vue';
 export default {
     name: 'BlogByTag',
     components: { BlogPost },
+    watchQuery: true,
     async middleware ({store})
     {
-        await store.dispatch('gists/loadGists');
         await store.dispatch('posts/loadPosts');
         store.commit('pages/setPageId', { newId:
             store.state.pages.routeIds.PAGE_BLOG_TAG_INDEX });
@@ -123,10 +123,13 @@ export default {
             return this.$breakpoint.is.smAndUp;
         },
     },
-    async fetch({ store })
+    fetch({ store })
     {
-        await store.dispatch('gists/loadGists');
-        await store.dispatch('posts/loadPosts');
+        return store.dispatch('posts/loadPosts');
+    },
+    async created()
+    {
+        await this.$store.dispatch('posts/loadPosts');
     },
     head()
     {

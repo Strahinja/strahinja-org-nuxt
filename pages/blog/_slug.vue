@@ -57,7 +57,6 @@ export default {
     components: { BlogPost },
     async middleware ({store})
     {
-        await store.dispatch('gists/loadGists');
         await store.dispatch('posts/loadPosts');
         store.commit('pages/setPageId', { newId:
             store.state.pages.routeIds.PAGE_BLOG_POST });
@@ -113,49 +112,17 @@ export default {
             return this.$breakpoint.is.smAndUp;
         },
     },
-    async fetch({ store })
+    fetch({ store })
     {
-        await store.dispatch('gists/loadGists');
-        await store.dispatch('posts/loadPosts');
+        return store.dispatch('posts/loadPosts');
+    },
+    async created()
+    {
+        await this.$store.dispatch('posts/loadPosts');
     },
     head()
     {
-        let globals = {
-            title: this.page.title,
-            description: this.page.text,
-            url: 'http://strahinja.org'
-                + this.page.path,
-            image: this.page.image,
-            imageAlt: this.page.imageAlt,
-        };
-        return {
-            meta: [
-                { hid: 'og:url', name: 'og:url', property: 'og:url', content: globals.url },
-                { hid: 'og:title', name: 'og:title', property: 'og:title', content: globals.title },
-                { hid: 'og:description', name: 'og:description', property: 'og:description', content: globals.description },
-                { hid: 'og:image', name: 'og:image', property: 'og:image', content: globals.image},
-                { hid: 'og:image:alt', name: 'og:image:alt', property: 'og:image:alt', content: globals.imageAlt },
-                { hid: 'twitter:url', name: 'twitter:url', content: globals.url },
-                { hid: 'twitter:title', name: 'twitter:title', content: globals.title },
-                { hid: 'twitter:description', name: 'twitter:description', content: globals.description },
-                { hid: 'twitter:image', name: 'twitter:image', content:
-                    globals.image},
-                { hid: 'name', name: 'name', itemprop: 'name', content: globals.title },
-                { hid: 'description', name: 'description', itemprop: 'description', content: globals.description },
-                { hid: 'image', name: 'image', itemprop: 'image', content: globals.image},
-            ],
-            link: [
-                {
-                    rel: 'stylesheet',
-                    href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css'
-                },
-                { hid: 'canonical', rel: 'canonical', href: globals.url }
-            ],
-            title: globals.title,
-            description: globals.description,
-        };
-
-        /*const fm = this.post.frontmatter;
+        const fm = this.post.frontmatter;
         let globals = {
             title: fm && fm.title ? fm.title : 'Ненасловљени чланак',
             description: fm && fm.description ? fm.description : 'Чланак без описа',
@@ -206,19 +173,11 @@ export default {
             ],//.concat(tagsMeta),
             title: globals.title,
             description: globals.description,
-        };*/
+        };
     },
     async jsonld()
     {
-        let globals = {
-            title: this.page.title,
-            description: this.page.text,
-            url: 'http://strahinja.org'
-                + this.page.path,
-            image: this.page.image,
-            imageAlt: this.page.imageAlt,
-        };
-        /*const fm = this.post.frontmatter;
+        const fm = this.post.frontmatter;
         let globals = {
             title: fm && fm.title ? fm.title : 'Ненасловљени чланак',
             description: fm && fm.description ? fm.description :
@@ -233,7 +192,6 @@ export default {
             imageAlt: 'Цртеж врха пенкала са умањеним логом са иницијалима'
                 + ' СР и текстом //strahinja.org',
         };
-        */
         return {
             '@context': 'http://schema.org',
             '@type': 'Article',

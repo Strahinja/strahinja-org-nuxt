@@ -284,46 +284,43 @@ export default {
                         offset +
                         (byCat ? '&sb=cat_id' : '')
                 )
-                .then(data =>
+                .then(res =>
                 {
                     if (callbackThen) callbackThen();
-                    if (data.data)
+                    if (res.data)
                     {
-                        if (data.data.data)
+                        if (res.code === 200)
                         {
-                            if (data.data.code === 200)
+                            this.numPages = Math.ceil(
+                                res.num_rows / this.itemsPerPage
+                            );
+                            if (byCat)
                             {
-                                this.numPages = Math.ceil(
-                                    data.data.num_rows / this.itemsPerPage
+                                this.linksByCategories = res.data;
+                                this.arrangeLinksByCat();
+                                this.nonemptyCategories = this.categories.filter(
+                                    (obj, catIndex) =>
+                                    {
+                                        return (
+                                            this.linksByCat[catIndex]
+                                                .length > 0
+                                        );
+                                    }
                                 );
-                                if (byCat)
-                                {
-                                    this.linksByCategories = data.data.data;
-                                    this.arrangeLinksByCat();
-                                    this.nonemptyCategories = this.categories.filter(
-                                        (obj, catIndex) =>
-                                        {
-                                            return (
-                                                this.linksByCat[catIndex]
-                                                    .length > 0
-                                            );
-                                        }
-                                    );
-                                    this.linksByCat = this.linksByCat.filter(
-                                        cat =>
-                                        {
-                                            return cat.length > 0;
-                                        }
-                                    );
-                                }
-                                else
-                                {
-                                    this.links = data.data.data;
-                                }
-                                /*console.log('finally:');
+                                this.linksByCat = this.linksByCat.filter(
+                                    cat =>
+                                    {
+                                        return cat.length > 0;
+                                    }
+                                );
+                            }
+                            else
+                            {
+                                this.links = res.data;
+                            }
+                            /*console.log('finally:');
                                 console.log('categories:', this.categories);
                                 console.log('links:', this.links);*/
-                            }
                         }
                     }
                 })
@@ -339,17 +336,15 @@ export default {
         {
             this.$http
                 .$get(this.apiCategories)
-                .then(data =>
+                .then(res =>
                 {
-                    if (data.data)
+                    if (res.data)
                     {
-                        if (data.data.data)
+
+                        if (res.code === 200)
                         {
-                            if (data.data.code === 200)
-                            {
-                                this.categories = data.data.data;
-                                if (callbackThen) callbackThen();
-                            }
+                            this.categories = res.data;
+                            if (callbackThen) callbackThen();
                         }
                     }
                 })

@@ -21,7 +21,12 @@
                 </div><!--file-box-->
             </div><!--gist-data-->
             <div class="gist-meta">
-                <a :href="gistRawUrl" target="_blank" style="float: right">сиров преглед</a>
+                <a
+                    :href="gistRawUrl"
+                    target="_blank"
+                    class="gist-raw"
+                    :class="{ 'xs': $breakpoint.is.xsOnly }">сиров преглед</a>
+
                 <a href="#">{{ filename }}</a> хостује са &#10084; <a
                     href="http://github.com">GitHub</a>
             </div><!--gist-meta-->

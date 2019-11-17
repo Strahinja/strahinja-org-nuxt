@@ -157,16 +157,16 @@ export default {
             this.loading = true;
             this.$http
                 .$get(this.apiPortfolio)
-                .then(data =>
+                .then(res =>
                 {
                     this.loading = false;
-                    if (data.data)
+                    if (res.data)
                     {
-                        if (data.data.data)
+                        if (res.data)
                         {
-                            if (data.data.code === 200)
+                            if (res.code === 200)
                             {
-                                this.portfolio = data.data.data;
+                                this.portfolio = res.data;
                             }
                         }
                     }

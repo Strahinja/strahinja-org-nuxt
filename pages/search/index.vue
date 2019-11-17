@@ -67,7 +67,6 @@ export default {
     components: { BlogPost },
     async middleware ({store})
     {
-        await store.dispatch('gists/loadGists');
         await store.dispatch('posts/loadPosts');
         store.commit('pages/setPageId', { newId:
             store.state.pages.routeIds.PAGE_SEARCH_INDEX });
@@ -126,7 +125,6 @@ export default {
     },
     async fetch({ store })
     {
-        await store.dispatch('gists/loadGists');
         await store.dispatch('posts/loadPosts');
     },
     head()
@@ -142,6 +140,7 @@ export default {
         };
         return {
             meta: [
+                { name: 'robots', content: 'noindex' },
                 { hid: 'og:url', name: 'og:url', property: 'og:url', content: globals.url },
                 { hid: 'og:title', name: 'og:title', property: 'og:title', content: globals.title },
                 { hid: 'og:description', name: 'og:description', property: 'og:description', content: globals.description },

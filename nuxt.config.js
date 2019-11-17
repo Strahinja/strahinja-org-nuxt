@@ -108,7 +108,8 @@ export default {
     sitemap: {
         hostname: 'http://strahinja.org',
         exclude: [
-            '/noindex'
+            '/noindex',
+            '/search'
         ],
         routes: dynamicMarkdownRoutes
     },
