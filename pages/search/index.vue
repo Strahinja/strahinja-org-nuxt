@@ -37,11 +37,45 @@
             <v-col
                 :cols="12"
                 :sm="10">
-                <section v-if="q && q.length>0">
-                    <h3 class="display-1">
+                <section>
+                    <h3 v-if="q && q.length>0" class="display-1">
                         Претрага:
                         <span class="highlight">{{ q }}</span>
                     </h3>
+                    <h3 v-else class="display-1">
+                        Претрага
+                    </h3>
+                    <v-form
+                        ref="pageSearchForm"
+                        v-model="searchFormValid"
+                        @submit="onSearchFormSubmit($event)">
+                        <v-container>
+                            <v-row>
+                                <v-col class="pa-0">
+                                    <!--eslint-disable-next-line vue/html-self-closing-->
+                                    <v-text-field
+                                        ref="searchFormSearchTextField"
+                                        v-model="searchText"
+                                        name="q"
+                                        :value="q"
+                                        :rules="searchTextRules"
+                                        :counter="maxSearchTextLength"
+                                        label="Тражени текст"
+                                        text
+                                        autofocus
+                                        color="black--text"
+                                        outlined
+                                        hover
+                                        prepend-inner-icon="mdi-magnify"
+                                        solo
+                                        clearable
+                                        required
+                                        @input="onSearchTextInput($event)">
+                                    </v-text-field>
+                                </v-col>
+                            </v-row>
+                        </v-container>
+                    </v-form>
                     <BlogPost
                         v-for="(post, postIndex) in posts"
                         :key="postIndex"
@@ -53,6 +87,7 @@
                         :extra-component-params="post.extraComponentParams"
                         :highlight="q"
                         :standalone="false" />
+                    <no-results v-if="posts.length==0" />
                 </section>
             </v-col>
         </v-row>
@@ -61,15 +96,32 @@
 
 <script>
 import BlogPost from '~/components/BlogPost.vue';
+import NoResults from '~/components/NoResults.vue';
 
 export default {
     name: 'SearchIndex',
-    components: { BlogPost },
+    components: { BlogPost, NoResults },
+    watchQuery: true,
     async middleware ({store})
     {
         await store.dispatch('posts/loadPosts');
         store.commit('pages/setPageId', { newId:
             store.state.pages.routeIds.PAGE_SEARCH_INDEX });
+    },
+    data()
+    {
+        return {
+            maxSearchTextLength: 255,
+            searchSubmitTimeout: 1000,
+            submitTimeout: null,
+            searchFormValid: false,
+            searchText: this.q,
+            searchTextRules: [
+                v => !!v && v.length>0 || 'Мора се задати текст',
+                v => !!v && v.length<this.maxSearchTextLength ||
+                    `Текст мора бити мањи од ${this.maxSearchTextLength} знакова`,
+            ],
+        };
     },
     computed:
     {
@@ -89,14 +141,13 @@ export default {
         {
             if (this && this.$store)
             {
-                return this.$store.getters['posts/postsByTag'](
-                    this.$route.query.q);
+                return this.$store.getters['posts/postsByTag'](this.q);
             }
             return [];
         },
         q()
         {
-            if (this && this.$route)
+            if (this && this.$route && this.$route.query.q)
             {
                 return this.$route.query.q;
             }
@@ -126,6 +177,42 @@ export default {
     async fetch({ store })
     {
         await store.dispatch('posts/loadPosts');
+    },
+    created()
+    {
+        this.searchText = this.q;
+    },
+    mounted()
+    {
+        this.$refs.searchFormSearchTextField.$el.focus();
+    },
+    methods: {
+        onSearchFormSubmit(event)
+        {
+            console.log('onSearchFormSubmit(', event, ')');
+        },
+        onSearchTextInput(event)
+        {
+            console.log('onSearchTextInput(', event, ')');
+            if (this.submitTimeout)
+            {
+                clearTimeout(this.submitTimeout);
+                this.submitTimeout = null;
+            }
+            if (!this.$refs.pageSearchForm.validate())
+            {
+                return;
+            }
+            if (this.searchText.length>0)
+            {
+                this.submitTimeout = setTimeout(() =>
+                {
+                    clearTimeout(this.submitTimeout);
+                    this.submitTimeout = null;
+                    this.$refs.pageSearchForm.$el.submit();
+                }, this.searchSubmitTimeout);
+            }
+        }
     },
     head()
     {

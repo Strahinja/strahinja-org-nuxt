@@ -94,18 +94,27 @@
                                     'sm-and-down': $breakpoint.is.smAndDown
                                 }"
                                 class="my-input-container">
-                                <v-text-field
-                                    ref="searchText"
-                                    v-model="searchText"
-                                    v-on-clickaway="searchClickaway"
-                                    label="Претрага"
-                                    text
-                                    color="black--text"
-                                    solo-inverted
-                                    hover
-                                    clearable
-                                    prepend-inner-icon="mdi-magnify"
-                                    @blur="searchBlur()" />
+                                <v-form
+                                    ref="appbarSearchForm"
+                                    v-model="appbarSearchFormValid"
+                                    @submit.prevent="onAppbarSearchFormSubmit($event)">
+                                    <v-text-field
+                                        ref="appbarSearchText"
+                                        v-model="appbarSearchText"
+                                        v-on-clickaway="searchClickaway"
+                                        name="q"
+                                        label="Претрага"
+                                        text
+                                        color="black--text"
+                                        solo-inverted
+                                        :rules="appbarSearchTextRules"
+                                        hover
+                                        :counter="maxSearchTextLength"
+                                        clearable
+                                        dense
+                                        prepend-inner-icon="mdi-magnify"
+                                        @blur="searchBlur()" />
+                                </v-form>
                             </div>
                         </v-expand-x-transition>
                     </v-col>
@@ -120,11 +129,11 @@
                                 <v-tooltip bottom>
                                     <template v-slot:activator="{ on }">
                                         <v-btn
-                                            ref="searchBtn"
+                                            ref="appbarSearchBtn"
                                             icon
                                             v-on="on"
                                             @click="searchBtnClick()">
-                                            <v-icon ref="searchIcon">
+                                            <v-icon ref="appbarSearchIcon">
                                                 mdi-magnify
                                             </v-icon>
                                         </v-btn>
@@ -255,8 +264,15 @@ export default {
             miniVariant: false,
             extraProps: {},
             showNav: false,
-            searchText: '',
+            appbarSearchText: '',
             showSearch: false,
+            maxSearchTextLength: 255,
+            appbarSearchFormValid: false,
+            appbarSearchTextRules: [
+                //v => !!v || 'Мора се задати текст',
+                v => v.length<this.maxSearchTextLength ||
+                    `Текст мора бити мањи од ${this.maxSearchTextLength} знакова`,
+            ],
         };
     },
     computed: {
@@ -443,13 +459,24 @@ export default {
                 this.showSearch = true;
                 this.$nextTick(() =>
                 {
-                    this.$refs.searchText.focus();
+                    this.$refs.appbarSearchText.focus();
                 });
+            }
+        },
+        onAppbarSearchFormSubmit()
+        {
+            if (this.appbarSearchText.length>0)
+            {
+                let searchText = this.appbarSearchText;
+                this.showSearch = false;
+                this.appbarSearchText = '';
+                this.$router.push({ name: 'search',
+                    query: { q: searchText } });
             }
         },
         searchBlur()
         {
-            if (!this.searchText || this.searchText.length === 0)
+            if (!this.appbarSearchText || this.appbarSearchText.length === 0)
             {
                 this.showSearch = false;
             }
@@ -475,15 +502,15 @@ export default {
         {
             let t = event && event.target ? event.target : null;
             let isAChild =
-                this.nodeListIndexOf(this.$refs.searchBtn.$el.childNodes, t) !==
+                this.nodeListIndexOf(this.$refs.appbarSearchBtn.$el.childNodes, t) !==
                 -1;
             if (
                 t &&
-                t !== this.$refs.searchBtn.$el &&
-                t !== this.$refs.searchIcon.$el &&
+                t !== this.$refs.appbarSearchBtn.$el &&
+                t !== this.$refs.appbarSearchIcon.$el &&
                 !isAChild &&
                 this.showSearch &&
-                (!this.searchText || this.searchText.length === 0)
+                (!this.appbarSearchText || this.appbarSearchText.length === 0)
             )
             {
                 this.showSearch = false;
@@ -499,10 +526,10 @@ export default {
 
 .my-input-container
     height: 100%
-    padding-top: 8px
+    padding-top: $my-input-container-padding-top
 
 .my-input-container.sm-and-down
-    padding-top: 12px
+    padding-top: $my-input-container-padding-top-sm-and-down
 
 .my-input-container.sm-and-down .v-input__slot
     min-height: 0

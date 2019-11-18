@@ -128,8 +128,8 @@ export const state = () => ({
         },
         {
             id: 'search-index',
-            title: 'Резултати претраге',
-            text: 'Резултати претраге',
+            title: 'Претрага',
+            text: 'Резултати претраге са задатим текстом',
             colorClass: '',
             theme: '',
             icon: 'mdi-fountain-pen-tip',
