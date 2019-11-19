@@ -25,7 +25,7 @@
     content: none
 
 .github-heading
-    margin-left: -1em
+    margin-left: -.7em
     position: absolute
     opacity: 0
     padding-right: 1em
@@ -33,4 +33,20 @@
 h2:hover .github-heading
     opacity: 0.7
     transition: all .3s ease
+
+.v-application .markdown-body blockquote
+    padding-left: 1.2rem
+    position: relative
+    padding-top: 0.3rem
+    padding-bottom: 0.3rem
+
+.v-application .markdown-body blockquote::before
+    content: ' '
+    display: table
+    height: 100%
+    background: #ddd
+    width: .5rem
+    position: absolute
+    left: 0
+    top: 0
 

@@ -48,7 +48,7 @@
                     <v-form
                         ref="pageSearchForm"
                         v-model="searchFormValid"
-                        @submit="onSearchFormSubmit($event)">
+                        @submit.prevent="onSearchFormSubmit()">
                         <v-container>
                             <v-row>
                                 <v-col class="pa-0">
@@ -70,15 +70,15 @@
                                         solo
                                         clearable
                                         required
-                                        @input="onSearchTextInput($event)">
+                                        @input="onSearchTextInput()">
                                     </v-text-field>
                                 </v-col>
                             </v-row>
                         </v-container>
                     </v-form>
                     <BlogPost
-                        v-for="(post, postIndex) in posts"
-                        :key="postIndex"
+                        v-for="post in posts"
+                        :key="post.name + q"
                         :folded="true"
                         :frontmatter="post.frontmatter"
                         :render-func="post.renderFunc"
@@ -187,31 +187,39 @@ export default {
         this.$refs.searchFormSearchTextField.$el.focus();
     },
     methods: {
-        onSearchFormSubmit(event)
+        clearSubmitTimeout()
         {
-            console.log('onSearchFormSubmit(', event, ')');
-        },
-        onSearchTextInput(event)
-        {
-            console.log('onSearchTextInput(', event, ')');
             if (this.submitTimeout)
             {
                 clearTimeout(this.submitTimeout);
                 this.submitTimeout = null;
             }
+        },
+        submitSearch()
+        {
+            this.$router.push({ name: 'search', query: { q: this.searchText } });
+        },
+        onSearchFormSubmit()
+        {
+            this.clearSubmitTimeout();
             if (!this.$refs.pageSearchForm.validate())
             {
                 return;
             }
-            if (this.searchText.length>0)
+            this.submitSearch();
+        },
+        onSearchTextInput()
+        {
+            this.clearSubmitTimeout();
+            if (!this.$refs.pageSearchForm.validate())
             {
-                this.submitTimeout = setTimeout(() =>
-                {
-                    clearTimeout(this.submitTimeout);
-                    this.submitTimeout = null;
-                    this.$refs.pageSearchForm.$el.submit();
-                }, this.searchSubmitTimeout);
+                return;
             }
+            this.submitTimeout = setTimeout(() =>
+            {
+                this.clearSubmitTimeout();
+                this.submitSearch();
+            }, this.searchSubmitTimeout);
         }
     },
     head()

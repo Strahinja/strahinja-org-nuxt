@@ -88,9 +88,8 @@
                     <v-col cols="auto" class="pa-0">
                         <v-expand-x-transition>
                             <div
+                                v-show="showSearch"
                                 :class="{
-                                    'd-flex': showSearch,
-                                    'd-none': !showSearch,
                                     'sm-and-down': $breakpoint.is.smAndDown
                                 }"
                                 class="my-input-container">
@@ -118,31 +117,31 @@
                             </div>
                         </v-expand-x-transition>
                     </v-col>
-                    <div
-                        :class="{
-                            'd-flex vertical-center': !showSearch,
-                            'd-none': showSearch
-                        }">
-                        <v-spacer />
-                        <div class="vertical-center-slot">
-                            <client-only>
-                                <v-tooltip bottom>
-                                    <template v-slot:activator="{ on }">
-                                        <v-btn
-                                            ref="appbarSearchBtn"
-                                            icon
-                                            v-on="on"
-                                            @click="searchBtnClick()">
-                                            <v-icon ref="appbarSearchIcon">
-                                                mdi-magnify
-                                            </v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <span>Претрага</span>
-                                </v-tooltip>
-                            </client-only>
-                        </div><!--vertical-center-slot-->
-                    </div>
+                    <v-fade-transition :hide-on-leave="true">
+                        <div
+                            v-show="!showSearch"
+                            class="vertical-center">
+                            <v-spacer />
+                            <div class="vertical-center-slot">
+                                <client-only>
+                                    <v-tooltip bottom>
+                                        <template v-slot:activator="{ on }">
+                                            <v-btn
+                                                ref="appbarSearchBtn"
+                                                icon
+                                                v-on="on"
+                                                @click="searchBtnClick()">
+                                                <v-icon ref="appbarSearchIcon">
+                                                    mdi-magnify
+                                                </v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <span>Претрага</span>
+                                    </v-tooltip>
+                                </client-only>
+                            </div><!--vertical-center-slot-->
+                        </div>
+                    </v-fade-transition>
                 </client-only>
             </v-toolbar-items>
         </v-app-bar>

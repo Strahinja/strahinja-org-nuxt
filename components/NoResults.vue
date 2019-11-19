@@ -21,7 +21,7 @@ export default {
     name: 'NoResults',
     props: {
         message: { type: String, default: 'Ништа није пронађено', required: false },
-        image: { type: String, default: '/img/no-results-generic.svg', required: false },
+        image: { type: String, default: '~static/img/no-results-generic.svg', required: false },
     },
 };
 </script>

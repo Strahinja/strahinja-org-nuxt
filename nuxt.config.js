@@ -7,6 +7,7 @@ import markdownIt from 'markdown-it';
 import markdownItAbbr from 'markdown-it-abbr';
 import markdownItAnchor from 'markdown-it-anchor';
 import markdownItAttribution from 'markdown-it-attribution';
+import markdownItEmoji from 'markdown-it-emoji';
 import markdownItFootnote from 'markdown-it-footnote';
 import markdownItGithubHeadings from 'markdown-it-github-headings';
 import markdownItKatex from 'markdown-it-katex';
@@ -175,6 +176,7 @@ export default {
                         .use(markdownItAbbr)
                         .use(markdownItAnchor)
                         .use(markdownItAttribution)
+                        .use(markdownItEmoji)
                         .use(markdownItFootnote)
                         .use(markdownItGithubHeadings, {
                             className: 'github-heading',
