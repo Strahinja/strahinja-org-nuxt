@@ -39,14 +39,18 @@ h2:hover .github-heading
     position: relative
     padding-top: 0.3rem
     padding-bottom: 0.3rem
+    background-color: $blockquote-background-color
 
 .v-application .markdown-body blockquote::before
     content: ' '
     display: table
     height: 100%
-    background: #ddd
+    background-color: $blockquote-bar-color
     width: .5rem
     position: absolute
     left: 0
     top: 0
+
+.v-application markdown-body blockquote > p
+    margin-bottom: 0
 

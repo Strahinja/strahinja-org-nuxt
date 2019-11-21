@@ -1,6 +1,6 @@
 <template>
     <article
-        class="mb-10"
+        class="blog-post mb-10"
         :class="{'folded': folded,
                  'standalone': standalone}">
         <header>
@@ -164,43 +164,43 @@ export default {
 @import '~/assets/sass/code.sass'
 @import '~/assets/sass/markdown.sass'
 
-article > header a
+article.blog-post > header a
     color: $permalink-color !important
     text-decoration: none
 
-article > .container
+article.blog-post > .container
     height: auto
     transition: all .3s ease
 
-article.folded > .container
+article.blog-post.folded > .container
     position: relative
     max-height: 15em
     height: 15em
     overflow: hidden
     transition: all .3s ease
 
-article > .container .row
+article.blog-post > .container .row
     opacity: 1
     transition: all .3s ease
 
-article.folded > .container .row
+article.blog-post.folded > .container .row
     opacity: .5
 
-article .folded-overlay
+article.blog-post .folded-overlay
     position: relative
     text-align: center
 
-article.folded .folded-overlay
+article.blog-post.folded .folded-overlay
     position: absolute
     top: 0
     bottom: 0
     left: 0
     right: 0
 
-article.standalone .folded-overlay
+article.blog-post.standalone .folded-overlay
     display: none
 
-article.folded .folded-overlay .folded-overlay-inner
+article.blog-post.folded .folded-overlay .folded-overlay-inner
     display: block
     position: absolute
     cursor: pointer
@@ -210,13 +210,13 @@ article.folded .folded-overlay .folded-overlay-inner
     right: 0
     text-decoration: none
 
-article.folded .folded-overlay .folded-overlay-inner::before
+article.blog-post.folded .folded-overlay .folded-overlay-inner::before
     content: ' '
     display: inline-block
     height: 100%
     vertical-align: middle
 
-article.folded .folded-overlay .folded-overlay-inner::after
+article.blog-post.folded .folded-overlay .folded-overlay-inner::after
     content: ' '
     display: block
     position: absolute
@@ -227,9 +227,12 @@ article.folded .folded-overlay .folded-overlay-inner::after
     right: 0
     background: linear-gradient(0deg, #fff, transparent)
 
-article.folded .folded-overlay-container a .v-btn
+article.blog-post.folded .folded-overlay-container a .v-btn
     display: inline-block
     vertical-align: middle
+
+article.blog-post h4
+    font-size: .83em
 
 .categories-container
     text-transform: uppercase

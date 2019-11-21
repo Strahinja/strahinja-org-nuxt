@@ -49,7 +49,7 @@
                         ref="pageSearchForm"
                         v-model="searchFormValid"
                         @submit.prevent="onSearchFormSubmit()">
-                        <v-container>
+                        <v-container class="ml-0">
                             <v-row>
                                 <v-col class="pa-0">
                                     <!--eslint-disable-next-line vue/html-self-closing-->

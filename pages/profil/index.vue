@@ -63,7 +63,7 @@
                     </v-row>
                 </v-container>
 
-                <v-card>
+                <v-card class="profile-card">
                     <v-toolbar
                         flat
                         :elevation="0"
@@ -95,6 +95,28 @@
                     </v-toolbar>
 
                     <div class="py-7 mt-4">
+                        <p>
+                            <em>Full-stack developer</em> са широким опсегом програмерских
+                            вештина. Почео сам да кодирам у <em>Basic</em>-у деведесетих и
+                            научио низ програмских језика и фрејмворка, укључујући
+                            најновије технологије, као што су <em>Nuxt.js, Vue.js,
+                                Angular 2, Typescript, JavaScript, PHP</em> и
+                            <em>MySQL.</em> Мој циљ
+                            је да радим на занимљивим и захтевним пројектима уз
+                            употребу постојећих и нових технологија. Текући фокус:
+                            <em>Nuxt.js.</em>
+                        </p>
+                        <!--Full-stack developer with a wide programming skill set.
+                        Started coding with Basic in the 1990s and learned a
+                        number of programming languages and frameworks, up to
+                        and including modern technologies, like Nuxt.js, Vue.js,
+                        Angular 2, Typescript, JavaScript, PHP and MySQL. My
+                        goal is to work on interesting and challenging projects
+                        using the  existing and/or new technologies. Current
+                        focus: Nuxt.js.-->
+
+                        <v-divider class="my-8" />
+
                         <h5
                             :class="{
                                 title: true,
@@ -140,10 +162,11 @@ export default {
     {
         return {
             skillsLeftSide: [
-                { name: 'Vue.js', color: 'blue lighten-1', percent: 70 },
+                { name: 'Nuxt.js', color: 'blue lighten-1', percent: 80 },
+                { name: 'Vue.js', color: 'blue lighten-1', percent: 90 },
                 { name: 'Angular 2', color: 'purple lighten-1', percent: 70 },
-                { name: 'JavaScript', color: 'red lighten-1', percent: 90 },
-                { name: 'PHP', color: 'green lighten-1', percent: 90 }
+                { name: 'JavaScript', color: 'red lighten-1', percent: 100 },
+                { name: 'PHP', color: 'green lighten-1', percent: 95 }
             ],
             skillsRightSide: [
                 { name: 'C', color: 'pink lighten-1', percent: 90 },
@@ -227,7 +250,7 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
 .center-avatar-100
     position: absolute
     width: 96px
@@ -288,4 +311,7 @@ export default {
     top: 50%
     margin-left: -12px
     margin-top: -12px
+
+.v-application .profile-card p
+    margin: 1em 2em
 </style>
