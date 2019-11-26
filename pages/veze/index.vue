@@ -93,8 +93,8 @@
 
                 <div v-if="displayByCategory">
                     <v-container
-                        v-for="(category, categoryIndex) in nonemptyCategories"
-                        :key="categoryIndex"
+                        v-for="category in nonemptyCategories"
+                        :key="category.id"
                         class="px-0 mx-0"
                         no-gutters
                         fluid>
@@ -107,15 +107,16 @@
                                     <v-row
                                         :class="{'breakout-row': $breakpoint.is.smAndDown}">
                                         <v-col
-                                            v-for="(item, itemIndex) in linksByCat[
-                                                categoryIndex
-                                            ]"
-                                            :key="itemIndex"
+                                            v-for="(item, itemIndex) in linksByCategory(category.id)"
+                                            :key="item.id"
                                             :cols="12"
                                             :sm="6"
                                             :md="4"
                                             class="mb-1">
-                                            <link-item :item="item" :item-index="itemIndex" />
+                                            <link-item
+                                                :expanded="$breakpoint.is.smAndUp ?
+                                                    true : false"
+                                                :item="item" :item-index="itemIndex" />
                                         </v-col>
                                     </v-row>
                                 </v-container>
@@ -126,7 +127,7 @@
                 <v-container v-else grid-list-md class="px-0 mx-0" no-gutters fluid>
                     <v-row>
                         <v-col
-                            v-for="item in links"
+                            v-for="(item, itemIndex) in links"
                             :key="item.id"
                             :cols="12"
                             :sm="6"
@@ -178,6 +179,14 @@ export default {
             if (this && this.$store)
             {
                 return this.$store.getters['links/list'];
+            }
+            return [];
+        },
+        linksByCategory(categoryId)
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['links/listByCategory'](categoryId);
             }
             return [];
         },
