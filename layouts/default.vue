@@ -350,7 +350,8 @@ export default {
         },
         pageLoading()
         {
-            return this.$store ? this.$store.state.pages.currentPageLoading :
+            return this && this.$store && this.$store.getters ?
+                this.$store.getters('loading/isStoreLoading') :
                 true;
         },
         showBackButton()
@@ -444,11 +445,11 @@ export default {
     },
     mounted()
     {
-        this.$store.dispatch('pages/stopLoading');
+        /*this.$store.dispatch('pages/stopLoading');
         this.$nextTick(() =>
         {
             this.$nuxt.$loading.finish();
-        });
+        });*/
     },
     methods: {
         searchBtnClick()
@@ -522,6 +523,7 @@ export default {
 <style lang="sass">
 @import '~/assets/sass/pxplus.sass'
 @import '~/assets/sass/common.sass'
+@import '~/assets/sass/transition.sass'
 
 .my-input-container
     height: 100%

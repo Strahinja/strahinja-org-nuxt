@@ -42,11 +42,11 @@
                 <v-progress-linear
                     indeterminate
                     class="my-5"
-                    :active="loading" />
+                    :active="portfolioLoading" />
 
                 <v-container class="px-0 mx-0" fluid>
                     <v-row
-                        :class="{'breakout-row': $breakpoint.is.smAndDown}">
+                        :class="{'breakout-row': $breakpoint.is.smOnly}">
                         <v-col
                             v-for="(item, itemIndex) in portfolio"
                             :key="itemIndex"
@@ -71,16 +71,16 @@ export default {
         store.commit('pages/setPageId', { newId:
             store.state.pages.routeIds.PAGE_PORTFOLIO });
     },
-    data()
-    {
-        return {
-            apiPortfolio: process.env.VUE_APP_API_PATH + '/portfolio?c=12',
-            portfolio: [],
-            loading: false,
-        };
-    },
     computed:
     {
+        portfolio()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.state.portfolio.list;
+            }
+            return [];
+        },
         page()
         {
             if (this && this.$store)
@@ -112,6 +112,12 @@ export default {
         showBackButton()
         {
             return this.$breakpoint.is.smAndUp;
+        },
+        portfolioLoading()
+        {
+            return this && this.$store && this.$store.getters ?
+                this.$store.getters['loading/isLoading']('portfolio') :
+                true;
         }
     },
     head()
@@ -146,38 +152,14 @@ export default {
             description: globals.description,
         };
     },
+    fetch({ store })
+    {
+        store.dispatch('portfolio/loadPortfolio');
+    },
     created()
     {
-        // console.log('created: calling this.getPortfolio()');
-        this.getPortfolio();
+        this.$store.dispatch('portfolio/loadPortfolio');
     },
-    methods: {
-        getPortfolio()
-        {
-            this.loading = true;
-            this.$http
-                .$get(this.apiPortfolio)
-                .then(res =>
-                {
-                    this.loading = false;
-                    if (res.data)
-                    {
-                        if (res.data)
-                        {
-                            if (res.code === 200)
-                            {
-                                this.portfolio = res.data;
-                            }
-                        }
-                    }
-                })
-                .catch(data =>
-                {
-                    console.log('error: data = ', data);
-                    this.loading = false;
-                });
-        }
-    }
 };
 </script>
 

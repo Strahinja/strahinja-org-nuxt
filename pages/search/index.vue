@@ -87,6 +87,10 @@
                         :extra-component-params="post.extraComponentParams"
                         :highlight="q"
                         :standalone="false" />
+                    <!--
+                        :component="post.component"
+                    -->
+
                     <no-results v-if="posts.length==0" />
                 </section>
             </v-col>
@@ -141,7 +145,7 @@ export default {
         {
             if (this && this.$store)
             {
-                return this.$store.getters['posts/postsByTag'](this.q);
+                return this.$store.getters['posts/postsBySearchTerm'](this.q);
             }
             return [];
         },

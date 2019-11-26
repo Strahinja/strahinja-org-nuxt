@@ -49,6 +49,9 @@
                         :extra-component="post.extraComponent"
                         :extra-component-params="post.extraComponentParams"
                         :standalone="false" />
+                    <!--
+                        :component="post.component"
+                    -->
                 </section>
             </v-col>
         </v-row>

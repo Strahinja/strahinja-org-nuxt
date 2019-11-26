@@ -179,8 +179,8 @@ export default {
     cursor: pointer
     text-decoration: none
     transition: all 0.3s ease
-    margin-bottom: 2em
     white-space: nowrap
+    margin-bottom: 40px
 
 .madewith-link:hover
     filter: none

@@ -53,6 +53,9 @@
                         :extra-component-params="post.extraComponentParams"
                         :highlight="tagId"
                         :standalone="false" />
+                    <!--
+                        :component="post.component"
+                    -->
                 </section>
             </v-col>
         </v-row>

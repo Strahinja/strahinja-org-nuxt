@@ -59,10 +59,11 @@
                 <v-col :cols="12" :lg="10" class="py-0">
                     <DynamicMarkdown
                         :highlight="highlight"
-                        :render-func="renderFunc"
-                        :static-render-funcs="staticRenderFuncs"
                         :extra-component="extraComponent"
-                        :extra-component-params="extraComponentParams" />
+                        :extra-component-params="extraComponentParams"
+                        :render-func="renderFunc"
+                        :static-render-funcs="staticRenderFuncs" />
+                        <!-- :component="component" -->
                 </v-col>
             </v-row>
             <div v-ripple class="folded-overlay col-lg-10 col-12" @click="toggleFolded">
@@ -108,6 +109,7 @@ export default {
     props: {
         folded: { type: Boolean, default: false },
         frontmatter: { type: Object, default: () => ({}) },
+        //component: { type: Object, default: null },
         renderFunc: { type: Object, default: () => ({}) },
         staticRenderFuncs: { type: Array, default: () => ([]) },
         extraComponent: { type: Object, default: null },
@@ -231,7 +233,7 @@ article.blog-post.folded .folded-overlay-container a .v-btn
     display: inline-block
     vertical-align: middle
 
-article.blog-post h4
+article.blog-post.standalone h4
     font-size: .83em
 
 .categories-container

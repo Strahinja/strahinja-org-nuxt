@@ -11,7 +11,6 @@ export const state = () => ({
         PAGE_BLOG_TAG_INDEX: 'blog-tag-index',
         PAGE_SEARCH_INDEX: 'search-index',
     },
-    currentPageLoading: true,
     globalMeta: {
     },
     list: [
@@ -219,20 +218,5 @@ export const mutations = {
     {
         state.pageId = payload.newId;
     },
-    setCurrentPageLoading(state, payload)
-    {
-        state.currentPageLoading = payload;
-    }
-};
-
-export const actions = {
-    startLoading({ commit })
-    {
-        commit('setCurrentPageLoading', true);
-    },
-    stopLoading({ commit })
-    {
-        commit('setCurrentPageLoading', false);
-    }
 };
 

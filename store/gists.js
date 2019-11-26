@@ -39,7 +39,12 @@ export const actions = {
         }
         catch (e)
         {
-            console.error('store/gists.js.loadGist: http error: ', e);
+            console.log('store/gists.js.loadGist: ', e);
+        /*commit('addGist', {
+            gistId: gistId,
+            data: {}
+        });
+        return {};*/
         }
         return null;
     }

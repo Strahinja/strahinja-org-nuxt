@@ -54,7 +54,9 @@
                         <h2 class="mt-10">
                             Коришћене технологије
                         </h2>
-                        <ul class="tech-list my-10">
+                        <ul
+                            class="tech-list my-10"
+                            :class="{ 'xs-only': $breakpoint.is.xsOnly }">
                             <li
                                 :class="{
                                     'sm-and-up': $breakpoint.is.smAndUp,
@@ -196,6 +198,9 @@ $filler-margin-top: 5em
     display: block
     list-style-type: none
     margin: 0 40px
+
+.tech-list.xs-only
+    margin-bottom: 80px !important
 
 .tech-list > li
     display: inline-block

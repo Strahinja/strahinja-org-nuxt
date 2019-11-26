@@ -126,13 +126,16 @@
                 <v-container v-else grid-list-md class="px-0 mx-0" no-gutters fluid>
                     <v-row>
                         <v-col
-                            v-for="(item, itemIndex) in links"
-                            :key="itemIndex"
+                            v-for="item in links"
+                            :key="item.id"
                             :cols="12"
                             :sm="6"
                             :md="4"
                             class="mb-1">
-                            <link-item :item="item" :item-index="itemIndex" />
+                            <link-item
+                                :expanded="$breakpoint.is.smAndUp ?
+                                    true : false"
+                                :item="item" :item-index="itemIndex" />
                         </v-col>
                     </v-row>
                 </v-container>
@@ -155,23 +158,61 @@ export default {
     data()
     {
         return {
-            apiLinks: process.env.VUE_APP_API_PATH + '/favorites',
-            apiCategories:
-                process.env.VUE_APP_API_PATH + '/categories?ct=favorite',
-            links: [],
-            linksByCat: [],
-            categories: [],
-            nonemptyCategories: [],
-            linksByCategories: [],
             displayByCategory: false,
-            numPages: 0,
             itemsPerPage: 12,
             pageNumber: 1,
-            loading: false,
         };
     },
     computed:
     {
+        numPages()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['links/numPages'];
+            }
+            return 0;
+        },
+        links()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['links/list'];
+            }
+            return [];
+        },
+        linksByCat()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['links/listByCategories'];
+            }
+            return [];
+        },
+        categories()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['links/categories'];
+            }
+            return [];
+        },
+        nonemptyCategories()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['links/nonemptyCategories'];
+            }
+            return [];
+        },
+        loading()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['loading/isStoreLoading'];
+            }
+            return true;
+        },
         page()
         {
             if (this && this.$store)
@@ -237,162 +278,30 @@ export default {
             description: globals.description,
         };
     },
+    fetch({ store })
+    {
+        if (!store.getters['links/loadedInitially'])
+        {
+            store.commit('links/setItemsPerPage', 12);
+            store.commit('links/setPageNumber', 1);
+            store.dispatch('links/load');
+        }
+    },
     created()
     {
-        this.loading = true;
-        this.getCategories(
-            () =>
-            {
-                this.getLinks();
-                this.getLinks(
-                    this.itemsPerPage,
-                    0,
-                    true,
-                    () =>
-                    {
-                        this.loading = false;
-                    },
-                    () =>
-                    {
-                        this.loading = false;
-                    }
-                );
-            },
-            () =>
-            {
-                this.loading = false;
-            }
-        );
+        if (!this.$store.getters['links/loadedInitially'])
+        {
+            this.$store.commit('links/setItemsPerPage', 12);
+            this.$store.commit('links/setPageNumber', 1);
+            this.$store.dispatch('links/load');
+        }
     },
     methods: {
-        getLinks(
-            count = this.itemsPerPage,
-            offset = 0,
-            byCat = false,
-            callbackThen = () =>
-            {},
-            callbackCatch = () =>
-            {}
-        )
-        {
-            this.$http
-                .$get(
-                    this.apiLinks +
-                        '?c=' +
-                        count +
-                        '&o=' +
-                        offset +
-                        (byCat ? '&sb=cat_id' : '')
-                )
-                .then(res =>
-                {
-                    if (callbackThen) callbackThen();
-                    if (res.data)
-                    {
-                        if (res.code === 200)
-                        {
-                            this.numPages = Math.ceil(
-                                res.num_rows / this.itemsPerPage
-                            );
-                            if (byCat)
-                            {
-                                this.linksByCategories = res.data;
-                                this.arrangeLinksByCat();
-                                this.nonemptyCategories = this.categories.filter(
-                                    (obj, catIndex) =>
-                                    {
-                                        return (
-                                            this.linksByCat[catIndex]
-                                                .length > 0
-                                        );
-                                    }
-                                );
-                                this.linksByCat = this.linksByCat.filter(
-                                    cat =>
-                                    {
-                                        return cat.length > 0;
-                                    }
-                                );
-                            }
-                            else
-                            {
-                                this.links = res.data;
-                            }
-                            /*console.log('finally:');
-                                console.log('categories:', this.categories);
-                                console.log('links:', this.links);*/
-                        }
-                    }
-                })
-                .catch(function(data)
-                {
-                    console.log('error: data = ', data);
-                    if (callbackCatch) callbackCatch();
-                });
-        },
-        getCategories(callbackThen = () =>
-        {}, callbackCatch = () =>
-        {})
-        {
-            this.$http
-                .$get(this.apiCategories)
-                .then(res =>
-                {
-                    if (res.data)
-                    {
-
-                        if (res.code === 200)
-                        {
-                            this.categories = res.data;
-                            if (callbackThen) callbackThen();
-                        }
-                    }
-                })
-                .catch(function(data)
-                {
-                    console.log('error: data = ', data);
-                    if (callbackCatch) callbackCatch();
-                });
-        },
-        arrangeLinksByCat(callbackThen = () =>
-        {})
-        {
-            this.linksByCat = [];
-            for (
-                let catIndex = 0;
-                catIndex < this.categories.length;
-                catIndex++
-            )
-            {
-                let linksByCat = this.linksByCategories.filter(lnk =>
-                {
-                    return lnk.idcategory === this.categories[catIndex].id;
-                });
-                this.linksByCat.push(linksByCat);
-            }
-            if (callbackThen) callbackThen();
-        },
-        getOffset()
-        {
-            return (this.pageNumber - 1) * this.itemsPerPage;
-        },
         paginationChange()
         {
-            this.loading = true;
-            this.getLinks(this.itemsPerPage, this.getOffset());
-            this.getLinks(
-                this.itemsPerPage,
-                this.getOffset(),
-                true,
-                () =>
-                {
-                    this.loading = false;
-                },
-                () =>
-                {
-                    this.loading = false;
-                }
-            );
+            this.$store.commit('links/setItemsPerPage', this.itemsPerPage);
+            this.$store.commit('links/setPageNumber', this.pageNumber);
+            this.$store.dispatch('links/load');
         },
     },
 };

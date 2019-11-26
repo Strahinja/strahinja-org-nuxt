@@ -56,6 +56,13 @@ export default {
      */
     loading: '~/components/loading.vue',
     /*
+     ** Page transition
+     */
+    pageTransition: {
+        name: 'page',
+        mode: '',
+    },
+    /*
      ** Global CSS
      */
     css: [
@@ -146,6 +153,11 @@ export default {
             '/blog'
         ].concat(dynamicMarkdownRoutes)
     },
+    vue: {
+        config: {
+            devtools: true,
+        }
+    },
     /*
      ** Build configuration
      */
@@ -153,7 +165,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-        devtools: true,
         productionTip: false,
         transpile: [
             /static\/blog/
@@ -168,7 +179,8 @@ export default {
                 loader: 'frontmatter-markdown-loader',
                 include: path.resolve(__dirname, 'static/blog'),
                 options: {
-                    mode: [FMMode.VUE_RENDER_FUNCTIONS],
+                    //mode: [FMMode.VUE_COMPONENT, FMMode.HTML],
+                    mode: [FMMode.VUE_RENDER_FUNCTIONS, FMMode.HTML],
                     vue: {
                         root: 'markdown-body'
                     },

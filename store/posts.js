@@ -71,6 +71,8 @@ export const actions = {
                         related: attr.related,
                         title: attr.title,
                     },
+                    htmlContent: fileObj.file.html,
+                    //component: () => fileObj.file.vue.component,
                     renderFunc: fileObj.file.vue.render,
                     staticRenderFuncs: fileObj.file.vue.staticRenderFns,
                     extraComponent: attr.extraComponent,
@@ -98,8 +100,7 @@ export const getters = {
     postsBySearchTerm: state => searchTerm =>
     {
         return state.list.filter(
-            postToCompare => postToCompare.frontmatter.tags.indexOf(searchTerm) != -1
-            /*|| new RegExp(searchTerm).exec(postToCompare.renderFunc)*/);
+            postToCompare => postToCompare.htmlContent.indexOf(searchTerm) != -1);
     },
     postCount: state => state.list.length
 };

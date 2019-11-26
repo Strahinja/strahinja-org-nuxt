@@ -42,6 +42,9 @@
                     :static-render-funcs="post.staticRenderFuncs"
                     :extra-component="post.extraComponent"
                     :extra-component-params="post.extraComponentParams" />
+                <!--
+                    :component="post.component"
+                -->
             </v-col>
         </v-row>
     </v-container>

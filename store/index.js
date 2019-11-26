@@ -1,6 +1,3 @@
-export const actions = {
-    /*async nuxtServerInit({ commit, dispatch }, { store })
-    {
-    }*/
-};
+export const state = () => ({
+});
 
