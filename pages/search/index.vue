@@ -81,16 +81,10 @@
                         :key="post.name + q"
                         :folded="true"
                         :frontmatter="post.frontmatter"
-                        :render-func="post.renderFunc"
-                        :static-render-funcs="post.staticRenderFuncs"
                         :extra-component="post.extraComponent"
                         :extra-component-params="post.extraComponentParams"
                         :highlight="q"
                         :standalone="false" />
-                    <!--
-                        :component="post.component"
-                    -->
-
                     <no-results v-if="posts.length==0" />
                 </section>
             </v-col>

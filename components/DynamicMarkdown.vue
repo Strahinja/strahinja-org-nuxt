@@ -9,8 +9,6 @@ export default {
     props: {
         fileName: { type: String },
         highlight: { type: String, default: '' },
-        renderFunc: { type: Object, default: ({}) },
-        staticRenderFuncs: { type: Object, default: ({}) },
         extraComponent: { type: String, default: null },
         extraComponentParams: { type: Object, default: null },
     },
