@@ -58,6 +58,7 @@
             <v-row>
                 <v-col :cols="12" :lg="10" class="py-0">
                     <DynamicMarkdown
+                        :file-name="frontmatter.name"
                         :highlight="highlight"
                         :extra-component="extraComponent"
                         :extra-component-params="extraComponentParams"

@@ -180,7 +180,7 @@ export default {
                 include: path.resolve(__dirname, 'static/blog'),
                 options: {
                     //mode: [FMMode.VUE_COMPONENT, FMMode.HTML],
-                    mode: [FMMode.VUE_RENDER_FUNCTIONS, FMMode.HTML],
+                    mode: [FMMode.VUE_COMPONENT, FMMode.VUE_RENDER_FUNCTIONS, FMMode.HTML],
                     vue: {
                         root: 'markdown-body'
                     },
