@@ -47,15 +47,10 @@
                         :key="postIndex"
                         :folded="true"
                         :frontmatter="post.frontmatter"
-                        :render-func="post.renderFunc"
-                        :static-render-funcs="post.staticRenderFuncs"
                         :extra-component="post.extraComponent"
                         :extra-component-params="post.extraComponentParams"
                         :highlight="tagId"
                         :standalone="false" />
-                    <!--
-                        :component="post.component"
-                    -->
                 </section>
             </v-col>
         </v-row>

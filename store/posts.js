@@ -72,9 +72,6 @@ export const actions = {
                         title: attr.title,
                     },
                     htmlContent: fileObj.file.html,
-                    //component: () => fileObj.file.vue.component,
-                    renderFunc: fileObj.file.vue.render,
-                    staticRenderFuncs: fileObj.file.vue.staticRenderFns,
                     extraComponent: attr.extraComponent,
                     extraComponentParams: myParams
                 });
