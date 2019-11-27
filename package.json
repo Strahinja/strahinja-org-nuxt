@@ -41,7 +41,7 @@
     "babel-eslint": "^10.0.1",
     "eslint": "^6.6.0",
     "eslint-plugin-nuxt": ">=0.5.0",
-    "frontmatter-markdown-loader": "2.3.0",
+    "frontmatter-markdown-loader": "^3.1.0",
     "markdown-it-prism": "^2.0.3"
   }
 }
