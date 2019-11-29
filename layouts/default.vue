@@ -121,7 +121,6 @@
                         <div
                             v-show="!showSearch"
                             class="vertical-center">
-                            <v-spacer />
                             <div class="vertical-center-slot">
                                 <client-only>
                                     <v-tooltip bottom>
@@ -137,6 +136,29 @@
                                             </v-btn>
                                         </template>
                                         <span>Претрага</span>
+                                    </v-tooltip>
+                                </client-only>
+                            </div><!--vertical-center-slot-->
+                        </div>
+                    </v-fade-transition>
+                    <v-fade-transition :hide-on-leave="true">
+                        <div
+                            v-show="!showSearch"
+                            class="vertical-center">
+                            <div class="vertical-center-slot">
+                                <client-only>
+                                    <v-tooltip bottom>
+                                        <template v-slot:activator="{ on }">
+                                            <v-btn
+                                                icon
+                                                v-on="on"
+                                                @click="loginBtnClick()">
+                                                <v-icon>
+                                                    mdi-account-question
+                                                </v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <span>Пријава</span>
                                     </v-tooltip>
                                 </client-only>
                             </div><!--vertical-center-slot-->
@@ -435,11 +457,6 @@ export default {
             author: 'https://linkedin.com/in/strahinja-radic',
             link: [
                 { rel: 'shortcut icon', href: '/favicon.ico' },
-                { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?'
-                    + 'family=Fira+Sans+Extra+Condensed:400,400i,500,500i,700'
-                    + ',700i|Source+Sans+Pro:400,400i,700,700i&display=swap&subset=cy'
-                    + 'rillic,cyrillic-ext,greek,latin-ext'
-                }
             ]
         };
     },
@@ -462,6 +479,10 @@ export default {
                     this.$refs.appbarSearchText.focus();
                 });
             }
+        },
+        loginBtnClick()
+        {
+            console.log('placeholder');
         },
         onAppbarSearchFormSubmit()
         {

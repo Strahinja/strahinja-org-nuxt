@@ -13,6 +13,7 @@ import markdownItGithubHeadings from 'markdown-it-github-headings';
 import markdownItKatex from 'markdown-it-katex';
 import markdownItKbd from 'markdown-it-kbd';
 import markdownItPrism from 'markdown-it-prism';
+import markdownItSamp from 'markdown-it-samp';
 import markdownItTocDoneRight from 'markdown-it-toc-done-right';
 
 const fs = require('fs');
@@ -103,13 +104,38 @@ export default {
      ** Nuxt.js modules
      */
     modules: [
-        '@nuxt/http',
+        //'@nuxt/http',
+        '@nuxtjs/axios',
+        '@nuxtjs/auth',
+        '@nuxtjs/toast',
         ['@nuxtjs/dotenv', {
             filename: '.env.production'
         } ],
         '@nuxtjs/svg',
+        //'nuxt-purgecss',
+        'nuxt-webfontloader',
         '@nuxtjs/sitemap' // Must be last
     ],
+    /*purgeCSS: {
+        mode: MODES.postcss
+    },*/
+    webfontloader: {
+        google: {
+            families: [
+                'Fira Sans Extra Condensed:400,400i,500,500i,700,700i:cyrillic,cyrillic-ext,greek,latin-ext',
+                'Source Sans Pro:400,400i,700,700i:cyrillic,cyrillic-ext,greek,latin-ext',
+            ],
+            urls: [
+                'https://fonts.googleapis.com/css?'
+                    + 'family=fira+sans+extra+condensed:400,400i,500,500i,700'
+                    + ',700i&display=swap&subset=cy'
+                    + 'rillic,cyrillic-ext,greek,latin-ext',
+                'https://fonts.googleapis.com/css?'
+                    + 'family=source+sans+pro:400,400i,700,700i&display=swap&subset=cy'
+                    + 'rillic,cyrillic-ext,greek,latin-ext'
+            ]
+        }
+    },
     /*
      ** Sitemap configuration
      */
@@ -120,6 +146,14 @@ export default {
             '/search'
         ],
         routes: dynamicMarkdownRoutes
+    },
+    /*
+     ** Axios module configuration
+     ** See https://axios.nuxtjs.org/options
+     */
+    axios: {
+        proxyHeaders: false,
+        credentials: false
     },
     /*
      ** vuetify module configuration
@@ -165,6 +199,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
+        //extractCSS: true,
         productionTip: false,
         transpile: [
             /static\/blog/
@@ -198,6 +233,7 @@ export default {
                         .use(markdownItKatex)
                         .use(markdownItKbd)
                         .use(markdownItPrism)
+                        .use(markdownItSamp)
                         .use(markdownItTocDoneRight)
                 }
             });

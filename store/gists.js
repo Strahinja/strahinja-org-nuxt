@@ -26,7 +26,7 @@ export const actions = {
     {
         try
         {
-            const gist = await this.$http.$get(
+            const gist = await this.$axios.$get(
                 `https://api.github.com/gists/${gistId}`);
             if (gist)
             {

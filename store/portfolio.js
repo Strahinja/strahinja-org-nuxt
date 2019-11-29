@@ -21,7 +21,7 @@ export const actions = {
         dispatch('loading/startLoading', {
             id: 'portfolio',
         });
-        this.$http
+        this.$axios
             .$get(getters['apiPath'])
             .then(res =>
             {

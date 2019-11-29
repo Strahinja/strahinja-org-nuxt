@@ -15,33 +15,31 @@
             </nuxt-link>
             <!--eslint-disable-next-line vue/html-self-closing-->
             <a :name="frontmatter.name"></a>
-            <client-only>
-                <v-tooltip bottom>
-                    <template v-slot:activator="{ on }">
-                        <h4 v-if="standalone">
-                            <nuxt-link
-                                :to="`/blog/${frontmatter.name}`">
-                                <time
-                                    :datetime="frontmatter.date"
-                                    v-on="on">
-                                    {{ formatDate(frontmatter.date) }}
-                                </time>
-                            </nuxt-link>
-                        </h4>
-                        <h5 v-else>
-                            <nuxt-link
-                                :to="`/blog/${frontmatter.name}`">
-                                <time
-                                    :datetime="frontmatter.date"
-                                    v-on="on">
-                                    {{ formatDate(frontmatter.date) }}
-                                </time>
-                            </nuxt-link>
-                        </h5>
-                    </template>
-                    <span>Пермалинк</span>
-                </v-tooltip>
-            </client-only>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                    <h4 v-if="standalone">
+                        <nuxt-link
+                            :to="`/blog/${frontmatter.name}`">
+                            <time
+                                :datetime="frontmatter.date"
+                                v-on="on">
+                                {{ formatDate(frontmatter.date) }}
+                            </time>
+                        </nuxt-link>
+                    </h4>
+                    <h5 v-else>
+                        <nuxt-link
+                            :to="`/blog/${frontmatter.name}`">
+                            <time
+                                :datetime="frontmatter.date"
+                                v-on="on">
+                                {{ formatDate(frontmatter.date) }}
+                            </time>
+                        </nuxt-link>
+                    </h5>
+                </template>
+                <span>Пермалинк</span>
+            </v-tooltip>
             <div class="categories-container">
                 Категорије:
                 <ul class="categories">
@@ -112,6 +110,12 @@ export default {
         highlight: { type: String, default: '' },
         standalone: { type: Boolean, default: true },
     },
+    data()
+    {
+        return {
+            foldDuration: 1000
+        };
+    },
     computed: {
         hasTags()
         {
@@ -148,7 +152,7 @@ export default {
                 if (this.folded)
                 {
                     this.$vuetify.goTo(`#${this.frontmatter.id}`, {
-                        duration: 500
+                        duration: this.foldDuration
                     });
                 }
             });

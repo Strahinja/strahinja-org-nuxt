@@ -93,7 +93,7 @@
 
                 <div v-if="displayByCategory">
                     <v-container
-                        v-for="category in nonemptyCategories"
+                        v-for="category in linksByCat"
                         :key="category.id"
                         class="px-0 mx-0"
                         no-gutters
@@ -107,7 +107,7 @@
                                     <v-row
                                         :class="{'breakout-row': $breakpoint.is.smAndDown}">
                                         <v-col
-                                            v-for="(item, itemIndex) in linksByCategory(category.id)"
+                                            v-for="(item, itemIndex) in category.list"
                                             :key="item.id"
                                             :cols="12"
                                             :sm="6"
@@ -186,7 +186,7 @@ export default {
         {
             if (this && this.$store)
             {
-                return this.$store.getters['links/listByCategory'](categoryId);
+                return this.$store.getters['links/listByCategory'](categoryId).list;
             }
             return [];
         },

@@ -59,14 +59,10 @@ export const getters = {
     list: state => state.list,
     categories: state => state.categories,
     categoriesCount: state => state.categories.length,
-    nonemptyCategories: (state, getters) => state.categories.filter(
-        (obj, catIndex) =>
-            getters['listByCategory'](catIndex).length > 0
-    ),
     listByCategories: state => state.listByCategories,
     listByCategory: state => categoryId =>
         state.listByCategories.filter(cat =>
-            cat.id === categoryId),
+            cat.list.length>0 && cat.id === categoryId),
     loadedInitially: state => state.loadedInitially,
 };
 
@@ -76,7 +72,7 @@ export const actions = {
     {}, callbackCatch: () =>
     {} })
     {
-        this.$http
+        this.$axios
             .$get(getters['apiCategoriesPath'])
             .then(res =>
             {
@@ -106,13 +102,17 @@ export const actions = {
         let listByCat = [];
         for (let catIndex in getters['categories'])
         {
-            listByCat.push(options.list.filter(lnk =>
-                lnk.idcategory === getters['categories'][catIndex].id
-            ));
+            listByCat.push({
+                id: getters['categories'][catIndex].id,
+                name: getters['categories'][catIndex].name,
+                list: options.list.filter(lnk =>
+                    lnk.idcategory === getters['categories'][catIndex].id
+                )
+            });
         }
         commit('setListByCategories',
                listByCat.filter(
-                   cat => cat.length > 0
+                   cat => cat.list.length > 0
                ));
         if (options.callbackThen) options.callbackThen();
     },
@@ -128,7 +128,7 @@ export const actions = {
     {
         let count = getters['itemsPerPage'];
         let offset = getters['offset'];
-        this.$http
+        this.$axios
             .$get(
                 getters['apiPath'] +
                     '?c=' +
