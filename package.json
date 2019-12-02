@@ -28,6 +28,7 @@
     "markdown-it-github-headings": "^1.1.2",
     "markdown-it-katex": "^2.0.3",
     "markdown-it-kbd": "^2.0.0",
+    "markdown-it-mdi": "^0.1.0",
     "markdown-it-samp": "^0.0.4",
     "markdown-it-toc-done-right": "^4.1.0",
     "nuxt": "^2.10.2",

@@ -14,6 +14,7 @@ import markdownItKatex from 'markdown-it-katex';
 import markdownItKbd from 'markdown-it-kbd';
 import markdownItPrism from 'markdown-it-prism';
 import markdownItSamp from 'markdown-it-samp';
+import markdownItMdi from 'markdown-it-mdi';
 import markdownItTocDoneRight from 'markdown-it-toc-done-right';
 
 const fs = require('fs');
@@ -73,7 +74,7 @@ export default {
      */
     plugins: [
         '~/plugins/breakpoint.js',
-        '~/plugins/jsonld.js'
+        '~/plugins/jsonld.js',
     ],
     /*
      ** Router configuration
@@ -117,7 +118,13 @@ export default {
         '@nuxtjs/sitemap' // Must be last
     ],
     /*purgeCSS: {
-        mode: MODES.postcss
+        content: [
+            './components/** /*.vue',
+            './layouts/** /*.vue',
+            './pages/** /*.vue',
+            './node_modules/vuetify/src/** /*.ts',
+        ],
+        whitelist: ['html', 'body'],
     },*/
     webfontloader: {
         google: {
@@ -232,6 +239,7 @@ export default {
                         })
                         .use(markdownItKatex)
                         .use(markdownItKbd)
+                        .use(markdownItMdi)
                         .use(markdownItPrism)
                         .use(markdownItSamp)
                         .use(markdownItTocDoneRight)

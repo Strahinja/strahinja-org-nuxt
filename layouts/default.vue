@@ -58,9 +58,9 @@
                 </v-tooltip>
             </client-only>
             <v-toolbar-title class="mr-4">
-                <router-link class="hidden-xs-only" :to="'/'">
+                <nuxt-link class="hidden-xs-only" :to="'/'">
                     //strahinja.org
-                </router-link>
+                </nuxt-link>
             </v-toolbar-title>
             <v-divider vertical />
             <client-only>
@@ -137,29 +137,27 @@
                                         </template>
                                         <span>Претрага</span>
                                     </v-tooltip>
-                                </client-only>
-                            </div><!--vertical-center-slot-->
-                        </div>
-                    </v-fade-transition>
-                    <v-fade-transition :hide-on-leave="true">
-                        <div
-                            v-show="!showSearch"
-                            class="vertical-center">
-                            <div class="vertical-center-slot">
-                                <client-only>
-                                    <v-tooltip bottom>
-                                        <template v-slot:activator="{ on }">
-                                            <v-btn
-                                                icon
-                                                v-on="on"
-                                                @click="loginBtnClick()">
-                                                <v-icon>
-                                                    mdi-account-question
-                                                </v-icon>
-                                            </v-btn>
+
+                                    <login-form
+                                        :width="500"
+                                        :active="loginFormActive"
+                                        @active-changed="loginFormActive = $event">
+                                        <template #login-form-activator>
+                                            <v-tooltip bottom>
+                                                <template v-slot:activator="{ on }">
+                                                    <v-btn
+                                                        icon
+                                                        v-on="on"
+                                                        @click.stop="loginFormActive = true">
+                                                        <v-icon>
+                                                            mdi-account-outline
+                                                        </v-icon>
+                                                    </v-btn>
+                                                </template>
+                                                <span>Пријава</span>
+                                            </v-tooltip>
                                         </template>
-                                        <span>Пријава</span>
-                                    </v-tooltip>
+                                    </login-form>
                                 </client-only>
                             </div><!--vertical-center-slot-->
                         </div>
@@ -267,6 +265,7 @@
 
 <script>
 import Strahinjaorg from '~/assets/svg/strahinjaorg.svg?inline';
+import LoginForm from '~/components/LoginForm';
 import { mixin as clickaway } from 'vue-clickaway';
 
 export default {
@@ -276,7 +275,7 @@ export default {
         store.commit('pages/setPageId', { newId:
             store.state.pages.routeIds.PAGE_NOTSET });
     },
-    components: { Strahinjaorg },
+    components: { Strahinjaorg, LoginForm },
     mixins: [clickaway],
     data()
     {
@@ -294,6 +293,7 @@ export default {
                 v => v.length<this.maxSearchTextLength ||
                     `Текст мора бити мањи од ${this.maxSearchTextLength} знакова`,
             ],
+            loginFormActive: false,
         };
     },
     computed: {
@@ -479,10 +479,6 @@ export default {
                     this.$refs.appbarSearchText.focus();
                 });
             }
-        },
-        loginBtnClick()
-        {
-            console.log('placeholder');
         },
         onAppbarSearchFormSubmit()
         {

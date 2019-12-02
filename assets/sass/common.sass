@@ -59,6 +59,9 @@ main.v-content
 .v-application .v-card__title
     font-size: .9rem
 
+.v-bottom-sheet .v-card--title
+    word-break: break-word
+
 .v-card__title .subtitle-1
     font-family: $body-font-family !important
     font-weight: normal
@@ -130,6 +133,9 @@ h1 .svg-icon
 .v-icon.rotated
     transform: rotate(180deg)
     transition: all 0.25s ease
+
+.v-btn:not(.v-btn--icon):not(.v-btn--fab) .v-icon
+    margin-right: .4rem
 
 .v-toolbar__title > a
     color: #fff !important

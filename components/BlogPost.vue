@@ -15,7 +15,7 @@
             </nuxt-link>
             <!--eslint-disable-next-line vue/html-self-closing-->
             <a :name="frontmatter.name"></a>
-            <v-tooltip bottom>
+            <v-tooltip left bottom>
                 <template v-slot:activator="{ on }">
                     <h4 v-if="standalone">
                         <nuxt-link

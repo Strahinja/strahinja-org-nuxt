@@ -26,15 +26,28 @@ export const actions = {
     {
         try
         {
-            const gist = await this.$axios.$get(
-                `https://api.github.com/gists/${gistId}`);
-            if (gist)
+            let debug = false;
+            let gist = null;
+            if (!debug)
+            {
+                gist = await this.$axios.$get(
+                    `https://api.github.com/gists/${gistId}`);
+                if (gist)
+                {
+                    commit('addGist', {
+                        gistId: gistId,
+                        data: gist
+                    });
+                    return gist;
+                }
+            }
+            else
             {
                 commit('addGist', {
                     gistId: gistId,
-                    data: gist
+                    data: {}
                 });
-                return gist;
+                return {};
             }
         }
         catch (e)
