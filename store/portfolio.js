@@ -12,40 +12,38 @@ export const mutations = {
 
 export const getters = {
     itemCount: state => state.list.length,
+    list: state => state.list,
     apiPath: state => state.apiPortfolio,
 };
 
 export const actions = {
     loadPortfolio({ commit, dispatch, getters })
     {
-        dispatch('loading/startLoading', {
-            id: 'portfolio',
-        });
-        this.$axios
-            .$get(getters['apiPath'])
-            .then(res =>
-            {
-                dispatch('loading/stopLoading', {
-                    id: 'portfolio'
-                });
-                if (res.data)
-                {
-                    if (res.code === 200)
-                    {
-                        if (!getters['itemCount'])
-                        {
-                            commit('setList', res.data);
-                        }
-                    }
-                }
-            })
-            .catch(error =>
-            {
-                dispatch('loading/stopLoading', {
-                    id: 'portfolio'
-                });
-                console.error('store/portfolio.js: ', error);
+        if (!getters['itemCount'])
+        {
+            dispatch('loading/startLoading', {
+                id: 'portfolio',
             });
+            this.$axios
+                .$get(getters['apiPath'])
+                .then(res =>
+                {
+                    dispatch('loading/stopLoading', {
+                        id: 'portfolio'
+                    });
+                    if (res.data && res.code === 200)
+                    {
+                        commit('setList', res.data);
+                    }
+                })
+                .catch(error =>
+                {
+                    dispatch('loading/stopLoading', {
+                        id: 'portfolio'
+                    });
+                    console.error('store/portfolio.js: ', error);
+                });
+        }
     }
 };
 

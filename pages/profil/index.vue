@@ -153,11 +153,6 @@ import SkillsCategory from '~/components/SkillsCategory';
 export default {
     name: 'Profile',
     components: { SkillsCategory },
-    middleware ({store})
-    {
-        store.commit('pages/setPageId', { newId:
-            store.state.pages.routeIds.PAGE_PROFILE });
-    },
     data()
     {
         return {
@@ -220,7 +215,7 @@ export default {
         let globals = {
             title: this.page.title,
             description: this.page.text,
-            url: 'http://strahinja.org' + this.page.url.path,
+            url: 'https://strahinja.org' + this.page.url.path,
             image: this.page.image,
             imageAlt: this.page.imageAlt,
         };

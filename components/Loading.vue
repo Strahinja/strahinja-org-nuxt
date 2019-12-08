@@ -1,5 +1,7 @@
 <template>
-    <v-fade-transition>
+    <!--eslint-disable-next-line vue/html-self-closing-->
+    <div id="loading"></div>
+    <!--v-fade-transition>
         <div
             v-if="loading"
             class="loading">
@@ -8,32 +10,53 @@
                 :width="5"
                 :color="'#fff'"
                 indeterminate />
-        </div><!--loading-->
-    </v-fade-transition>
+        </div><!- -loading- ->
+    </v-fade-transition-->
 </template>
 
 <script>
 export default {
-    data: () =>
-    {
-        return {
-            loading: false
-        };
+    computed: {
+        loading()
+        {
+            return this && this.$store && this.$store.getters
+                && this.$store.getters['loading/isStoreLoading'];
+        }
     },
     methods: {
         start()
         {
-            this.loading = true;
+            if (this.$store)
+            {
+                this.$store.dispatch('loading/startLoading', {
+                    id: 'app'
+                });
+            }
         },
         finish()
         {
-            this.loading = false;
+            if (this.$store)
+            {
+                this.$store.dispatch('loading/stopLoading', {
+                    id: 'app'
+                });
+            }
         }
     }
 };
 </script>
 
 <style lang="sass" scoped>
+// #loading
+    display: block
+    position: absolute
+    top: 0
+    left: 0
+    width: 200px
+    height: 200px
+    z-index: 100
+    background: #fff
+
 .loading
     display: block
     position: absolute

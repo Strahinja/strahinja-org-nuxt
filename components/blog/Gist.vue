@@ -28,7 +28,7 @@
                     :class="{ 'xs': $breakpoint.is.xsOnly }">сиров преглед</a>
 
                 <a href="#">{{ filename }}</a> хостује са &#10084; <a
-                    href="http://github.com">GitHub</a>
+                    href="https://github.com">GitHub</a>
             </div><!--gist-meta-->
         </div><!--gist-file-->
     </div><!--gist-->

@@ -9,37 +9,32 @@
                 <h3 v-if="standalone" :id="frontmatter.id" class="display-1">
                     {{ frontmatter.title }}
                 </h3>
-                <h4 v-else :id="frontmatter.id">
+                <h4 v-else :id="frontmatter.id" ref="title">
                     {{ frontmatter.title }}
                 </h4>
             </nuxt-link>
             <!--eslint-disable-next-line vue/html-self-closing-->
             <a :name="frontmatter.name"></a>
-            <v-tooltip left bottom>
-                <template v-slot:activator="{ on }">
-                    <h4 v-if="standalone">
-                        <nuxt-link
-                            :to="`/blog/${frontmatter.name}`">
-                            <time
-                                :datetime="frontmatter.date"
-                                v-on="on">
-                                {{ formatDate(frontmatter.date) }}
-                            </time>
-                        </nuxt-link>
-                    </h4>
-                    <h5 v-else>
-                        <nuxt-link
-                            :to="`/blog/${frontmatter.name}`">
-                            <time
-                                :datetime="frontmatter.date"
-                                v-on="on">
-                                {{ formatDate(frontmatter.date) }}
-                            </time>
-                        </nuxt-link>
-                    </h5>
-                </template>
-                <span>Пермалинк</span>
-            </v-tooltip>
+            <h4 v-if="standalone">
+                <nuxt-link
+                    :to="`/blog/${frontmatter.name}`">
+                    <time
+                        :datetime="frontmatter.date"
+                        v-on="on">
+                        {{ formatDate(frontmatter.date) }}
+                    </time>
+                </nuxt-link>
+            </h4>
+            <h5 v-else>
+                <nuxt-link
+                    :to="`/blog/${frontmatter.name}`">
+                    <time
+                        :datetime="frontmatter.date"
+                        v-on="on">
+                        {{ formatDate(frontmatter.date) }}
+                    </time>
+                </nuxt-link>
+            </h5>
             <div class="categories-container">
                 Категорије:
                 <ul class="categories">
@@ -52,8 +47,12 @@
                 </ul>
             </div><!--categories-->
         </header>
-        <v-container class="py-0 pb-5 ml-0">
-            <v-row>
+        <v-container
+            class="py-0 pb-5 ml-0"
+            :style="{
+                'max-height': folded ? '15em' : rowHeight
+            }">
+            <v-row ref="articleRow">
                 <v-col :cols="12" :lg="10" class="py-0">
                     <DynamicMarkdown
                         :file-name="frontmatter.name"
@@ -67,7 +66,8 @@
                     <v-btn
                         color="accent"
                         class="black--text"
-                        elevation="12">
+                        hovered
+                        elevation="2">
                         <v-icon>
                             {{ folded
                                 ? 'mdi-chevron-down'
@@ -113,7 +113,7 @@ export default {
     data()
     {
         return {
-            foldDuration: 1000
+            scrollAnimationDuration: 1000
         };
     },
     computed: {
@@ -121,6 +121,17 @@ export default {
         {
             return this.frontmatter.tags && this.frontmatter.tags.length>0;
         },
+        rowHeight()
+        {
+            if (this && this.$refs && this.$refs.articleRow)
+            {
+                let totalHeight = this.$refs.articleRow.scrollHeight +
+                    (4 * 19);
+                // 4em * 19px base font-size
+                return `${totalHeight}px`;
+            }
+            return '100%';
+        }
     },
     methods: {
         formatDate(str)
@@ -142,19 +153,21 @@ export default {
         tagUrl(tag)
         {
             return `/blog/tag/${tag}`;
-            //return `http://strahinja.org/blog/tag/${tag}`;
         },
         toggleFolded()
         {
-            this.folded = !this.folded;
+            console.log('vuetify.goTo(#',
+                        this.frontmatter.id,
+                        ')');
+            //this.$vuetify.goTo(`#${this.frontmatter.id}`, {
+            let gbcr = this.$refs.title.getBoundingClientRect();
+            console.log('gbcr = ', gbcr);
+            this.$vuetify.goTo(gbcr.top, {
+                duration: this.scrollAnimationDuration
+            });
             this.$nextTick(() =>
             {
-                if (this.folded)
-                {
-                    this.$vuetify.goTo(`#${this.frontmatter.id}`, {
-                        duration: this.foldDuration
-                    });
-                }
+                this.folded = !this.folded;
             });
         }
     },
@@ -171,18 +184,18 @@ article.blog-post > header a
 
 article.blog-post > .container
     height: auto
-    transition: all .3s ease
+    max-height: 100%
+    position: relative
+    transition: all .5s ease
 
 article.blog-post.folded > .container
-    position: relative
     max-height: 15em
-    height: 15em
     overflow: hidden
-    transition: all .3s ease
+    transition: all .5s ease
 
 article.blog-post > .container .row
     opacity: 1
-    transition: all .3s ease
+    transition: all .5s ease
 
 article.blog-post.folded > .container .row
     opacity: .5
@@ -268,7 +281,7 @@ article.blog-post.standalone h4
     display: inline-block
     background: var(--v-secondary-lighten1)
     border-radius: .4rem
-    margin-right: .5rem
+    margin: .25rem .5rem .25rem 0
     padding: 0 .5rem
     box-shadow: 1px 1px 3px
     font-size: .7rem

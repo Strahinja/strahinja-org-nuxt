@@ -100,12 +100,7 @@ export default {
     name: 'SearchIndex',
     components: { BlogPost, NoResults },
     watchQuery: true,
-    async middleware ({store})
-    {
-        await store.dispatch('posts/loadPosts');
-        store.commit('pages/setPageId', { newId:
-            store.state.pages.routeIds.PAGE_SEARCH_INDEX });
-    },
+    middleware: ['load-posts'],
     data()
     {
         return {
@@ -225,7 +220,7 @@ export default {
         let globals = {
             title: this.page.title + `: ${this.q}`,
             description: this.page.text + `: ${this.q}`,
-            url: 'http://strahinja.org'
+            url: 'https://strahinja.org'
                 + this.page.path
                 + '?q=' + this.q,
             image: this.page.image,

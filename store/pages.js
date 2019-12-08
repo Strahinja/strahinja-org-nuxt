@@ -10,9 +10,9 @@ export const state = () => ({
         PAGE_BLOG_POST: 'blog-post',
         PAGE_BLOG_TAG_INDEX: 'blog-tag-index',
         PAGE_SEARCH_INDEX: 'search-index',
+        PAGE_USERS: 'users',
     },
-    globalMeta: {
-    },
+    showCookieConsent: true,
     list: [
         {
             id: 'home',
@@ -21,13 +21,17 @@ export const state = () => ({
             colorClass: 'md-primary',
             theme: '',
             icon: 'mdi-home',
-            image: 'http://strahinja.org/img/preview-home-strahinja-org.png',
+            image: 'https://strahinja.org/img/preview-home-strahinja-org.png',
             imageAlt: 'Стилизовани иницијали СР са текстом //strahinja.org',
-            url: { path: '/' },
+            url: {
+                path: '/',
+                routeName: 'index',
+            },
             parentUrl: '/',
             parentName: 'почетну',
             includedInNavigation: false,
             includedInMainToolbar: false,
+            protected: false,
         },
         {
             id: 'profile',
@@ -36,14 +40,18 @@ export const state = () => ({
             colorClass: 'light-green lighten-3',
             theme: 'green-card',
             icon: 'mdi-clipboard-account',
-            image: 'http://strahinja.org/img/preview-profile-strahinja-org.png',
+            image: 'https://strahinja.org/img/preview-profile-strahinja-org.png',
             imageAlt: 'Стилизована ознака профила са умањеним логом са'
                 + ' иницијалима СР и текстом //strahinja.org',
-            url: { path: '/profil' },
+            url: {
+                path: '/profil',
+                routeName: 'profil',
+            },
             parentUrl: '/',
             parentName: 'почетну',
             includedInNavigation: true,
             includedInMainToolbar: true,
+            protected: false,
         },
         {
             id: 'portfolio',
@@ -52,14 +60,18 @@ export const state = () => ({
             colorClass: 'orange lighten-3',
             theme: '',
             icon: 'mdi-palette',
-            image: 'http://strahinja.org/img/preview-portfolio-strahinja-org.png',
+            image: 'https://strahinja.org/img/preview-portfolio-strahinja-org.png',
             imageAlt: 'Стилизована ознака сликарске палете са умањеним логом са'
                 + ' иницијалима СР и текстом //strahinja.org',
-            url: { path: '/portfolio' },
+            url: {
+                path: '/portfolio',
+                routeName: 'portfolio',
+            },
             parentUrl: '/',
             parentName: 'почетну',
             includedInNavigation: true,
             includedInMainToolbar: true,
+            protected: false,
         },
         {
             id: 'links',
@@ -68,14 +80,18 @@ export const state = () => ({
             colorClass: 'light-blue lighten-4',
             theme: '',
             icon: 'mdi-bookmark-multiple',
-            image: 'http://strahinja.org/img/preview-links-strahinja-org.png',
+            image: 'https://strahinja.org/img/preview-links-strahinja-org.png',
             imageAlt: 'Стилизована ознака обележивача са умањеним логом са'
                 + ' иницијалима СР и текстом //strahinja.org',
-            url: { path: '/veze' },
+            url: {
+                path: '/veze',
+                routeName: 'veze',
+            },
             parentUrl: '/',
             parentName: 'почетну',
             includedInNavigation: true,
             includedInMainToolbar: false,
+            protected: false,
         },
         {
             id: 'blog-index',
@@ -84,14 +100,18 @@ export const state = () => ({
             colorClass: '',
             theme: '',
             icon: 'mdi-fountain-pen-tip',
-            image: 'http://strahinja.org/img/preview-blog-strahinja-org.png',
+            image: 'https://strahinja.org/img/preview-blog-strahinja-org.png',
             imageAlt: 'Цртеж врха пенкала са умањеним логом са иницијалима'
                 + ' СР и текстом //strahinja.org',
-            url: { path: '/blog' },
+            url: {
+                path: '/blog',
+                routeName: 'blog',
+            },
             parentUrl: '/',
             parentName: 'почетну',
             includedInNavigation: true,
             includedInMainToolbar: true,
+            protected: false,
         },
         {
             id: 'blog-post',
@@ -100,14 +120,18 @@ export const state = () => ({
             colorClass: '',
             theme: '',
             icon: 'mdi-fountain-pen-tip',
-            image: 'http://strahinja.org/img/preview-blog-strahinja-org.png',
+            image: 'https://strahinja.org/img/preview-blog-strahinja-org.png',
             imageAlt: 'Цртеж врха пенкала са умањеним логом са иницијалима'
                 + ' СР и текстом //strahinja.org',
-            url: { path: '/blog' },
+            url: {
+                path: '/blog',
+                routeName: 'blog-slug',
+            },
             parentUrl: '/blog',
             parentName: 'списак чланака',
             includedInNavigation: false,
             includedInMainToolbar: false,
+            protected: false,
         },
         {
             id: 'blog-tag-index',
@@ -116,14 +140,18 @@ export const state = () => ({
             colorClass: '',
             theme: '',
             icon: 'mdi-fountain-pen-tip',
-            image: 'http://strahinja.org/img/preview-blog-strahinja-org.png',
+            image: 'https://strahinja.org/img/preview-blog-strahinja-org.png',
             imageAlt: 'Цртеж врха пенкала са умањеним логом са иницијалима'
                 + ' СР и текстом //strahinja.org',
-            url: { path: '/blog/tag' },
+            url: {
+                path: '/blog/tag',
+                routeName: 'blog-tag-id',
+            },
             parentUrl: '/blog',
             parentName: 'списак чланака',
             includedInNavigation: false,
             includedInMainToolbar: false,
+            protected: false,
         },
         {
             id: 'search-index',
@@ -132,14 +160,38 @@ export const state = () => ({
             colorClass: '',
             theme: '',
             icon: 'mdi-fountain-pen-tip',
-            image: 'http://strahinja.org/img/preview-search-strahinja-org.png',
+            image: 'https://strahinja.org/img/preview-search-strahinja-org.png',
             imageAlt: 'Цртеж лупе са умањеним логом са иницијалима'
                 + ' СР и текстом //strahinja.org',
-            url: { path: '/search' },
+            url: {
+                path: '/search',
+                routeName: 'search',
+            },
             parentUrl: '/',
             parentName: 'почетну',
             includedInNavigation: false,
             includedInMainToolbar: false,
+            protected: false,
+        },
+        {
+            id: 'users',
+            title: 'Корисници',
+            text: 'Списак корисника',
+            colorClass: '',
+            theme: '',
+            icon: 'mdi-account-multiple',
+            image: 'https://strahinja.org/img/preview-users-strahinja-org.png',
+            imageAlt: 'Симбол више корисника са умањеним логом са иницијалима'
+                + ' СР и текстом //strahinja.org',
+            url: {
+                path: '/users',
+                routeName: 'users',
+            },
+            parentUrl: '/',
+            parentName: 'почетну',
+            includedInNavigation: true,
+            includedInMainToolbar: false,
+            protected: true,
         }
     ],
     pageId: 'home',
@@ -191,32 +243,43 @@ export const state = () => ({
 
 export const getters = {
     pageById: state => pageId =>
-    {
-        const filteredPages = state.list.filter(
-            page =>
-            {
-                return page.id == pageId;
-            }
-        );
-        if (filteredPages.length>0)
-        {
-            return filteredPages[0];
-        }
-        else
-        {
-            return null;
-        }
-    },
-    navigationPages: state => state.list.filter(
-        page => page.includedInNavigation),
+        state.list.find(page => page.id == pageId),
+    pageByRouteName: state => routeName => state.list.find(page => page.url.routeName == routeName),
+    navigationPages: (state, getters, rootState, rootGetters) => state.list.filter(
+        page => page.includedInNavigation &&
+            (!page.protected ||
+                (page.protected && rootGetters['auth/loggedIn'])
+            )
+    ),
     mainToolbarPages: state => state.list.filter(
-        page => page.includedInMainToolbar)
+        page => page.includedInMainToolbar),
+    showCookieConsent: state => state.showCookieConsent,
 };
 
 export const mutations = {
+    setShowCookieConsent(state, payload)
+    {
+        state.showCookieConsent = payload;
+    },
     setPageId(state, payload)
     {
         state.pageId = payload.newId;
     },
+};
+
+export const actions = {
+    setCookieConsent({ commit }, payload)
+    {
+        this.$cookies.set('strahinja-org-cookie-consent', payload ? '1' : '0');
+        commit('setShowCookieConsent', !payload);
+    },
+    setCurrentPageFromRouteName({ commit, getters }, payload)
+    {
+        const page = getters['pageByRouteName'](payload);
+        if (page)
+        {
+            commit('setPageId', { newId: page.id });
+        }
+    }
 };
 

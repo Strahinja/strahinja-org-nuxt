@@ -115,16 +115,11 @@ import LogoNuxt from '~/assets/svg/logo-nuxt.svg?inline';
 export default {
     name: 'Home',
     components: { Splash, LogoVue, LogoVuetify, LogoNuxt, MadeWith },
-    middleware ({store})
-    {
-        store.commit('pages/setPageId', { newId:
-            store.state.pages.routeIds.PAGE_HOME });
-    },
     head ()
     {
         return {
             link: [
-                { hid: 'canonical', rel: 'canonical', href: 'http://strahinja.org' }
+                { hid: 'canonical', rel: 'canonical', href: 'https://strahinja.org' }
             ]
         };
     },

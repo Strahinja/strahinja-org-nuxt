@@ -1,53 +1,44 @@
 <template>
-    <v-bottom-sheet
-        v-model="formActive"
-        class="login-form"
-        :width="width">
-        <template v-slot:activator="{ on }">
-            <!--eslint-disable-next-line vue/html-self-closing-->
-            <slot name="login-form-activator"></slot>
-        </template>
-        <v-card>
-            <v-card-title class="justify-end">
-                <v-spacer />
-                <v-subheader>
-                    Пријављивање преко друштвених мрежа
-                </v-subheader>
-                <v-spacer />
-                <v-tooltip bottom>
-                    <template v-slot:activator="{ on }">
-                        <v-btn
-                            icon
-                            v-on="on"
-                            @click.stop="formActive = false">
-                            <v-icon>
-                                mdi-close
-                            </v-icon>
-                        </v-btn>
-                    </template>
-                    <span>Затвори панел</span>
-                </v-tooltip>
-            </v-card-title>
-            <v-card-text>
-                <v-container>
-                    <v-row class="justify-center">
-                        <card-button
-                            v-for="social in socials"
-                            :key="social.id"
-                            :button-id="social.id"
-                            :color="social.color"
-                            :dark="social.dark"
-                            :hover="true"
-                            :icon="social.icon"
-                            :title="social.title"
-                            :short-desc="social.shortDesc"
-                            width="7rem"
-                            @clicked="serviceBtnClick($event)" />
-                    </v-row>
-                </v-container>
-            </v-card-text>
-        </v-card>
-    </v-bottom-sheet>
+    <v-card>
+        <v-card-title class="justify-end">
+            <v-spacer />
+            <v-subheader>
+                Пријављивање преко друштвених мрежа
+            </v-subheader>
+            <v-spacer />
+            <v-tooltip v-if="!standalone" bottom>
+                <template v-slot:activator="{ on }">
+                    <v-btn
+                        icon
+                        v-on="on"
+                        @click.stop="closeBtnClick()">
+                        <v-icon>
+                            mdi-close
+                        </v-icon>
+                    </v-btn>
+                </template>
+                <span>Затвори панел</span>
+            </v-tooltip>
+        </v-card-title>
+        <v-card-text>
+            <v-container>
+                <v-row class="justify-center">
+                    <card-button
+                        v-for="social in socials"
+                        :key="social.id"
+                        :button-id="social.id"
+                        :color="social.color"
+                        :dark="social.dark"
+                        :hover="true"
+                        :icon="social.icon"
+                        :title="social.title"
+                        :short-desc="social.shortDesc"
+                        width="7rem"
+                        @clicked="serviceBtnClick($event)" />
+                </v-row>
+            </v-container>
+        </v-card-text>
+    </v-card>
 </template>
 
 <script>
@@ -57,8 +48,7 @@ export default {
     name: 'LoginForm',
     components: { CardButton },
     props: {
-        width: { type: Number, default: 500, required: false },
-        active: { type: Boolean, default: false, required: false },
+        standalone: { type: Boolean, default: true, required: false },
     },
     data()
     {
@@ -113,25 +103,16 @@ export default {
                     shortDesc: 'Пријављивање преко WhatsApp-а',
                 },
             },
-            formActive: false,
         };
     },
-    watch:
-    {
-        active: function(newActive)
-        {
-            this.formActive = newActive;
-        },
-        formActive: function(newFormActive)
-        {
-            this.$emit('active-changed', newFormActive);
-        }
-    },
     methods: {
+        closeBtnClick()
+        {
+            this.$emit('close-button-clicked');
+        },
         serviceBtnClick(serviceName)
         {
-            console.log('LoginForm.serviceBtnClick(', serviceName, ')');
-            this.formActive = false;
+            this.$emit('service-button-clicked', serviceName);
         }
     }
 };

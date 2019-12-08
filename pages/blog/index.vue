@@ -59,12 +59,7 @@ import BlogPost from '~/components/BlogPost.vue';
 export default {
     name: 'Blog',
     components: { BlogPost },
-    async middleware ({store})
-    {
-        await store.dispatch('posts/loadPosts');
-        store.commit('pages/setPageId', { newId:
-            store.state.pages.routeIds.PAGE_BLOG_INDEX });
-    },
+    middleware: ['load-posts'],
     computed: {
         page()
         {
@@ -120,7 +115,7 @@ export default {
         let globals = {
             title: this.page.title,
             description: this.page.text,
-            url: 'http://strahinja.org' + this.page.url.path,
+            url: 'https://strahinja.org' + this.page.url.path,
             image: this.page.image,
             imageAlt: this.page.imageAlt,
         };

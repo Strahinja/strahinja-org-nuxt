@@ -151,11 +151,6 @@ import LinkItem from '~/components/LinkItem';
 export default {
     name: 'Links',
     components: { LinkItem },
-    middleware ({store})
-    {
-        store.commit('pages/setPageId', { newId:
-            store.state.pages.routeIds.PAGE_LINKS });
-    },
     data()
     {
         return {
@@ -260,7 +255,7 @@ export default {
         let globals = {
             title: this.page.title,
             description: this.page.text,
-            url: 'http://strahinja.org' + this.page.url.path,
+            url: 'https://strahinja.org' + this.page.url.path,
             image: this.page.image,
             imageAlt: this.page.imageAlt,
         };

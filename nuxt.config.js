@@ -16,6 +16,7 @@ import markdownItPrism from 'markdown-it-prism';
 import markdownItSamp from 'markdown-it-samp';
 import markdownItMdi from 'markdown-it-mdi';
 import markdownItTocDoneRight from 'markdown-it-toc-done-right';
+import authConfig from './auth.config.js';
 
 const fs = require('fs');
 var dynamicMarkdownRoutes = getDynamicMarkdownPaths({
@@ -50,7 +51,7 @@ export default {
             { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
         ],
         link: [
-            { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' }
+            { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' },
         ]
     },
     /*
@@ -62,7 +63,8 @@ export default {
      */
     pageTransition: {
         name: 'page',
-        mode: '',
+        mode: 'out-in',
+        //mode: '',
     },
     /*
      ** Global CSS
@@ -79,8 +81,9 @@ export default {
     /*
      ** Router configuration
      */
-    /*router: {
-        extendRoutes (routes, resolve)
+    router: {
+        //middleware: ['auth'],
+        /*extendRoutes (routes, resolve)
         {
             routes.push({
                 name: 'tag',
@@ -92,8 +95,19 @@ export default {
                 path: '*',
                 redirect: '/error/404'
             });
+        }*/
+    },
+    auth: {
+        strategies: {
+            google: {
+            },
+            facebook: {
+                client_id: authConfig.facebook.client_id,
+            },
+            github: {
+            },
         }
-    },*/
+    },
     /*
      ** Nuxt.js dev-modules
      */
@@ -115,6 +129,8 @@ export default {
         '@nuxtjs/svg',
         //'nuxt-purgecss',
         'nuxt-webfontloader',
+        'nuxt-compress',
+        'cookie-universal-nuxt',
         '@nuxtjs/sitemap' // Must be last
     ],
     /*purgeCSS: {
@@ -126,6 +142,14 @@ export default {
         ],
         whitelist: ['html', 'body'],
     },*/
+    'nuxt-compress': {
+        gzip: {
+            cache: true,
+        },
+        brotli: {
+            threshold: 10240,
+        },
+    },
     webfontloader: {
         google: {
             families: [
@@ -147,7 +171,7 @@ export default {
      ** Sitemap configuration
      */
     sitemap: {
-        hostname: 'http://strahinja.org',
+        hostname: 'https://strahinja.org',
         exclude: [
             '/noindex',
             '/search'

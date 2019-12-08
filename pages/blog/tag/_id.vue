@@ -64,12 +64,7 @@ export default {
     name: 'BlogByTag',
     components: { BlogPost },
     watchQuery: true,
-    async middleware ({store})
-    {
-        await store.dispatch('posts/loadPosts');
-        store.commit('pages/setPageId', { newId:
-            store.state.pages.routeIds.PAGE_BLOG_TAG_INDEX });
-    },
+    middleware: ['load-posts'],
     computed:
     {
         page()
@@ -134,7 +129,7 @@ export default {
         let globals = {
             title: this.page.title + ` #${this.tagId}`,
             description: this.page.text + ` #${this.tagId}`,
-            url: 'http://strahinja.org'
+            url: 'https://strahinja.org'
                 + this.page.path
                 + '/' + this.tagId,
             image: this.page.image,

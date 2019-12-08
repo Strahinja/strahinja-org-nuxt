@@ -46,7 +46,8 @@
             :clipped-left="clipped"
             dark
             color="primary"
-            class="full-width-toolbar">
+            class="full-width-toolbar"
+            :class="{ loading: pageLoading }">
             <client-only>
                 <v-tooltip bottom>
                     <template v-slot:activator="{ on }">
@@ -138,26 +139,27 @@
                                         <span>Претрага</span>
                                     </v-tooltip>
 
-                                    <login-form
+                                    <login-sheet
                                         :width="500"
-                                        :active="loginFormActive"
-                                        @active-changed="loginFormActive = $event">
-                                        <template #login-form-activator>
+                                        :active="loginSheetActive"
+                                        @active-changed="loginSheetActive = $event"
+                                        @service-button-clicked="loginSheetServiceBtnClick($event)">
+                                        <template #login-sheet-activator>
                                             <v-tooltip bottom>
                                                 <template v-slot:activator="{ on }">
                                                     <v-btn
                                                         icon
                                                         v-on="on"
-                                                        @click.stop="loginFormActive = true">
+                                                        @click.stop="loginSheetActive = true">
                                                         <v-icon>
-                                                            mdi-account-outline
+                                                            mdi-account-question
                                                         </v-icon>
                                                     </v-btn>
                                                 </template>
                                                 <span>Пријава</span>
                                             </v-tooltip>
                                         </template>
-                                    </login-form>
+                                    </login-sheet>
                                 </client-only>
                             </div><!--vertical-center-slot-->
                         </div>
@@ -169,6 +171,12 @@
         <v-content>
             <nuxt />
         </v-content>
+
+        <client-only>
+            <cookie-disclaimer
+                color="primary darken-1 white--text"
+                :show="showCookieConsent" />
+        </client-only>
 
         <v-footer
             app
@@ -215,7 +223,7 @@
                         <v-row class="ma-0">
                             <v-col class="pa-0" :cols="12">
                                 <a
-                                    href="http://creativecommons.org/licenses/by/4.0/"
+                                    href="https://creativecommons.org/licenses/by/4.0/"
                                     rel="license"><img
                                         alt="Creative Commons License"
                                         class="inline-image"
@@ -240,7 +248,7 @@
                             <v-col class="pa-0" :cols="12">
                                 <div class="d-inline-block mr-1">
                                     <a
-                                        href="http://creativecommons.org/licenses/by/4.0/"
+                                        href="https://creativecommons.org/licenses/by/4.0/"
                                         rel="license"><img
                                             alt="Creative Commons License"
                                             class="inline-image"
@@ -264,18 +272,15 @@
 </template>
 
 <script>
+import CookieDisclaimer from '~/components/CookieDisclaimer';
 import Strahinjaorg from '~/assets/svg/strahinjaorg.svg?inline';
-import LoginForm from '~/components/LoginForm';
+import LoginSheet from '~/components/LoginSheet';
 import { mixin as clickaway } from 'vue-clickaway';
 
 export default {
     name: 'App',
-    middleware ({store})
-    {
-        store.commit('pages/setPageId', { newId:
-            store.state.pages.routeIds.PAGE_NOTSET });
-    },
-    components: { Strahinjaorg, LoginForm },
+    middleware: ['set-page-id','cookie-consent'],
+    components: { CookieDisclaimer, Strahinjaorg, LoginSheet },
     mixins: [clickaway],
     data()
     {
@@ -293,7 +298,7 @@ export default {
                 v => v.length<this.maxSearchTextLength ||
                     `Текст мора бити мањи од ${this.maxSearchTextLength} знакова`,
             ],
-            loginFormActive: false,
+            loginSheetActive: false,
         };
     },
     computed: {
@@ -373,17 +378,25 @@ export default {
         pageLoading()
         {
             return this && this.$store && this.$store.getters ?
-                this.$store.getters('loading/isStoreLoading') :
+                this.$store.getters['loading/isStoreLoading'] :
                 true;
         },
         showBackButton()
         {
             return this.$breakpoint.is.xsOnly && this.$route.path != '/';
+        },
+        showCookieConsent()
+        {
+            if (this && this.$store && this.$store.getters)
+            {
+                return this.$store.getters['pages/showCookieConsent'];
+            }
+            return true;
         }
     },
     head()
     {
-        let url = 'http://strahinja.org';
+        let url = 'https://strahinja.org';
         let globals = {
             title: null,
             description: 'Лична веб страна Страхиње Радића',
@@ -532,6 +545,11 @@ export default {
             {
                 this.showSearch = false;
             }
+        },
+        loginSheetServiceBtnClick(serviceName)
+        {
+            console.log('layouts/default.vue.loginSheetServiceBtnClick(',
+                        serviceName, ')');
         }
     }
 };
@@ -541,6 +559,23 @@ export default {
 @import '~/assets/sass/pxplus.sass'
 @import '~/assets/sass/common.sass'
 @import '~/assets/sass/transition.sass'
+
+@keyframes title-gradient
+    0%
+        background-position: 0% 50%
+    50%
+        background-position: 100% 0%
+    100%
+        background-position: 0% 50%
+
+.v-toolbar .v-toolbar__content
+    transition: all .5s ease
+
+.v-toolbar.loading .v-toolbar__content
+    background: linear-gradient(280deg,transparent 0%,hsla(119, 63%, 69%, 0.5) 20%,transparent 40%,hsla(119, 63%, 69%, 0.2) 50%,transparent 60%,hsla(119, 63%, 69%, 0.5) 80%,transparent 100%)
+    background-size: 150% 150%
+    animation: title-gradient 5s ease infinite
+    transition: all .5s ease
 
 .my-input-container
     height: 100%

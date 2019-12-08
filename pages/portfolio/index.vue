@@ -66,11 +66,6 @@ import PortfolioItem from '~/components/PortfolioItem';
 export default {
     name: 'Portfolio',
     components: { PortfolioItem },
-    middleware ({store})
-    {
-        store.commit('pages/setPageId', { newId:
-            store.state.pages.routeIds.PAGE_PORTFOLIO });
-    },
     computed:
     {
         portfolio()
@@ -125,7 +120,7 @@ export default {
         let globals = {
             title: this.page.title,
             description: this.page.text,
-            url: 'http://strahinja.org' + this.page.url.path,
+            url: 'https://strahinja.org' + this.page.url.path,
             image: this.page.image,
             imageAlt: this.page.imageAlt,
         };

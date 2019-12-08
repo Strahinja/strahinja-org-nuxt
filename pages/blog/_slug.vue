@@ -53,12 +53,7 @@ import BlogPost from '~/components/BlogPost.vue';
 export default {
     name: 'Blog',
     components: { BlogPost },
-    async middleware ({store})
-    {
-        await store.dispatch('posts/loadPosts');
-        store.commit('pages/setPageId', { newId:
-            store.state.pages.routeIds.PAGE_BLOG_POST });
-    },
+    middleware: ['load-posts'],
     computed: {
         page()
         {
@@ -124,10 +119,10 @@ export default {
         let globals = {
             title: fm && fm.title ? fm.title : 'Ненасловљени чланак',
             description: fm && fm.description ? fm.description : 'Чланак без описа',
-            parentUrl: 'http://strahinja.org/blog',
+            parentUrl: 'https://strahinja.org/blog',
             url: fm && fm.name ?
-                `http://strahinja.org/blog/${fm.name}` :
-                'http://strahinja.org/blog',
+                `https://strahinja.org/blog/${fm.name}` :
+                'https://strahinja.org/blog',
             date: fm && fm.date ? fm.date : new Date().toISOString(),
             image: fm && fm.image ? fm.image :
                 this.page.image,
@@ -173,25 +168,30 @@ export default {
             description: globals.description,
         };
     },
-    async jsonld()
+    jsonld()
     {
+        if (!this || !this.post || !this.post.frontmatter)
+        {
+            return {};
+        }
+
         const fm = this.post.frontmatter;
         let globals = {
             title: fm && fm.title ? fm.title : 'Ненасловљени чланак',
             description: fm && fm.description ? fm.description :
                 'Чланак без описа',
-            parentUrl: 'http://strahinja.org/blog',
+            parentUrl: 'https://strahinja.org/blog',
             url: fm && fm.name ?
-                `http://strahinja.org/blog/${fm.name}` :
-                'http://strahinja.org/blog',
+                `https://strahinja.org/blog/${fm.name}` :
+                'https://strahinja.org/blog',
             date: fm && fm.date ? fm.date : new Date().toISOString(),
             image: fm && fm.image ? fm.image :
-                'http://strahinja.org/img/preview-blog-strahinja-org.png',
+                'https://strahinja.org/img/preview-blog-strahinja-org.png',
             imageAlt: 'Цртеж врха пенкала са умањеним логом са иницијалима'
                 + ' СР и текстом //strahinja.org',
         };
         return {
-            '@context': 'http://schema.org',
+            '@context': 'https://schema.org',
             '@type': 'Article',
             'name': globals.title,
             'author': {
