@@ -1,6 +1,15 @@
 # STATIC
 
-**This directory is not required, you can delete it if you don't want to use it.**
+| File/directory              | Description                     |
+|:----------------------------|:--------------------------------|
+| \[blog]                     | Blog posts (`.md`)              |
+| \[doku]                     | Documents                       |
+| \[img]                      | Images                          |
+| \[prezentacije]             | Websites I made                 |
+| .htaccess                   | Apache site-wide configuration  |
+| favicon.ico                 | Website icon                    |
+| robots.txt                  | Search engine indexing hints    |
+
 
 This directory contains your static files.
 Each file inside this directory is mapped to `/`.
