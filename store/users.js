@@ -1,6 +1,6 @@
 export const state = () => ({
     list: [],
-    apiUsers: process.env.VUE_APP_API_PATH + '/users',
+    apiUrl: '/users',
 });
 
 export const mutations = {
@@ -33,7 +33,7 @@ export const mutations = {
 export const getters = {
     itemCount: state => state.list.length,
     list: state => state.list,
-    apiPath: state => state.apiUsers,
+    apiPath: state => state.apiUrl,
     userById: state => userId =>
         state.list.find(user => user.user_id == userId),
     userByEmail: state => email =>

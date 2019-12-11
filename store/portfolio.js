@@ -1,6 +1,6 @@
 export const state = () => ({
     list: [],
-    apiPortfolio: process.env.VUE_APP_API_PATH + '/portfolio?c=12',
+    apiUrl: '/portfolio?c=12',
 });
 
 export const mutations = {
@@ -13,7 +13,7 @@ export const mutations = {
 export const getters = {
     itemCount: state => state.list.length,
     list: state => state.list,
-    apiPath: state => state.apiPortfolio,
+    apiPath: state => state.apiUrl,
 };
 
 export const actions = {

@@ -18,6 +18,11 @@ import markdownItMdi from 'markdown-it-mdi';
 import markdownItTocDoneRight from 'markdown-it-toc-done-right';
 import authConfig from './auth.config.js';
 
+require('dotenv').config({ path: '.env.production' });
+console.log('dotenv: mode = ', process.env.VUE_APP_MODE);
+console.log('dotenv: path = ', process.env.VUE_APP_API_PATH);
+console.log('dotenv: browser path = ', process.env.VUE_APP_BROWSER_API_PATH);
+
 const fs = require('fs');
 var dynamicMarkdownRoutes = getDynamicMarkdownPaths({
     '/blog': '*.md'
@@ -77,6 +82,8 @@ export default {
     plugins: [
         '~/plugins/breakpoint.js',
         '~/plugins/jsonld.js',
+        '~/plugins/cookie-disclaimer.js',
+        { src: '~/plugins/auth.js', mode: 'client' },
     ],
     /*
      ** Router configuration
@@ -103,9 +110,15 @@ export default {
             },
             facebook: {
                 client_id: authConfig.facebook.client_id,
+                redirect_uri: authConfig.facebook.redirect_uri,
+                userinfo_endpoint: authConfig.facebook.userinfo_endpoint,
             },
             github: {
             },
+        },
+        redirect: {
+            login: '/login',
+            logout: '/',
         }
     },
     /*
@@ -113,7 +126,10 @@ export default {
      */
     buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-        '@nuxtjs/vuetify'
+        '@nuxtjs/vuetify',
+        ['@nuxtjs/dotenv', {
+            filename: '.env.production'
+        } ],
     ],
     /*
      ** Nuxt.js modules
@@ -122,10 +138,10 @@ export default {
         //'@nuxt/http',
         '@nuxtjs/axios',
         '@nuxtjs/auth',
-        '@nuxtjs/toast',
-        ['@nuxtjs/dotenv', {
-            filename: '.env.production'
-        } ],
+        ['@nuxtjs/toast', {
+            iconPack: 'custom-class',
+            duration: 7000,
+        }],
         '@nuxtjs/svg',
         //'nuxt-purgecss',
         'nuxt-webfontloader',
@@ -183,6 +199,8 @@ export default {
      ** See https://axios.nuxtjs.org/options
      */
     axios: {
+        baseURL: process.env.VUE_APP_API_PATH,
+        browserBaseURL: process.env.VUE_APP_BROWSER_API_PATH,
         proxyHeaders: false,
         credentials: false
     },

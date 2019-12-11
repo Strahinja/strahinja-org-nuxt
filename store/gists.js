@@ -1,7 +1,8 @@
 import gistIds from '../static/blog/blog-gist-ids.json';
 
 export const state = () => ({
-    list: []
+    list: [],
+    debug: process.env.VUE_APP_MODE == 'staging',
 });
 
 export const mutations = {
@@ -9,6 +10,13 @@ export const mutations = {
     {
         state.list.push(payload);
     }
+};
+
+export const getters = {
+    loadedGistsCount: state => state.list.length,
+    gistById: state => gistId => state.list.find(
+        gist => gist.data.id == gistId),
+    debug: state => state.debug,
 };
 
 export const actions = {
@@ -22,11 +30,11 @@ export const actions = {
             }
         }
     },
-    async loadGist({ commit }, { gistId })
+    async loadGist({ commit, getters }, { gistId })
     {
         try
         {
-            let debug = false;
+            let debug = getters['debug'];
             let gist = null;
             if (!debug)
             {
@@ -61,11 +69,5 @@ export const actions = {
         }
         return null;
     }
-};
-
-export const getters = {
-    loadedGistsCount: state => state.list.length,
-    gistById: state => gistId => state.list.find(
-        gist => gist.data.id == gistId),
 };
 

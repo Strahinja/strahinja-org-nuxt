@@ -2,9 +2,8 @@ export const state = () => ({
     list: [],
     listByCategories: [],
     categories: [],
-    apiLinks: process.env.VUE_APP_API_PATH + '/favorites',
-    apiCategories:
-        process.env.VUE_APP_API_PATH + '/categories?ct=favorite',
+    apiUrl: '/favorites',
+    apiCategoriesUrl: '/categories?ct=favorite',
     numPages: 0,
     itemsPerPage: 12,
     itemCount: 0,
@@ -48,8 +47,8 @@ export const mutations = {
 };
 
 export const getters = {
-    apiPath: state => state.apiLinks,
-    apiCategoriesPath: state => state.apiCategories,
+    apiPath: state => state.apiUrl,
+    apiCategoriesPath: state => state.apiCategoriesUrl,
     itemCount: state => state.itemCount,
     numPages: state => state.numPages,
     itemsPerPage: state => state.itemsPerPage,

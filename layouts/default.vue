@@ -546,10 +546,28 @@ export default {
                 this.showSearch = false;
             }
         },
-        loginSheetServiceBtnClick(serviceName)
+        async loginSheetServiceBtnClick(serviceName)
         {
             console.log('layouts/default.vue.loginSheetServiceBtnClick(',
                         serviceName, ')');
+            if (serviceName == 'facebook')
+            {
+                await this.$auth.loginWith('facebook')
+                    .catch(e =>
+                    {
+                        console.log('layouts/default.vue.loginSheetServiceBtnClick(await): ', e);
+                        this.$toast.show('Грешка при пријављивању', {
+                            icon: 'mdi mdi-account-question',
+                            action: {
+                                text: 'Одбаци',
+                                onClick: (e, toastObject) =>
+                                {
+                                    toastObject.goAway(0);
+                                }
+                            },
+                        });
+                    });
+            }
         }
     }
 };
