@@ -1,11 +1,15 @@
 # STORE
 
-| File     | Description            |
-|:---------|:-----------------------|
-| gists.js | Store module for gists |
-| index.js | Server init            |
-| pages.js | Store module for pages |
-| posts.js | Store module for posts |
+| File         | Description                 |
+|:-------------|:----------------------------|
+| gists.js     | Gists                       |
+| index.js     | Server init                 |
+| links.js     | Links page                  |
+| loading.js   | Manage loading              |
+| pages.js     | Page info                   |
+| portfolio.js | Portfolio page              |
+| posts.js     | Posts                       |
+| users.js     | User accounts               |
 
 This directory contains your Vuex Store files.
 Vuex Store option is implemented in the Nuxt.js framework.
