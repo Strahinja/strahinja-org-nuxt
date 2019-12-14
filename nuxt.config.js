@@ -106,19 +106,19 @@ export default {
     },
     auth: {
         strategies: {
-            google: {
-            },
+            local: false,
+            google: false,
             facebook: {
                 client_id: authConfig.facebook.client_id,
                 redirect_uri: authConfig.facebook.redirect_uri,
                 userinfo_endpoint: authConfig.facebook.userinfo_endpoint,
             },
-            github: {
-            },
+            github: false,
         },
         redirect: {
             login: '/login',
             logout: '/',
+            callback: '/login',
         }
     },
     /*

@@ -144,7 +144,9 @@
                                         :active="loginSheetActive"
                                         @active-changed="loginSheetActive = $event"
                                         @service-button-clicked="loginSheetServiceBtnClick($event)">
-                                        <template #login-sheet-activator>
+                                        <template
+                                            v-if="!loggedIn"
+                                            #login-sheet-activator>
                                             <v-tooltip bottom>
                                                 <template v-slot:activator="{ on }">
                                                     <v-btn
@@ -160,6 +162,14 @@
                                             </v-tooltip>
                                         </template>
                                     </login-sheet>
+
+                                    <v-btn
+                                        v-if="loggedIn"
+                                        icon>
+                                        <v-avatar>
+                                            <img :src="userAvatar">
+                                        </v-avatar>
+                                    </v-btn>
                                 </client-only>
                             </div><!--vertical-center-slot-->
                         </div>
@@ -302,6 +312,28 @@ export default {
         };
     },
     computed: {
+        loggedIn()
+        {
+            if (this && this.$auth)
+            {
+                return this.$auth.loggedIn;
+            }
+            return false;
+        },
+        userAvatar()
+        {
+            if (this && this.loggedIn)
+            {
+                if (this.$auth.user && this.$auth.user.picture &&
+                    this.$auth.user.picture.data &&
+                    this.$auth.user.picture.data.url)
+                {
+                    return this.$auth.user.picture.data.url;
+                }
+                return null;
+            }
+            return null;
+        },
         page()
         {
             if (this && this.$store)
@@ -553,18 +585,27 @@ export default {
             if (serviceName == 'facebook')
             {
                 await this.$auth.loginWith('facebook')
+                    .then(() =>
+                    {
+                        this.$toast.success('Пријављивање успело!', {
+                            icon: 'mdi mdi-account-check',
+                        });
+                        console.log('this.$auth.loggedIn = ',
+                                    this.$auth.loggedIn ? 'true' : 'false');
+                        console.log('thia.$auth.user = ', this.$auth.user);
+                    })
                     .catch(e =>
                     {
                         console.log('layouts/default.vue.loginSheetServiceBtnClick(await): ', e);
-                        this.$toast.show('Грешка при пријављивању', {
-                            icon: 'mdi mdi-account-question',
-                            action: {
+                        this.$toast.error('Грешка при пријављивању', {
+                            icon: 'mdi mdi-alert',
+                            /*action: {
                                 text: 'Одбаци',
                                 onClick: (e, toastObject) =>
                                 {
                                     toastObject.goAway(0);
                                 }
-                            },
+                            },*/
                         });
                     });
             }

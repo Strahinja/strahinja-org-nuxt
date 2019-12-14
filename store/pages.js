@@ -270,7 +270,9 @@ export const mutations = {
 export const actions = {
     setCookieConsent({ commit }, payload)
     {
-        this.$cookies.set('strahinja-org-cookie-consent', payload ? '1' : '0');
+        this.$cookies.set('strahinja-org-cookie-consent', payload ? '1' : '0', {
+            maxAge: 15 * 365 * 24 * 60 * 60,
+        });
         commit('setShowCookieConsent', !payload);
     },
     setCurrentPageFromRouteName({ commit, getters }, payload)

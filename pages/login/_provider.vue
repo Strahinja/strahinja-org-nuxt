@@ -1,10 +1,10 @@
 <template>
     <div class="login">
-        <h1>Logged In</h1>
-        <p>
-            provider = {{ provider }}
-            params = {{ params }}
-        </p>
+        <v-progress-circular
+            indeterminate
+            color="primary"
+            :size="50"
+            :width="6" />
     </div>
 </template>
 
@@ -20,15 +20,18 @@ export default {
     },
     computed:
     {
+        loggedIn()
+        {
+            if (this && this.$auth)
+            {
+                return this.$auth.loggedIn ? 'true' : 'false';
+            }
+            return 'N/A';
+        },
         provider()
         {
-            if (this)
-            {
-                console.log('this.$route = ', this.$route);
-            }
             if (this && this.$route && this.$route.params)
             {
-                console.log('this.$route.params = ', this.$route.params);
                 return this.$route.params.provider;
             }
             return '';
@@ -36,8 +39,8 @@ export default {
     },
     mounted()
     {
-        this.$auth.getToken('facebook');
         let params = {};
+        this.$auth.setStrategy(this.provider);
         if (this.$route.hash)
         {
             this.$route.hash
@@ -48,12 +51,42 @@ export default {
                     const [key, val] = param.split('=');
                     params[key] = val;
                 });
-            console.log('params = ', params);
+            /*console.log('params = ', params);*/
             this.params = params;
             if (params.access_token)
             {
-                this.$auth.setToken('facebook', params.access_token);
-                this.$auth.getToken('facebook');
+                /*console.log('auth.setUserToken');*/
+                this.$auth.setUserToken('Bearer ' + params.access_token)
+                    .then(() =>
+                    {
+                        /*this.$toast.success('setUserToken OK', {
+                            icon: 'mdi mdi-account-check',
+                        });
+                        console.log('setUserToken ok, $auth = ', this.$auth);*/
+                        this.$auth.fetchUser()
+                            .then(() =>
+                            {
+                                /*this.$toast.success('fetchUser OK', {
+                                    icon: 'mdi mdi-account-check'
+                                });
+                                console.log('after fetchUser, $auth = ', this.$auth);
+                                console.log('this.user = ', this.$auth.user);*/
+                            })
+                            .catch(e =>
+                            {
+                                this.$toast.error('fetchUser error', {
+                                    icon: 'mdi mdi-alert',
+                                });
+                                console.error('fetchUser error: ', e);
+                            });
+                    })
+                    .catch(e =>
+                    {
+                        this.$toast.error('setUserToken error', {
+                            icon: 'mdi mdi-alert',
+                        });
+                        console.error('setUserToken error: ', e);
+                    });
             }
         }
     },

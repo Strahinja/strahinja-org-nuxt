@@ -1,5 +1,9 @@
 <template>
-    <v-container fluid no-gutters ma-0 pa-0>
+    <v-container
+        :key="refreshKey"
+        fluid
+        no-gutters
+        class="ma-0 pa-0">
         <splash
             height="200px"
             :bg-color="$vuetify.theme.themes.light.secondary.base">
@@ -129,6 +133,7 @@ export default {
             madewithHeight: 75,
             loading: false,
             parentUrl: '/',
+            refreshKey: new Date().toISOString(),
         };
     },
     computed: {
@@ -171,6 +176,10 @@ export default {
     {
         this.loading = true;
     },
+    mounted()
+    {
+        this.refreshKey = new Date().toISOString();
+    }
 };
 </script>
 
