@@ -1,4 +1,4 @@
-export default async function ({ app })
+export default async function ({ store, app })
 {
     if (!app || !app.$auth || !app.$auth.loggedIn)
     {
@@ -8,6 +8,7 @@ export default async function ({ app })
         });*/
         return;
     }
+    console.log('plugins/auth.js: Logged in');
 
     app.$toast.info('plugins/auth.js: Корисник је пријављен', {
         icon: 'mdi mdi-account-check',
@@ -16,7 +17,10 @@ export default async function ({ app })
     const auth = app.$auth;
     const authStrategy = auth.strategy.name;
 
-    if (authStrategy === 'facebook' || authStrategy === 'google')
+    console.log('plugins/auth.js: strategy = ', authStrategy);
+
+    if (authStrategy === 'facebook' || authStrategy === 'google' ||
+        authStrategy === 'github')
     {
         const token = auth.getToken(authStrategy);
         const refreshToken = auth.getRefreshToken(authStrategy);
@@ -26,10 +30,51 @@ export default async function ({ app })
         try
         {
             await auth.fetchUser();
+            store.dispatch('users/loadUsers', {
+                thenCallback: () =>
+                {
+                    console.log('plugins/auth.js: auth.user = ', auth.user);
+                    console.log('plugins/auth.js: store.state.users.list = ', store.state.users.list);
+                    if (auth.user.family_name)
+                    {
+                        let name = auth.user.given_name;
+                        let surname = auth.user.family_name;
+                        store.dispatch('users/updateUser', {
+                            provider: authStrategy,
+                            data: {
+                                email: auth.user.email,
+                                token,
+                                name,
+                                surname
+                            }
+                        });
+                    }
+                    else
+                    {
+                        let name = auth.user.name;
+                        store.dispatch('users/updateUser', {
+                            provider: authStrategy,
+                            data: {
+                                email: auth.user.email,
+                                token,
+                                name
+                            }
+                        });
+                    }
+                }
+            });
+            /*app.$store.dispatch('users/updateUser', {
+            //this.$axios.$post(app.$store.getters[', {
+                data: {
+                    email: auth.user.email,
+                    name,
+                    surname
+                }
+            });*/
         }
         catch(error)
         {
-            console.log(error);
+            console.error(error);
         }
     }
 }

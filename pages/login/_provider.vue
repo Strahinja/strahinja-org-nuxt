@@ -41,6 +41,30 @@ export default {
     {
         let params = {};
         this.$auth.setStrategy(this.provider);
+        /*if (this.provider == 'facebook')
+        {
+            if (this.$route.hash)
+            {
+                this.$route.hash
+                    .replace(/#/, '')
+                    .split('&')
+                    .forEach(param =>
+                    {
+                        const [key, val] = param.split('=');
+                        params[key] = val;
+                    });
+                console.log('params = ', params);
+                this.params = params;
+            }
+        }
+        else if (this.provider == 'google')
+        {
+            if (this.$route.query)
+            {
+                const code = this.$route.query.code;
+                const state = this.$route.query.state;
+            }
+        }*/
         if (this.$route.hash)
         {
             this.$route.hash
@@ -51,26 +75,32 @@ export default {
                     const [key, val] = param.split('=');
                     params[key] = val;
                 });
-            /*console.log('params = ', params);*/
+            console.log('params = ', params);
             this.params = params;
             if (params.access_token)
             {
-                /*console.log('auth.setUserToken');*/
-                this.$auth.setUserToken('Bearer ' + params.access_token)
+                console.log('auth.setUserToken');
+                let token = params.access_token;
+                if (this.provider == 'facebook' ||
+                    this.provider == 'google')
+                {
+                    token = 'Bearer ' + token;
+                }
+                this.$auth.setUserToken(token)
                     .then(() =>
                     {
                         /*this.$toast.success('setUserToken OK', {
                             icon: 'mdi mdi-account-check',
-                        });
-                        console.log('setUserToken ok, $auth = ', this.$auth);*/
+                        });*/
+                        console.log('setUserToken ok, $auth = ', this.$auth);
                         this.$auth.fetchUser()
                             .then(() =>
                             {
                                 /*this.$toast.success('fetchUser OK', {
                                     icon: 'mdi mdi-account-check'
-                                });
+                                });*/
                                 console.log('after fetchUser, $auth = ', this.$auth);
-                                console.log('this.user = ', this.$auth.user);*/
+                                console.log('this.user = ', this.$auth.user);
                             })
                             .catch(e =>
                             {

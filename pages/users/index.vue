@@ -14,6 +14,16 @@
 
 export default {
     name: 'Users',
+    computed: {
+        users()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['users/list'];
+            }
+            return [];
+        }
+    },
     middleware: ['auth', 'load-users'],
     fetch({ store })
     {

@@ -26,6 +26,7 @@
                     <card-button
                         v-for="social in socials"
                         :key="social.id"
+                        :enabled="social.enabled"
                         :button-id="social.id"
                         :color="social.color"
                         :dark="social.dark"
@@ -50,60 +51,16 @@ export default {
     props: {
         standalone: { type: Boolean, default: true, required: false },
     },
-    data()
+    computed:
     {
-        return {
-            socials: {
-                facebook: {
-                    id: 'facebook',
-                    dark: true,
-                    color: '#3b5999',
-                    icon: 'mdi-facebook',
-                    title: 'Фејсбук',
-                    shortDesc: 'Пријављивање преко Фејсбука',
-                },
-                google: {
-                    id: 'google',
-                    dark: true,
-                    color: '#dd4b39',
-                    icon: 'mdi-google',
-                    title: 'Гугл',
-                    shortDesc: 'Пријављивање преко Гугла',
-                },
-                linkedin: {
-                    id: 'linkedin',
-                    dark: true,
-                    color: '#0077B5',
-                    icon: 'mdi-linkedin',
-                    title: 'LinkedIn',
-                    shortDesc: 'Пријављивање преко LinkedIn-а',
-                },
-                reddit: {
-                    id: 'reddit',
-                    dark: true,
-                    color: '#ff5700',
-                    icon: 'mdi-reddit',
-                    title: 'Редит',
-                    shortDesc: 'Пријављивање преко Редита',
-                },
-                twitter: {
-                    id: 'twitter',
-                    dark: false,
-                    color: '#55acee',
-                    icon: 'mdi-twitter',
-                    title: 'Твитер',
-                    shortDesc: 'Пријављивање преко Твитера',
-                },
-                whatsapp: {
-                    id: 'whatsapp',
-                    dark: false,
-                    color: '#25D366',
-                    icon: 'mdi-whatsapp',
-                    title: 'WhatsApp',
-                    shortDesc: 'Пријављивање преко WhatsApp-а',
-                },
-            },
-        };
+        socials()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['pages/socialLoginProviders'];
+            }
+            return [];
+        }
     },
     methods: {
         closeBtnClick()

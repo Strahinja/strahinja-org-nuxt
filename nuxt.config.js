@@ -83,7 +83,7 @@ export default {
         '~/plugins/breakpoint.js',
         '~/plugins/jsonld.js',
         '~/plugins/cookie-disclaimer.js',
-        { src: '~/plugins/auth.js', mode: 'client' },
+        //{ src: '~/plugins/auth.js', mode: 'client' },
     ],
     /*
      ** Router configuration
@@ -105,15 +105,31 @@ export default {
         }*/
     },
     auth: {
+        cookie: {
+            options: {
+                expires: 7, // days
+                secure: true,
+            },
+        },
+        localStorage: false,
+        plugins: [ { src: '~/plugins/auth.js', mode: 'client' } ],
         strategies: {
             local: false,
-            google: false,
+            google: {
+                client_id: authConfig.google.client_id,
+                redirect_uri: authConfig.google.redirect_uri,
+            },
             facebook: {
                 client_id: authConfig.facebook.client_id,
                 redirect_uri: authConfig.facebook.redirect_uri,
                 userinfo_endpoint: authConfig.facebook.userinfo_endpoint,
             },
-            github: false,
+            github: {
+                client_id: authConfig.github.client_id,
+                client_secret: authConfig.github.client_secret,
+                redirect_uri: authConfig.github.redirect_uri,
+                response_type: 'code',
+            },
         },
         redirect: {
             login: '/login',
@@ -190,7 +206,9 @@ export default {
         hostname: 'https://strahinja.org',
         exclude: [
             '/noindex',
-            '/search'
+            '/search',
+            '/users',
+            '/users/me',
         ],
         routes: dynamicMarkdownRoutes
     },

@@ -2,15 +2,17 @@
     <!--v-tooltip bottom>
         <template v-slot:activator="{ on }"-->
     <v-card
-        :dark="dark"
-        :light="!dark"
-        :color="color"
-        :hover="hover"
+        :dark="enabled && dark"
+        :light="enabled && !dark"
+        :disabled="!enabled"
+        :color="enabled ? color : null"
+        :hover="enabled && hover"
         class="card-button"
+        :class="{ disabled: !enabled }"
         outlined
         :width="width"
         v-on="on"
-        @click.stop="$emit('clicked', buttonId)">
+        @click.stop="enabled ? $emit('clicked', buttonId) : false">
         <v-card-title class="justify-center">
             <v-icon>
                 {{ icon }}
@@ -34,6 +36,7 @@ export default {
     props: {
         buttonId: { type: String, default: null, required: true },
         icon: { type: String, default: '', required: true },
+        enabled: { type: Boolean, default: true, required: false },
         color: { type: String, default: 'transparent', required: false },
         dark: { type: Boolean, default: true, required: false },
         hover: { type: Boolean, default: true, required: false },
@@ -58,5 +61,9 @@ export default {
     font-weight: 500 !important
     letter-spacing: .0892857143em
     text-transform: uppercase
+
+.v-application .card-button.disabled
+    background-color: rgba(0,0,0,.12) !important
+    color: rgba(0,0,0,.26) !important
 </style>
 

@@ -1,6 +1,7 @@
 export const state = () => ({
     list: [],
     apiUrl: '/users',
+    apiUpdateUrl: '/users/update',
 });
 
 export const mutations = {
@@ -34,6 +35,7 @@ export const getters = {
     itemCount: state => state.list.length,
     list: state => state.list,
     apiPath: state => state.apiUrl,
+    apiUpdatePath: state => state.apiUpdateUrl,
     userById: state => userId =>
         state.list.find(user => user.user_id == userId),
     userByEmail: state => email =>
@@ -72,12 +74,21 @@ export const actions = {
     },
     updateUser({ commit, dispatch, getters }, payload)
     {
-        if (payload.email && getters['userByEmail'](payload.email))
+        if (payload.data && payload.data.email && getters['userByEmail'](payload.data.email))
         {
             dispatch('loading/startLoading', {
                 id: 'users'
             });
-            this.$axios.$patch(getters['apiPath'], payload)
+
+            this.$axios.post(getters['apiUpdatePath'],
+                             {
+                                 provider: payload.provider,
+                                 token: payload.data.token,
+                                 name: payload.data.name,
+                                 surname: payload.data.surname,
+                                 email: payload.data.email,
+                             }
+            )
                 .then(res =>
                 {
                     dispatch('loading/stopLoading', {
@@ -124,7 +135,7 @@ export const actions = {
                 });
         }
     },
-    loadUsers({ commit, dispatch, getters })
+    loadUsers({ commit, dispatch, getters }, payload)
     {
         if (!getters['itemCount'])
         {
@@ -140,6 +151,10 @@ export const actions = {
                     if (res.data && res.code == 200)
                     {
                         commit('setList', res.data);
+                    }
+                    if (payload && payload.thenCallback)
+                    {
+                        payload.thenCallback();
                     }
                 })
                 .catch(error =>

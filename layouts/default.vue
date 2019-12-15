@@ -140,13 +140,13 @@
                                     </v-tooltip>
 
                                     <login-sheet
+                                        v-if="!loggedIn"
+                                        :key="refreshOnAuthChange"
                                         :width="500"
                                         :active="loginSheetActive"
                                         @active-changed="loginSheetActive = $event"
                                         @service-button-clicked="loginSheetServiceBtnClick($event)">
-                                        <template
-                                            v-if="!loggedIn"
-                                            #login-sheet-activator>
+                                        <template #login-sheet-activator>
                                             <v-tooltip bottom>
                                                 <template v-slot:activator="{ on }">
                                                     <v-btn
@@ -163,13 +163,49 @@
                                         </template>
                                     </login-sheet>
 
-                                    <v-btn
+                                    <v-menu
                                         v-if="loggedIn"
-                                        icon>
-                                        <v-avatar>
-                                            <img :src="userAvatar">
-                                        </v-avatar>
-                                    </v-btn>
+                                        :key="refreshOnAuthChange"
+                                        offset-y>
+                                        <template v-slot:activator="{ on: menu }">
+                                            <v-tooltip bottom>
+                                                <template v-slot:activator="{ on: tooltip }">
+                                                    <v-btn
+                                                        icon
+                                                        v-on="{ ...menu, ...tooltip }">
+                                                        <v-avatar>
+                                                            <img :src="userAvatar">
+                                                        </v-avatar>
+                                                    </v-btn>
+                                                </template>
+                                                <span>{{ userDisplayName }}</span>
+                                            </v-tooltip>
+                                        </template>
+                                        <v-list>
+                                            <v-list-item
+                                                @click="settingsClick()">
+                                                <v-list-item-action>
+                                                    <v-icon>
+                                                        mdi-account-settings
+                                                    </v-icon>
+                                                </v-list-item-action>
+                                                <v-list-item-title>
+                                                    Подешавања
+                                                </v-list-item-title>
+                                            </v-list-item>
+                                            <v-list-item
+                                                @click="logoutClick()">
+                                                <v-list-item-action>
+                                                    <v-icon>
+                                                        mdi-logout
+                                                    </v-icon>
+                                                </v-list-item-action>
+                                                <v-list-item-title>
+                                                    Одјављивање
+                                                </v-list-item-title>
+                                            </v-list-item>
+                                        </v-list>
+                                    </v-menu>
                                 </client-only>
                             </div><!--vertical-center-slot-->
                         </div>
@@ -309,6 +345,7 @@ export default {
                     `Текст мора бити мањи од ${this.maxSearchTextLength} знакова`,
             ],
             loginSheetActive: false,
+            refreshOnAuthChange: new Date().toISOString(),
         };
     },
     computed: {
@@ -320,15 +357,44 @@ export default {
             }
             return false;
         },
+        userDisplayName()
+        {
+            if (this && this.loggedIn)
+            {
+                if (this.$auth.strategy.name == 'facebook' ||
+                    this.$auth.strategy.name == 'google' ||
+                    this.$auth.strategy.name == 'github')
+                {
+                    if (this.$auth.user && this.$auth.user.name)
+                    {
+                        return this.$auth.user.name;
+                    }
+                    return 'Анониман';
+                }
+                return 'Анониман';
+            }
+            return 'Анониман';
+        },
         userAvatar()
         {
             if (this && this.loggedIn)
             {
-                if (this.$auth.user && this.$auth.user.picture &&
-                    this.$auth.user.picture.data &&
-                    this.$auth.user.picture.data.url)
+                if (this.$auth.strategy.name == 'facebook')
                 {
-                    return this.$auth.user.picture.data.url;
+                    if (this.$auth.user && this.$auth.user.picture &&
+                        this.$auth.user.picture.data)
+                    {
+                        return this.$auth.user.picture.data.url;
+                    }
+                    return null;
+                }
+                else if (this.$auth.strategy.name == 'google')
+                {
+                    if (this.$auth.user)
+                    {
+                        return this.$auth.user.picture;
+                    }
+                    return null;
                 }
                 return null;
             }
@@ -514,6 +580,21 @@ export default {
         });*/
     },
     methods: {
+        settingsClick()
+        {
+            this.$router.push({ path: '/users/me' });
+        },
+        logoutClick()
+        {
+            if (this.$auth && this.loggedIn)
+            {
+                this.$auth.logout()
+                    .then(() =>
+                    {
+                        this.refreshOnAuthChange = new Date().toISOString();
+                    });
+            }
+        },
         searchBtnClick()
         {
             if (!this.showSearch)
@@ -582,11 +663,13 @@ export default {
         {
             console.log('layouts/default.vue.loginSheetServiceBtnClick(',
                         serviceName, ')');
-            if (serviceName == 'facebook')
+            if (serviceName == 'facebook' || serviceName == 'google' ||
+                serviceName == 'github')
             {
-                await this.$auth.loginWith('facebook')
+                await this.$auth.loginWith(serviceName)
                     .then(() =>
                     {
+                        this.refreshOnAuthChange = new Date().toISOString();
                         this.$toast.success('Пријављивање успело!', {
                             icon: 'mdi mdi-account-check',
                         });
@@ -653,4 +736,9 @@ export default {
     vertical-align: middle
     margin-top: -3px
 
+.v-application .v-menu__content
+    z-index: 10 !important
+
+.v-application .v-tooltip__content
+    z-index: 8 !important
 </style>
