@@ -173,7 +173,7 @@ export const actions = {
         commit('setItemCount', 0);
         dispatch('loading/startLoading', {
             id: 'links'
-        });
+        }, { root: true });
         dispatch('loadCategories')
             .then(() =>
             {
@@ -185,11 +185,11 @@ export const actions = {
                         commit('setLoadedInitially', true);
                         dispatch('loading/stopLoading', {
                             id: 'links'
-                        });
+                        }, { root: true });
                     },
                     callbackCatch: () => dispatch('loading/stopLoading', {
                         id: 'links'
-                    })
+                    }, { root: true })
                 });
             });
     }

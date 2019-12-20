@@ -1,6 +1,4 @@
 <template>
-    <!--v-tooltip bottom>
-        <template v-slot:activator="{ on }"-->
     <v-card
         :dark="enabled && dark"
         :light="enabled && !dark"
@@ -11,7 +9,6 @@
         :class="{ disabled: !enabled }"
         outlined
         :width="width"
-        v-on="on"
         @click.stop="enabled ? $emit('clicked', buttonId) : false">
         <v-card-title class="justify-center">
             <v-icon>
@@ -24,10 +21,6 @@
             </v-subheader>
         </v-card-subtitle>
     </v-card>
-    <!--/template>
-        <span>{{ shortDesc }}
-        </span>
-    </v-tooltip-->
 </template>
 
 <script>

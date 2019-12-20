@@ -41,7 +41,7 @@
                 <v-container>
                     <v-row>
                         <v-col>
-                            <v-card>
+                            <v-card v-if="loggedIn">
                                 <v-card-title>
                                     <v-row>
                                         <v-col

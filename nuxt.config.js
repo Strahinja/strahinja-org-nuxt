@@ -108,7 +108,7 @@ export default {
         cookie: {
             options: {
                 expires: 7, // days
-                secure: true,
+                //secure: true,
             },
         },
         localStorage: false,
@@ -117,24 +117,33 @@ export default {
             local: false,
             google: {
                 client_id: authConfig.google.client_id,
-                redirect_uri: authConfig.google.redirect_uri,
+                //redirect_uri: authConfig.google.redirect_uri,
             },
             facebook: {
                 client_id: authConfig.facebook.client_id,
-                redirect_uri: authConfig.facebook.redirect_uri,
-                userinfo_endpoint: authConfig.facebook.userinfo_endpoint,
+                /*redirect_uri: authConfig.facebook.redirect_uri,
+                userinfo_endpoint: authConfig.facebook.userinfo_endpoint,*/
             },
             github: {
                 client_id: authConfig.github.client_id,
                 client_secret: authConfig.github.client_secret,
-                redirect_uri: authConfig.github.redirect_uri,
+                /*redirect_uri: authConfig.github.redirect_uri,
+                authorization_endpoint: 'https://github.com/login/oauth/authorize',
+                token_endpoint: 'https://github.com/login/oauth/access_token',
+                token_key: 'access_token',
+                token_type: 'Bearer',
                 response_type: 'code',
+                grant_type: 'authorization_code',
+                scope: '*',*/
+            },
+            twitter: {
+                client_id: authConfig.twitter.client_id,
             },
         },
         redirect: {
             login: '/login',
             logout: '/',
-            callback: '/login',
+            callback: '/login/callback',
         }
     },
     /*
@@ -207,6 +216,8 @@ export default {
         exclude: [
             '/noindex',
             '/search',
+            '/login',
+            '/login/callback',
             '/users',
             '/users/me',
         ],
@@ -219,6 +230,7 @@ export default {
     axios: {
         baseURL: process.env.VUE_APP_API_PATH,
         browserBaseURL: process.env.VUE_APP_BROWSER_API_PATH,
+        proxy: true,
         proxyHeaders: false,
         credentials: false
     },

@@ -280,7 +280,7 @@ export const state = () => ({
         },
         github: {
             id: 'github',
-            enabled: false,
+            enabled: true,
             dark: true,
             color: '#171515',
             icon: 'mdi-github-circle',
@@ -307,7 +307,7 @@ export const state = () => ({
                 },*/
         twitter: {
             id: 'twitter',
-            enabled: false,
+            enabled: true,
             dark: false,
             color: '#55acee',
             icon: 'mdi-twitter',

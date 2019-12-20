@@ -2,13 +2,16 @@
     <v-card>
         <v-card-title class="justify-end">
             <v-spacer />
-            <v-subheader>
+            <v-subheader
+                class="text-center"
+                :class="{ xs: $breakpoint.is.xsOnly }">
                 Пријављивање преко друштвених мрежа
             </v-subheader>
             <v-spacer />
             <v-tooltip v-if="!standalone" bottom>
                 <template v-slot:activator="{ on }">
                     <v-btn
+                        :class="{ 'px-5': $breakpoint.is.xsOnly }"
                         icon
                         v-on="on"
                         @click.stop="closeBtnClick()">
@@ -75,6 +78,9 @@ export default {
 };
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
+.v-application .v-subheader.xs
+    line-height: normal
+    padding-top: 2rem
 </style>
 

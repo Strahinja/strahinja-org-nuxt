@@ -178,7 +178,10 @@ export default {
     },
     mounted()
     {
-        this.refreshKey = new Date().toISOString();
+        this.$nextTick(() =>
+        {
+            this.refreshKey = new Date().toISOString();
+        });
     }
 };
 </script>

@@ -77,9 +77,9 @@
                             :class="{
                                 'center-avatar-100': true
                             }">
-                            <img
+                            <v-img
                                 src="/img/avatar-2017.jpg"
-                                alt="Аватар">
+                                alt="Аватар" />
                         </v-avatar>
                         <v-avatar
                             v-else
@@ -88,9 +88,9 @@
                                 'center-avatar-64': true,
                                 'right-avatar-64': $breakpoint.is.xsOnly
                             }">
-                            <img
+                            <v-img
                                 src="/img/avatar-2017.jpg"
-                                alt="Аватар">
+                                alt="Аватар" />
                         </v-avatar>
                     </v-toolbar>
 
@@ -246,6 +246,9 @@ export default {
 </script>
 
 <style lang="sass">
+.v-avatar .v-image
+    z-index: auto
+
 .center-avatar-100
     position: absolute
     width: 96px

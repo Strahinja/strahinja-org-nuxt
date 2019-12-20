@@ -12,6 +12,7 @@
 
 export default {
     name: 'Login',
+    middleware: ['auth'],
     data()
     {
         return {
@@ -41,31 +42,7 @@ export default {
     {
         let params = {};
         this.$auth.setStrategy(this.provider);
-        /*if (this.provider == 'facebook')
-        {
-            if (this.$route.hash)
-            {
-                this.$route.hash
-                    .replace(/#/, '')
-                    .split('&')
-                    .forEach(param =>
-                    {
-                        const [key, val] = param.split('=');
-                        params[key] = val;
-                    });
-                console.log('params = ', params);
-                this.params = params;
-            }
-        }
-        else if (this.provider == 'google')
-        {
-            if (this.$route.query)
-            {
-                const code = this.$route.query.code;
-                const state = this.$route.query.state;
-            }
-        }*/
-        if (this.$route.hash)
+        /*if (this.$route.hash)
         {
             this.$route.hash
                 .replace(/#/, '')
@@ -89,16 +66,10 @@ export default {
                 this.$auth.setUserToken(token)
                     .then(() =>
                     {
-                        /*this.$toast.success('setUserToken OK', {
-                            icon: 'mdi mdi-account-check',
-                        });*/
                         console.log('setUserToken ok, $auth = ', this.$auth);
                         this.$auth.fetchUser()
                             .then(() =>
                             {
-                                /*this.$toast.success('fetchUser OK', {
-                                    icon: 'mdi mdi-account-check'
-                                });*/
                                 console.log('after fetchUser, $auth = ', this.$auth);
                                 console.log('this.user = ', this.$auth.user);
                             })
@@ -119,6 +90,11 @@ export default {
                     });
             }
         }
+        else
+        {
+            let code = this.$route.query.code;
+            let state = this.$route.query.state;
+        }*/
     },
     methods: {
     }

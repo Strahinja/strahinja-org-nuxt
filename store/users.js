@@ -1,6 +1,7 @@
 export const state = () => ({
     list: [],
     apiUrl: '/users',
+    apiAddUrl: '/users/add',
     apiUpdateUrl: '/users/update',
 });
 
@@ -35,6 +36,7 @@ export const getters = {
     itemCount: state => state.list.length,
     list: state => state.list,
     apiPath: state => state.apiUrl,
+    apiAddPath: state => state.apiAddUrl,
     apiUpdatePath: state => state.apiUpdateUrl,
     userById: state => userId =>
         state.list.find(user => user.user_id == userId),
@@ -45,19 +47,25 @@ export const getters = {
 };
 
 export const actions = {
-    createUser({ commit, dispatch, getters }, payload)
+    addUser({ commit, dispatch, getters }, payload)
     {
-        if (payload.email && !getters['userByEmail'](payload.email))
+        if (payload.data && payload.data.email && !getters['userByEmail'](payload.data.email))
         {
             dispatch('loading/startLoading', {
                 id: 'users'
-            });
-            this.$axios.$put(getters['apiPath'], payload)
+            }, { root: true });
+            this.$axios.post(getters['apiAddPath'], {
+                provider: payload.provider,
+                token: payload.data.token,
+                name: payload.data.name,
+                surname: payload.data.surname,
+                email: payload.data.email,
+            })
                 .then(res =>
                 {
                     dispatch('loading/stopLoading', {
                         id: 'users'
-                    });
+                    }, { root: true });
                     if (res.data && res.code == 200)
                     {
                         commit('addUser', res.data);
@@ -67,7 +75,7 @@ export const actions = {
                 {
                     dispatch('loading/stopLoading', {
                         id: 'users'
-                    });
+                    }, { root: true });
                     console.error('store/users.js: ', error);
                 });
         }
@@ -78,22 +86,20 @@ export const actions = {
         {
             dispatch('loading/startLoading', {
                 id: 'users'
-            });
+            }, { root: true });
 
-            this.$axios.post(getters['apiUpdatePath'],
-                             {
-                                 provider: payload.provider,
-                                 token: payload.data.token,
-                                 name: payload.data.name,
-                                 surname: payload.data.surname,
-                                 email: payload.data.email,
-                             }
-            )
+            this.$axios.post(getters['apiUpdatePath'], {
+                provider: payload.provider,
+                token: payload.data.token,
+                name: payload.data.name,
+                surname: payload.data.surname,
+                email: payload.data.email,
+            })
                 .then(res =>
                 {
                     dispatch('loading/stopLoading', {
                         id: 'users'
-                    });
+                    }, { root: true });
                     if (res.data && res.code == 200)
                     {
                         commit('updateUser', res.data);
@@ -103,7 +109,7 @@ export const actions = {
                 {
                     dispatch('loading/stopLoading', {
                         id: 'users'
-                    });
+                    }, { root: true });
                     console.error('store/users.js: ', error);
                 });
         }
@@ -114,13 +120,13 @@ export const actions = {
         {
             dispatch('loading/startLoading', {
                 id: 'users'
-            });
+            }, { root: true });
             this.$axios.$delete(getters['apiPath'], payload.email)
                 .then(res =>
                 {
                     dispatch('loading/stopLoading', {
                         id: 'users'
-                    });
+                    }, { root: true });
                     if (res.data && res.data.email && res.code == 200)
                     {
                         commit('deleteUser', res.data.email);
@@ -130,7 +136,7 @@ export const actions = {
                 {
                     dispatch('loading/stopLoading', {
                         id: 'users'
-                    });
+                    }, { root: true });
                     console.error('store/users.js: ', error);
                 });
         }
@@ -141,13 +147,13 @@ export const actions = {
         {
             dispatch('loading/startLoading', {
                 id: 'users'
-            });
+            }, { root: true });
             this.$axios.$get(getters['apiPath'])
                 .then(res =>
                 {
                     dispatch('loading/stopLoading', {
                         id: 'users'
-                    });
+                    }, { root: true });
                     if (res.data && res.code == 200)
                     {
                         commit('setList', res.data);
@@ -161,9 +167,16 @@ export const actions = {
                 {
                     dispatch('loading/stopLoading', {
                         id: 'users'
-                    });
+                    }, { root: true });
                     console.error('store/users.js: ', error);
                 });
+        }
+        else
+        {
+            if (payload && payload.thenCallback)
+            {
+                payload.thenCallback();
+            }
         }
     }
 };

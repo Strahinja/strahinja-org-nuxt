@@ -11,6 +11,7 @@ import LoginForm from '~/components/LoginForm';
 
 export default {
     name: 'Login',
+    middleware: ['auth'],
     components: { LoginForm },
     methods: {
         async serviceBtnClick(serviceName)
@@ -35,13 +36,6 @@ export default {
                         console.log('layouts/default.vue.loginSheetServiceBtnClick(await): ', e);
                         this.$toast.error('Грешка при пријављивању', {
                             icon: 'mdi mdi-alert',
-                            /*action: {
-                                text: 'Одбаци',
-                                onClick: (e, toastObject) =>
-                                {
-                                    toastObject.goAway(0);
-                                }
-                            },*/
                         });
                     });
             }

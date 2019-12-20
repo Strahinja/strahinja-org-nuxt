@@ -1,7 +1,7 @@
 <template>
     <article
         class="blog-post mb-10"
-        :class="{'folded': folded,
+        :class="{'folded': postFolded,
                  'standalone': standalone}">
         <header>
             <nuxt-link
@@ -19,8 +19,7 @@
                 <nuxt-link
                     :to="`/blog/${frontmatter.name}`">
                     <time
-                        :datetime="frontmatter.date"
-                        v-on="on">
+                        :datetime="frontmatter.date">
                         {{ formatDate(frontmatter.date) }}
                     </time>
                 </nuxt-link>
@@ -29,8 +28,7 @@
                 <nuxt-link
                     :to="`/blog/${frontmatter.name}`">
                     <time
-                        :datetime="frontmatter.date"
-                        v-on="on">
+                        :datetime="frontmatter.date">
                         {{ formatDate(frontmatter.date) }}
                     </time>
                 </nuxt-link>
@@ -50,7 +48,7 @@
         <v-container
             class="py-0 pb-5 ml-0"
             :style="{
-                'max-height': folded ? '15em' : rowHeight
+                'max-height': postFolded ? '15em' : rowHeight
             }">
             <v-row ref="articleRow">
                 <v-col :cols="12" :lg="10" class="py-0">
@@ -69,11 +67,11 @@
                         hovered
                         elevation="2">
                         <v-icon>
-                            {{ folded
+                            {{ postFolded
                                 ? 'mdi-chevron-down'
                                 : 'mdi-chevron-up' }}
                         </v-icon>
-                        <span v-if="folded">Прикажи чланак</span>
+                        <span v-if="postFolded">Прикажи чланак</span>
                         <span v-else>Сакриј чланак</span>
                     </v-btn>
                 </div><!--folded-overlay-inner-->
@@ -105,7 +103,7 @@ export default {
     props: {
         folded: { type: Boolean, default: false },
         frontmatter: { type: Object, default: () => ({}) },
-        extraComponent: { type: Object, default: null },
+        extraComponent: { type: String, default: null },
         extraComponentParams: { type: Object, default: null },
         highlight: { type: String, default: '' },
         standalone: { type: Boolean, default: true },
@@ -113,7 +111,8 @@ export default {
     data()
     {
         return {
-            scrollAnimationDuration: 1000
+            scrollAnimationDuration: 1000,
+            postFolded: false,
         };
     },
     computed: {
@@ -132,6 +131,10 @@ export default {
             }
             return '100%';
         }
+    },
+    created()
+    {
+        this.postFolded = this.folded;
     },
     methods: {
         formatDate(str)
@@ -167,7 +170,7 @@ export default {
             });
             this.$nextTick(() =>
             {
-                this.folded = !this.folded;
+                this.postFolded = !this.postFolded;
             });
         }
     },

@@ -23,14 +23,14 @@ export const actions = {
         {
             dispatch('loading/startLoading', {
                 id: 'portfolio',
-            });
+            }, { root: true });
             this.$axios
                 .$get(getters['apiPath'])
                 .then(res =>
                 {
                     dispatch('loading/stopLoading', {
                         id: 'portfolio'
-                    });
+                    }, { root: true });
                     if (res.data && res.code === 200)
                     {
                         commit('setList', res.data);
@@ -40,7 +40,7 @@ export const actions = {
                 {
                     dispatch('loading/stopLoading', {
                         id: 'portfolio'
-                    });
+                    }, { root: true });
                     console.error('store/portfolio.js: ', error);
                 });
         }

@@ -109,7 +109,7 @@ export default {
                         if (!this || !this.extraComponentParams ||
                             !this.extraComponentParams.gist)
                         {
-                            return null;
+                            return {};
                         }
                         return this.extraComponentParams.gist;
                     }
