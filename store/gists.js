@@ -36,7 +36,7 @@ export const actions = {
     {
         var fs = require('fs');
         let cacheFileName = getters['cacheDir'] + `/${gistId}.json`;
-        console.log('store/gists: cacheFileName = ', cacheFileName);
+        //console.log('store/gists: cacheFileName = ', cacheFileName);
         let gist = null;
         try
         {
@@ -44,20 +44,20 @@ export const actions = {
         }
         catch(e)
         {
-            console.log('store/gists: readFileSync error');
+            console.error('store/gists: readFileSync error: ', e);
         }
         if (gist)
         {
-            console.log('store/gists: readFileSync = ', gist);
+            //console.log('store/gists: readFileSync = ', gist);
             gist = JSON.parse(gist);
-            console.log('store/gists: JSON.parse = ', gist);
+            //console.log('store/gists: JSON.parse = ', gist);
             commit('addGist', {
                 gistId: gistId,
                 data: gist,
             });
             return gist;
         }
-        console.log(`store/gists: Gist ${gistId} not cached, fetching by axios instead`);
+        //console.log(`store/gists: Gist ${gistId} not cached, fetching by axios instead`);
         try
         {
             let debug = getters['debug'];
@@ -77,7 +77,7 @@ export const actions = {
                     }
                     catch(e)
                     {
-                        console.log('store/gists: writeFileSync error');
+                        console.error('store/gists: writeFileSync error: ', e);
                     }
                     return gist;
                 }

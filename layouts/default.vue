@@ -259,10 +259,7 @@ import { mixin as clickaway } from 'vue-clickaway';
 
 export default {
     name: 'App',
-    middleware: ['set-page-id','cookie-consent', /*'auth-init'*/],
-    options: {
-        auth: false,
-    },
+    middleware: ['set-page-id','cookie-consent'],
     components: { CookieDisclaimer, Strahinjaorg, ProfileMenu },
     mixins: [clickaway],
     data()
