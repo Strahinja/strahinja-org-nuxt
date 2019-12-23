@@ -258,13 +258,17 @@ export default {
      */
     generate: {
         fallback: true,
+        //interval: 2000,
         routes: [
             '/',
             '/profil',
             '/portfolio',
             '/veze',
             '/blog'
-        ].concat(dynamicMarkdownRoutes)
+        ].concat(dynamicMarkdownRoutes),
+        exclude: [
+            /login/,
+        ],
     },
     vue: {
         config: {

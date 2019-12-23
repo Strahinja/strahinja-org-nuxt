@@ -307,7 +307,7 @@ export const state = () => ({
                 },*/
         twitter: {
             id: 'twitter',
-            enabled: true,
+            enabled: false,
             dark: false,
             color: '#55acee',
             icon: 'mdi-twitter',

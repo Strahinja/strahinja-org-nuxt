@@ -3,6 +3,7 @@ import gistIds from '../static/blog/blog-gist-ids.json';
 export const state = () => ({
     list: [],
     debug: process.env.VUE_APP_MODE == 'staging',
+    cacheDir: 'static/blog/gist-cache',
 });
 
 export const mutations = {
@@ -17,6 +18,7 @@ export const getters = {
     gistById: state => gistId => state.list.find(
         gist => gist.data.id == gistId),
     debug: state => state.debug,
+    cacheDir: state => state.cacheDir,
 };
 
 export const actions = {
@@ -32,10 +34,33 @@ export const actions = {
     },
     async loadGist({ commit, getters }, { gistId })
     {
+        var fs = require('fs');
+        let cacheFileName = getters['cacheDir'] + `/${gistId}.json`;
+        console.log('store/gists: cacheFileName = ', cacheFileName);
+        let gist = null;
+        try
+        {
+            gist = fs.readFileSync(cacheFileName);
+        }
+        catch(e)
+        {
+            console.log('store/gists: readFileSync error');
+        }
+        if (gist)
+        {
+            console.log('store/gists: readFileSync = ', gist);
+            gist = JSON.parse(gist);
+            console.log('store/gists: JSON.parse = ', gist);
+            commit('addGist', {
+                gistId: gistId,
+                data: gist,
+            });
+            return gist;
+        }
+        console.log(`store/gists: Gist ${gistId} not cached, fetching by axios instead`);
         try
         {
             let debug = getters['debug'];
-            let gist = null;
             if (!debug)
             {
                 gist = await this.$axios.$get(
@@ -46,6 +71,14 @@ export const actions = {
                         gistId: gistId,
                         data: gist
                     });
+                    try
+                    {
+                        fs.writeFileSync(cacheFileName, JSON.stringify(gist));
+                    }
+                    catch(e)
+                    {
+                        console.log('store/gists: writeFileSync error');
+                    }
                     return gist;
                 }
             }
