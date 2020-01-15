@@ -11,6 +11,9 @@ yarn-error.log*
 static/api
 auth.config.js
 
+# Tags
+tags
+
 # Runtime data
 pids
 *.pid
