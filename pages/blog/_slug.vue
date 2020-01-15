@@ -111,11 +111,17 @@ export default {
     },
     async created()
     {
+        console.log('middleware/blog-four-oh-four: route = ', this.$route);
         await this.$store.dispatch('posts/loadPosts');
+        if (!this.post)
+        {
+            this.$router.push('/error/404');
+        }
     },
+
     head()
     {
-        const fm = this.post.frontmatter;
+        const fm = this.post ? this.post.frontmatter : null;
         let globals = {
             title: fm && fm.title ? fm.title : 'Ненасловљени чланак',
             description: fm && fm.description ? fm.description : 'Чланак без описа',

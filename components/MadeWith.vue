@@ -15,7 +15,7 @@ export default {
         title: { type: String, default: '' },
         preserveAspect: { type: Boolean, default: true },
         width: { type: Number, default: -1 },
-        height: { type: Number, default: -1 },
+        height: { type: Number, default: 75 },
         fill: { type: String, default: '' },
         url: { type: String, default: '#' }
     },

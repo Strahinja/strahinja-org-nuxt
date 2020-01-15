@@ -32,6 +32,7 @@ export const state = () => ({
             includedInNavigation: false,
             includedInMainToolbar: false,
             protected: false,
+            admin: false,
         },
         {
             id: 'profile',
@@ -52,6 +53,7 @@ export const state = () => ({
             includedInNavigation: true,
             includedInMainToolbar: true,
             protected: false,
+            admin: false,
         },
         {
             id: 'portfolio',
@@ -72,6 +74,27 @@ export const state = () => ({
             includedInNavigation: true,
             includedInMainToolbar: true,
             protected: false,
+            admin: false,
+        },
+        {
+            id: 'portfolio-edit',
+            title: 'Уреди портфолио',
+            colorClass: '',
+            theme: '',
+            icon: 'mdi-pencil-box-multiple',
+            image: 'https://strahinja.org/img/preview-portfolio-strahinja-org.png',
+            imageAlt: 'Стилизована ознака сликарске палете са умањеним логом са'
+                + ' иницијалима СР и текстом //strahinja.org',
+            url: {
+                path: '/portfolio/edit',
+                routeName: 'portfolio-edit',
+            },
+            parentUrl: '/',
+            parentName: 'почетну',
+            includedInNavigation: true,
+            includedInMainToolbar: false,
+            protected: true,
+            admin: true,
         },
         {
             id: 'links',
@@ -92,6 +115,7 @@ export const state = () => ({
             includedInNavigation: true,
             includedInMainToolbar: false,
             protected: false,
+            admin: false,
         },
         {
             id: 'blog-index',
@@ -112,6 +136,7 @@ export const state = () => ({
             includedInNavigation: true,
             includedInMainToolbar: true,
             protected: false,
+            admin: false,
         },
         {
             id: 'blog-post',
@@ -132,6 +157,7 @@ export const state = () => ({
             includedInNavigation: false,
             includedInMainToolbar: false,
             protected: false,
+            admin: false,
         },
         {
             id: 'blog-tag-index',
@@ -152,6 +178,7 @@ export const state = () => ({
             includedInNavigation: false,
             includedInMainToolbar: false,
             protected: false,
+            admin: false,
         },
         {
             id: 'search-index',
@@ -172,6 +199,7 @@ export const state = () => ({
             includedInNavigation: false,
             includedInMainToolbar: false,
             protected: false,
+            admin: false,
         },
         {
             id: 'users',
@@ -192,6 +220,7 @@ export const state = () => ({
             includedInNavigation: true,
             includedInMainToolbar: false,
             protected: true,
+            admin: true,
         },
         {
             id: 'users-me-index',
@@ -212,6 +241,7 @@ export const state = () => ({
             includedInNavigation: true,
             includedInMainToolbar: false,
             protected: true,
+            admin: false,
         },
     ],
     pageId: 'home',
@@ -262,7 +292,7 @@ export const state = () => ({
     socialLoginProviders: {
         facebook: {
             id: 'facebook',
-            enabled: true,
+            enabled: false,
             dark: true,
             color: '#3b5999',
             icon: 'mdi-facebook',
@@ -280,7 +310,7 @@ export const state = () => ({
         },
         github: {
             id: 'github',
-            enabled: true,
+            enabled: false,
             dark: true,
             color: '#171515',
             icon: 'mdi-github-circle',
@@ -330,11 +360,13 @@ export const getters = {
     pageById: state => pageId =>
         state.list.find(page => page.id == pageId),
     pageByRouteName: state => routeName => state.list.find(page => page.url.routeName == routeName),
-    navigationPages: (state, getters, rootState, rootGetters) => state.list.filter(
+    navigationPages: (state, getters, rootState) => state.list.filter(
         page => page.includedInNavigation &&
             (!page.protected ||
-                (page.protected && rootGetters['auth/loggedIn'])
-            )
+                (page.protected && rootState.auth.loggedIn &&
+                    !page.admin ||
+                        (page.admin && rootState.users.))
+            ),
     ),
     mainToolbarPages: state => state.list.filter(
         page => page.includedInMainToolbar),

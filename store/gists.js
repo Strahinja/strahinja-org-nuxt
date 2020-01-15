@@ -3,7 +3,7 @@ import gistIds from '../static/blog/blog-gist-ids.json';
 export const state = () => ({
     list: [],
     debug: process.env.VUE_APP_MODE == 'staging',
-    cacheDir: 'static/blog/gist-cache',
+    cacheDir: 'blog/gist-cache',
 });
 
 export const mutations = {
@@ -34,22 +34,24 @@ export const actions = {
     },
     async loadGist({ commit, getters }, { gistId })
     {
-        var fs = require('fs');
+        //var fs = require('fs');
         let cacheFileName = getters['cacheDir'] + `/${gistId}.json`;
         //console.log('store/gists: cacheFileName = ', cacheFileName);
         let gist = null;
         try
         {
-            gist = fs.readFileSync(cacheFileName);
+            gist = await this.$axios.$get(process.env.VUE_APP_BROWSER_API_HOST +
+                '/' +cacheFileName);
+            //gist = fs.readFileSync(cacheFileName);
         }
         catch(e)
         {
-            console.error('store/gists: readFileSync error: ', e);
+            console.error('store/gists: axios error: ', e);
         }
         if (gist)
         {
             //console.log('store/gists: readFileSync = ', gist);
-            gist = JSON.parse(gist);
+            //gist = JSON.parse(gist);
             //console.log('store/gists: JSON.parse = ', gist);
             commit('addGist', {
                 gistId: gistId,
@@ -71,14 +73,14 @@ export const actions = {
                         gistId: gistId,
                         data: gist
                     });
-                    try
+                    /*try
                     {
                         fs.writeFileSync(cacheFileName, JSON.stringify(gist));
                     }
                     catch(e)
                     {
                         console.error('store/gists: writeFileSync error: ', e);
-                    }
+                    }*/
                     return gist;
                 }
             }

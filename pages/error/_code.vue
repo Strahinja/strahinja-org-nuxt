@@ -38,12 +38,19 @@
                     Код {{ code }}: {{ messages[code] }}
                 </h3>
                 <p>{{ messageDescriptions[code] }}</p>
+                <p>
+                    Назад на
+                    <nuxt-link :to="'/'">
+                        почетну страницу
+                    </nuxt-link>
+                </p>
             </v-col>
         </v-row>
     </v-container>
 </template>
 
 <script>
+var getProp = require('dotprop');
 export default {
     name: 'Error',
     head()
@@ -55,7 +62,8 @@ export default {
                 { hid: 'og:description', name: 'og:description', property: 'og:description', content:
                     this.messageDescriptions[this.code] },
                 { hid: 'og:image', name: 'og:image', property: 'og:image', content: this.image},
-                { hid: 'og:image:alt', name: 'og:image:alt', property: 'og:image:alt', content: this.imageAlt },
+                { hid: 'og:image:alt', name: 'og:image:alt', property:
+                    'og:image:alt', content: this.imageAlt },
                 { hid: 'twitter:url', name: 'twitter:url', content: this.url },
                 { hid: 'twitter:title', name: 'twitter:title', content: this.title },
                 { hid: 'twitter:description', name: 'twitter:description',
@@ -63,7 +71,8 @@ export default {
                 { hid: 'twitter:image', name: 'twitter:image', content:
                     this.image},
                 { hid: 'name', name: 'name', itemprop: 'name', content: this.title },
-                { hid: 'description', name: 'description', itemprop: 'description', content: this.description },
+                { hid: 'description', name: 'description', itemprop:
+                    'description', content: this.description },
                 { hid: 'image', name: 'image', itemprop: 'image', content: this.image},
                 { name: 'robots', content: 'noindex' }
             ],
@@ -79,36 +88,39 @@ export default {
         return {
             image: 'http://strahinja.org/img/preview-home-strahinja-org.png',
             imageAlt: 'Иницијали СР и текст //strahinja.org',
-            title: 'Грешка',
             messages: {
                 0: '',
                 200: 'Успешно',
-                401: 'Уклоњено',
-                404: 'Није пронађено'
+                404: 'Није пронађено',
+                410: 'Уклоњено',
             },
             messageDescriptions: {
                 0: '',
-                401: 'Ова страница је премештена или уклоњена.',
                 404: 'Страница тренутно није доступна или је'
                     + ' УРЛ који сте унели погрешан. Проверите'
-                    + ' УРЛ или покушајте поново касније.'
+                    + ' УРЛ или покушајте поново касније.',
+                410: 'Ова страница је премештена или уклоњена.',
             },
             parentUrl: '/',
         };
     },
     computed: {
+        code()
+        {
+            return getProp(this, '$route.params.code') || 0;
+        },
+        url()
+        {
+            return getProp(this, '$route.path') || '';
+        },
+        title()
+        {
+            return `Код ${this.code}`;
+        },
         showBackButton()
         {
             return this.$breakpoint.is.smAndUp;
         }
-    },
-    async asyncData({ /*app,*/ route/*, store, error */})
-    {
-        return {
-            url: route.path,
-            code: route.params.code,
-            title: 'Код ' + route.params.code,
-        };
     },
 };
 </script>

@@ -93,14 +93,8 @@ export default {
         /*extendRoutes (routes, resolve)
         {
             routes.push({
-                name: 'tag',
-                path: '/blog/tag/:id',
-                component: resolve(__dirname, 'pages/blog/tag/_id.vue')
-            });
-
-            routes.push({
                 path: '*',
-                redirect: '/error/404'
+                redirect: '/error/404',
             });
         }*/
     },
@@ -267,7 +261,10 @@ export default {
             '/blog'
         ].concat(dynamicMarkdownRoutes),
         exclude: [
-            /login/,
+            /noindex/,
+            /search/,
+            /login\/callback/,
+            // /users/,
         ],
     },
     vue: {

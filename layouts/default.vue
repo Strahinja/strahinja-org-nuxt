@@ -256,12 +256,13 @@ import ProfileMenu from '~/components/ProfileMenu';
 import CookieDisclaimer from '~/components/CookieDisclaimer';
 import Strahinjaorg from '~/assets/svg/strahinjaorg.svg?inline';
 import { mixin as clickaway } from 'vue-clickaway';
+import fourOhFour from '~/mixins/four-oh-four';
 
 export default {
     name: 'App',
-    middleware: ['set-page-id','cookie-consent'],
+    middleware: ['set-page-id', 'cookie-consent'],
     components: { CookieDisclaimer, Strahinjaorg, ProfileMenu },
-    mixins: [clickaway],
+    mixins: [clickaway, fourOhFour],
     data()
     {
         return {

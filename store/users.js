@@ -3,6 +3,7 @@ export const state = () => ({
     apiUrl: '/users',
     apiAddUrl: '/users/add',
     apiUpdateUrl: '/users/update',
+    adminRoleId: 2,
 });
 
 export const mutations = {
@@ -44,6 +45,11 @@ export const getters = {
         state.list.find(user => user.email == email),
     indexOfUserByEmail: state => email =>
         state.list.indexOf(user => user.email == email),
+    isAdmin: (state, getters) => email =>
+    {
+        const user = getters['userByEmail'](email);
+        return user ? user.role == state.adminRoleId : false;
+    }
 };
 
 export const actions = {
