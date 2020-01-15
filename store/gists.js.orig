@@ -3,8 +3,12 @@ import gistIds from '../static/blog/blog-gist-ids.json';
 export const state = () => ({
     list: [],
     debug: process.env.VUE_APP_MODE == 'staging',
+<<<<<<< Updated upstream
+    cacheDir: 'blog/gist-cache',
+=======
     cacheDir: 'static/blog/gist-cache',
     cachePath: '/blog/gist-cache',
+>>>>>>> Stashed changes
 });
 
 export const mutations = {
@@ -36,12 +40,16 @@ export const actions = {
     },
     async loadGist({ commit, getters }, { gistId })
     {
+<<<<<<< Updated upstream
+        //var fs = require('fs');
         let cacheFileName = getters['cacheDir'] + `/${gistId}.json`;
+        //console.log('store/gists: cacheFileName = ', cacheFileName);
         let gist = null;
         try
         {
             gist = await this.$axios.$get(process.env.VUE_APP_BROWSER_API_HOST +
                 '/' +cacheFileName);
+            //gist = fs.readFileSync(cacheFileName);
         }
         catch(e)
         {
@@ -49,6 +57,10 @@ export const actions = {
         }
         if (gist)
         {
+            //console.log('store/gists: readFileSync = ', gist);
+            //gist = JSON.parse(gist);
+            //console.log('store/gists: JSON.parse = ', gist);
+=======
         // TODO: Instead of fs use axios
         let gist = null;
         try
@@ -61,6 +73,7 @@ export const actions = {
         }
         if (gist)
         {
+>>>>>>> Stashed changes
             commit('addGist', {
                 gistId: gistId,
                 data: gist,
