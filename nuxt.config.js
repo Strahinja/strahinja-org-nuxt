@@ -83,6 +83,7 @@ export default {
         '~/plugins/breakpoint.js',
         '~/plugins/jsonld.js',
         '~/plugins/cookie-disclaimer.js',
+        '~/plugins/four-oh-four.js',
         //{ src: '~/plugins/auth.js', mode: 'client' },
     ],
     /*
@@ -214,6 +215,7 @@ export default {
             '/login/callback',
             '/users',
             '/users/me',
+            '/portfolio/edit',
         ],
         routes: dynamicMarkdownRoutes
     },
@@ -225,8 +227,8 @@ export default {
         baseURL: process.env.VUE_APP_API_PATH,
         browserBaseURL: process.env.VUE_APP_BROWSER_API_PATH,
         proxy: true,
-        proxyHeaders: false,
-        credentials: false
+        proxyHeaders: true,
+        credentials: false,
     },
     /*
      ** vuetify module configuration

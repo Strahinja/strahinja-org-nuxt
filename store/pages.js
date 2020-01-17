@@ -365,7 +365,7 @@ export const getters = {
             (!page.protected ||
                 (page.protected && rootState.auth.loggedIn &&
                     !page.admin ||
-                        (page.admin && rootState.users.))
+                        (page.admin /*&& rootState.users.*/))
             ),
     ),
     mainToolbarPages: state => state.list.filter(

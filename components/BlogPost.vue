@@ -142,6 +142,9 @@ export default {
             //eslint-disable-next-line no-unused-vars
             let [date, time] = str.split('T');
             let [year, month, day] = date.split('-');
+
+            month = parseInt(month); // for "01", etc.
+
             const monthNames = [
                 '',
                 'јан', 'феб', 'мар',

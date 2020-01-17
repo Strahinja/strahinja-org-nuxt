@@ -3,7 +3,6 @@ export const state = () => ({
     apiUrl: '/users',
     apiAddUrl: '/users/add',
     apiUpdateUrl: '/users/update',
-    adminRoleId: 2,
 });
 
 export const mutations = {

@@ -1,6 +1,5 @@
 <template>
     <v-container
-        :key="refreshKey"
         fluid
         no-gutters
         class="ma-0 pa-0">
@@ -116,6 +115,17 @@ import LogoVue from '~/assets/svg/logo-vue.svg?inline';
 import LogoVuetify from '~/assets/svg/logo-vuetify.svg?inline';
 import LogoNuxt from '~/assets/svg/logo-nuxt.svg?inline';
 
+function randomString(len)
+{
+    let s = '';
+    for (let i = 0; i < len; i++)
+    {
+        s += String.fromCharCode('A'.charCodeAt(0) +
+            Math.round(Math.random() * 26));
+    }
+    return s;
+}
+
 export default {
     name: 'Home',
     components: { Splash, LogoVue, LogoVuetify, LogoNuxt, MadeWith },
@@ -133,7 +143,6 @@ export default {
             madewithHeight: 75,
             loading: false,
             parentUrl: '/',
-            refreshKey: new Date().toISOString(),
         };
     },
     computed: {
@@ -172,15 +181,11 @@ export default {
             }
         },
     },
-    created()
-    {
-        this.loading = true;
-    },
     mounted()
     {
         this.$nextTick(() =>
         {
-            this.refreshKey = new Date().toISOString();
+            this.$forceUpdate();
         });
     }
 };
