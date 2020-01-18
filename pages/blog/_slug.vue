@@ -111,7 +111,6 @@ export default {
     },
     async created()
     {
-        console.log('middleware/blog-four-oh-four: route = ', this.$route);
         await this.$store.dispatch('posts/loadPosts');
         if (!this.post)
         {

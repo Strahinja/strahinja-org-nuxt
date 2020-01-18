@@ -1,3 +1,5 @@
+var getProp = require('dotprop');
+
 export const state = () => ({
     routeIds: {
         PAGE_NOTSET: 'home',
@@ -360,12 +362,14 @@ export const getters = {
     pageById: state => pageId =>
         state.list.find(page => page.id == pageId),
     pageByRouteName: state => routeName => state.list.find(page => page.url.routeName == routeName),
-    navigationPages: (state, getters, rootState) => state.list.filter(
+    navigationPages: (state, getters, rootState, rootGetters) => state.list.filter(
         page => page.includedInNavigation &&
             (!page.protected ||
                 (page.protected && rootState.auth.loggedIn &&
                     !page.admin ||
-                        (page.admin /*&& rootState.users.*/))
+                        (page.admin && getProp('rootState.auth.user.email')
+                            && rootGetters['users/isAdmin'](getProp('rootState.auth.user.email')))
+                )
             ),
     ),
     mainToolbarPages: state => state.list.filter(

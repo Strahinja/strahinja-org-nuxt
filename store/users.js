@@ -47,7 +47,7 @@ export const getters = {
     isAdmin: (state, getters) => email =>
     {
         const user = getters['userByEmail'](email);
-        return user ? user.role == state.adminRoleId : false;
+        return user && user.is_admin == 1;
     }
 };
 

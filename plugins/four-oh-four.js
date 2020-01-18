@@ -1,9 +1,9 @@
-export default function ({ app, route })
+export default function ({ app })
 {
-    console.log('plugins/four-oh-four: route = ', route);
+    //console.log('plugins/four-oh-four: route = ', route);
     app.router.beforeEach((to, from, next) =>
     {
-        console.log('plugin/four-oh-four: beforeEach: to = ', to, ', from = ', from);
+        //console.log('plugin/four-oh-four: beforeEach: to = ', to, ', from = ', from);
         if (to.matched.length == 0)
         {
             app.router.push('/error/404');
