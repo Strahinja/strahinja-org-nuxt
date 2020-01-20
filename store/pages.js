@@ -367,10 +367,10 @@ export const getters = {
             (!page.protected ||
                 (page.protected && rootState.auth.loggedIn &&
                     !page.admin ||
-                        (page.admin && getProp('rootState.auth.user.email')
-                            && rootGetters['users/isAdmin'](getProp('rootState.auth.user.email')))
+                        (page.admin && getProp(rootState, 'auth.user.email')
+                            && rootGetters['users/isAdmin'](getProp(rootState, 'auth.user.email')))
                 )
-            ),
+            )
     ),
     mainToolbarPages: state => state.list.filter(
         page => page.includedInMainToolbar),
