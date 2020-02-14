@@ -149,11 +149,11 @@ export default {
     },
     fetch({ store })
     {
-        store.dispatch('portfolio/loadPortfolio');
+        store.dispatch('portfolio/loadItems');
     },
     created()
     {
-        this.$store.dispatch('portfolio/loadPortfolio');
+        this.$store.dispatch('portfolio/loadItems');
     },
 };
 </script>

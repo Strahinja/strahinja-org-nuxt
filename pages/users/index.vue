@@ -24,7 +24,7 @@ export default {
             return [];
         }
     },
-    middleware: ['auth', 'load-users'],
+    middleware: ['auth', 'auth-admin', 'load-users'],
     fetch({ store })
     {
         store.dispatch('users/loadUsers');

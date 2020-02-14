@@ -116,7 +116,7 @@ export const actions = {
         if (options.callbackThen) options.callbackThen();
     },
 
-    loadLinks({ commit, dispatch, getters }, options =
+    loadItems({ commit, dispatch, getters }, options =
     {
         byCat: false,
         callbackThen: () =>
@@ -177,8 +177,8 @@ export const actions = {
         dispatch('loadCategories')
             .then(() =>
             {
-                dispatch('loadLinks');
-                dispatch('loadLinks', {
+                dispatch('loadItems');
+                dispatch('loadItems', {
                     byCat: true,
                     callbackThen: () =>
                     {

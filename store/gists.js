@@ -20,7 +20,7 @@ export const getters = {
 };
 
 export const actions = {
-    async loadGists({ dispatch, getters })
+    async loadItems({ dispatch, getters })
     {
         dispatch('loading/startLoading', {
             id: 'gists',
