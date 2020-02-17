@@ -1,60 +1,37 @@
-<template>
-    <v-container fluid>
-        <v-row
-            class="mt-3 mb-7"
-            no-gutters>
-            <v-col
-                v-if="showBackButton"
-                :sm="1"
-                align="center"
-                class="text-center hidden-xs-only"
-                style="min-width: 60px;">
-                <client-only>
-                    <v-tooltip
-                        v-if="showBackButton"
-                        class="hidden-xs-only"
-                        bottom>
-                        <template v-slot:activator="{ on }">
-                            <v-btn
-                                v-if="showBackButton"
-                                fab depressed dark small
-                                :to="parentUrl"
-                                color="secondary"
-                                class="hidden-xs-only text-center align-center mr-3
-                               mt-1"
-                                v-on="on">
-                                <v-icon dark class="align-center">
-                                    mdi-arrow-left
-                                </v-icon>
-                            </v-btn>
-                        </template>
-                        <span>Назад на
-                            {{ parentName }}
-                        </span>
-                    </v-tooltip>
-                </client-only>
-            </v-col>
-            <v-col
-                :cols="12"
-                :sm="10">
-                <section>
-                    <h3 class="display-1">
-                        Чланци са ознаком
-                        <span class="highlight">#{{ tagId }}</span>
-                    </h3>
-                    <BlogPost
-                        v-for="(post, postIndex) in posts"
-                        :key="postIndex"
-                        :folded="true"
-                        :frontmatter="post.frontmatter"
-                        :extra-component="post.extraComponent"
-                        :extra-component-params="post.extraComponentParams"
-                        :highlight="tagId"
-                        :standalone="false" />
-                </section>
-            </v-col>
-        </v-row>
-    </v-container>
+<template lang="pug">
+    v-container(fluid=true)
+        v-row.mt-3.mb-7(no-gutters=true)
+            v-col.text-center.hidden-xs-only(v-if="showBackButton",
+            :sm="1",
+            align="center",
+            style="min-width: 60px;")
+                v-tooltip.hidden-xs-only(v-if="showBackButton",
+                bottom=true)
+                    template(v-slot:activator="{ on }")
+                        v-btn.hidden-xs-only.text-center.align-center.mr-3.mt-1(
+                        v-if="showBackButton",
+                        fab=true,
+                        depressed=true,
+                        dark=true,
+                        small=true,
+                        :to="parentUrl",
+                        color="secondary",
+                        v-on="on")
+                            v-icon.align-center(dark=true) mdi-arrow-left
+                    span Назад на {{ parentName }}
+            v-col(:cols="12",
+            :sm="10")
+                section
+                    h3.display-1.
+                        Чланци са ознаком #[span.highlight #{{ tagId }}]
+                    BlogPost(v-for="(post, postIndex) in posts",
+                    :key="postIndex",
+                    :folded="true",
+                    :frontmatter="post.frontmatter",
+                    :extra-component="post.extraComponent",
+                    :extra-component-params="post.extraComponentParams",
+                    :highlight="tagId",
+                    :standalone="false")
 </template>
 
 <script>

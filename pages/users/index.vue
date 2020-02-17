@@ -1,13 +1,9 @@
-<template>
-    <ul class="users">
-        <li
-            v-for="user in users"
-            :key="user.email">
-            <a :href="`mailto:${user.email}`">
+<template lang="pug">
+    ul.users
+        li(v-for="user in users",
+        :key="user.email")
+            a(:href="`mailto:${user.email}`").
                 {{ user.name }} {{ user.surname }}
-            </a>
-        </li>
-    </ul>
 </template>
 
 <script>

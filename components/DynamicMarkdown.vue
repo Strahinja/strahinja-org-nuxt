@@ -1,5 +1,5 @@
-<template>
-    <component :is="dynamicComponent" />
+<template lang="pug">
+    component(:is="dynamicComponent")
 </template>
 
 <script>

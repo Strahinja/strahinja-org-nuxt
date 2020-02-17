@@ -1,150 +1,105 @@
-<template>
-    <v-container fluid>
-        <v-row
-            class="mt-3 mb-7"
-            no-gutters>
-            <v-col
-                v-if="showBackButton"
-                :sm="1"
-                align="center"
-                class="text-center hidden-xs-only"
-                style="min-width: 60px;">
-                <v-tooltip
-                    v-if="showBackButton"
-                    class="hidden-xs-only"
-                    bottom>
-                    <template v-slot:activator="{ on }">
-                        <v-btn
-                            v-if="showBackButton"
-                            fab depressed dark small
-                            :to="parentUrl"
-                            color="secondary"
-                            class="hidden-xs-only text-center align-center mr-3
-                               mt-1"
-                            v-on="on">
-                            <v-icon dark class="align-center">
-                                mdi-arrow-left
-                            </v-icon>
-                        </v-btn>
-                    </template>
-                    <span>Назад на
-                        {{ parentName }}
-                    </span>
-                </v-tooltip>
-            </v-col>
-            <v-col
-                :cols="12"
-                :sm="10">
-                <v-container fluid class="pa-0 ma-0" no-gutters>
-                    <v-row no-gutters class="mb-4" justify-left>
-                        <v-col :cols="6">
-                            <h3 class="display-1">
-                                Профил
-                            </h3>
-                        </v-col>
-                        <v-col :cols="6" class="text-right">
-                            <v-tooltip bottom>
-                                <template v-slot:activator="{ on }">
-                                    <v-btn
-                                        color="accent"
-                                        class="black--text"
-                                        v-on="on">
-                                        <a
-                                            href="/doku/cv-strahinja-radic.pdf"
-                                            target="_blank" class="button-link">
-                                            <v-icon>mdi-file-pdf-box</v-icon>
-                                            <span class="hidden-xs-only">Преузми&nbsp;</span>PDF
-                                        </a>
-                                    </v-btn>
-                                </template>
-                                <span>Преузми PDF фајл</span>
-                            </v-tooltip>
-                        </v-col>
-                    </v-row>
-                </v-container>
+<template lang="pug">
+    v-container(fluid=true)
+        v-row.mt-3.mb-7(no-gutters=true)
+            v-col.text-center.hidden-xs-only(v-if="showBackButton",
+            :sm="1",
+            align="center",
+            style="min-width: 60px;")
+                v-tooltip.hidden-xs-only(v-if="showBackButton",
+                bottom=true)
+                    template(v-slot:activator="{ on }")
+                        v-btn.hidden-xs-only.text-center.align-center.mr-3.mt-1(
+                        v-if="showBackButton",
+                        fab=true,
+                        depressed=true,
+                        dark=true,
+                        small=true,
+                        :to="parentUrl",
+                        color="secondary",
+                        v-on="on")
+                            v-icon.align-center(dark=true) mdi-arrow-left
+                    span Назад на {{ parentName }}
+            v-col(:cols="12",
+            :sm="10")
+                v-container.pa-0.ma-0(fluid=true,
+                no-gutters=true)
+                    v-row.mb-4(no-gutters=true,
+                    justify-left=true)
+                        v-col(:cols="6")
+                            h3.display-1 Профил
+                        v-col.text-right(:cols="6")
+                            v-tooltip(bottom=true)
+                                template(v-slot:activator="{ on }")
+                                    v-btn.black--text(color="accent",
+                                    v-on="on")
+                                        a.button-link(href="/doku/cv-strahinja-radic.pdf",
+                                        target="_blank")
+                                            v-icon mdi-file-pdf-box
+                                            span.hidden-xs-only Преузми&nbsp;
+                                            | PDF
+                                span Преузми PDF фајл
 
-                <v-card class="profile-card">
-                    <v-toolbar
-                        flat
-                        :elevation="0"
-                        color="secondary lighten-1">
-                        <h3 class="title">
-                            Страхиња Радић
-                        </h3>
-                        <v-avatar
-                            v-if="$breakpoint.is.mdAndUp"
-                            size="96"
-                            :class="{
-                                'center-avatar-100': true
-                            }">
-                            <v-img
-                                src="/img/avatar-2017.jpg"
-                                alt="Аватар" />
-                        </v-avatar>
-                        <v-avatar
-                            v-else
-                            size="60"
-                            :class="{
-                                'center-avatar-64': true,
-                                'right-avatar-64': $breakpoint.is.xsOnly
-                            }">
-                            <v-img
-                                src="/img/avatar-2017.jpg"
-                                alt="Аватар" />
-                        </v-avatar>
-                    </v-toolbar>
+                v-card.profile-card
+                    v-toolbar(flat=true,
+                    :elevation="0",
+                    color="secondary lighten-1")
+                        h3.title Страхиња Радић
+                        v-avatar(v-if="$breakpoint.is.mdAndUp",
+                        size="96",
+                        :class=`{
+                            'center-avatar-100': true
+                        }`)
+                            v-img(src="/img/avatar-2017.jpg",
+                            alt="Аватар")
+                        v-avatar(v-else=true,
+                        size="60",
+                        :class=`{
+                            'center-avatar-64': true,
+                            'right-avatar-64': $breakpoint.is.xsOnly
+                        }`)
+                            v-img(src="/img/avatar-2017.jpg",
+                            alt="Аватар")
+                    .py-7.mt-4
+                        p.
+                            #[em Full-stack developer] са широким опсегом
+                            програмерских вештина. Почео сам да кодирам у
+                            #[em Basic]-у деведесетих и научио низ програмских
+                            језика и фрејмворка, укључујући најновије
+                            технологије, као што су
+                            #[em Nuxt.js, Vue.js, Angular 2, Typescript, JavaScript, PHP]
+                            и #[em MySQL.] Мој циљ је да радим на занимљивим и
+                            захтевним пројектима уз употребу постојећих и нових
+                            технологија. Текући фокус: #[em Nuxt.js.]
 
-                    <div class="py-7 mt-4">
-                        <p>
-                            <em>Full-stack developer</em> са широким опсегом програмерских
-                            вештина. Почео сам да кодирам у <em>Basic</em>-у деведесетих и
-                            научио низ програмских језика и фрејмворка, укључујући
-                            најновије технологије, као што су <em>Nuxt.js, Vue.js,
-                                Angular 2, Typescript, JavaScript, PHP</em> и
-                            <em>MySQL.</em> Мој циљ
-                            је да радим на занимљивим и захтевним пројектима уз
-                            употребу постојећих и нових технологија. Текући фокус:
-                            <em>Nuxt.js.</em>
-                        </p>
-                        <!--Full-stack developer with a wide programming skill set.
-                        Started coding with Basic in the 1990s and learned a
-                        number of programming languages and frameworks, up to
-                        and including modern technologies, like Nuxt.js, Vue.js,
-                        Angular 2, Typescript, JavaScript, PHP and MySQL. My
-                        goal is to work on interesting and challenging projects
-                        using the  existing and/or new technologies. Current
-                        focus: Nuxt.js.-->
+                        // Full-stack developer with a wide programming skill set.
+                            Started coding with Basic in the 1990s and learned a
+                            number of programming languages and frameworks, up to
+                            and including modern technologies, like Nuxt.js, Vue.js,
+                            Angular 2, Typescript, JavaScript, PHP and MySQL. My
+                            goal is to work on interesting and challenging projects
+                            using the  existing and/or new technologies. Current
+                            focus: Nuxt.js.
 
-                        <v-divider class="my-8" />
+                        v-divider.my-8/
 
-                        <h5
-                            :class="{
-                                title: true,
-                                'px-10': $breakpoint.is.smAndUp,
-                                'px-4': $breakpoint.is.xsOnly
-                            }">
-                            Вештине
-                        </h5>
+                        h5(:class=`{
+                            title: true,
+                            'px-10': $breakpoint.is.smAndUp,
+                            'px-4': $breakpoint.is.xsOnly
+                        }`) Вештине
 
-                        <v-divider class="my-8" />
+                        v-divider.my-8/
 
-                        <skills-category
-                            title="Програмирање"
-                            :items-left="skillsLeftSide"
-                            :items-right="skillsRightSide"
-                            :two-col="true" />
+                        skills-category(title="Програмирање",
+                        :items-left="skillsLeftSide",
+                        :items-right="skillsRightSide",
+                        :two-col="true")
 
-                        <v-divider class="my-8" />
+                        v-divider.my-8/
 
-                        <skills-category
-                            title="Језици"
-                            :items-left="languages"
-                            :two-col="false" />
-                    </div>
-                </v-card>
-            </v-col>
-        </v-row>
-    </v-container>
+                        skills-category(title="Језици",
+                        :items-left="languages",
+                        :two-col="false")
 </template>
 
 <script>

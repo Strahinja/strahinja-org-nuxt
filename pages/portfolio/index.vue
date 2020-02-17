@@ -1,63 +1,40 @@
-<template>
-    <v-container fluid>
-        <v-row
-            class="mt-3 mb-7"
-            no-gutters>
-            <v-col
-                v-if="showBackButton"
-                :sm="1"
-                align="center"
-                class="text-center hidden-xs-only"
-                style="min-width: 60px;">
-                <v-tooltip
-                    v-if="showBackButton"
-                    class="hidden-xs-only"
-                    bottom>
-                    <template v-slot:activator="{ on }">
-                        <v-btn
-                            v-if="showBackButton"
-                            fab depressed dark small
-                            :to="parentUrl"
-                            color="secondary"
-                            class="hidden-xs-only text-center align-center mr-3
-                               mt-1"
-                            v-on="on">
-                            <v-icon dark class="align-center">
-                                mdi-arrow-left
-                            </v-icon>
-                        </v-btn>
-                    </template>
-                    <span>Назад на
-                        {{ parentName }}
-                    </span>
-                </v-tooltip>
-            </v-col>
-            <v-col
-                :cols="12"
-                :sm="10">
-                <h3 class="display-1">
-                    Портфолио
-                </h3>
+<template lang="pug">
+    v-container(fluid=true)
+        v-row.mt-3.mb-7(no-gutters=true)
+            v-col.text-center.hidden-xs-only(v-if="showBackButton",
+            :sm="1",
+            align="center",
+            style="min-width: 60px;")
+                v-tooltip.hidden-xs-only(v-if="showBackButton",
+                bottom=true)
+                    template(v-slot:activator="{ on }")
+                        v-btn.hidden-xs-only.text-center.align-center.mr-3.mt-1(
+                        v-if="showBackButton",
+                        fab=true,
+                        depressed=true,
+                        dark=true,
+                        small=true,
+                        :to="parentUrl",
+                        color="secondary",
+                        v-on="on")
+                            v-icon.align-center(dark=true) mdi-arrow-left
+                    span Назад на {{ parentName }}
+            v-col(:cols="12",
+            :sm="10")
+                h3.display-1 Портфолио
 
-                <v-progress-linear
-                    indeterminate
-                    class="my-5"
-                    :active="portfolioLoading" />
+                v-progress-linear.my-5(indeterminate=true,
+                :active="portfolioLoading")
 
-                <v-container class="px-0 mx-0" fluid>
-                    <v-row
-                        :class="{'breakout-row': $breakpoint.is.smOnly}">
-                        <v-col
-                            v-for="(item, itemIndex) in portfolio"
-                            :key="itemIndex"
-                            :cols="12" :sm="6" :md="4" class="mb-2">
-                            <portfolio-item :item="item" :item-index="itemIndex" />
-                        </v-col>
-                    </v-row>
-                </v-container>
-            </v-col>
-        </v-row>
-    </v-container>
+                v-container.px-0.mx-0(fluid=true)
+                    v-row(:class="{'breakout-row': $breakpoint.is.smOnly}")
+                        v-col.mb-2(v-for="(item, itemIndex) in portfolio",
+                        :key="itemIndex"
+                        :cols="12",
+                        :sm="6",
+                        :md="4")
+                            portfolio-item(:item="item",
+                            :item-index="itemIndex")
 </template>
 
 <script>

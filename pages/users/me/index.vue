@@ -1,116 +1,62 @@
-<template>
-    <v-container fluid>
-        <v-row
-            class="mt-3 mb-7"
-            no-gutters>
-            <v-col
-                v-if="showBackButton"
-                :sm="1"
-                align="center"
-                class="text-center hidden-xs-only"
-                style="min-width: 60px;">
-                <v-tooltip
-                    v-if="showBackButton"
-                    class="hidden-xs-only"
-                    bottom>
-                    <template v-slot:activator="{ on }">
-                        <v-btn
-                            v-if="showBackButton"
-                            fab depressed dark small
-                            :to="parentUrl"
-                            color="secondary"
-                            class="hidden-xs-only text-center align-center mr-3
-                               mt-1"
-                            v-on="on">
-                            <v-icon dark class="align-center">
-                                mdi-arrow-left
-                            </v-icon>
-                        </v-btn>
-                    </template>
-                    <span>Назад на
-                        {{ parentName }}
-                    </span>
-                </v-tooltip>
-            </v-col>
-            <v-col
-                :cols="12"
-                :sm="10">
-                <h3 class="display-1">
-                    Профил
-                </h3>
-                <v-container>
-                    <v-row>
-                        <v-col>
-                            <v-card v-if="loggedIn">
-                                <v-card-title>
-                                    <v-row>
-                                        <v-col
-                                            class="card-left-col"
-                                            :class="{ xs: $breakpoint.is.xsOnly }">
-                                            <v-avatar
-                                                class="card-avatar"
-                                                :size="90">
-                                                <v-img :src="userAvatar" />
-                                            </v-avatar>
-                                        </v-col>
-                                        <v-col
-                                            :cols="10"
-                                            :xs="12"
-                                            class="py-0">
-                                            <h4>{{ userDisplayName }}</h4>
-                                        </v-col>
-                                    </v-row>
-                                </v-card-title>
-                                <v-card-text>
-                                    <v-container>
-                                        <v-row>
-                                            <v-col
-                                                class="card-left-col field-title"
-                                                :class="{ xs: $breakpoint.is.xsOnly }">
-                                                Провајдер:
-                                            </v-col>
-                                            <v-col
-                                                :cols="10"
-                                                :xs="12">
-                                                {{ userProvider }}
-                                            </v-col>
-                                        </v-row>
-                                        <v-row>
-                                            <v-col
-                                                class="card-left-col field-title"
-                                                :class="{ xs: $breakpoint.is.xsOnly }">
-                                                email:
-                                            </v-col>
-                                            <v-col
-                                                :cols="10"
-                                                :xs="12">
-                                                {{ userEmail }}
-                                            </v-col>
-                                        </v-row>
-                                    </v-container>
-                                </v-card-text>
-                                <v-card-actions>
-                                    <v-row>
-                                        <v-col
-                                            class="px-7"
-                                            :cols="12">
-                                            <v-spacer />
-                                            <v-btn color="primary" @click="logoutClick()">
-                                                <v-icon>
-                                                    mdi-logout
-                                                </v-icon>
-                                                Одјави се
-                                            </v-btn>
-                                        </v-col>
-                                    </v-row>
-                                </v-card-actions>
-                            </v-card>
-                        </v-col>
-                    </v-row>
-                </v-container>
-            </v-col>
-        </v-row>
-    </v-container>
+<template lang="pug">
+    v-container(fluid=true)
+        v-row.mt-3.mb-7(no-gutters=true)
+            v-col.text-center.hidden-xs-only(v-if="showBackButton",
+            :sm="1",
+            align="center",
+            style="min-width: 60px;")
+                v-tooltip.hidden-xs-only(v-if="showBackButton",
+                bottom=true)
+                    template(v-slot:activator="{ on }")
+                        v-btn.hidden-xs-only.text-center.align-center.mr-3.mt-1(
+                        v-if="showBackButton",
+                        fab=true,
+                        depressed=true,
+                        dark=true,
+                        small=true,
+                        :to="parentUrl",
+                        color="secondary",
+                        v-on="on")
+                            v-icon.align-center(dark=true) mdi-arrow-left
+                    span Назад на {{ parentName }}
+            v-col(:cols="12",
+            :sm="10")
+                h3.display-1 Профил
+                v-container
+                    v-row
+                        v-col
+                            v-card(v-if="loggedIn")
+                                v-card-title
+                                    v-row
+                                        v-col.card-left-col(:class=`{
+                                            xs: $breakpoint.is.xsOnly
+                                        }`)
+                                            v-avatar.card-avatar(:size="90")
+                                                v-img(:src="userAvatar")
+                                        v-col.py-0(:cols="10",
+                                        :xs="12")
+                                            h4 {{ userDisplayName }}
+                                v-card-text
+                                    v-container
+                                        v-row
+                                            v-col.card-left-col.field-title(:class=`{
+                                                xs: $breakpoint.is.xsOnly
+                                            }`) Провајдер:
+                                            v-col(:cols="10",
+                                            :xs="12") {{ userProvider }}
+                                        v-row
+                                            v-col.card-left-col.field-title(:class=`{
+                                                xs: $breakpoint.is.xsOnly
+                                            }`) email:
+                                            v-col(:cols="10",
+                                            :xs="12") {{ userEmail }}
+                                v-card-actions
+                                    v-row
+                                        v-col.px-7(:cols="12")
+                                            v-spacer/
+                                            v-btn(color="primary",
+                                            @click="logoutClick()")
+                                                v-icon mdi-logout
 </template>
 
 <script>

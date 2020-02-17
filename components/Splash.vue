@@ -1,26 +1,16 @@
-<template>
-    <!--
-            'inside-container': insideContainer,
-            'starting-at-top': startingAtTop,
-            'ending-at-bottom': endingAtBottom,
-        -->
-    <div
-        class="splash"
-        :class="{
-            xs: $breakpoint.is.xs,
-            'xs-and-down': $breakpoint.is.xsOnly,
-            sm: $breakpoint.is.smAndUp,
-            'sm-and-down': $breakpoint.is.smAndDown,
-            md: $breakpoint.is.mdAndUp,
-            'md-and-down': $breakpoint.is.mdAndDown,
-            lg: $breakpoint.is.lgAndUp,
-            'lg-and-down': $breakpoint.is.lgAndDown,
-            xl: $breakpoint.is.xlOnly,
-            'xl-and-down': $breakpoint.is.xl
-        }"
-        :style="splashComputedStyle">
-        <slot />
-    </div>
+<template lang="pug">
+    .splash(:class=`{
+        xs: $breakpoint.is.xs,
+        'xs-and-down': $breakpoint.is.xsOnly,
+        sm: $breakpoint.is.smAndUp,
+        'sm-and-down': $breakpoint.is.smAndDown,
+        md: $breakpoint.is.mdAndUp,
+        'md-and-down': $breakpoint.is.mdAndDown,
+        lg: $breakpoint.is.lgAndUp,
+        'lg-and-down': $breakpoint.is.xl
+    }`,
+    :style="splashComputedStyle")
+        slot/
 </template>
 
 <script>

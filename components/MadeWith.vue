@@ -1,11 +1,8 @@
-<template>
-    <!-- @click.stop.prevent="onLinkClick($event)" -->
-    <a :href="url" target="_blank" class="madewith-link">
-        <slot />
-        <span class="madewith-title">
-            {{ title }}
-        </span>
-    </a>
+<template lang="pug">
+    a.madewith-link(:href="url",
+    target="_blank")
+        slot/
+        span.madewith-title {{ title }}
 </template>
 
 <script>
