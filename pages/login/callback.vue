@@ -1,11 +1,9 @@
-<template>
-    <div class="login">
-        <v-progress-circular
-            indeterminate
-            color="primary"
-            :size="50"
-            :width="6" />
-    </div>
+<template lang="pug">
+    .login
+        v-progress-circular(indeterminate=true,
+        color="primary",
+        :size="50",
+        :width="6")
 </template>
 
 <script>

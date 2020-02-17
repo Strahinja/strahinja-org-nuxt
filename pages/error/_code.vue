@@ -1,52 +1,31 @@
-<template>
-    <v-container fluid>
-        <v-row
-            class="mt-3 mb-7"
-            no-gutters
-            wrap>
-            <v-col
-                v-if="showBackButton"
-                :sm="1"
-                align="center"
-                class="text-center hidden-xs-only"
-                style="min-width: 60px;">
-                <v-tooltip
-                    v-if="showBackButton"
-                    class="hidden-xs-only"
-                    bottom>
-                    <template v-slot:activator="{ on }">
-                        <v-btn
-                            v-if="showBackButton"
-                            fab depressed dark small
-                            :to="parentUrl"
-                            color="secondary"
-                            class="hidden-xs-only text-center align-center mr-3
-                               mt-1"
-                            v-on="on">
-                            <v-icon dark class="align-center">
-                                mdi-arrow-left
-                            </v-icon>
-                        </v-btn>
-                    </template>
-                    <span>Назад на почетну</span>
-                </v-tooltip>
-            </v-col>
-            <v-col
-                :cols="12"
-                :sm="10">
-                <h3 class="display-1">
+<template lang="pug">
+    v-container(fluid=true)
+        v-row.mt-3.mb-7(no-gutters=true,
+        wrap=true)
+            v-col.text-center.hidden-xs-only(v-if="showBackButton",
+            :sm="1",
+            align="center",
+            style="min-width: 60px;")
+                v-tooltip.hidden-xs-only(v-if="showBackButton",
+                bottom=true)
+                    template(v-slot:activator="{ on }")
+                        v-btn.hidden-xs-only.text-center.align-center.mr-3.mt-1(
+                        v-if="showBackButton",
+                        fab=true,
+                        depressed=true,
+                        dark=true,
+                        small=true,
+                        :to="parentUrl",
+                        color="secondary",
+                        v-on="on")
+                            v-icon.align-center(dark=true) mdi-arrow-left
+                    span Назад на почетну
+            v-col(:cols="12",
+            :sm="10")
+                h3.display-1.
                     Код {{ code }}: {{ messages[code] }}
-                </h3>
-                <p>{{ messageDescriptions[code] }}</p>
-                <p>
-                    Назад на
-                    <nuxt-link :to="'/'">
-                        почетну страницу
-                    </nuxt-link>
-                </p>
-            </v-col>
-        </v-row>
-    </v-container>
+                p {{ messageDescriptions[code] }}
+                p Назад на #[nuxt-link(:to="'/'") почетну страницу]
 </template>
 
 <script>

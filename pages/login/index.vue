@@ -1,9 +1,7 @@
-<template>
-    <div class="login">
-        <login-form
-            :standalone="true"
-            @service-button-clicked="serviceBtnClick($event)" />
-    </div>
+<template lang="pug">
+    .login
+        login-form(:standalone="true",
+        @service-button-clicked="serviceBtnClick($event)")
 </template>
 
 <script>

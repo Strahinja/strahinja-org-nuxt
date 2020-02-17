@@ -1,95 +1,63 @@
-<template>
-    <v-container fluid>
-        <v-row
-            class="mt-3 mb-7"
-            no-gutters>
-            <v-col
-                v-if="showBackButton"
-                :sm="1"
-                align="center"
-                class="text-center hidden-xs-only"
-                style="min-width: 60px;">
-                <client-only>
-                    <v-tooltip
-                        v-if="showBackButton"
-                        class="hidden-xs-only"
-                        bottom>
-                        <template v-slot:activator="{ on }">
-                            <v-btn
-                                v-if="showBackButton"
-                                fab depressed dark small
-                                :to="parentUrl"
-                                color="secondary"
-                                class="hidden-xs-only text-center align-center mr-3
-                               mt-1"
-                                v-on="on">
-                                <v-icon dark class="align-center">
-                                    mdi-arrow-left
-                                </v-icon>
-                            </v-btn>
-                        </template>
-                        <span>Назад на
-                            {{ parentName }}
-                        </span>
-                    </v-tooltip>
-                </client-only>
-            </v-col>
-            <v-col
-                :cols="12"
-                :sm="10">
-                <section>
-                    <h3 v-if="q && q.length>0" class="display-1">
-                        Претрага:
-                        <span class="highlight">{{ q }}</span>
-                    </h3>
-                    <h3 v-else class="display-1">
-                        Претрага
-                    </h3>
-                    <v-form
-                        ref="pageSearchForm"
-                        v-model="searchFormValid"
-                        @submit.prevent="onSearchFormSubmit()">
-                        <v-container class="ml-0">
-                            <v-row>
-                                <v-col class="pa-0">
-                                    <!--eslint-disable-next-line vue/html-self-closing-->
-                                    <v-text-field
-                                        ref="searchFormSearchTextField"
-                                        v-model="searchText"
-                                        name="q"
-                                        :value="q"
-                                        :rules="searchTextRules"
-                                        :counter="maxSearchTextLength"
-                                        label="Тражени текст"
-                                        text
-                                        autofocus
-                                        color="black--text"
-                                        outlined
-                                        hover
-                                        prepend-inner-icon="mdi-magnify"
-                                        solo
-                                        clearable
-                                        required
-                                        @input="onSearchTextInput()">
-                                    </v-text-field>
-                                </v-col>
-                            </v-row>
-                        </v-container>
-                    </v-form>
-                    <BlogPost
-                        v-for="post in posts"
-                        :key="post.name + q"
-                        :folded="true"
-                        :frontmatter="post.frontmatter"
-                        :extra-component="post.extraComponent"
-                        :extra-component-params="post.extraComponentParams"
-                        :highlight="q"
-                        :standalone="false" />
-                    <no-results v-if="posts.length==0" />
-                </section>
-            </v-col>
-        </v-row>
-    </v-container>
+<template lang="pug">
+    v-container(fluid=true)
+        v-row.mt-3.mb-7(no-gutters=true)
+            v-col.text-center.hiden-xs-only(v-if="showBackButton",
+            :sm="1",
+            align="center",
+            style="min-width: 60px;")
+                v-tooltip.hidden-xs-only(v-if="showBackButton",
+                bottom=true)
+                    template(v-slot:activator="{ on }")
+                        v-btn.hidden-xs-only.text-center.align-center.mr-3.mt-1(
+                        v-if="showBackButton",
+                        fab=true,
+                        depressed=true,
+                        dark=true,
+                        small=true,
+                        :to="parentUrl",
+                        color="secondary",
+                        v-on="on")
+                            v-icon.align-center(dark=true) mdi-arrow-left
+                    span Назад на {{ parentName }}
+            v-col(:cols="12",
+            :sm="10")
+                section
+                    h3.display-1(v-if="q && q.length>0").
+                        Претрага: #[span.highlight {{ q }}]
+                    h3.display-1(v-else=true) Претрага
+                    v-form(ref="pageSearchForm",
+                    v-model="searchFormValid",
+                    @submit.prevent="onSearchFormSubmit()")
+                        v-container.ml-0
+                            v-row
+                                v-col.pa-0
+                                    v-text-field(ref="searchFormSearchTextField",
+                                    v-model="searchText",
+                                    name="q",
+                                    :value="q",
+                                    :rules="searchTextRules",
+                                    :counter="maxSearchTextLength",
+                                    label="Тражени текст",
+                                    text=true,
+                                    autofocus=true,
+                                    color="black--text",
+                                    outlined=true,
+                                    hover=true,
+                                    prepend-inner-icon="mdi-magnify",
+                                    solo=true,
+                                    clearable=true,
+                                    required=true,
+                                    @input="onSearchTextInput()")
+
+                    BlogPost(v-for="post in posts",
+                    :key="post.name + q",
+                    :folded="true",
+                    :frontmatter="post.frontmatter",
+                    :extra-component="post.extraComponent",
+                    :extra-component-params="post.extraComponentParams",
+                    :highlight="q",
+                    :standalone="false")
+                    no-results(v-if="posts.length==0")
 </template>
 
 <script>

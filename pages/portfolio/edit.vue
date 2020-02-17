@@ -1,11 +1,8 @@
-<template>
-    <v-container fluid>
-        <v-row>
-            <v-col>
-                <h3>Edit</h3>
-            </v-col>
-        </v-row>
-    </v-container>
+<template lang="pug">
+    v-container(fluid=true)
+        v-row
+            v-col
+                h3 Edit
 </template>
 
 <script>

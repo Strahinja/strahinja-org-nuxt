@@ -1,17 +1,11 @@
-<template>
-    <v-bottom-sheet
-        v-model="sheetActive"
-        class="login-sheet"
-        :width="width">
-        <template v-slot:activator="{ on }">
-            <!--eslint-disable-next-line vue/html-self-closing-->
-            <slot name="login-sheet-activator"></slot>
-        </template>
-        <login-form
-            :standalone="false"
-            @close-button-clicked="sheetActive = false"
-            @service-button-clicked="serviceBtnClick($event)" />
-    </v-bottom-sheet>
+<template lang="pug">
+    v-bottom-sheet.login-sheet(v-model="sheetActive",
+    :width="width")
+        template(v-slot:activator="{ on }")
+            slot(name="login-sheet-activator")
+        login-form(:standalone="false",
+        @close-button-clicked="sheetActive = false",
+        @service-button-clicked="serviceBtnClick($event)")
 </template>
 
 <script>

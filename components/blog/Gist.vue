@@ -1,37 +1,21 @@
-<template>
-    <div class="gist">
-        <div class="gist-file">
-            <div class="gist-data">
-                <div
-                    class="js-gist-file-update-container js-task-list-container
-                             file-box">
-                    <div class="file">
-                        <div
-                            itemprop="text" class="Box-body p-0 blob-wrapper
-                                            data">
-                            <!--eslint-disable-next-line vue/html-self-closing-->
-                            <table
-                                class="highlight tab-size
-                                          js-file-line-container"
-                                data-tab-size="8"
-                                v-html="formatGistLinesAsHtml(gistLines)">
-                            </table>
-                        </div><!--box-body-->
-                    </div><!--file-->
-                </div><!--file-box-->
-            </div><!--gist-data-->
-            <div class="gist-meta">
-                <a
-                    :href="gistRawUrl"
-                    target="_blank"
-                    class="gist-raw"
-                    :class="{ 'xs': $breakpoint.is.xsOnly }">сиров преглед</a>
-
-                <a href="#">{{ filename }}</a> хостује са &#10084; <a
-                    href="https://github.com">GitHub</a>
-            </div><!--gist-meta-->
-        </div><!--gist-file-->
-    </div><!--gist-->
+<template lang="pug">
+    .gist
+        .gist-file
+            .gist-data
+                .js-gist-file-update-container.js-task-list-container.file-box
+                    .file
+                        .Box-body.p-0.blob-wrapper(itemprop="text")
+                            table.highlight.tab-size.js-file-line-container(
+                            data-tab-size="8",
+                            v-html="formatGistLinesAsHtml(gistLines)")
+            .gist-meta
+                a.gist-raw(:href="gistRawUrl",
+                target="_blank"
+                :class=`{
+                    'xs': $breakpoint.is.xsOnly
+                }`) сиров преглед
+                | #[a(href="#") {{ filename }}] хостује са &#10084;
+                | #[a(href="https://github.com")] GitHub
 </template>
 
 <script>

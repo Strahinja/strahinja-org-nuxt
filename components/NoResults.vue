@@ -1,19 +1,11 @@
-<template>
-    <v-container class="no-results py-0">
-        <v-row>
-            <v-col class="pa-0">
-                <v-img
-                    :width="300"
-                    :height="300"
-                    :src="image"
-                    class="mx-auto">
-                    <div class="text-center">
-                        {{ message }}
-                    </div>
-                </v-img>
-            </v-col>
-        </v-row>
-    </v-container>
+<template lang="pug">
+    v-container.no-results.py-0
+        v-row
+            v-col.pa-0
+                v-img.mx-auto(:width="300",
+                :height="300",
+                :src="image")
+                    .text-center {{ message }}
 </template>
 
 <script>

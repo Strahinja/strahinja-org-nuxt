@@ -1,17 +1,5 @@
-<template>
-    <!--eslint-disable-next-line vue/html-self-closing-->
-    <div id="loading"></div>
-    <!--v-fade-transition>
-        <div
-            v-if="loading"
-            class="loading">
-            <v-progress-circular
-                :size="50"
-                :width="5"
-                :color="'#fff'"
-                indeterminate />
-        </div><!- -loading- ->
-    </v-fade-transition-->
+<template lang="pug">
+    #loading
 </template>
 
 <script>
