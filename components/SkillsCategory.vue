@@ -1,102 +1,69 @@
-<template>
-    <div>
-        <h4
-            :class="{
-                'subtitle-1 mb-7': true,
+<template lang="pug">
+    div
+        h4.subtitle-1.mb-7(:class=`{
+            'px-10': $breakpoint.is.smAndUp,
+            'px-4': $breakpoint.is.xsOnly
+        }`) {{ title }}
+        v-container(fluid=true,
+        no-gutters=true)
+            v-row(v-if="twoCol === true",
+            :class=`{
                 'px-10': $breakpoint.is.smAndUp,
                 'px-4': $breakpoint.is.xsOnly
-            }">
-            {{ title }}
-        </h4>
-        <v-container fluid no-gutters>
-            <v-row
-                v-if="twoCol === true"
-                :class="{
-                    'px-10': $breakpoint.is.smAndUp,
-                    'px-4': $breakpoint.is.xsOnly
-                }">
-                <v-col
-                    :cols="12"
-                    :md="6"
-                    class="pa-0"
-                    :class="{
-                        'pr-10': $breakpoint.is.mdAndUp
-                    }">
-                    <v-container fluid no-gutters class="pa-0">
-                        <v-row
-                            v-for="(skill, skillIndex) in itemsLeft"
-                            :key="skillIndex"
-                            class="mb-5 mx-0"
-                            align="center">
-                            <v-col :cols="6" :sm="3" class="text-truncate pa-0">
-                                {{ skill.name }}
-                            </v-col>
-                            <v-col :cols="6" :sm="9" class="pa-0">
-                                <v-progress-linear
-                                    :color="skill.color"
-                                    :value="skill.percent" />
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-col>
-                <v-col
-                    :cols="12"
-                    :md="6"
-                    class="pa-0"
-                    :class="{
-                        'pl-10': $breakpoint.is.mdAndUp
-                    }">
-                    <v-container fluid no-gutters pa-0>
-                        <v-row
-                            v-for="(skill, skillIndex) in itemsRight"
-                            :key="skillIndex"
-                            class="mb-5 mx-0"
-                            align="center">
-                            <v-col :cols="6" :sm="3" class="text-truncate pa-0">
-                                {{ skill.name }}
-                            </v-col>
-                            <v-col :cols="6" :sm="9" class="pa-0">
-                                <v-progress-linear
-                                    :color="skill.color"
-                                    :value="skill.percent" />
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-col>
-            </v-row>
-            <v-row
-                v-else
-                no-gutters
-                :class="{
-                    'px-10': $breakpoint.is.smAndUp,
-                    'px-4': $breakpoint.is.xsOnly
-                }">
-                <v-col
-                    xs="12"
-                    class="pa-0"
-                    :class="{
-                        'pr-10': $breakpoint.is.mdAndUp
-                    }">
-                    <v-container fluid no-gutters pa-0>
-                        <v-row
-                            v-for="(skill, skillIndex) in itemsLeft"
-                            :key="skillIndex"
-                            class="mb-5 mx-0"
-                            align="center">
-                            <v-col :cols="6" :sm="3" class="text-truncate pa-0">
-                                {{ skill.name }}
-                            </v-col>
-                            <v-col :cols="6" :sm="9" class="pa-0">
-                                <v-progress-linear
-                                    :color="skill.color"
-                                    :value="skill.percent" />
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-col>
-            </v-row>
-        </v-container>
-    </div>
+            }`)
+                v-col.pa-0(:cols="12",
+                :md="6",
+                :class=`{
+                    'pr-10': $breakpoint.is.mdAndUp
+                }`)
+                    v-container.pa-0(fluid=true,
+                    no-gutters=true)
+                        v-row.mb-5.mx-0(v-for="(skill, skillIndex) in itemsLeft",
+                        :key="skillIndex",
+                        align="center")
+                            v-col.text-truncate.pa-0(:cols="6",
+                            :sm="3") {{ skill.name }}
+                            v-col.pa-0(:cols="6",
+                            :sm="9")
+                                v-progress-linear(:color="skill.color",
+                                :value="skill.percent")
+                v-col.pa-0(:cols="12",
+                :md="6",
+                :class=`{
+                    'pl-10': $breakpoint.is.mdAndUp
+                }`)
+                    v-container.pa-0(fluid=true,
+                    no-gutters=true)
+                        v-row.mb-5.mx-0(v-for="(skill, skillIndex) in itemsRight",
+                        :key="skillIndex",
+                        align="center")
+                            v-col.text-truncate.pa-0(:cols="6",
+                            :sm="3") {{ skill.name }}
+                            v-col.pa-0(:cols="6",
+                            :sm="9")
+                                v-progress-linear(:color="skill.color",
+                                :value="skill.percent")
+            v-row(v-else=true,
+            no-gutters=true,
+            :class=`{
+                'px-10': $breakpoint.is.smAndUp,
+                'px-4': $breakpoint.is.xsOnly
+            }`)
+                v-col.pa-0(:xs="12",
+                :class=`{
+                    'pr-10': $breakpoint.is.mdAndUp
+                }`)
+                    v-container.pa-0(fluid=true,
+                    no-gutters=true)
+                        v-row.mb-5.mx-0(v-for="(skill, skillIndex) in itemsLeft",
+                        :key="skillIndex",
+                        align="center")
+                            v-col.text-truncate.pa-0(:cols="6",
+                            :sm="3") {{ skill.name }}
+                            v-col.pa-0(:cols="6",
+                            :sm="9")
+                                v-progress-linear(:color="skill.color",
+                                :value="skill.percent")
 </template>
 
 <script>

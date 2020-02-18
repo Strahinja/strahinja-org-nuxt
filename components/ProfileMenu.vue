@@ -1,73 +1,39 @@
-<template>
-    <div class="profile-menu">
-        <login-sheet
-            v-if="!loggedIn"
-            :key="refreshOnAuthChange"
-            :width="500"
-            :active="loginSheetActive"
-            @active-changed="loginSheetActive = $event"
-            @service-button-clicked="loginSheetServiceBtnClick($event)">
-            <template #login-sheet-activator>
-                <v-tooltip bottom>
-                    <template v-slot:activator="{ on }">
-                        <v-btn
-                            icon
-                            v-on="on"
-                            @click.stop="loginSheetActive = true">
-                            <v-icon>
-                                mdi-account-question
-                            </v-icon>
-                        </v-btn>
-                    </template>
-                    <span>Пријава</span>
-                </v-tooltip>
-            </template>
-        </login-sheet>
-
-        <v-menu
-            v-if="loggedIn"
-            :key="refreshOnAuthChange"
-            offset-y>
-            <template v-slot:activator="{ on: menu }">
-                <v-tooltip bottom>
-                    <template v-slot:activator="{ on: tooltip }">
-                        <v-btn
-                            icon
-                            v-on="{ ...menu, ...tooltip }">
-                            <v-avatar>
-                                <img :src="userAvatar">
-                            </v-avatar>
-                        </v-btn>
-                    </template>
-                    <span>{{ userDisplayName }}</span>
-                </v-tooltip>
-            </template>
-            <v-list>
-                <v-list-item
-                    @click="settingsClick()">
-                    <v-list-item-action>
-                        <v-icon>
-                            mdi-account-settings
-                        </v-icon>
-                    </v-list-item-action>
-                    <v-list-item-title>
-                        Подешавања
-                    </v-list-item-title>
-                </v-list-item>
-                <v-list-item
-                    @click="logoutClick()">
-                    <v-list-item-action>
-                        <v-icon>
-                            mdi-logout
-                        </v-icon>
-                    </v-list-item-action>
-                    <v-list-item-title>
-                        Одјављивање
-                    </v-list-item-title>
-                </v-list-item>
-            </v-list>
-        </v-menu>
-    </div><!--profile-menu-->
+<template lang="pug">
+    .profile-menu
+        login-sheet(v-if="!loggedIn",
+        :key="refreshOnAuthChange",
+        :width="500",
+        :active="loginSheetActive",
+        @active-changed="loginSheetActive = $event",
+        @service-button-clicked="loginSheetServiceBtnClick($event)")
+            template(#login-sheet-activator)
+                v-tooltip(bottom=true)
+                    template(v-slot:activator="{ on }")
+                        v-btn(icon=true,
+                        v-on="on",
+                        @click.stop="loginSheetActive = true")
+                            v-icon mdi-account-question
+                    span Пријава
+        v-menu(v-if="loggedIn",
+        :key="refreshOnAuthChange",
+        offset-y=true)
+            template(v-slot:activator="{ on: menu }")
+                v-tooltip(bottom=true)
+                    template(v-slot:activator="{ on: tooltip }")
+                        v-btn(icon=true,
+                        v-on="{ ...menu, ...tooltip }")
+                            v-avatar
+                                v-img(:src="userAvatar")
+                    span {{ userDisplayName }}
+            v-list
+                v-list-item(@click="settingsClick()")
+                    v-list-item-action
+                        v-icon mdi-account-settings
+                    v-list-item-title Подешавања
+                v-list-item(@click="logoutClick()")
+                    v-list-item-action
+                        v-icon mdi-logout
+                    v-list-item-title Одјављивање
 </template>
 
 <script>

@@ -23,7 +23,7 @@
             :sm="10")
                 section
                     h3.display-1.
-                        Чланци са ознаком #[span.highlight #{{ tagId }}]
+                        Чланци са ознаком #[span.highlight {{ '\#' + tagId }}]
                     BlogPost(v-for="(post, postIndex) in posts",
                     :key="postIndex",
                     :folded="true",
