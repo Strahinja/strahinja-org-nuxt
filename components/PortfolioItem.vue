@@ -1,119 +1,69 @@
-<template>
-    <v-hover>
-        <template #default="{ hover }">
-            <!--hover height="100%"-->
-            <v-card
-                hover
-                :color="getItemColor(itemIndex)"
-                class="pointer-arrow"
-                raised="10">
-                <v-img
-                    :src="getImagePath(item.image_thumb)"
-                    style="min-height: 200px;"
-                    :aspect-ratio="16 / 9">
-                    <v-expand-transition>
-                        <div
-                            v-if="hover"
-                            class="d-flex transition-fast-in-fast-out v-card--reveal white--text"
-                            style="height: 100%;">
-                            <v-container
-                                fill-height
-                                class="orange darken-3 v-card--reveal-bg">
-                                <v-row />
-                            </v-container>
-                            <v-container
-                                fill-height grid-list-sm class="pt-0 pb-0"
-                                no-gutters>
-                                <v-row
-                                    class="text-center" align="center"
-                                    justify="center">
-                                    <v-col
-                                        :cols="12" :class="{'text-center':
-                                            $breakpoint.is.xsOnly}">
-                                        <v-btn
-                                            depressed
-                                            text
-                                            fab
-                                            dark
-                                            large
-                                            title="Преглед слике"
-                                            class="text-xs-center align-center"
-                                            @click="
-                                                cardPreview(
-                                                    getImagePath(item.image)
-                                                )
-                                            ">
-                                            <v-icon dark class="align-center">
-                                                mdi-eye
-                                            </v-icon>
-                                        </v-btn>
-                                    </v-col>
-                                    <v-col
-                                        :cols="12" :class="{'text-center':
-                                            $breakpoint.is.xsOnly}">
-                                        <v-btn
-                                            depressed
-                                            text
-                                            fab
-                                            dark
-                                            large
-                                            title="Отвори у новом прозору"
-                                            class="text-center align-center"
-                                            @click="cardNavigate(item.path)">
-                                            <v-icon dark class="align-center">
-                                                mdi-open-in-app
-                                            </v-icon>
-                                        </v-btn>
-                                    </v-col>
-                                </v-row>
-                            </v-container>
-                        </div>
-                    </v-expand-transition>
-                </v-img>
-                <v-container fluid no-gutters>
-                    <v-row fill-height>
-                        <v-col :cols="12">
-                            <v-card-title primary-title class="d-block">
-                                <h3 class="headline text-truncate">
-                                    {{ item.name }}
-                                </h3>
-                                <h4 class="subtitle-1">
-                                    {{ item.short_desc }}
-                                </h4>
-                            </v-card-title>
-                            <v-card-actions>
-                                <v-spacer />
-                                <v-btn
-                                    :key="'card-arrow-button-' + itemIndex"
-                                    icon
-                                    text
-                                    @click="showCardText = !showCardText">
-                                    <v-icon :class="{'rotated': showCardText}">
-                                        mdi-chevron-down
-                                    </v-icon>
-                                </v-btn>
-                            </v-card-actions>
-                            <v-slide-y-transition>
-                                <v-card-text
-                                    v-show="showCardText"
-                                    :key="'card-text-' + itemIndex">
-                                    <p>
-                                        {{
-                                            prettyDateRange(
-                                                item.created,
-                                                item.modified
-                                            )
-                                        }}
-                                    </p>
-                                    <p>{{ item.description }}</p>
-                                </v-card-text>
-                            </v-slide-y-transition>
-                        </v-col>
-                    </v-row>
-                </v-container>
-            </v-card>
-        </template>
-    </v-hover>
+<template lang="pug">
+    v-hover
+        template('#default'="{ hover }")
+            v-card.pointer-arrow(hover=true,
+            :color="getItemColor(itemIndex)",
+            raised="10")
+                v-img(:src="getImagePath(item.image_thumb)",
+                style="min-height: 200px;",
+                :aspect-ratio="16 / 9")
+                    v-expand-transition
+                        .d-flex.transition-fast-in-fast-out.v-card--reveal.white--text(
+                        v-if="hover",
+                        style="height: 100%;")
+                            v-container.orange.darken-3.v-card--reveal-bg(
+                            fill-height=true)
+                                v-row/
+                            v-container.pt-0.pb-0(fill-height=true,
+                            grid-list-sm=true,
+                            no-gutters=true)
+                                v-row.text-center(align="center",
+                                justify="center")
+                                    v-col(:cols="12",
+                                    :class=`{
+                                        'text-center': $breakpoint.is.xsOnly
+                                    }`)
+                                        v-btn.text-xs-center.align-center(depressed=true,
+                                        text=true,
+                                        fab=true,
+                                        dark=true,
+                                        large=true,
+                                        title="Преглед слике",
+                                        @click="cardPreview(getImagePath(item.image))")
+                                            v-icon.align-center(dark=true) mdi-eye
+                                    v-col(:cols="12",
+                                    :class=`{
+                                        'text-center': $breakpoint.is.xsOnly
+                                    }`)
+                                        v-btn.text-center.align-center(depressed=true,
+                                        text=true,
+                                        fab=true,
+                                        dark=true,
+                                        large=true,
+                                        title="Отвори у новом прозору",
+                                        @click="cardNavigate(item.path)")
+                                            v-icon.align-center(dark=true) mdi-open-in-app
+                v-container(fluid=true,
+                no-gutters=true)
+                    v-row(fill-height=true)
+                        v-col(:cols="12")
+                            v-card-title.d-block(primary-title=true)
+                                h3.headline.text-truncate {{ item.name }}
+                                h4.subtitle-1 {{ item.short_desc }}
+                            v-card-actions
+                                v-spacer/
+                                v-btn(:key="'card-arrow-button-' + itemIndex",
+                                icon=true,
+                                text=true,
+                                @click="showCardText = !showCardText")
+                                    v-icon(:class=`{
+                                    'rotated': showCardText
+                                }`) mdi-chevron-down
+                        v-slide-y-transition
+                            v-card-text(v-show="showCardText",
+                            :key="'card-text-' + itemIndex")
+                                p {{ prettyDateRange(item.created, item.modified) }}
+                                p {{ item.description }}
 </template>
 
 <script>

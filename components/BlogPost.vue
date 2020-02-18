@@ -1,98 +1,56 @@
-<template>
-    <article
-        class="blog-post mb-10"
-        :class="{'folded': postFolded,
-                 'standalone': standalone}">
-        <header>
-            <nuxt-link
-                :to="`/blog/${frontmatter.name}`">
-                <h3 v-if="standalone" :id="frontmatter.id" class="display-1">
-                    {{ frontmatter.title }}
-                </h3>
-                <h4 v-else :id="frontmatter.id" ref="title">
-                    {{ frontmatter.title }}
-                </h4>
-            </nuxt-link>
-            <!--eslint-disable-next-line vue/html-self-closing-->
-            <a :name="frontmatter.name"></a>
-            <h4 v-if="standalone">
-                <nuxt-link
-                    :to="`/blog/${frontmatter.name}`">
-                    <time
-                        :datetime="frontmatter.date">
+<template lang="pug">
+    article.blog-post.mb-10(:class=`{
+        'folded': postFolded,
+        'standalone': standalone
+    }`)
+        header
+            nuxt-link(:to="`/blog/${frontmatter.name}`")
+                h3.display-1(v-if="standalone",
+                :id="frontmatter.id") {{ frontmatter.title }}
+                h4(v-else=true,
+                :id="frontmatter.id",
+                ref="title") {{ frontmatter.title }}
+            a(:name="frontmatter.name")
+            h4(v-if="standalone")
+                nuxt-link(:to="`/blog/${frontmatter.name}`")
+                    time(:datetime="frontmatter.date").
                         {{ formatDate(frontmatter.date) }}
-                    </time>
-                </nuxt-link>
-            </h4>
-            <h5 v-else>
-                <nuxt-link
-                    :to="`/blog/${frontmatter.name}`">
-                    <time
-                        :datetime="frontmatter.date">
+            h5(v-else=true)
+                nuxt-link(:to="`/blog/${frontmatter.name}`")
+                    time(:datetime="frontmatter.date").
                         {{ formatDate(frontmatter.date) }}
-                    </time>
-                </nuxt-link>
-            </h5>
-            <div class="categories-container">
-                Категорије:
-                <ul class="categories">
-                    <li
-                        v-for="(category, categoryIndex) in
-                            frontmatter.categories"
-                        :key="categoryIndex">
-                        {{ category }}
-                    </li>
-                </ul>
-            </div><!--categories-->
-        </header>
-        <v-container
-            class="py-0 pb-5 ml-0"
-            :style="{
-                'max-height': postFolded ? '15em' : rowHeight
-            }">
-            <v-row ref="articleRow">
-                <v-col :cols="12" :lg="10" class="py-0">
-                    <DynamicMarkdown
-                        :file-name="frontmatter.name"
-                        :highlight="highlight"
-                        :extra-component="extraComponent"
-                        :extra-component-params="extraComponentParams" />
-                </v-col>
-            </v-row>
-            <div v-ripple class="folded-overlay col-lg-10 col-12" @click="toggleFolded">
-                <div class="folded-overlay-inner">
-                    <v-btn
-                        color="accent"
-                        class="black--text"
-                        hovered
-                        elevation="2">
-                        <v-icon>
-                            {{ postFolded
-                                ? 'mdi-chevron-down'
-                                : 'mdi-chevron-up' }}
-                        </v-icon>
-                        <span v-if="postFolded">Прикажи чланак</span>
-                        <span v-else>Сакриј чланак</span>
-                    </v-btn>
-                </div><!--folded-overlay-inner-->
-            </div><!--folded-overlay-->
-        </v-container>
-        <footer>
-            <div v-if="hasTags" class="tags-container">
-                Ознаке:
-                <ul class="tags">
-                    <li
-                        v-for="(tag, tagIndex) in frontmatter.tags"
-                        :key="tagIndex"
-                        :class="{'highlight': tag==highlight}">
-                        <nuxt-link :to="tagUrl(tag)">
-                            #{{ tag }}
-                        </nuxt-link>
-                    </li>
-                </ul>
-            </div><!--tags-container-->
-        </footer>
-    </article>
+            .categories-container Категорије:
+                ul.categories
+                    li(v-for="(category, categoryIndex) in frontmatter.categories",
+                    :key="categoryIndex") {{ category }}
+        v-container.py-0.pb-5.ml-0(:style=`{
+            'max-height': postFolded ? '15em' : rowHeight
+        }`)
+            v-row(ref="articleRow")
+                v-col.py-0(:cols="12",
+                :lg="10")
+                    dynamic-markdown(:file-name="frontmatter.name",
+                    :highlight="highlight",
+                    :extra-component="extraComponent",
+                    :extra-component-params="extraComponentParams")
+            .folded-overlay.col-lg-10.col-12(v-ripple=true,
+            @click="toggleFolded")
+                .folded-overlay-inner
+                    v-btn.black--text(color="accent",
+                    hovered=true,
+                    elevation="2")
+                        v-icon {{ postFolded ? 'mdi-chevron-down' : 'mdi-chevron-up' }}
+                        span(v-if="postFolded") Прикажи чланак
+                        span(v-else=true) Сакриј чланак
+        footer
+            .tags-container(v-if="hasTags") Ознаке:
+                ul.tags
+                    li(v-for="(tag, tagIndex) in frontmatter.tags",
+                    :key="tagIndex",
+                    :class=`{
+                        'highlight': tag==highlight
+                    }`)
+                        nuxt-link(:to="tagUrl(tag)") {{ '#' + tag }}
 </template>
 
 <script>
