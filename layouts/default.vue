@@ -1,254 +1,152 @@
-<template>
-    <v-app :class="{'sm-and-down': $breakpoint.is.smAndDown}">
-        <v-navigation-drawer
-            v-model="showNav"
-            app
-            :mini-variant="miniVariant"
-            :clipped="clipped"
-            fixed>
-            <v-list>
-                <v-list-item
-                    v-if="$breakpoint.is.mdAndDown"
-                    :to="homePage.url">
-                    <v-list-item-action>
-                        <Strahinjaorg class="icon-normal" />
-                    </v-list-item-action>
-                    <v-list-item-title class="title">
-                        //strahinja.org
-                    </v-list-item-title>
-                </v-list-item>
-                <v-divider v-if="$breakpoint.is.mdAndDown" />
-                <v-list-item
-                    v-if="$breakpoint.is.lgAndUp"
-                    :to="homePage.url">
-                    <v-list-item-action>
-                        <v-icon>
-                            {{ homePage.icon }}
-                        </v-icon>
-                    </v-list-item-action>
-                    <v-list-item-title>
-                        {{ homePage.title }}
-                    </v-list-item-title>
-                </v-list-item>
-                <v-list-item
-                    v-for="(navigationPage, navigationPageIndex) in navigationPages"
-                    :key="navigationPageIndex"
-                    :to="navigationPage.url">
-                    <v-list-item-action>
-                        <v-icon>{{ navigationPage.icon }}</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-title>{{ navigationPage.title }}</v-list-item-title>
-                </v-list-item>
-            </v-list>
-        </v-navigation-drawer>
-        <v-app-bar
-            app
-            :clipped-left="clipped"
-            dark
-            color="primary"
-            class="full-width-toolbar"
-            :class="{ loading: pageLoading }">
-            <client-only>
-                <v-tooltip bottom>
-                    <template v-slot:activator="{ on }">
-                        <v-app-bar-nav-icon
-                            v-on="on"
-                            @click="showNav = !showNav" />
-                    </template>
-                    <span>Главни мени</span>
-                </v-tooltip>
-            </client-only>
-            <v-toolbar-title class="mr-4">
-                <nuxt-link class="hidden-xs-only" :to="'/'">
-                    //strahinja.org
-                </nuxt-link>
-            </v-toolbar-title>
-            <v-divider vertical />
-            <client-only>
-                <v-tooltip
-                    v-if="showBackButton"
-                    class="hidden-sm-and-up"
-                    bottom>
-                    <template v-slot:activator="{ on }">
-                        <v-btn
-                            v-if="showBackButton"
-                            icon dark
-                            :to="parentUrl"
-                            class="hidden-sm-and-up text-center align-center">
-                            <v-icon dark class="align-center">
-                                mdi-arrow-left
-                            </v-icon>
-                        </v-btn>
-                    </template>
-                    <span>Назад на почетну</span>
-                </v-tooltip>
-            </client-only>
-            <v-spacer />
-            <v-toolbar-items>
-                <client-only>
-                    <v-col cols="auto" class="pa-0">
-                        <v-expand-x-transition>
-                            <div
-                                v-show="showSearch"
-                                :class="{
-                                    'sm-and-down': $breakpoint.is.smAndDown
-                                }"
-                                class="my-input-container">
-                                <v-form
-                                    ref="appbarSearchForm"
-                                    v-model="appbarSearchFormValid"
-                                    @submit.prevent="onAppbarSearchFormSubmit($event)">
-                                    <v-text-field
-                                        ref="appbarSearchText"
-                                        v-model="appbarSearchText"
-                                        v-on-clickaway="searchClickaway"
-                                        name="q"
-                                        label="Претрага"
-                                        text
-                                        color="black--text"
-                                        solo-inverted
-                                        :rules="appbarSearchTextRules"
-                                        hover
-                                        :counter="maxSearchTextLength"
-                                        clearable
-                                        dense
-                                        prepend-inner-icon="mdi-magnify"
-                                        @blur="searchBlur()" />
-                                </v-form>
-                            </div>
-                        </v-expand-x-transition>
-                    </v-col>
-                    <v-fade-transition :hide-on-leave="true">
-                        <div
-                            v-show="!showSearch"
-                            class="vertical-center">
-                            <div class="vertical-center-slot">
-                                <client-only>
-                                    <v-tooltip bottom>
-                                        <template v-slot:activator="{ on }">
-                                            <v-btn
-                                                ref="appbarSearchBtn"
-                                                icon
-                                                v-on="on"
-                                                @click="searchBtnClick()">
-                                                <v-icon ref="appbarSearchIcon">
-                                                    mdi-magnify
-                                                </v-icon>
-                                            </v-btn>
-                                        </template>
-                                        <span>Претрага</span>
-                                    </v-tooltip>
+<template lang="pug">
+    v-app(:class=`{
+        'sm-and-down': $breakpoint.is.smAndDown
+    }`)
+        v-navigation-drawer(v-model="showNav",
+        app=true,
+        :mini-variant="miniVariant",
+        :clipped="clipped",
+        fixed=true)
+            v-list
+                v-list-item(v-if="$breakpoint.is.mdAndDown",
+                :to="homePage.url")
+                    v-list-item-action
+                        Strahinjaorg.icon-normal
+                    v-list-item-title.title //strahinja.org
+                v-divider(v-if="$breakpoint.is.mdAndDown")
+                v-list-item(v-if="$breakpoint.is.lgAndUp",
+                :to="homePage.url")
+                    v-list-item-action
+                        v-icon {{ homePage.icon }}
+                    v-list-item-title {{ homePage.title }}
+                v-list-item(v-for="(navigationPage, navigationPageIndex) in navigationPages",
+                :key="navigationPageIndex",
+                :to="navigationPage.url")
+                    v-list-item-action
+                        v-icon {{ navigationPage.icon }}
+                    v-list-item-title {{ navigationPage.title }}
+        v-app-bar.full-width-toolbar(app=true,
+        :clipped-left="clipped",
+        dark=true,
+        color="primary",
+        :class="{ loading: pageLoading }")
+            client-only
+                v-tooltip(bottom=true)
+                    template(v-slot:activator="{ on }")
+                        v-app-bar-nav-icon(v-on="on",
+                        @click="showNav = !showNav")
+                    span Главни мени
+            v-toolbar-title.mr-4
+                nuxt-link.hidden-xs-only(:to="'/'") //strahinja.org
+            v-divider-vertical/
+            client-only
+                v-tooltip.hidden-sm-and-up(v-if="showBackButton",
+                bottom=true)
+                    template(v-slot:activator="{ on }")
+                        v-btn.hidden-sm-and-up.text-center.align-center(
+                        v-if="showBackButton",
+                        icon=true,
+                        dark=true,
+                        :to="parentUrl")
+                            v-icon.align-center(dark=true) mdi-arrow-left
+                    span Назад на почетну
+            v-spacer/
+            v-toolbar-items
+                client-only
+                    v-col.pa-0(cols="auto")
+                        v-expand-x-transition
+                            .my-input-container(v-show="showSearch",
+                            :class=`{
+                                'sm-and-down': $breakpoint.is.smAndDown
+                            }`)
+                                v-form(ref="appbarSearchForm",
+                                v-model="appbarSearchFormValid",
+                                @submit.prevent="onAppbarSearchFormSubmit($event)")
+                                    v-text-field(ref="appbarSearchText",
+                                    v-model="appbarSearchText",
+                                    v-on-clickaway="searchClickaway",
+                                    name="q",
+                                    label="Претрага",
+                                    text=true,
+                                    color="black--text",
+                                    solo-inverted=true,
+                                    :rules="appbarSearchTextRules",
+                                    hover=true,
+                                    :counter="maxSearchTextLength",
+                                    clearable=true,
+                                    dense=true,
+                                    prepend-inner-icon="mdi-magnify",
+                                    @blur="searchBlur()")
+                    v-fade-transition(:hide-on-leave="true")
+                        .vertical-center(v-show="!showSearch")
+                            .vertical-center-slot
+                                client-only
+                                    v-tooltip(bottom=true)
+                                        template(v-slot:activator="{ on }")
+                                            v-btn(ref="appbarSearchBtn",
+                                            icon=true,
+                                            v-on="on",
+                                            @click="searchBtnClick()")
+                                                v-icon(ref="appbarSearchIcon").
+                                                    | mdi-magnify
+                                        span Претрага
+                                    profile-menu/
+        v-content
+            nuxt/
+        client-only
+            cookie-disclaimer(color="primary darken-1 white--text",
+            :show="showCookieConsent")/
 
-                                    <profile-menu />
-                                </client-only>
-                            </div><!--vertical-center-slot-->
-                        </div>
-                    </v-fade-transition>
-                </client-only>
-            </v-toolbar-items>
-        </v-app-bar>
-
-        <v-content>
-            <nuxt />
-        </v-content>
-
-        <client-only>
-            <cookie-disclaimer
-                color="primary darken-1 white--text"
-                :show="showCookieConsent" />
-        </client-only>
-
-        <v-footer
-            app
-            absolute
-            padless
-            dark
-            height="auto">
-            <v-card
-                text
-                tile
-                class="flex text-center">
-                <v-card-text class="primary text-center">
-                    <v-spacer />
-                    <client-only>
-                        <v-tooltip
-                            v-for="(footerLink, footerLinkIndex) in footerLinks"
-                            :key="footerLinkIndex"
-                            bottom>
-                            <template v-slot:activator="{ on }">
-                                <v-btn
-                                    class="mx-2"
-                                    text
-                                    icon
-                                    v-on="on">
-                                    <a
-                                        :href="footerLink.url.path"
-                                        target="_blank">
-                                        <v-icon class="white--text">
-                                            {{ footerLink.iconName }}
-                                        </v-icon>
-                                    </a>
-                                </v-btn>
-                            </template>
-                            <span>{{ footerLink.text }}</span>
-                        </v-tooltip>
-                    </client-only>
-                </v-card-text>
-                <v-card-actions
-                    class="primary darken-1 d-block text-left"
-                    :class="{'text-center': $breakpoint.is.xsOnly}">
-                    <v-container
-                        v-if="$breakpoint.is.xsOnly"
-                        fluid class="ma-0 pa-0" no-gutters>
-                        <v-row class="ma-0">
-                            <v-col class="pa-0" :cols="12">
-                                <a
-                                    href="https://creativecommons.org/licenses/by/4.0/"
-                                    rel="license"><img
-                                        alt="Creative Commons License"
-                                        class="inline-image"
-                                        src="/img/80x15.png"></a>
-                            </v-col>
-                        </v-row>
-                        <v-row class="ma-0">
-                            <v-col class="pa-0" :cols="12">
-                                Copyright © 1999-2019
-                            </v-col>
-                        </v-row>
-                        <v-row class="ma-0">
-                            <v-col class="pa-0" :cols="12">
-                                Страхиња Радић (Strahinya Radich)
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                    <v-container
-                        v-else
-                        fluid class="ma-0 pa-0" no-gutters>
-                        <v-row class="ma-0">
-                            <v-col class="pa-0" :cols="12">
-                                <div class="d-inline-block mr-1">
-                                    <a
-                                        href="https://creativecommons.org/licenses/by/4.0/"
-                                        rel="license"><img
-                                            alt="Creative Commons License"
-                                            class="inline-image"
-                                            src="/img/80x15.png"></a>
-                                </div>
-
-                                <div class="d-inline mr-1">
-                                    Copyright © 1999-2019
-                                </div>
-
-                                <div class="d-inline">
-                                    Страхиња Радић (Strahinya Radich)
-                                </div>
-                            </v-col>
-                        </v-row>
-                    </v-container>
-                </v-card-actions>
-            </v-card>
-        </v-footer>
-    </v-app>
+        v-footer(app=true,
+        absolute=true,
+        padless=true,
+        dark=true,
+        height="auto")
+            v-card.flex.text-center(text=true,
+            tile=true)
+                v-card-text.primary.text-center
+                    v-spacer/
+                    client-only
+                        v-tooltip(v-for="(footerLink, footerLinkIndex) in
+                        footerLinks",
+                        :key="footerLinkIndex",
+                        bottom=true)
+                            template(v-slot:activator="{ on }")
+                                v-btn.mx-2(text=true,
+                                icon=true,
+                                v-on="on")
+                                    a(:href="footerLink.url.path",
+                                    target="_blank")
+                                        v-icon.white--text {{footerLink.iconName }}
+                            span {{ footerLink.text }}
+                v-card-actions.primary.darken-1.d-block.text-left(:class=`{
+                    'text-center': $breakpoint.is.xsOnly
+                }`)
+                    v-container.ma-0.pa-0(v-if="$breakpoint.is.xsOnly",
+                    fluid=true,
+                    no-gutters=true)
+                        v-row.ma-0
+                            v-col.pa-0(:cols="12")
+                                a(href="https://creativecommons.org/licenses/by/4.0/",
+                                rel="license")
+                                    img.inline-image(alt="Creative Commons License",
+                                    src="/img/80x15.png")
+                        v-row.ma-0
+                            v-col.pa-0(:cols="12") Copyright © 1999-{{ currentYear }}
+                        v-row.ma-0
+                            v-col.pa-0(:cols="12") Страхиња Радић (Strahinya Radich)
+                    v-container.ma-0.pa-0(v-else=true,
+                    fluid=true,
+                    no-gutters=true)
+                        v-row.ma-0
+                            v-col.pa-0(:cols="12")
+                                .d-inline-block.mr-1
+                                    a(href="https://creativecommons.org/licenses/by/4.0/",
+                                    rel="license")
+                                        img.inline-image(alt="Creative Commons License",
+                                        src="/img/80x15.png")
+                                .d-inline.mr-1 Copyright © 1999-{{ currentYear }}
+                                .d-inline Страхиња Радић (Strahinya Radich)
 </template>
 
 <script>
@@ -371,6 +269,10 @@ export default {
                 return this.$store.getters['pages/showCookieConsent'];
             }
             return true;
+        },
+        currentYear()
+        {
+            return (new Date()).getFullYear();
         }
     },
     head()

@@ -1,50 +1,27 @@
-<template>
-    <v-card
-        :color="getItemColor(itemIndex)"
-        raised="10"
-        class="link-item">
-        <v-container fluid no-gutters class="pa-0">
-            <v-row class="ma-0">
-                <v-col :cols="12" class="pa-0">
-                    <v-card-title>
-                        <a
-                            :href="item.url"
-                            target="_blank">
-                            <v-icon>
-                                mdi-bookmark
-                            </v-icon>
+<template lang="pug">
+    v-card.link-item(:color="getItemColor(itemIndex)",
+    raised="10")
+        v-container.pa-0(fluid=true,
+        no-gutters=true)
+            v-row.ma-0
+                v-col.pa-0(:cols="12")
+                    v-card-title
+                        a(:href="item.url",
+                        target="_blank").
+                            v-icon mdi-bookmark
                             {{ prettyUrl(item.url) }}
-                        </a>
-                    </v-card-title>
-                    <v-card-subtitle>
-                        <v-icon>
-                            mdi-cursor-default-click
-                        </v-icon>
+                    v-card-subtitle.
+                        v-icon mdi-cursor-default-click
                         Посећено: {{ prettyDate(item.visited) }}
-                    </v-card-subtitle>
-                    <v-card-actions>
-                        <v-spacer />
-                        <v-btn
-                            icon
-                            @click="expanded = !expanded">
-                            <v-icon>
-                                {{
-                                    expanded ?
-                                        'mdi-chevron-up' :
-                                        'mdi-chevron-down'
-                                }}
-                            </v-icon>
-                        </v-btn>
-                    </v-card-actions>
-                    <v-expand-transition>
-                        <v-card-text v-show="expanded">
-                            <p v-html="item.description" />
-                        </v-card-text>
-                    </v-expand-transition>
-                </v-col>
-            </v-row>
-        </v-container>
-    </v-card>
+                    v-card-actions
+                        v-spacer/
+                        v-btn(icon=true,
+                        @click="expanded = !expanded")
+                            v-icon.
+                                {{ expanded ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
+                    v-expand-transition
+                        v-card-text(v-show="expanded")
+                            p(v-html="item.description")
 </template>
 
 <script>
