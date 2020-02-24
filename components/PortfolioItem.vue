@@ -23,26 +23,32 @@
                                     :class=`{
                                         'text-center': $breakpoint.is.xsOnly
                                     }`)
-                                        v-btn.text-xs-center.align-center(depressed=true,
-                                        text=true,
-                                        fab=true,
-                                        dark=true,
-                                        large=true,
-                                        title="Преглед слике",
-                                        @click="cardPreview(getImagePath(item.image))")
-                                            v-icon.align-center(dark=true) mdi-eye
+                                        v-tooltip(bottom=true)
+                                            template(v-slot:activator="{ on }")
+                                                v-btn.text-xs-center.align-center(depressed=true,
+                                                text=true,
+                                                fab=true,
+                                                dark=true,
+                                                large=true,
+                                                v-on="on",
+                                                @click="cardPreview(getImagePath(item.image))")
+                                                    v-icon.align-center(dark=true) mdi-eye
+                                            span Преглед слике
                                     v-col(:cols="12",
                                     :class=`{
                                         'text-center': $breakpoint.is.xsOnly
                                     }`)
-                                        v-btn.text-center.align-center(depressed=true,
-                                        text=true,
-                                        fab=true,
-                                        dark=true,
-                                        large=true,
-                                        title="Отвори у новом прозору",
-                                        @click="cardNavigate(item.path)")
-                                            v-icon.align-center(dark=true) mdi-open-in-app
+                                        v-tooltip(bottom=true)
+                                            template(v-slot:activator="{ on }")
+                                                v-btn.text-center.align-center(depressed=true,
+                                                text=true,
+                                                fab=true,
+                                                dark=true,
+                                                large=true,
+                                                v-on="on",
+                                                @click="cardNavigate(item.path)")
+                                                    v-icon.align-center(dark=true) mdi-open-in-app
+                                            span Отвори у новом прозору
                 v-container(fluid=true,
                 no-gutters=true)
                     v-row(fill-height=true)
@@ -59,16 +65,18 @@
                                     v-icon(:class=`{
                                     'rotated': showCardText
                                 }`) mdi-chevron-down
-                        v-slide-y-transition
-                            v-card-text(v-show="showCardText",
-                            :key="'card-text-' + itemIndex")
-                                p {{ prettyDateRange(item.created, item.modified) }}
-                                p {{ item.description }}
+                            foldable(:folded="!showCardText")
+                                v-card-text(:key="'card-text-' + itemIndex")
+                                    p {{ prettyDateRange(item.created, item.modified) }}
+                                    p {{ item.description }}
 </template>
 
 <script>
+import Foldable from '~/components/Foldable.vue';
+
 export default {
     name: 'PortfolioItem',
+    components: { Foldable },
     props: {
         item: { type: Object, default: () => ({}) },
         itemIndex: { type: Number, default: -1 }
@@ -126,23 +134,19 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="sass">
 .v-card--reveal
- {
-    align-items: center;
-    bottom: 0;
-    justify-content: center;
-    position: absolute;
-    width: 100%;
-}
+    align-items: center
+    bottom: 0
+    justify-content: center
+    position: absolute
+    width: 100%
 
 .v-card--reveal-bg
- {
-    align-items: center;
-    bottom: 0;
-    justify-content: center;
-    opacity: .7;
-    position: absolute;
-    width: 100%;
-}
+    align-items: center
+    bottom: 0
+    justify-content: center
+    opacity: .7
+    position: absolute
+    width: 100%
 </style>

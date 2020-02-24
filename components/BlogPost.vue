@@ -23,9 +23,29 @@
                 ul.categories
                     li(v-for="(category, categoryIndex) in frontmatter.categories",
                     :key="categoryIndex") {{ category }}
-        v-container.py-0.pb-5.ml-0(:style=`{
+        v-container.py-0.pb-5.ml-0
+            v-row(ref="articleRow")
+                foldable(:folded="postFolded",
+                folded-height="15em")
+                    v-col.py-0.folded(:cols="12",
+                    :lg="10")
+                        dynamic-markdown(:file-name="frontmatter.name",
+                        :highlight="highlight",
+                        :extra-component="extraComponent",
+                        :extra-component-params="extraComponentParams")
+            .folded-overlay.col-lg-10.col-12(v-ripple=true,
+            @click="toggleFolded")
+                .folded-overlay-inner
+                    v-btn.black--text(color="accent",
+                    hovered=true,
+                    elevation="2")
+                        v-icon {{ postFolded ? 'mdi-chevron-down' : 'mdi-chevron-up' }}
+                        span(v-if="postFolded") Прикажи чланак
+                        span(v-else=true) Сакриј чланак
+
+        //-v-container.py-0.pb-5.ml-0(:style=`{
             'max-height': postFolded ? '15em' : rowHeight
-        }`)
+            }`)
             v-row(ref="articleRow")
                 v-col.py-0(:cols="12",
                 :lg="10")
@@ -54,10 +74,14 @@
 </template>
 
 <script>
+//eslint-disable-next-line
+//import VFoldYTransition from '~/components/VFoldYTransition.vue';
+import Foldable from '~/components/Foldable.vue';
 import DynamicMarkdown from '~/components/DynamicMarkdown.vue';
 export default {
     name: 'BlogPost',
-    components: { DynamicMarkdown },
+    //components: { DynamicMarkdown },
+    components: { DynamicMarkdown, Foldable },
     props: {
         folded: { type: Boolean, default: false },
         frontmatter: { type: Object, default: () => ({}) },
@@ -120,22 +144,42 @@ export default {
         },
         toggleFolded()
         {
-            console.log('vuetify.goTo(#',
+            /*console.log('vuetify.goTo(#',
                         this.frontmatter.id,
                         ')');
-            //this.$vuetify.goTo(`#${this.frontmatter.id}`, {
+            this.$vuetify.goTo(`#${this.frontmatter.id}`, {*/
             let gbcr = this.$refs.title.getBoundingClientRect();
-            console.log('gbcr = ', gbcr);
-            this.$vuetify.goTo(gbcr.top, {
-                duration: this.scrollAnimationDuration
-            });
+            //console.log('gbcr = ', gbcr);
+            let navbarHeight = 0;
+            if (document)
+            {
+                let appBars = document.getElementsByClassName('v-app-bar');
+                if (appBars && appBars.length>0)
+                {
+                    navbarHeight = appBars[0].getBoundingClientRect().height;
+                }
+            }
+            smoothScrollBy(gbcr.top - navbarHeight);
             this.$nextTick(() =>
             {
                 this.postFolded = !this.postFolded;
             });
+            gbcr = null;
         }
     },
 };
+
+function smoothScrollBy(amount, duration = 500, steps = 10, step = 0)
+{
+    if (step < steps)
+    {
+        setTimeout(() =>
+        {
+            if (window) window.scrollBy(0, amount / steps);
+            smoothScrollBy(amount, duration, steps, step+1);
+        }, duration/steps);
+    }
+}
 </script>
 
 <style lang="sass">

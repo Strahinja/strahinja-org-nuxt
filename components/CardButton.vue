@@ -1,26 +1,17 @@
-<template>
-    <v-card
-        :dark="enabled && dark"
-        :light="enabled && !dark"
-        :disabled="!enabled"
-        :color="enabled ? color : null"
-        :hover="enabled && hover"
-        class="card-button"
-        :class="{ disabled: !enabled }"
-        outlined
-        :width="width"
-        @click.stop="enabled ? $emit('clicked', buttonId) : false">
-        <v-card-title class="justify-center">
-            <v-icon>
-                {{ icon }}
-            </v-icon>
-        </v-card-title>
-        <v-card-subtitle>
-            <v-subheader class="justify-center">
-                {{ title }}
-            </v-subheader>
-        </v-card-subtitle>
-    </v-card>
+<template lang="pug">
+    v-card.card-button(:dark="enabled && dark",
+    :light="enabled && !dark",
+    :disabled="!enabled",
+    :color="enabled ? color : null",
+    :hover="enabled && hover",
+    :class="{ disabled: !enabled }",
+    outlined=true,
+    :width="width",
+    @click.stop="enabled ? $emit('clicked', buttonId) : false")
+        v-card-title.justify-center
+            v-icon {{ icon }}
+        v-card-subtitle
+            v-subheader.justify-center {{ title }}
 </template>
 
 <script>

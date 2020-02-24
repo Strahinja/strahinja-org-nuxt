@@ -1,15 +1,8 @@
-<template>
-    <v-app dark>
-        <h1 v-if="error.statusCode === 404">
-            {{ pageNotFound }}
-        </h1>
-        <h1 v-else>
-            {{ otherError }}
-        </h1>
-        <NuxtLink to="/">
-            Home page
-        </NuxtLink>
-    </v-app>
+<template lang="pug">
+    v-app(dark=true)
+        h1(v-if="error.statusCode === 404") {{ pageNotFound }}
+        h1(v-else=true) {{ otherError }}
+        nuxt-link(:to="'/'") Почетна страница
 </template>
 
 <script>
@@ -32,8 +25,8 @@ export default {
     data ()
     {
         return {
-            pageNotFound: '404 Not Found',
-            otherError: 'An error occurred'
+            pageNotFound: '404 није пронађено',
+            otherError: 'Дошло је до грешке'
         };
     }
 };

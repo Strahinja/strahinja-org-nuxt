@@ -8,13 +8,13 @@
         :clipped="clipped",
         fixed=true)
             v-list
-                v-list-item(v-if="$breakpoint.is.mdAndDown",
+                v-list-item(v-if="$breakpoint.is.xsAndDown",
                 :to="homePage.url")
                     v-list-item-action
                         Strahinjaorg.icon-normal
                     v-list-item-title.title //strahinja.org
-                v-divider(v-if="$breakpoint.is.mdAndDown")
-                v-list-item(v-if="$breakpoint.is.lgAndUp",
+                v-divider(v-if="$breakpoint.is.xsAndDown")
+                v-list-item(v-if="$breakpoint.is.smAndUp",
                 :to="homePage.url")
                     v-list-item-action
                         v-icon {{ homePage.icon }}
@@ -107,8 +107,7 @@
                 v-card-text.primary.text-center
                     v-spacer/
                     client-only
-                        v-tooltip(v-for="(footerLink, footerLinkIndex) in
-                        footerLinks",
+                        v-tooltip(v-for="(footerLink, footerLinkIndex) in footerLinks",
                         :key="footerLinkIndex",
                         bottom=true)
                             template(v-slot:activator="{ on }")

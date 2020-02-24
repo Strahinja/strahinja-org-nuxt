@@ -7,26 +7,28 @@
                 v-col.pa-0(:cols="12")
                     v-card-title
                         a(:href="item.url",
-                        target="_blank").
+                        target="_blank")
                             v-icon mdi-bookmark
-                            {{ prettyUrl(item.url) }}
-                    v-card-subtitle.
+                            | {{ prettyUrl(item.url) }}
+                    v-card-subtitle
                         v-icon mdi-cursor-default-click
-                        Посећено: {{ prettyDate(item.visited) }}
+                        | Посећено: {{ prettyDate(item.visited) }}
                     v-card-actions
                         v-spacer/
                         v-btn(icon=true,
                         @click="expanded = !expanded")
                             v-icon.
                                 {{ expanded ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
-                    v-expand-transition
-                        v-card-text(v-show="expanded")
+                    foldable(:folded="!expanded")
+                        v-card-text
                             p(v-html="item.description")
 </template>
 
 <script>
+import Foldable from '~/components/Foldable.vue';
 export default {
     name: 'LinkItem',
+    components: { Foldable },
     props: {
         expanded: { type: Boolean, default: false },
         item: { type: Object, default: null},
@@ -113,7 +115,7 @@ export default {
     word-break: normal
     text-overflow: ellipsis
     overflow-wrap: normal
-    overflow-x: hidden
+    overflow: hidden
 
 .link-item .v-card__subtitle:hover a,
 .link-item .v-card__title:hover a
