@@ -8,6 +8,7 @@ Component descriptions:
 | CardButton       | Button for bottom sheet (social login)  |
 | CookieDisclaimer | Cookie disclaimer nag box               |
 | DynamicMarkdown  | Per-post markdown handling              |
+| Foldable         | Animation component minHeight -> auto   |
 | blog/Gist        | Blog `extraComponent` for gists         |
 | ~Loading~        | ~Loading component (obsolete)~          |
 | LoginForm        | Component to hold social login buttons  |
