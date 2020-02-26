@@ -7,6 +7,7 @@
 </template>
 
 <script>
+
 export default {
     name: 'Foldable',
     props: {
@@ -17,48 +18,68 @@ export default {
     {
         return {
             foldableStyle: {
-                height: this && this.folded ? this.foldedHeight : null,
+                height: this && this.folded ? this.foldedHeight : 'auto',
             },
+            animationHandle: null,
+            animationEnd: () =>
+            {},
+            secondaryAnimationHandle: null,
+            secondaryAnimationEnd: () =>
+            {},
+            secondaryAnimationDelay: 1000,
         };
     },
     watch: {
         folded: function(value)
         {
-            let wr = this.$refs.wrapper;
-            let el = this.$refs.foldable;
-            let height = getComputedStyle(el).height;
+            let height = getComputedStyle(this.$refs.foldable).height;
+
+            if (this.secondaryAnimationHandle)
+            {
+                clearTimeout(this.secondaryAnimationHandle);
+                this.secondaryAnimationEnd();
+            }
+            else if (this.animationHandle)
+            {
+                clearTimeout(this.animationHandle);
+                this.animationEnd();
+            }
 
             if (value)
             {
                 // fold /\
-                wr.style.height = height;
+                this.$refs.wrapper.style.height = height;
 
                 // Trigger redraw
-                getComputedStyle(wr).height;
+                getComputedStyle(this.$refs.wrapper).height;
 
-                setTimeout(() =>
+                this.animationEnd = () =>
                 {
-                    wr.style.height = this.foldedHeight;
-                    el = null;
-                    wr = null;
-                }, 100);
+                    this.$refs.wrapper.style.height = this.foldedHeight;
+                    this.animationHandle = null;
+                };
+                this.animationHandle = setTimeout(this.animationEnd, 100);
             }
             else
             {
                 // unfold \/
-                wr.style.height = this.foldedHeight;
-                getComputedStyle(wr).height;
+                this.$refs.wrapper.style.height = this.foldedHeight;
+                getComputedStyle(this.$refs.wrapper).height;
 
-                setTimeout(() =>
+                this.animationEnd = () =>
                 {
-                    wr.style.height = height;
-                    setTimeout(() =>
+                    this.$refs.wrapper.style.height = height;
+                    this.animationHandle = null;
+                    this.secondaryAnimationEnd = () =>
                     {
-                        wr.style.height = 'auto';
-                        el = null;
-                        wr = null;
-                    }, 1000);
-                }, 100);
+                        this.$refs.wrapper.style.height = 'auto';
+                        this.secondaryAnimationHandle = null;
+                    };
+                    this.secondaryAnimationHandle =
+                        setTimeout(this.secondaryAnimationEnd,
+                                   this.secondaryAnimationDelay);
+                };
+                this.animationHandle = setTimeout(this.animationEnd, 100);
             }
         }
     },
