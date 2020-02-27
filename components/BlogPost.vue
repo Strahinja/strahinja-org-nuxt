@@ -183,12 +183,16 @@ function smoothScrollBy(amount, duration = 500, steps = 10, step = 0)
 </script>
 
 <style lang="sass">
+@import '~vuetify/src/styles/styles.sass'
 @import '~/assets/sass/code.sass'
 @import '~/assets/sass/markdown.sass'
 
 article.blog-post > header a
     color: $permalink-color !important
     text-decoration: none
+
+.theme--dark.v-application article.blog-post > header a
+    color: $permalink-color-dark !important
 
 article.blog-post > .container
     height: auto
@@ -249,6 +253,9 @@ article.blog-post.folded .folded-overlay .folded-overlay-inner::after
     right: 0
     background: linear-gradient(0deg, #fff, transparent)
 
+.theme--dark.v-application article.blog-post.folded .folded-overlay .folded-overlay-inner::after
+    background: linear-gradient(0deg, map-get($material-dark, 'surface'), transparent)
+
 article.blog-post.folded .folded-overlay-container a .v-btn
     display: inline-block
     vertical-align: middle
@@ -272,6 +279,9 @@ article.blog-post.standalone h4
     border-radius: .4rem
     margin-right: .5rem
     color: $category-color
+
+.theme--dark.v-application .categories > li
+    color: $category-color-dark
 
 .tags-container
     text-transform: uppercase

@@ -2,7 +2,7 @@
     v-container.ma-0.pa-0(fluid=true,
         no-gutters=true)
         splash(height="200px",
-        :bg-color="$vuetify.theme.themes.light.secondary.base")
+        :bg-color="secondaryBaseColor")
             h1 Лична страница Страхиње Радића
         v-toolbar.main-toolbar(flat=true)
             v-spacer/
@@ -111,6 +111,12 @@ export default {
         };
     },
     computed: {
+        secondaryBaseColor()
+        {
+            return this.$vuetify.theme.dark
+                ? this.$vuetify.theme.themes.dark.secondary.base
+                : this.$vuetify.theme.themes.light.secondary.base;
+        },
         page()
         {
             if (this && this.$store)

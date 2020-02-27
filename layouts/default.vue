@@ -5,8 +5,7 @@
         v-navigation-drawer(v-model="showNav",
         app=true,
         :mini-variant="miniVariant",
-        :clipped="clipped",
-        fixed=true)
+        :clipped="clipped")
             v-list
                 v-list-item(v-if="$breakpoint.is.xsOnly",
                 :to="homePage.url")
@@ -91,6 +90,15 @@
                                                     | mdi-magnify
                                         span Претрага
                                     profile-menu/
+                                    v-tooltip(bottom=true)
+                                        template(v-slot:activator="{ on }")
+                                            v-btn(ref="appbarThemeModeBtn",
+                                            icon=true,
+                                            v-on="on",
+                                            @click="themeModeBtnClick()")
+                                                v-icon(ref="appbarThemeModeIcon").
+                                                    | {{ $vuetify.theme.dark ? 'mdi-white-balance-sunny' : 'mdi-weather-night' }}
+                                        span Тема: {{ $vuetify.theme.dark ?  'светла' : 'тамна' }}
         v-content
             nuxt/
         client-only
@@ -418,11 +426,16 @@ export default {
                 this.showSearch = false;
             }
         },
+        themeModeBtnClick()
+        {
+            this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+        }
     }
 };
 </script>
 
 <style lang="sass">
+@import '~vuetify/src/styles/styles.sass'
 @import '~/assets/sass/pxplus.sass'
 @import '~/assets/sass/common.sass'
 @import '~/assets/sass/transition.sass'
@@ -461,4 +474,18 @@ export default {
     vertical-align: middle
     margin-top: -3px
 
+.v-navigation-drawer
+    z-index: 20 !important
+    max-height: 100% !important
+
+.v-footer
+    z-index: 40
+
+.v-navigation-drawer svg,
+.v-navigation-drawer svg *
+    fill: map-get($material-light, 'text-color') !important
+
+.theme--dark.v-application .v-navigation-drawer svg,
+.theme--dark.v-application .v-navigation-drawer svg *
+    fill: map-get($material-dark, 'text-color') !important
 </style>

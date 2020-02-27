@@ -201,6 +201,8 @@ export default {
 </script>
 
 <style lang="sass">
+@import '~vuetify/src/styles/styles.sass'
+
 .v-avatar .v-image
     z-index: auto
 
@@ -253,6 +255,9 @@ export default {
 .right-avatar-64
     margin-left: -70px
     left: 100%
+
+.profile-card h3.title
+    color: map-get($material-light, 'text-color')
 
 .floating-button
     position: absolute
