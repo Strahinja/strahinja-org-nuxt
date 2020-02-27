@@ -8,12 +8,12 @@
         :clipped="clipped",
         fixed=true)
             v-list
-                v-list-item(v-if="$breakpoint.is.xsAndDown",
+                v-list-item(v-if="$breakpoint.is.xsOnly",
                 :to="homePage.url")
                     v-list-item-action
                         Strahinjaorg.icon-normal
                     v-list-item-title.title //strahinja.org
-                v-divider(v-if="$breakpoint.is.xsAndDown")
+                v-divider(v-if="$breakpoint.is.xsOnly")
                 v-list-item(v-if="$breakpoint.is.smAndUp",
                 :to="homePage.url")
                     v-list-item-action
