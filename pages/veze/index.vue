@@ -60,6 +60,7 @@
                                     v-on="on")
                                         v-icon mdi-shape
                                         span.hidden-sm-and-down По категоријама
+                                span По категоријама
 
                 v-progress-linear.my-5(indeterminate=true,
                 :active="loading")
@@ -75,9 +76,7 @@
                                 v-container.px-0.mx-0(grid-list-md=true,
                                 fluid=true,
                                 no-gutters=true)
-                                    v-row(:class=`{
-                                        'breakout-row': $breakpoint.is.smAndDown
-                                    }`)
+                                    v-row
                                         v-col.mb-1(v-for="(item, itemIndex) in category.list",
                                         :key="item.id",
                                         :cols="12",
@@ -87,6 +86,9 @@
                                             :expanded="$breakpoint.is.smAndUp ? true : false",
                                             :item="item",
                                             :item-index="itemIndex")
+                                    //-(:class=`{
+                                    //-'breakout-row': $breakpoint.is.smAndDown
+                                    //-}`)
 
                 v-container.px-0.mx-0(v-else=true,
                 grid-list-md=true,

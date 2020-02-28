@@ -220,9 +220,9 @@ export default {
     display: inline-block
 
 .v-application .v-menu__content
-    z-index: 10 !important
+    z-index: 52 !important
 
 .v-application .v-tooltip__content
-    z-index: 8 !important
+    z-index: 50 !important
 
 </style>

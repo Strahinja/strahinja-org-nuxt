@@ -45,10 +45,22 @@ export default {
         },
         getItemColor(itemIndex)
         {
-            return (
-                'light-blue lighten-' +
+            if (this && this.$vuetify.theme.dark)
+            {
+                return (
+                    'light-blue darken-' +
+                    (
+                        5 - (itemIndex % 5 > 3 ? 6 - (itemIndex % 5) : (itemIndex % 5) + 1)
+                    )
+                );
+            }
+            else
+            {
+                return (
+                    'light-blue lighten-' +
                 (itemIndex % 6 > 3 ? 7 - (itemIndex % 6) : (itemIndex % 6) + 1)
-            );
+                );
+            }
         },
         prettyUrl(url)
         {
@@ -93,6 +105,8 @@ export default {
 </script>
 
 <style lang="sass">
+@import '~vuetify/src/styles/styles.sass'
+
 .link-item .v-icon.v-icon
     line-height: 1.3rem
     vertical-align: middle
@@ -117,6 +131,10 @@ export default {
     overflow-wrap: normal
     overflow: hidden
 
+.theme--dark.v-application .link-item .v-card__title a,
+.theme--dark.v-application .link-item .v-card__subtitle a
+    color: map-get($material-dark, 'text-color')
+
 .link-item .v-card__subtitle:hover a,
 .link-item .v-card__title:hover a
     word-break: break-word
@@ -128,9 +146,13 @@ export default {
     position: absolute
     margin-left: -1.3928rem
 
-// .link-item .v-card__title:hover a,
+//-.link-item .v-card__title:hover a,
    .link-item .v-card__title:hover a i
    color: #fff
    transition: all .5s ease
+
+//-.theme--dark.v-application .v-card__title,
+    .theme--dark.v-application .v-card__text
+    color: map-get($material-light, 'text-color')
 
 </style>

@@ -481,6 +481,9 @@ export default {
 .v-footer
     z-index: 40
 
+.v-application .v-tooltip__content
+    z-index: 50 !important
+
 .v-navigation-drawer svg,
 .v-navigation-drawer svg *
     fill: map-get($material-light, 'text-color') !important

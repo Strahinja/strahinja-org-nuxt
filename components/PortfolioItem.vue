@@ -102,10 +102,22 @@ export default {
         },
         getItemColor(itemIndex)
         {
-            return (
-                'orange lighten-' +
+            if (this && this.$vuetify.theme.dark)
+            {
+                return (
+                    'orange darken-' +
+                    (
+                        5 - (itemIndex % 5 > 3 ? 6 - (itemIndex % 5) : (itemIndex % 5) + 1)
+                    )
+                );
+            }
+            else
+            {
+                return (
+                    'orange lighten-' +
                 (itemIndex % 6 > 3 ? 7 - (itemIndex % 6) : (itemIndex % 6) + 1)
-            );
+                );
+            }
         },
         prettyDate(dateStr)
         {
@@ -135,6 +147,8 @@ export default {
 </script>
 
 <style scoped lang="sass">
+@import '~vuetify/src/styles/styles.sass'
+
 .v-card--reveal
     align-items: center
     bottom: 0
@@ -149,4 +163,12 @@ export default {
     opacity: .7
     position: absolute
     width: 100%
+
+//-.theme--dark.v-application .v-card__title,
+    .theme--dark.v-application .v-card__subtitle,
+    .theme--dark.v-application .v-card__title .v-icon,
+    .theme--dark.v-application .v-card__subtitle .v-icon,
+    .theme--dark.v-application .v-card__text
+    color: map-get($material-light, 'text-color')
+
 </style>
