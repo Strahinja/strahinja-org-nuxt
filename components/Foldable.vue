@@ -88,6 +88,6 @@ export default {
 <style lang="sass" scoped>
 .foldable-wrapper
     overflow-y: hidden
-    transition: all .5s ease-in-out
+    transition: height .5s ease-in-out
 
 </style>
