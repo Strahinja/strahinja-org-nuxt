@@ -198,16 +198,16 @@ article.blog-post > .container
     height: auto
     max-height: 100%
     position: relative
-    transition: all .5s ease
+    transition: height .5s ease-in-out, opacity .5s ease-in-out
 
 article.blog-post.folded > .container
     max-height: 15em
     overflow: hidden
-    transition: all .5s ease
+    transition: height .5s ease-in-out, opacity .5s ease-in-out
 
 article.blog-post > .container .row
     opacity: 1
-    transition: all .5s ease
+    transition: height .5s ease-in-out, opacity .5s ease-in-out
 
 article.blog-post.folded > .container .row
     opacity: .5
