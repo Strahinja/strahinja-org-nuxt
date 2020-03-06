@@ -14,6 +14,11 @@ export const state = () => ({
         PAGE_SEARCH_INDEX: 'search-index',
         PAGE_USERS: 'users',
     },
+    themeNames: {
+        DARK_THEME_NAME: 'dark',
+        LIGHT_THEME_NAME: 'light',
+    },
+    theme: 'light',
     showCookieConsent: true,
     list: [
         {
@@ -376,12 +381,20 @@ export const getters = {
         page => page.includedInMainToolbar),
     showCookieConsent: state => state.showCookieConsent,
     socialLoginProviders: state => state.socialLoginProviders,
+    theme: state => state.theme,
+    isThemeDark: state => state.theme == state.themeNames.DARK_THEME_NAME,
+    DARK_THEME_NAME: state => state.themeNames.DARK_THEME_NAME,
+    LIGHT_THEME_NAME: state => state.themeNames.LIGHT_THEME_NAME,
 };
 
 export const mutations = {
     setShowCookieConsent(state, payload)
     {
         state.showCookieConsent = payload;
+    },
+    setTheme(state, payload)
+    {
+        state.theme = payload;
     },
     setPageId(state, payload)
     {
@@ -396,6 +409,39 @@ export const actions = {
             maxAge: 15 * 365 * 24 * 60 * 60,
         });
         commit('setShowCookieConsent', !payload);
+    },
+    setTheme({ commit, getters }, payload)
+    {
+        if (payload && payload.theme == getters['DARK_THEME_NAME']
+            && payload.vuetify)
+        {
+            payload.vuetify.theme.dark = true;
+        }
+        else if (payload && payload.vuetify)
+        {
+            payload.vuetify.theme.dark = false;
+        }
+        this.$cookies.set('strahinja-org-theme', payload.theme, {
+            maxAge: 15 * 365 * 24 * 60 * 60,
+        });
+        commit('setTheme', payload.theme);
+    },
+    cycleTheme({ dispatch, getters }, payload)
+    {
+        if (getters['theme'] == getters['DARK_THEME_NAME'])
+        {
+            dispatch('setTheme', {
+                vuetify: payload.vuetify,
+                theme: getters['LIGHT_THEME_NAME']
+            });
+        }
+        else
+        {
+            dispatch('setTheme', {
+                vuetify: payload.vuetify,
+                theme: getters['DARK_THEME_NAME']
+            });
+        }
     },
     setCurrentPageFromRouteName({ commit, getters }, payload)
     {

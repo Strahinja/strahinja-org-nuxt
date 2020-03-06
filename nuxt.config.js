@@ -84,6 +84,7 @@ export default {
         '~/plugins/breakpoint.js',
         '~/plugins/jsonld.js',
         '~/plugins/cookie-disclaimer.js',
+        { src: '~/plugins/theme-settings.js', mode: 'client' },
         '~/plugins/four-oh-four.js',
         //{ src: '~/plugins/auth.js', mode: 'client' },
     ],

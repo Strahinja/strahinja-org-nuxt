@@ -10,10 +10,10 @@ export default {
         lighten1: '#afcbae',
         darken1: '#526c53',
     },
-    accent: '#d3dc7b', //'#FFEE58', // "#64dd17",
-    error: '#FF5252',
-    info: '#2196F3',
-    success: '#4CAF50',
-    warning: '#FB8C00'
+    accent: '#d3dc7b',
+    error: '#d45858',
+    info: '#4592cf',
+    success: '#69b069',
+    warning: '#c78634'
 };
 

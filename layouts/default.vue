@@ -97,8 +97,8 @@
                                             v-on="on",
                                             @click="themeModeBtnClick()")
                                                 v-icon(ref="appbarThemeModeIcon").
-                                                    | {{ $vuetify.theme.dark ? 'mdi-white-balance-sunny' : 'mdi-weather-night' }}
-                                        span Тема: {{ $vuetify.theme.dark ?  'светла' : 'тамна' }}
+                                                    | {{ isThemeDark ? 'mdi-white-balance-sunny' : 'mdi-weather-night' }}
+                                        span Тема: {{ isThemeDark ?  'светла' : 'тамна' }}
         v-content
             nuxt/
         client-only
@@ -157,6 +157,7 @@
 </template>
 
 <script>
+import Vue from 'vue';
 import ProfileMenu from '~/components/ProfileMenu';
 import CookieDisclaimer from '~/components/CookieDisclaimer';
 import Strahinjaorg from '~/assets/svg/strahinjaorg.svg?inline';
@@ -269,13 +270,17 @@ export default {
         {
             return this.$breakpoint.is.xsOnly && this.$route.path != '/';
         },
+        isThemeDark()
+        {
+            return this && this.$store && this.$store.getters ?
+                this.$store.getters['pages/isThemeDark'] :
+                false;
+        },
         showCookieConsent()
         {
-            if (this && this.$store && this.$store.getters)
-            {
-                return this.$store.getters['pages/showCookieConsent'];
-            }
-            return true;
+            return this && this.$store && this.$store.getters ?
+                this.$store.getters['pages/showCookieConsent'] :
+                true;
         },
         currentYear()
         {
@@ -428,7 +433,9 @@ export default {
         },
         themeModeBtnClick()
         {
-            this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+            this.$store.dispatch('pages/cycleTheme', {
+                vuetify: this.$vuetify,
+            });
         }
     }
 };

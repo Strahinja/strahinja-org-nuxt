@@ -49,7 +49,7 @@ export default {
 
 <style lang="sass" scoped>
 .cookie-disclaimer
-    z-index: 10
+    z-index: 45
     position: fixed
     bottom: 0
     width: 100%
