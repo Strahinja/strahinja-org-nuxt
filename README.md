@@ -23,8 +23,8 @@ $ yarn generate
 
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
 
-[![CC BY 4.0][cc-by-image-compact]][cc-by] This work is licensed under a [Creative Commons Attribution 4.0 International
-License][cc-by].
+[![CC BY 4.0][cc-by-image-compact]][cc-by] This work is licensed under a
+[Creative Commons Attribution 4.0 International License][cc-by].
 
 [cc-by]: http://creativecommons.org/licenses/by/4.0/
 [cc-by-image-compact]: https://i.creativecommons.org/l/by/4.0/80x15.png

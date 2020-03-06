@@ -37,10 +37,6 @@ export default {
     props: {
         color: { type: String, default: null, required: false },
         show: { type: Boolean, default: true, required: false },
-        message: { type: String, default: 'This website uses cookies to store' +
-            ' settings and provide social login. Овај сајт користи' +
-            ' колачиће (cookies) за чување подешавања и пријављивање преко' +
-            ' друштвених мрежа.', required: false },
     },
     methods: {
         acceptClick()
