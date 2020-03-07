@@ -57,6 +57,7 @@
                                             v-btn(color="primary",
                                             @click="logoutClick()")
                                                 v-icon mdi-logout
+                                                | Одјави се
 </template>
 
 <script>

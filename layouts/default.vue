@@ -157,7 +157,6 @@
 </template>
 
 <script>
-import Vue from 'vue';
 import ProfileMenu from '~/components/ProfileMenu';
 import CookieDisclaimer from '~/components/CookieDisclaimer';
 import Strahinjaorg from '~/assets/svg/strahinjaorg.svg?inline';
