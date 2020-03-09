@@ -24,6 +24,9 @@ console.log('dotenv: mode = ', process.env.VUE_APP_MODE);
 console.log('dotenv: path = ', process.env.VUE_APP_API_PATH);
 console.log('dotenv: browser path = ', process.env.VUE_APP_BROWSER_API_PATH);
 
+//console.log('authConfig:');
+//console.dir(authConfig);
+
 const fs = require('fs');
 var dynamicMarkdownRoutes = getDynamicMarkdownPaths({
     '/blog': '*.md'

@@ -4,7 +4,8 @@
     link=true)
         v-container.pa-0(fluid=true)
             v-row
-                v-col(:cols="6")
+                v-col(:cols="12",
+                :sm="6")
                     v-container(fluid=true)
                         v-row
                             v-col.pa-0
@@ -14,12 +15,14 @@
                             v-col.pa-0
                                 v-text-field(label="Кратак опис",
                                 v-model="item.short_desc")
-                v-col(:cols="6")
+                v-col(:cols="12",
+                :sm="6")
                     v-textarea(label="Опис",
                     :rows="4",
                     v-model="item.description")
             v-row
-                v-col(:cols="3")
+                v-col(:cols="12",
+                :sm="3")
                     v-container.pa-0(fluid=true)
                         v-row
                             v-col.py-0
@@ -51,23 +54,26 @@
                                         v-icon mdi-calendar
                                     template('v-slot:timeIcon'='')
                                         v-icon mdi-calendar-clock
-                v-col(:cols="3")
+                v-col(:cols="12",
+                :sm="3")
                     v-text-field(label="Веза",
                     dense=true,
                     v-model="item.path")
-                v-col(:cols="3")
+                v-col(:cols="12",
+                :sm="3")
                     v-container.pa-0(fluid=true)
                         v-row
-                            v-col.pa-0
+                            v-col.py-0
                                 v-text-field(label="Слика",
                                 dense=true,
                                 v-model="item.image")
                         v-row
-                            v-col.pa-0
+                            v-col.py-0
                                 v-text-field(label="Умањени приказ",
                                 dense=true,
                                 v-model="item.image_thumb")
-                v-col(:cols="3")
+                v-col(:cols="12",
+                :sm="3")
                     v-container.full-height(fluid=true)
                         v-row.full-height(align="end")
                             v-col.pa-0.d-flex.flex-end(align-self="end")
@@ -85,7 +91,9 @@
                                     template.text-center.align-center(v-slot:activator="{ on }")
                                         v-btn.spaced(fab=true,
                                         color="primary",
-                                        dark=true,
+                                        :disabled="upBtnDisabled",
+                                        :dark="upBtnDark",
+                                        :light="!upBtnDark",
                                         depressed=true,
                                         small=true,
                                         v-on="on",
@@ -96,7 +104,9 @@
                                     template.text-center.align-center(v-slot:activator="{ on }")
                                         v-btn.spaced(fab=true,
                                         color="primary",
-                                        dark=true,
+                                        :disabled="downBtnDisabled",
+                                        :dark="downBtnDark",
+                                        :light="!downBtnDark",
                                         depressed=true,
                                         small=true,
                                         v-on="on",
@@ -120,6 +130,8 @@ export default {
                 image_thumb: '',
             };
         }, required: true },
+        itemIndex: { type: Number, default: 0, required: true },
+        itemCount: { type: Number, default: 0, required: true },
     },
     data()
     {
@@ -137,6 +149,29 @@ export default {
                 useSeconds: true,
             },
         };
+    },
+    computed:
+    {
+        upBtnDisabled()
+        {
+            return this.itemIndex < 1;
+        },
+        downBtnDisabled()
+        {
+            return this.itemIndex > this.itemCount-2;
+        },
+        upBtnDark()
+        {
+            return this.upBtnDisabled ?
+                this.$store.getters['pages/isThemeDark']
+                : true;
+        },
+        downBtnDark()
+        {
+            return this.downBtnDisabled ?
+                this.$store.getters['pages/isThemeDark']
+                : true;
+        },
     }
 };
 </script>

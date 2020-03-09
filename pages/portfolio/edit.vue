@@ -26,6 +26,8 @@
                     edit-portfolio-item(v-for="(item, itemIndex) in portfolio",
                     :key="itemIndex",
                     :item="item",
+                    :item-index="itemIndex",
+                    :item-count="portfolio.length",
                     @move-up-clicked="moveUpClicked(itemIndex)",
                     @move-down-clicked="moveDownClicked(itemIndex)")
 </template>
