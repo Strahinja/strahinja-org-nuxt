@@ -82,10 +82,11 @@ export default {
      */
     plugins: [
         '~/plugins/breakpoint.js',
-        '~/plugins/jsonld.js',
         '~/plugins/cookie-disclaimer.js',
-        { src: '~/plugins/theme-settings.js', mode: 'client' },
+        '~/plugins/datetime-picker.js',
         '~/plugins/four-oh-four.js',
+        '~/plugins/jsonld.js',
+        { src: '~/plugins/theme-settings.js', mode: 'client' },
         //{ src: '~/plugins/auth.js', mode: 'client' },
     ],
     /*
@@ -286,7 +287,8 @@ export default {
         //extractCSS: true,
         productionTip: false,
         transpile: [
-            /static\/blog/
+            /static\/blog/,
+            /vuetify-datetime-picker/
         ],
         extend (config)
         {

@@ -84,6 +84,46 @@ export const actions = {
                 console.error('store/portfolio: ', error);
             }
         }
-    }
+    },
+
+    moveItemUp({ commit, getters }, itemIndex)
+    {
+        //console.log(`store/portfolio: moveItemUp(${itemIndex}`);
+        if (itemIndex == 0)
+        {
+            return;
+        }
+
+        let newList = [].concat(getters['list']);
+        let item = newList.splice(itemIndex, 1)[0];
+
+        newList.splice(itemIndex-1, 0, item);
+
+        commit('setList', newList);
+        //console.dir(newList);
+
+        newList = null;
+        item = null;
+    },
+
+    moveItemDown({ commit, getters }, itemIndex)
+    {
+        //console.log(`store/portfolio: moveItemDown(${itemIndex}`);
+        if (itemIndex == getters['itemCount']-1)
+        {
+            return;
+        }
+
+        let newList = [].concat(getters['list']);
+        let item = newList.splice(itemIndex, 1)[0];
+
+        newList.splice(itemIndex+1, 0, item);
+
+        commit('setList', newList);
+        //console.dir(newList);
+
+        newList = null;
+        item = null;
+    },
 };
 

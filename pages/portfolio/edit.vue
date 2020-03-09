@@ -1,12 +1,33 @@
 <template lang="pug">
     v-container(fluid=true)
-        v-row
-            v-col
-                h3 Portfolio Edit
+        v-row.mt-3.mb-7(no-gutters=true)
+            v-col.text-center.hidden-xs-only(v-if="showBackButton",
+            :sm="1",
+            align="center",
+            style="min-width: 60px;")
+                v-tooltip.hidden-xs-only(v-if="showBackButton",
+                bottom=true)
+                    template(v-slot:activator="{ on }")
+                        v-btn.hidden-xs-only.text-center.align-center.mr-3.mt-1(
+                        v-if="showBackButton",
+                        fab=true,
+                        depressed=true,
+                        dark=true,
+                        small=true,
+                        :to="parentUrl",
+                        color="secondary",
+                        v-on="on")
+                            v-icon.align-center(dark=true) mdi-arrow-left
+                    span Назад на {{ parentName }}
+            v-col(:cols="12",
+            :sm="10")
+                h3.display-1 Уређивање портфолија
                 v-list
                     edit-portfolio-item(v-for="(item, itemIndex) in portfolio",
                     :key="itemIndex",
-                    :item="item")
+                    :item="item",
+                    @move-up-clicked="moveUpClicked(itemIndex)",
+                    @move-down-clicked="moveDownClicked(itemIndex)")
 </template>
 
 <script>
@@ -57,6 +78,31 @@ export default {
             return this.$breakpoint.is.smAndUp;
         },
     },
+    fetch({ store })
+    {
+        store.dispatch('portfolio/loadItems');
+    },
+    created()
+    {
+        this.$store.dispatch('portfolio/loadItems');
+    },
+    mounted()
+    {
+        this.$store.dispatch('portfolio/loadItems');
+    },
+    methods:
+    {
+        moveUpClicked(itemIndex)
+        {
+            //console.log(`pages/portfolio/edit: moveUpClicked(${itemIndex})`);
+            this.$store.dispatch('portfolio/moveItemUp', itemIndex);
+        },
+        moveDownClicked(itemIndex)
+        {
+            //console.log(`pages/portfolio/edit: moveDownClicked(${itemIndex})`);
+            this.$store.dispatch('portfolio/moveItemDown', itemIndex);
+        },
+    },
     head()
     {
         let globals = {
@@ -88,18 +134,6 @@ export default {
             title: globals.title,
             description: globals.description,
         };
-    },
-    fetch({ store })
-    {
-        store.dispatch('portfolio/loadItems');
-    },
-    created()
-    {
-        this.$store.dispatch('portfolio/loadItems');
-    },
-    mounted()
-    {
-        this.$store.dispatch('portfolio/loadItems');
     }
 };
 </script>

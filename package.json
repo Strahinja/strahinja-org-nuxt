@@ -42,7 +42,8 @@
     "nuxt-webfontloader": "^1.1.0",
     "pug-lint": "^2.6.0",
     "serialize-javascript": "2.1.1",
-    "vue-clickaway": "^2.2.2"
+    "vue-clickaway": "^2.2.2",
+    "vuetify-datetime-picker": "darrenfang/vuetify-datetime-picker"
   },
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",
