@@ -37,7 +37,7 @@
                     span Главни мени
             v-toolbar-title.mr-4
                 nuxt-link.hidden-xs-only(:to="'/'") //strahinja.org
-            v-divider-vertical/
+            v-divider(vertical=true)/
             client-only
                 v-tooltip.hidden-sm-and-up(v-if="showBackButton",
                 bottom=true)
@@ -462,6 +462,10 @@ export default {
     background-size: 150% 150%
     animation: title-gradient 5s ease infinite
     transition: all .5s ease
+
+.v-application.theme--dark .v-app-bar.primary,
+.v-application.theme--dark .v-card__actions.primary.darken-1
+    background-color: #272727 !important
 
 .my-input-container
     height: 100%

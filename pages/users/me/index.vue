@@ -110,7 +110,7 @@ export default {
             if (this && this.$store && this.loggedIn)
             {
                 const providers =
-                    this.$store.getters['pages/socialLoginProviders'];
+                    this.$store.getters['social/loginProviders'];
                 if (providers)
                 {
                     return providers[this.$auth.strategy.name].title;

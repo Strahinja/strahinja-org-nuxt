@@ -55,7 +55,7 @@ export default {
         {
             if (this && this.$store)
             {
-                return this.$store.getters['pages/socialLoginProviders'];
+                return this.$store.getters['social/loginProviders'];
             }
             return [];
         }

@@ -264,7 +264,7 @@ export const state = () => ({
         {
             url: { path: 'https://github.com/Strahinja' },
             iconType: 'v-icon',
-            iconName: 'mdi-github-circle',
+            iconName: 'mdi-github',
             text: 'GitHub'
         },
         {
@@ -296,77 +296,13 @@ export const state = () => ({
             text: 'Facebook'
         }
     ],
-    socialLoginProviders: {
-        facebook: {
-            id: 'facebook',
-            enabled: false,
-            dark: true,
-            color: '#3b5999',
-            icon: 'mdi-facebook',
-            title: 'Фејсбук',
-            shortDesc: 'Пријављивање преко Фејсбука',
-        },
-        google: {
-            id: 'google',
-            enabled: true,
-            dark: true,
-            color: '#dd4b39',
-            icon: 'mdi-google',
-            title: 'Гугл',
-            shortDesc: 'Пријављивање преко Гугла',
-        },
-        github: {
-            id: 'github',
-            enabled: false,
-            dark: true,
-            color: '#171515',
-            icon: 'mdi-github-circle',
-            title: 'GitHub',
-            shortDesc: 'Пријављивање преко GitHub-а',
-        },
-        linkedin: {
-            id: 'linkedin',
-            enabled: false,
-            dark: true,
-            color: '#0077B5',
-            icon: 'mdi-linkedin',
-            title: 'LinkedIn',
-            shortDesc: 'Пријављивање преко LinkedIn-а',
-        },
-        /*reddit: {
-                    id: 'reddit',
-                    enabled: false,
-                    dark: true,
-                    color: '#ff5700',
-                    icon: 'mdi-reddit',
-                    title: 'Редит',
-                    shortDesc: 'Пријављивање преко Редита',
-                },*/
-        twitter: {
-            id: 'twitter',
-            enabled: false,
-            dark: false,
-            color: '#55acee',
-            icon: 'mdi-twitter',
-            title: 'Твитер',
-            shortDesc: 'Пријављивање преко Твитера',
-        },
-        whatsapp: {
-            id: 'whatsapp',
-            enabled: false,
-            dark: false,
-            color: '#25D366',
-            icon: 'mdi-whatsapp',
-            title: 'WhatsApp',
-            shortDesc: 'Пријављивање преко WhatsApp-а',
-        },
-    },
 });
 
 export const getters = {
     pageById: state => pageId =>
         state.list.find(page => page.id == pageId),
     pageByRouteName: state => routeName => state.list.find(page => page.url.routeName == routeName),
+    // eslint-disable-next-line no-unused-vars
     navigationPages: (state, getters, rootState, rootGetters) => state.list.filter(
         page => page.includedInNavigation &&
             (!page.protected ||
@@ -380,7 +316,6 @@ export const getters = {
     mainToolbarPages: state => state.list.filter(
         page => page.includedInMainToolbar),
     showCookieConsent: state => state.showCookieConsent,
-    socialLoginProviders: state => state.socialLoginProviders,
     theme: state => state.theme,
     isThemeDark: state => state.theme == state.themeNames.DARK_THEME_NAME,
     DARK_THEME_NAME: state => state.themeNames.DARK_THEME_NAME,

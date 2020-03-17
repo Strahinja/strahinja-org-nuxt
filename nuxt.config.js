@@ -122,8 +122,9 @@ export default {
             },
             facebook: {
                 client_id: authConfig.facebook.client_id,
-                /*redirect_uri: authConfig.facebook.redirect_uri,
-                userinfo_endpoint: authConfig.facebook.userinfo_endpoint,*/
+                scope: authConfig.facebook.scope,
+                userinfo_endpoint: authConfig.facebook.userinfo_endpoint,
+                /*redirect_uri: authConfig.facebook.redirect_uri,*/
             },
             github: {
                 client_id: authConfig.github.client_id,
@@ -139,6 +140,7 @@ export default {
             },
             twitter: {
                 client_id: authConfig.twitter.client_id,
+                client_secret: authConfig.twitter.client_secret,
             },
         },
         redirect: {

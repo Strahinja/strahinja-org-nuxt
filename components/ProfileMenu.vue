@@ -185,12 +185,14 @@ export default {
                 serviceName == 'github')
             {*/
             await this.$auth.loginWith(serviceName)
-                .then(() =>
+                .then((args) =>
                 {
+                    console.log('ProfileMenu.loginSheetServiceBtnClick: Success!');
                     this.refreshOnAuthChange = new Date().toISOString();
                     this.$toast.success('Пријављивање успело!', {
                         icon: 'mdi mdi-account-check',
                     });
+                    console.log('args = ', args);
                     console.log('this.$auth.loggedIn = ',
                                 this.$auth.loggedIn ? 'true' : 'false');
                     console.log('thia.$auth.user = ', this.$auth.user);
