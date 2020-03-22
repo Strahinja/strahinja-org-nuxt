@@ -26,7 +26,7 @@
                     v-list-item-title {{ navigationPage.title }}
         v-app-bar.full-width-toolbar(app=true,
         :clipped-left="clipped",
-        dark=true,
+        dark,
         color="primary",
         :class="{ loading: pageLoading }")
             client-only
@@ -44,10 +44,10 @@
                     template(v-slot:activator="{ on }")
                         v-btn.hidden-sm-and-up.text-center.align-center(
                         v-if="showBackButton",
-                        icon=true,
-                        dark=true,
+                        icon,
+                        dark,
                         :to="parentUrl")
-                            v-icon.align-center(dark=true) mdi-arrow-left
+                            v-icon.align-center(dark) mdi-arrow-left
                     span Назад на почетну
             v-spacer/
             v-toolbar-items
@@ -105,22 +105,22 @@
             cookie-disclaimer(color="primary darken-1 white--text",
             :show="showCookieConsent")/
 
-        v-footer(app=true,
-        absolute=true,
-        padless=true,
-        dark=true,
+        v-footer(app,
+        absolute,
+        padless,
+        dark,
         height="auto")
-            v-card.flex.text-center(text=true,
-            tile=true)
+            v-card.flex.text-center(text,
+            tile)
                 v-card-text.primary.text-center
                     v-spacer/
                     client-only
                         v-tooltip(v-for="(footerLink, footerLinkIndex) in footerLinks",
                         :key="footerLinkIndex",
-                        bottom=true)
+                        bottom)
                             template(v-slot:activator="{ on }")
-                                v-btn.mx-2(text=true,
-                                icon=true,
+                                v-btn.mx-2(text,
+                                icon,
                                 v-on="on")
                                     a(:href="footerLink.url.path",
                                     target="_blank")
@@ -130,8 +130,8 @@
                     'text-center': $breakpoint.is.xsOnly
                 }`)
                     v-container.ma-0.pa-0(v-if="$breakpoint.is.xsOnly",
-                    fluid=true,
-                    no-gutters=true)
+                    fluid,
+                    no-gutters)
                         v-row.ma-0
                             v-col.pa-0(:cols="12")
                                 a(href="https://creativecommons.org/licenses/by/4.0/",

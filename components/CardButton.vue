@@ -5,7 +5,7 @@
     :color="enabled ? color : null",
     :hover="enabled && hover",
     :class="{ disabled: !enabled }",
-    outlined=true,
+    outlined,
     :width="width",
     @click.stop="enabled ? $emit('clicked', buttonId) : false")
         v-card-title.justify-center

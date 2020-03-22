@@ -7,7 +7,7 @@
             nuxt-link(:to="`/blog/${frontmatter.name}`")
                 h3.display-1(v-if="standalone",
                 :id="frontmatter.id") {{ frontmatter.title }}
-                h4(v-else=true,
+                h4(v-else,
                 :id="frontmatter.id",
                 ref="title") {{ frontmatter.title }}
             a(:name="frontmatter.name")
@@ -15,7 +15,7 @@
                 nuxt-link(:to="`/blog/${frontmatter.name}`")
                     time(:datetime="frontmatter.date").
                         {{ formatDate(frontmatter.date) }}
-            h5(v-else=true)
+            h5(v-else)
                 nuxt-link(:to="`/blog/${frontmatter.name}`")
                     time(:datetime="frontmatter.date").
                         {{ formatDate(frontmatter.date) }}
@@ -33,15 +33,15 @@
                         :highlight="highlight",
                         :extra-component="extraComponent",
                         :extra-component-params="extraComponentParams")
-            .folded-overlay.col-lg-10.col-12(v-ripple=true,
+            .folded-overlay.col-lg-10.col-12(v-ripple,
             @click="toggleFolded")
                 .folded-overlay-inner
                     v-btn.black--text(color="accent",
-                    hovered=true,
+                    hovered,
                     elevation="2")
                         v-icon {{ postFolded ? 'mdi-chevron-down' : 'mdi-chevron-up' }}
                         span(v-if="postFolded") Прикажи чланак
-                        span(v-else=true) Сакриј чланак
+                        span(v-else) Сакриј чланак
 
         //-v-container.py-0.pb-5.ml-0(:style=`{
             'max-height': postFolded ? '15em' : rowHeight
@@ -53,15 +53,15 @@
                     :highlight="highlight",
                     :extra-component="extraComponent",
                     :extra-component-params="extraComponentParams")
-            .folded-overlay.col-lg-10.col-12(v-ripple=true,
+            .folded-overlay.col-lg-10.col-12(v-ripple,
             @click="toggleFolded")
                 .folded-overlay-inner
                     v-btn.black--text(color="accent",
-                    hovered=true,
+                    hovered,
                     elevation="2")
                         v-icon {{ postFolded ? 'mdi-chevron-down' : 'mdi-chevron-up' }}
                         span(v-if="postFolded") Прикажи чланак
-                        span(v-else=true) Сакриј чланак
+                        span(v-else) Сакриј чланак
         footer
             .tags-container(v-if="hasTags") Ознаке:
                 ul.tags

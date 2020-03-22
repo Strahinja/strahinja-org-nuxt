@@ -11,14 +11,14 @@
                     template(v-slot:activator="{ on }")
                         v-btn.hidden-xs-only.text-center.align-center.mr-3.mt-1(
                         v-if="showBackButton",
-                        fab=true,
-                        depressed=true,
-                        dark=true,
-                        small=true,
+                        fab,
+                        depressed,
+                        dark,
+                        small,
                         :to="parentUrl",
                         color="secondary",
                         v-on="on")
-                            v-icon.align-center(dark=true) mdi-arrow-left
+                            v-icon.align-center(dark) mdi-arrow-left
                     span Назад на почетну
             v-col(:cols="12",
             :sm="10")

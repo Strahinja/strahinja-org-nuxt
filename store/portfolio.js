@@ -10,12 +10,19 @@ export const mutations = {
     setList(state, payload)
     {
         state.list = payload;
+    },
+
+    setItem(state, payload)
+    {
+        state.list[payload.index] = payload.item;
     }
 };
 
 export const getters = {
     itemCount: state => state.list.length,
     list: state => state.list,
+    findIndexByLinkId: state => linkId => state.list.findIndex(item => item.link_id == linkId),
+    findByLinkId: state => linkId => state.list.find(item => item.link_id == linkId),
     apiPath: state => state.apiUrl,
     apiAddPath: state => state.apiAddUrl,
     apiUpdatePath: state => state.apiUpdateUrl,
@@ -54,7 +61,7 @@ export const actions = {
         return this.$axios.$get(`${getters['apiReadPath']}/${itemId}`);
     },
 
-    async addItem({ dispatch, getters })
+    /*async addItem({ dispatch, getters })
     {
         let item = await dispatch('loadItem');
         if (!item)
@@ -68,9 +75,16 @@ export const actions = {
                 console.error('store/portfolio: ', error);
             }
         }
+    },*/
+
+    addItem({ commit, getters }, item)
+    {
+        let list = getters['list'];
+        list.push(item);
+        commit('setList', list);
     },
 
-    async updatePortfolioItem({ dispatch, getters })
+    /*async updatePortfolioItem({ dispatch, getters })
     {
         let item = await dispatch('loadItem');
         if (item)
@@ -84,12 +98,20 @@ export const actions = {
                 console.error('store/portfolio: ', error);
             }
         }
+    },*/
+
+    updateItem({ commit, getters }, item)
+    {
+        let index = getters['findIndexByLinkId'](item.link_id);
+        if (index != -1)
+        {
+            commit('setItem', { index, item });
+        }
     },
 
     moveItemUp({ commit, getters }, itemIndex)
     {
-        //console.log(`store/portfolio: moveItemUp(${itemIndex}`);
-        if (itemIndex == 0)
+        if (itemIndex < 1)
         {
             return;
         }
@@ -99,8 +121,9 @@ export const actions = {
 
         newList.splice(itemIndex-1, 0, item);
 
+        console.log('store/portfolio: moveItemUp: list[before] = ', getters['list']);
         commit('setList', newList);
-        //console.dir(newList);
+        console.log('store/portfolio: moveItemUp: list[after] = ', getters['list']);
 
         newList = null;
         item = null;
@@ -108,8 +131,7 @@ export const actions = {
 
     moveItemDown({ commit, getters }, itemIndex)
     {
-        //console.log(`store/portfolio: moveItemDown(${itemIndex}`);
-        if (itemIndex == getters['itemCount']-1)
+        if (itemIndex > getters['itemCount']-2)
         {
             return;
         }
@@ -119,8 +141,9 @@ export const actions = {
 
         newList.splice(itemIndex+1, 0, item);
 
+        console.log('store/portfolio: moveItemDown: list[before] = ', getters['list']);
         commit('setList', newList);
-        //console.dir(newList);
+        console.log('store/portfolio: moveItemDown: list[after] = ', getters['list']);
 
         newList = null;
         item = null;

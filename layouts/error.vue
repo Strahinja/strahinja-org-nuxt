@@ -1,5 +1,5 @@
 <template lang="pug">
-    v-app(dark=true)
+    v-app(dark)
         h1(v-if="error.statusCode === 404") {{ pageNotFound }}
         h1(v-else=true) {{ otherError }}
         nuxt-link(:to="'/'") Почетна страница

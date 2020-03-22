@@ -274,6 +274,7 @@ export default {
             /noindex/,
             /search/,
             /login\/callback/,
+            /portfolio\/edit/,
             // /users/,
         ],
     },

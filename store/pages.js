@@ -343,6 +343,7 @@ export const actions = {
         this.$cookies.set('strahinja-org-cookie-consent', payload ? '1' : '0', {
             maxAge: 15 * 365 * 24 * 60 * 60,
             path: '/',
+            sameSite: 'Strict',
         });
         commit('setShowCookieConsent', !payload);
     },
@@ -360,6 +361,7 @@ export const actions = {
         this.$cookies.set('strahinja-org-theme', payload.theme, {
             maxAge: 15 * 365 * 24 * 60 * 60,
             path: '/',
+            sameSite: 'Strict',
         });
         commit('setTheme', payload.theme);
     },

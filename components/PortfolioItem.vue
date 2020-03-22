@@ -26,13 +26,13 @@
                                         v-tooltip(bottom=true)
                                             template(v-slot:activator="{ on }")
                                                 v-btn.text-xs-center.align-center(depressed=true,
-                                                text=true,
-                                                fab=true,
-                                                dark=true,
-                                                large=true,
+                                                text,
+                                                fab,
+                                                dark,
+                                                large,
                                                 v-on="on",
                                                 @click="cardPreview(getImagePath(item.image))")
-                                                    v-icon.align-center(dark=true) mdi-eye
+                                                    v-icon.align-center(dark) mdi-eye
                                             span Преглед слике
                                     v-col(:cols="12",
                                     :class=`{
@@ -41,13 +41,13 @@
                                         v-tooltip(bottom=true)
                                             template(v-slot:activator="{ on }")
                                                 v-btn.text-center.align-center(depressed=true,
-                                                text=true,
-                                                fab=true,
-                                                dark=true,
-                                                large=true,
+                                                text,
+                                                fab,
+                                                dark,
+                                                large,
                                                 v-on="on",
                                                 @click="cardNavigate(item.path)")
-                                                    v-icon.align-center(dark=true) mdi-open-in-app
+                                                    v-icon.align-center(dark) mdi-open-in-app
                                             span Отвори у новом прозору
                 v-container(fluid=true,
                 no-gutters=true)

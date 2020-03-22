@@ -1,15 +1,15 @@
 <template lang="pug">
-    v-container.ma-0.pa-0(fluid=true,
-        no-gutters=true)
+    v-container.ma-0.pa-0(fluid,
+    no-gutters)
         splash(height="200px",
         :bg-color="secondaryBaseColor")
             h1 Лична страница Страхиње Радића
-        v-toolbar.main-toolbar(flat=true)
+        v-toolbar.main-toolbar(flat)
             v-spacer/
             v-tooltip(v-for=`(mainToolbarPage, mainToolbarPageIndex) in
             mainToolbarPages`,
             :key="mainToolbarPageIndex",
-            bottom=true)
+            bottom)
                 template(v-slot:activator="{ on }")
                     v-btn.black--text(:to="mainToolbarPage.url.path",
                     :x-large="$breakpoint.is.smAndUp",
