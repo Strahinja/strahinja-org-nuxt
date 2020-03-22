@@ -9,6 +9,7 @@
 | pages.js     | Page info                   |
 | portfolio.js | Portfolio page              |
 | posts.js     | Posts                       |
+| social.js    | Social login providers      |
 | users.js     | User accounts               |
 
 This directory contains your Vuex Store files.
