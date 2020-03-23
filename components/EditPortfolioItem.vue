@@ -77,42 +77,35 @@
                     v-container.full-height(fluid)
                         v-row.full-height(align="end")
                             v-col.pa-0.d-flex.flex-end(align-self="end")
-                                v-tooltip(bottom)
-                                    template.text-center.align-center(v-slot:activator="{ on }")
-                                        v-btn.spaced(fab,
-                                        color="success",
-                                        light,
-                                        depressed,
-                                        small,
-                                        v-on="on")
-                                            v-icon.align-center(light) mdi-content-save
-                                    span Сачувај
-                                v-tooltip(bottom)
-                                    template.text-center.align-center(v-slot:activator="{ on }")
-                                        v-btn.spaced(fab,
-                                        color="primary",
-                                        :disabled="upBtnDisabled",
-                                        :dark="upBtnDark",
-                                        :light="!upBtnDark",
-                                        depressed,
-                                        small,
-                                        v-on="on",
-                                        @click="$emit('move-up-clicked')")
-                                            v-icon.align-center(dark) mdi-chevron-up
-                                    span Помери нагоре
-                                v-tooltip(bottom)
-                                    template.text-center.align-center(v-slot:activator="{ on }")
-                                        v-btn.spaced(fab,
-                                        color="primary",
-                                        :disabled="downBtnDisabled",
-                                        :dark="downBtnDark",
-                                        :light="!downBtnDark",
-                                        depressed,
-                                        small,
-                                        v-on="on",
-                                        @click="$emit('move-down-clicked')")
-                                            v-icon.align-center(dark) mdi-chevron-down
-                                    span Помери надоле
+                                v-btn.spaced(fab,
+                                color="success",
+                                light,
+                                depressed,
+                                small,
+                                v-on="on")
+                                    v-icon.align-center(light) mdi-content-save
+                                v-btn.spaced(fab,
+                                color="primary",
+                                :disabled="upBtnDisabled",
+                                :dark="upBtnDark",
+                                :light="!upBtnDark",
+                                depressed,
+                                small,
+                                v-on="on",
+                                @click="$emit('move-up-clicked')")
+                                    v-icon.align-center(:dark="upBtnDark",
+                                    :light="!upBtnDark") mdi-chevron-up
+                                v-btn.spaced(fab,
+                                color="primary",
+                                :disabled="downBtnDisabled",
+                                :dark="downBtnDark",
+                                :light="!downBtnDark",
+                                depressed,
+                                small,
+                                v-on="on",
+                                @click="$emit('move-down-clicked')")
+                                    v-icon.align-center(:dark="downBtnDark",
+                                    :light="!downBtnDark") mdi-chevron-down
 
 </template>
 

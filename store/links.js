@@ -6,7 +6,7 @@ export const state = () => ({
     apiCategoriesUrl: '/categories?ct=favorite',
     numPages: 0,
     itemsPerPage: 12,
-    itemCount: 0,
+    count: 0,
     pageNumber: 1,
     loadedInitially: false,
 });
@@ -32,9 +32,9 @@ export const mutations = {
     {
         state.itemsPerPage = payload;
     },
-    setItemCount(state, payload)
+    setCount(state, payload)
     {
-        state.itemCount = payload;
+        state.count = payload;
     },
     setPageNumber(state, payload)
     {
@@ -49,7 +49,7 @@ export const mutations = {
 export const getters = {
     apiPath: state => state.apiUrl,
     apiCategoriesPath: state => state.apiCategoriesUrl,
-    itemCount: state => state.itemCount,
+    count: state => state.count,
     numPages: state => state.numPages,
     itemsPerPage: state => state.itemsPerPage,
     pageNumber: state => state.pageNumber,
@@ -125,13 +125,13 @@ export const actions = {
         {}
     })
     {
-        let count = getters['itemsPerPage'];
+        let itemsPerPage = getters['itemsPerPage'];
         let offset = getters['offset'];
         this.$axios
             .$get(
                 getters['apiPath'] +
                     '?c=' +
-                    count +
+                    itemsPerPage +
                     '&o=' +
                     offset +
                     (options.byCat ? '&sb=cat_id' : '')
@@ -143,11 +143,11 @@ export const actions = {
                 {
                     if (res.code === 200)
                     {
-                        let itemCount = parseInt(res.num_rows);
+                        let resultItemCount = parseInt(res.num_rows);
                         commit('setNumPages', Math.ceil(
-                            itemCount / count
+                            resultItemCount / itemsPerPage
                         ));
-                        commit('setItemCount', itemCount);
+                        commit('setCount', resultItemCount);
                         if (options.byCat)
                         {
                             dispatch('arrangeAndSetListByCategories',

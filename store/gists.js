@@ -39,7 +39,7 @@ export const actions = {
 
     async loadGist({ commit, dispatch, getters }, { gistId })
     {
-        if (!getters['itemCount'])
+        if (!getters['count'])
         {
             try
             {

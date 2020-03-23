@@ -48,7 +48,7 @@
             light)
                 transition(appear,
                 name="speed-dial-trans")
-                    v-icon(v-if="!speedDial") mdi-palette
+                    v-icon(v-if="!speedDial") mdi-format-list-text
                     v-icon(v-if="speedDial") mdi-close
             v-btn(color="success",
             fab,
@@ -59,7 +59,8 @@
             v-btn(color="error",
             fab,
             small,
-            dark)
+            dark,
+            @click="removeItemClicked(portfolioCount)")
                 v-icon mdi-delete
 
 </template>
@@ -87,6 +88,16 @@ export default {
             }
             return [];
         },
+
+        portfolioCount()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['portfolio/count'];
+            }
+            return 0;
+        },
+
         page()
         {
             if (this && this.$store)
@@ -99,6 +110,7 @@ export default {
                 return null;
             }
         },
+
         parentUrl()
         {
             if (this && this.page)
@@ -107,6 +119,7 @@ export default {
             }
             return '/';
         },
+
         parentName()
         {
             if (this && this.page)
@@ -115,6 +128,7 @@ export default {
             }
             return 'почетну страницу';
         },
+
         showBackButton()
         {
             return this.$breakpoint.is.smAndUp;
@@ -164,6 +178,11 @@ export default {
         {
             // this.$store.dispatch('portfolio/updateItem', itemIndex);
         },
+
+        removeItemClicked(itemIndex)
+        {
+            this.$store.dispatch('portfolio/removeItem', itemIndex);
+        }
     },
     head()
     {

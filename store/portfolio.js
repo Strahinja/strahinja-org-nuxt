@@ -19,7 +19,7 @@ export const mutations = {
 };
 
 export const getters = {
-    itemCount: state => state.list.length,
+    count: state => state.list.length,
     list: state => state.list,
     findIndexByLinkId: state => linkId => state.list.findIndex(item => item.link_id == linkId),
     findByLinkId: state => linkId => state.list.find(item => item.link_id == linkId),
@@ -31,7 +31,7 @@ export const getters = {
 export const actions = {
     async loadItems({ commit, dispatch, getters })
     {
-        if (!getters['itemCount'])
+        if (!getters['count'])
         {
             let res = null;
             dispatch('loading/startLoading', { id: 'portfolio', },
@@ -109,6 +109,13 @@ export const actions = {
         }
     },
 
+    removeItem({ commit, getters }, itemIndex)
+    {
+        let list = getters['list'];
+        list.splice(itemIndex, 1);
+        commit('setList', list);
+    },
+
     moveItemUp({ commit, getters }, itemIndex)
     {
         if (itemIndex < 1)
@@ -131,7 +138,7 @@ export const actions = {
 
     moveItemDown({ commit, getters }, itemIndex)
     {
-        if (itemIndex > getters['itemCount']-2)
+        if (itemIndex > getters['count']-2)
         {
             return;
         }

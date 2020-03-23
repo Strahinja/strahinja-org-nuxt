@@ -18,7 +18,7 @@ export const getters = {
         item.id == itemId) != -1,
     isStoreLoading: state => state.itemList.length>0,
     itemList: state => state.itemList,
-    itemCount: state => state.itemList.length,
+    count: state => state.itemList.length,
 };
 
 export const actions = {

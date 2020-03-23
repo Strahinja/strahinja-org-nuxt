@@ -33,7 +33,7 @@ export const mutations = {
 };
 
 export const getters = {
-    itemCount: state => state.list.length,
+    count: state => state.list.length,
     list: state => state.list,
     apiPath: state => state.apiUrl,
     apiAddPath: state => state.apiAddUrl,
@@ -148,7 +148,7 @@ export const actions = {
     },
     loadUsers({ commit, dispatch, getters }, payload)
     {
-        if (!getters['itemCount'])
+        if (!getters['count'])
         {
             dispatch('loading/startLoading', {
                 id: 'users'
