@@ -22,9 +22,9 @@
             v-col(:cols="12",
             :sm="10")
                 section
-                    h3.display-1(v-if="q && q.length>0").
+                    h1.display-1(v-if="q && q.length>0").
                         Претрага: #[span.highlight {{ q }}]
-                    h3.display-1(v-else=true) Претрага
+                    h1.display-1(v-else=true) Претрага
                     v-form(ref="pageSearchForm",
                     v-model="searchFormValid",
                     @submit.prevent="onSearchFormSubmit()")

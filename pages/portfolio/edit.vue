@@ -21,7 +21,7 @@
                     span Назад на {{ parentName }}
             v-col(:cols="12",
             :sm="10")
-                h3.display-1 Уређивање портфолија
+                h1.display-1 Уређивање портфолија
                 v-list(rounded)
                     v-list-item-group(v-model="selectedItem")
                         transition-group(name="edit-portfolio-item-trans")

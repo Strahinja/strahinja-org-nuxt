@@ -1,6 +1,6 @@
 <template lang="pug">
     div
-        h4.subtitle-1.mb-7(:class=`{
+        h3.subtitle-1.mb-7(:class=`{
             'px-10': $breakpoint.is.smAndUp,
             'px-4': $breakpoint.is.xsOnly
         }`) {{ title }}

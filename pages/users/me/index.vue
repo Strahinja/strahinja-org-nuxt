@@ -21,7 +21,7 @@
                     span Назад на {{ parentName }}
             v-col(:cols="12",
             :sm="10")
-                h3.display-1 Профил
+                h1.display-1 Профил
                 v-container
                     v-row
                         v-col

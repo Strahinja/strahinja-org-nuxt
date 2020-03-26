@@ -68,7 +68,10 @@ main.v-content
     font-weight: normal
     word-break: break-word
 
-.v-application h2
+//-.v-application h2,
+  .v-application h3:not(.date):not(.article-title),
+  .v-application h4:not(.date):not(.article-title),
+  .v-application h5:not(.date):not(.article-title)
     margin-bottom: .5em
 
 .v-application p
@@ -79,7 +82,7 @@ main.v-content
 .v-application.sm-and-down p
     font-size: .9em
 
-main h3.display-1
+main h1.display-1
     margin-bottom: .3em
 
 .v-space-inside-1em

@@ -26,15 +26,27 @@
 .v-application .markdown-body kbd::after
     content: none
 
-.github-heading
-    margin-left: -.7em
+.v-application .github-heading
+    margin-left: -1.2rem
     position: absolute
     opacity: 0
-    padding-right: 1em
+    width: 1.2rem
 
-h2:hover .github-heading
+.v-application h1:hover .github-heading,
+.v-application h2:hover .github-heading,
+.v-application h3:hover .github-heading,
+.v-application h4:hover .github-heading,
+.v-application h5:hover .github-heading
     opacity: 0.7
     transition: all .3s ease
+
+.v-application h2.article-title
+    margin-bottom: initial
+
+.v-application h2.date,
+.v-application h3.date
+    font-size: 0.7rem
+
 
 .v-application .markdown-body blockquote
     padding-left: 1.2rem

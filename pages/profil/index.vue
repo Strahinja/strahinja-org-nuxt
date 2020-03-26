@@ -26,7 +26,7 @@
                     v-row.mb-4(no-gutters=true,
                     justify-left=true)
                         v-col(:cols="6")
-                            h3.display-1 Профил
+                            h1.display-1 Профил
                         v-col.text-right(:cols="6")
                             v-tooltip(bottom=true)
                                 template(v-slot:activator="{ on }")
@@ -43,7 +43,7 @@
                     v-toolbar(flat=true,
                     :elevation="0",
                     color="secondary lighten-1")
-                        h3.title Страхиња Радић
+                        h2.title Страхиња Радић
                         v-avatar(v-if="$breakpoint.is.mdAndUp",
                         size="96",
                         :class=`{
@@ -82,7 +82,7 @@
 
                         v-divider.my-8/
 
-                        h5(:class=`{
+                        h3(:class=`{
                             title: true,
                             'px-10': $breakpoint.is.smAndUp,
                             'px-4': $breakpoint.is.xsOnly
@@ -256,7 +256,7 @@ export default {
     margin-left: -70px
     left: 100%
 
-.profile-card h3.title
+.profile-card h2.title
     color: map-get($material-light, 'text-color')
 
 .floating-button

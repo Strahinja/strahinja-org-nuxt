@@ -4,18 +4,19 @@
         'standalone': standalone
     }`)
         header
-            nuxt-link(:to="`/blog/${frontmatter.name}`")
-                h3.display-1(v-if="standalone",
-                :id="frontmatter.id") {{ frontmatter.title }}
-                h4(v-else,
-                :id="frontmatter.id",
-                ref="title") {{ frontmatter.title }}
+            h1.display-1.article-title(v-if="standalone",
+            :id="frontmatter.id")
+                nuxt-link(:to="`/blog/${frontmatter.name}`") {{ frontmatter.title }}
+            h2.article-title(v-else,
+            :id="frontmatter.id",
+            ref="title")
+                nuxt-link(:to="`/blog/${frontmatter.name}`") {{ frontmatter.title }}
             a(:name="frontmatter.name")
-            h4(v-if="standalone")
+            h2.date(v-if="standalone")
                 nuxt-link(:to="`/blog/${frontmatter.name}`")
                     time(:datetime="frontmatter.date").
                         {{ formatDate(frontmatter.date) }}
-            h5(v-else)
+            h3.date(v-else)
                 nuxt-link(:to="`/blog/${frontmatter.name}`")
                     time(:datetime="frontmatter.date").
                         {{ formatDate(frontmatter.date) }}
@@ -30,6 +31,7 @@
                     v-col.py-0.folded(:cols="12",
                     :lg="10")
                         dynamic-markdown(:file-name="frontmatter.name",
+                        :standalone="standalone",
                         :highlight="highlight",
                         :extra-component="extraComponent",
                         :extra-component-params="extraComponentParams")
@@ -83,12 +85,12 @@ export default {
     //components: { DynamicMarkdown },
     components: { DynamicMarkdown, Foldable },
     props: {
-        folded: { type: Boolean, default: false },
-        frontmatter: { type: Object, default: () => ({}) },
-        extraComponent: { type: String, default: null },
-        extraComponentParams: { type: Object, default: null },
-        highlight: { type: String, default: '' },
-        standalone: { type: Boolean, default: true },
+        folded: { type: Boolean, default: false, required: false },
+        frontmatter: { type: Object, default: () => ({}), required: true },
+        extraComponent: { type: String, default: null, required: false },
+        extraComponentParams: { type: Object, default: null, required: false },
+        highlight: { type: String, default: '', required: false },
+        standalone: { type: Boolean, default: true, required: false },
     },
     data()
     {
@@ -261,18 +263,21 @@ article.blog-post.folded .folded-overlay-container a .v-btn
     vertical-align: middle
 
 article.blog-post.standalone h4
-    font-size: .83em
+    font-size: .9rem
 
 .categories-container
     text-transform: uppercase
     font-size: .7rem
     color: $smallprint-color
 
+.blog-post.standalone .categories-container
+    font-size: .8rem
+
 .categories
     list-style-type: none
     padding-left: 0 !important
     display: inline-block
-    margin-left: 0.5rem
+    margin-left: .5rem
 
 .categories > li
     display: inline-block

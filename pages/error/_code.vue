@@ -22,7 +22,7 @@
                     span Назад на почетну
             v-col(:cols="12",
             :sm="10")
-                h3.display-1.
+                h1.display-1.
                     Код {{ code }}: {{ messages[code] }}
                 p {{ messageDescriptions[code] }}
                 p Назад на #[nuxt-link(:to="'/'") почетну страницу]

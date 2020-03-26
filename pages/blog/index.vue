@@ -1,12 +1,12 @@
 <template lang="pug">
-    v-container(fluid=true)
-        v-row.mt-3.mb-7(no-gutters=true)
+    v-container(fluid)
+        v-row.mt-3.mb-7(no-gutters)
             v-col.text-center.hidden-xs-only(v-if="showBackButton",
             :sm="1",
             align="center",
             style="min-width: 60px;")
                 v-tooltip.hidden-xs-only(v-if="showBackButton",
-                bottom=true)
+                bottom)
                     template(v-slot:activator="{ on }")
                         v-btn.hidden-xs-only.text-center.align-center.mr-3.mt-1(
                         v-if="showBackButton",
@@ -22,7 +22,7 @@
             v-col(:cols="12",
             :sm="10")
                 section
-                    h3.display-1 Блог
+                    h1.display-1 Блог
                     BlogPost(v-for="(post, postIndex) in posts",
                     :key="postIndex",
                     :folded="true",

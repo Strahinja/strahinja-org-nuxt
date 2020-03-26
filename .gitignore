@@ -10,6 +10,7 @@ yarn-error.log*
 # strahinja-org specific files and directories
 static/api
 auth.config.js
+*-todo.md
 
 # Tags
 tags

@@ -54,8 +54,8 @@
                     v-row(fill-height=true)
                         v-col(:cols="12")
                             v-card-title.d-block(primary-title=true)
-                                h3.headline.text-truncate {{ item.name }}
-                                h4.subtitle-1 {{ item.short_desc }}
+                                h2.headline.text-truncate {{ item.name }}
+                                h3.subtitle-1 {{ item.short_desc }}
                             v-card-actions
                                 v-spacer/
                                 v-btn(:key="'card-arrow-button-' + itemIndex",

@@ -7,20 +7,25 @@ export default {
     name: 'DynamicMarkdown',
     //eslint-disable-next-line vue/require-prop-types
     props: {
-        fileName: { type: String },
-        highlight: { type: String, default: '' },
-        extraComponent: { type: String, default: null },
-        extraComponentParams: { type: Object, default: null },
+        fileName: { type: String, default: '', required: true },
+        standalone: { type: Boolean, default: true, required: false },
+        highlight: { type: String, default: '', required: false },
+        extraComponent: { type: String, default: null, required: false },
+        extraComponentParams: { type: Object, default: null, required: false },
     },
     created()
     {
         this.dynamicComponent = () => import(`~/static/blog/${this.fileName}.md`).then((loaded) => {
+            const fileName = this.fileName;
+            const standalone = this.standalone;
             const highlight = this.highlight;
             const extraComponent = this.extraComponent;
             const extraComponentParams = this.extraComponentParams;
             return {
                 data () {
                     return {
+                        fileName,
+                        standalone,
                         highlight,
                         extraComponent,
                         extraComponentParams
@@ -29,39 +34,52 @@ export default {
                 extends: loaded.vue.component,
                 render (createElement)
                 {
-                    return this.templateRender ? this.applyHighlight(this.templateRender(),
-                                                                    createElement) :
-                        createElement('div', 'Rendering...');
+                    return this.templateRender
+                        ? this.applyHighlight(this.templateRender(), createElement)
+                        : createElement('div', 'Rendering...');
                 },
                 methods: {
                     applyHighlight(node, h)
                     {
-                        if (highlight.length>0 && node)
+                        let resultNode = node;
+
+                        if (!this.standalone && resultNode
+                            && resultNode.tag && resultNode.tag.toLowerCase() == 'h2')
                         {
-                            if (node.text)
+                            let newNode = h('h3',
+                               resultNode.data ? resultNode.data
+                                : undefined,
+                                resultNode.children);
+                            newNode.parent = resultNode.parent;
+                            resultNode = newNode;
+                        }
+
+                        if (this.highlight.length>0 && resultNode)
+                        {
+                            if (resultNode.text)
                             {
-                                if (node.text.length >= highlight.length)
+                                if (resultNode.text.length >= this.highlight.length)
                                 {
                                     let result = [];
                                     let i = 0;
                                     let textSoFar = '';
-                                    while (i < node.text.length)
+                                    while (i < resultNode.text.length)
                                     {
-                                        if (node.text.substring(
+                                        if (resultNode.text.substring(
                                             i,
-                                            i+highlight.length
-                                        )==highlight)
+                                            i+this.highlight.length
+                                        )==this.highlight)
                                         {
                                             result.push(this._v(String(textSoFar)));
                                             result.push(h('span', {
                                                 class: 'highlight'
-                                            }, highlight));
+                                            }, this.highlight));
                                             textSoFar = '';
-                                            i += highlight.length;
+                                            i += this.highlight.length;
                                         }
                                         else
                                         {
-                                            textSoFar += node.text.substring(i, i+1);
+                                            textSoFar += resultNode.text.substring(i, i+1);
                                             i++;
                                         }
                                     }
@@ -73,11 +91,11 @@ export default {
                                 }
                             }
 
-                            if (node.children && node.children.length>0)
+                            if (resultNode.children && resultNode.children.length>0)
                             {
                                 let children = [];
 
-                                node.children.forEach(child =>
+                                resultNode.children.forEach(child =>
                                 {
                                     const result = this.applyHighlight(child, h);
                                     if (Array.isArray(result))
@@ -89,10 +107,10 @@ export default {
                                         children.push(result);
                                     }
                                 });
-                                node.children = children;
+                                resultNode.children = children;
                             }
                         }
-                        return node;
+                        return resultNode;
                     }
                 },
                 computed: {
