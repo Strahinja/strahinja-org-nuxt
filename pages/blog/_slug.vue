@@ -1,38 +1,18 @@
 <template lang="pug">
-    v-container(fluid)
-        v-row.mt-3.mb-7(no-gutters)
-            v-col.text-center.hidden-xs-only(v-if="showBackButton",
-            :sm="1",
-            align="center",
-            style="min-width: 60px;")
-                v-tooltip.hidden-xs-only(v-if="showBackButton",
-                bottom)
-                    template(v-slot:activator="{ on }")
-                        v-btn.hidden-xs-only.text-center.align-center.mr-3.mt-1(
-                        v-if="showBackButton",
-                        fab,
-                        depressed,
-                        dark,
-                        small,
-                        :to="parentUrl",
-                        color="secondary",
-                        v-on="on")
-                            v-icon.align-center(dark) mdi-arrow-left
-                    span Назад на {{ parentName }}
-            v-col(:cols="12",
-            :sm="10")
-                BlogPost(v-if="post",
-                :frontmatter="post.frontmatter"
-                :extra-component="post.extraComponent"
-                :extra-component-params="post.extraComponentParams")
+    subpage(:override-head="true")
+        BlogPost(v-if="post",
+        :frontmatter="post.frontmatter"
+        :extra-component="post.extraComponent"
+        :extra-component-params="post.extraComponentParams")
 </template>
 
 <script lang="js">
-import BlogPost from '~/components/BlogPost.vue';
+import Subpage from '~/components/Subpage';
+import BlogPost from '~/components/BlogPost';
 
 export default {
     name: 'BlogSlug',
-    components: { BlogPost },
+    components: { BlogPost, Subpage },
     middleware: ['load-posts'],
     computed: {
         page()
@@ -63,26 +43,6 @@ export default {
                     this.$route.params.slug);
             }
             return {};
-        },
-        parentUrl()
-        {
-            if (this && this.page && this.page.parentUrl)
-            {
-                return this.page.parentUrl;
-            }
-            return '/';
-        },
-        parentName()
-        {
-            if (this && this.page && this.page.parentName)
-            {
-                return this.page.parentName;
-            }
-            return 'почетну страницу';
-        },
-        showBackButton()
-        {
-            return this.$breakpoint.is.smAndUp;
         },
     },
     fetch({ store })

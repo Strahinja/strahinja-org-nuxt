@@ -1,72 +1,51 @@
 <template lang="pug">
-    v-container(fluid=true)
-        v-row.mt-3.mb-7(no-gutters=true)
-            v-col.text-center.hiden-xs-only(v-if="showBackButton",
-            :sm="1",
-            align="center",
-            style="min-width: 60px;")
-                v-tooltip.hidden-xs-only(v-if="showBackButton",
-                bottom=true)
-                    template(v-slot:activator="{ on }")
-                        v-btn.hidden-xs-only.text-center.align-center.mr-3.mt-1(
-                        v-if="showBackButton",
-                        fab,
-                        depressed,
-                        dark,
-                        small,
-                        :to="parentUrl",
-                        color="secondary",
-                        v-on="on")
-                            v-icon.align-center(dark) mdi-arrow-left
-                    span Назад на {{ parentName }}
-            v-col(:cols="12",
-            :sm="10")
-                section
-                    h1.display-1(v-if="q && q.length>0").
-                        Претрага: #[span.highlight {{ q }}]
-                    h1.display-1(v-else=true) Претрага
-                    v-form(ref="pageSearchForm",
-                    v-model="searchFormValid",
-                    @submit.prevent="onSearchFormSubmit()")
-                        v-container.ml-0
-                            v-row
-                                v-col.pa-0
-                                    v-text-field(ref="searchFormSearchTextField",
-                                    v-model="searchText",
-                                    name="q",
-                                    :value="q",
-                                    :rules="searchTextRules",
-                                    :counter="maxSearchTextLength",
-                                    label="Тражени текст",
-                                    text=true,
-                                    autofocus=true,
-                                    color="black--text",
-                                    outlined=true,
-                                    hover=true,
-                                    prepend-inner-icon="mdi-magnify",
-                                    solo=true,
-                                    clearable=true,
-                                    required=true,
-                                    @input="onSearchTextInput()")
-
-                    BlogPost(v-for="post in posts",
-                    :key="post.name + q",
-                    :folded="true",
-                    :frontmatter="post.frontmatter",
-                    :extra-component="post.extraComponent",
-                    :extra-component-params="post.extraComponentParams",
-                    :highlight="q",
-                    :standalone="false")
-                    no-results(v-if="posts.length==0")
+    subpage(:override-head="true")
+        section
+            h1.display-1(v-if="q && q.length>0").
+                Претрага: #[span.highlight {{ q }}]
+            h1.display-1(v-else=true) Претрага
+            v-form(ref="pageSearchForm",
+            v-model="searchFormValid",
+            @submit.prevent="onSearchFormSubmit()")
+                v-container.ml-0
+                    v-row
+                        v-col.pa-0
+                            v-text-field(ref="searchFormSearchTextField",
+                            v-model="searchText",
+                            name="q",
+                            :value="q",
+                            :rules="searchTextRules",
+                            :counter="maxSearchTextLength",
+                            label="Тражени текст",
+                            text=true,
+                            autofocus=true,
+                            color="black--text",
+                            outlined=true,
+                            hover=true,
+                            prepend-inner-icon="mdi-magnify",
+                            solo=true,
+                            clearable=true,
+                            required=true,
+                            @input="onSearchTextInput()")
+            BlogPost(v-for="post in posts",
+            :key="post.name + q",
+            :folded="true",
+            :frontmatter="post.frontmatter",
+            :extra-component="post.extraComponent",
+            :extra-component-params="post.extraComponentParams",
+            :highlight="q",
+            :standalone="false")
+            no-results(v-if="posts.length==0")
 </template>
 
 <script>
+import Subpage from '~/components/Subpage';
 import BlogPost from '~/components/BlogPost.vue';
 import NoResults from '~/components/NoResults.vue';
 
 export default {
     name: 'SearchIndex',
-    components: { BlogPost, NoResults },
+    components: { BlogPost, NoResults, Subpage },
     watchQuery: true,
     middleware: ['load-posts'],
     data()
@@ -113,26 +92,6 @@ export default {
                 return this.$route.query.q;
             }
             return '';
-        },
-        parentUrl()
-        {
-            if (this && this.page)
-            {
-                return this.page.parentUrl;
-            }
-            return '/';
-        },
-        parentName()
-        {
-            if (this && this.page)
-            {
-                return this.page.parentName;
-            }
-            return 'почетну страницу';
-        },
-        showBackButton()
-        {
-            return this.$breakpoint.is.smAndUp;
         },
     },
     async fetch({ store })

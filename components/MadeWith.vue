@@ -47,7 +47,7 @@ export default {
             }
         }
     },
-    mounted: function()
+    mounted()
     {
         this.$nextTick(() =>
         {

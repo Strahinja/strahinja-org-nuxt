@@ -18,8 +18,8 @@ import markdownItMdi from 'markdown-it-mdi';
 import markdownItTocDoneRight from 'markdown-it-toc-done-right';
 import authConfig from './auth.config.js';
 
-require('dotenv').config({ path: '.env.production' });
-//require('dotenv').config({ path: '.env.staging' });
+var appMode = 'staging';
+require('dotenv').config({ path: `.env.${appMode}` });
 console.log('dotenv: mode = ', process.env.VUE_APP_MODE);
 console.log('dotenv: path = ', process.env.VUE_APP_API_PATH);
 console.log('dotenv: browser path = ', process.env.VUE_APP_BROWSER_API_PATH);
@@ -73,13 +73,7 @@ export default {
     pageTransition: {
         name: 'page',
         mode: 'out-in',
-        //mode: '',
     },
-    /*
-     ** Global CSS
-     */
-    css: [
-    ],
     /*
      ** Plugins to load before mounting the App
      */
@@ -87,7 +81,7 @@ export default {
         '~/plugins/breakpoint.js',
         '~/plugins/cookie-disclaimer.js',
         '~/plugins/datetime-picker.js',
-        '~/plugins/four-oh-four.js',
+        //'~/plugins/four-oh-four.js',
         '~/plugins/jsonld.js',
         { src: '~/plugins/theme-settings.js', mode: 'client' },
         //{ src: '~/plugins/auth.js', mode: 'client' },
@@ -96,14 +90,6 @@ export default {
      ** Router configuration
      */
     router: {
-        //middleware: ['auth'],
-        /*extendRoutes (routes, resolve)
-        {
-            routes.push({
-                path: '*',
-                redirect: '/error/404',
-            });
-        }*/
     },
     auth: {
         cookie: {
@@ -129,14 +115,6 @@ export default {
             github: {
                 client_id: authConfig.github.client_id,
                 client_secret: authConfig.github.client_secret,
-                /*redirect_uri: authConfig.github.redirect_uri,
-                authorization_endpoint: 'https://github.com/login/oauth/authorize',
-                token_endpoint: 'https://github.com/login/oauth/access_token',
-                token_key: 'access_token',
-                token_type: 'Bearer',
-                response_type: 'code',
-                grant_type: 'authorization_code',
-                scope: '*',*/
             },
             twitter: {
                 client_id: authConfig.twitter.client_id,
@@ -163,7 +141,6 @@ export default {
      ** Nuxt.js modules
      */
     modules: [
-        //'@nuxt/http',
         '@nuxtjs/axios',
         '@nuxtjs/auth',
         ['@nuxtjs/toast', {
@@ -257,6 +234,12 @@ export default {
             }
         }
     },
+    vue: {
+        config: {
+            productionTip: false,
+            devtools: true,
+        },
+    },
     /*
      ** Generate configuration
      */
@@ -273,15 +256,10 @@ export default {
         exclude: [
             /noindex/,
             /search/,
-            /login\/callback/,
+            /login/,
             /portfolio\/edit/,
             // /users/,
         ],
-    },
-    vue: {
-        config: {
-            devtools: true,
-        }
     },
     /*
      ** Build configuration
@@ -290,6 +268,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
+        devtools: true,
         //extractCSS: true,
         productionTip: false,
         transpile: [

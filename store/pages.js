@@ -299,6 +299,7 @@ export const state = () => ({
 });
 
 export const getters = {
+    pageId: state => state.pageId,
     pageById: state => pageId =>
         state.list.find(page => page.id == pageId),
     pageByRouteName: state => routeName => state.list.find(page => page.url.routeName == routeName),
@@ -389,6 +390,6 @@ export const actions = {
         {
             commit('setPageId', { newId: page.id });
         }
-    }
+    },
 };
 

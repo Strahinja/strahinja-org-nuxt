@@ -1,29 +1,35 @@
 <template lang="pug">
-    subpage(:override-head="true")
-        section
-            h1.display-1.
-                Чланци са ознаком #[span.highlight {{ '\#' + tagId }}]
-            BlogPost(v-for="(post, postIndex) in posts",
-            :key="postIndex",
-            :folded="true",
-            :frontmatter="post.frontmatter",
-            :extra-component="post.extraComponent",
-            :extra-component-params="post.extraComponentParams",
-            :highlight="tagId",
-            :standalone="false")
+    v-container(fluid)
+        v-row.mt-3.mb-7(no-gutters)
+            v-col.text-center.hidden-xs-only(v-if="showBackButton",
+            :sm="1",
+            align="center",
+            style="min-width: 60px;")
+                v-tooltip.hidden-xs-only(v-if="showBackButton",
+                bottom)
+                    template(v-slot:activator="{ on }")
+                        v-btn.hidden-xs-only.text-center.align-center.mr-3.mt-1(
+                        v-if="showBackButton",
+                        fab,
+                        depressed,
+                        dark,
+                        small,
+                        :to="parentUrl",
+                        color="secondary",
+                        v-on="on")
+                            v-icon.align-center(dark) mdi-arrow-left
+                    span Назад на {{ parentName }}
+            v-col(:cols="12",
+            :sm="10")
+                slot/
 </template>
 
 <script>
-import Subpage from '~/components/Subpage';
-import BlogPost from '~/components/BlogPost';
-
 export default {
-    name: 'BlogByTag',
-    components: { BlogPost, Subpage },
-    watchQuery: true,
-    middleware: ['load-posts'],
-    computed:
-    {
+    props: {
+        overrideHead: { type: Boolean, default: false, required: false },
+    },
+    computed: {
         page()
         {
             if (this && this.$store)
@@ -36,39 +42,37 @@ export default {
                 return null;
             }
         },
-        posts()
+        parentUrl()
         {
-            if (this && this.$store)
+            if (this && this.page)
             {
-                return this.$store.getters['posts/postsByTag'](this.$route.params.id);
+                return this.page.parentUrl;
             }
-            return [];
+            return '/';
         },
-        tagId()
+        parentName()
         {
-            if (this && this.$route)
+            if (this && this.page)
             {
-                return this.$route.params.id;
+                return this.page.parentName;
             }
-            return '';
+            return 'почетну страницу';
         },
-    },
-    fetch({ store })
-    {
-        return store.dispatch('posts/loadPosts');
-    },
-    async created()
-    {
-        await this.$store.dispatch('posts/loadPosts');
+        showBackButton()
+        {
+            return this.$breakpoint.is.smAndUp;
+        },
     },
     head()
     {
+        if (this.overrideHead)
+        {
+            return false;
+        }
         let globals = {
-            title: this.page.title + ` #${this.tagId}`,
-            description: this.page.text + ` #${this.tagId}`,
-            url: 'https://strahinja.org'
-                + this.page.path
-                + '/' + this.tagId,
+            title: this.page.title,
+            description: this.page.text,
+            url: 'https://strahinja.org' + this.page.url.path,
             image: this.page.image,
             imageAlt: this.page.imageAlt,
         };
@@ -89,10 +93,6 @@ export default {
                 { hid: 'image', name: 'image', itemprop: 'image', content: globals.image},
             ],
             link: [
-                {
-                    rel: 'stylesheet',
-                    href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css'
-                },
                 { hid: 'canonical', rel: 'canonical', href: globals.url }
             ],
             title: globals.title,
@@ -101,7 +101,3 @@ export default {
     },
 };
 </script>
-
-<style lang="sass" scoped>
-</style>
-
