@@ -45,17 +45,18 @@ export default {
             return {};
         },
     },
+    async asyncData({ store, route, error })
+    {
+        await store.dispatch('posts/loadPosts');
+        if (!store.getters['posts/postBySlug'](route.params.slug))
+        {
+            error({ statusCode: 404, message: 'Чланак није пронађен'});
+        }
+    },
+
     fetch({ store })
     {
         return store.dispatch('posts/loadPosts');
-    },
-    async created()
-    {
-        await this.$store.dispatch('posts/loadPosts');
-        if (!this.post)
-        {
-            this.$router.push('/error/404');
-        }
     },
 
     head()

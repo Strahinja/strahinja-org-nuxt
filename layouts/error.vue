@@ -1,9 +1,11 @@
 <template lang="pug">
-    subpage
-        h1.display-1.
-            Код {{ code }}: {{ messages[code] }}
-        p {{ messageDescriptions[code] }}
-        p Назад на #[nuxt-link(:to="'/'") почетну страницу]
+        //-v-app
+
+        subpage
+            h1.display-1.
+                Код {{ code }}: {{ message }}
+            p {{ description }}
+            p Назад на #[nuxt-link(:to="'/'") почетну страницу]
 </template>
 
 <script>
@@ -21,35 +23,23 @@ export default {
         return {
             image: 'http://strahinja.org/img/preview-home-strahinja-org.png',
             imageAlt: 'Иницијали СР и текст //strahinja.org',
-            messages: {
-                0: '',
-                200: 'Успешно',
-                404: 'Није пронађено',
-                410: 'Уклоњено',
-                500: 'Серверска грешка'
-            },
-            messageDescriptions: {
-                0: '',
-                404: 'Страница тренутно није доступна или је'
-                    + ' УРЛ који сте унели погрешан. Проверите'
-                    + ' УРЛ или покушајте поново касније.',
-                410: 'Ова страница је премештена или уклоњена.',
-                500: 'Догодила се серверска грешка. Покушајте поново касније.',
-            },
             parentUrl: '/',
         };
     },
     computed: {
         code()
         {
-            if (this.error)
-            {
-                return this.error.statusCode;
-            }
-            else
-            {
-                return 0;
-            }
+            return this.error ? this.error.statusCode : 0;
+        },
+        message()
+        {
+            return (this.error && this.error.message !== '-')
+                ? this.error.message
+                : this.$store.getters['errors/messageByCode'](this.code);
+        },
+        description()
+        {
+            return this.$store.getters['errors/descriptionByCode'](this.code);
         },
         url()
         {
