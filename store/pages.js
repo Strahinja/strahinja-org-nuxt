@@ -20,6 +20,7 @@ export const state = () => ({
     },
     theme: 'light',
     showCookieConsent: true,
+    sourceBranch: 'wip-2020-04',
     list: [
         {
             id: 'home',
@@ -40,6 +41,7 @@ export const state = () => ({
             includedInMainToolbar: false,
             protected: false,
             admin: false,
+            sourceURL: 'https://github.com/Strahinja/strahinja-org/blob/{0}/pages/index.vue',
         },
         {
             id: 'profile',
@@ -61,6 +63,7 @@ export const state = () => ({
             includedInMainToolbar: true,
             protected: false,
             admin: false,
+            sourceURL: 'https://github.com/Strahinja/strahinja-org/blob/{0}/pages/profile/index.vue',
         },
         {
             id: 'portfolio',
@@ -82,6 +85,7 @@ export const state = () => ({
             includedInMainToolbar: true,
             protected: false,
             admin: false,
+            sourceURL: 'https://github.com/Strahinja/strahinja-org/blob/{0}/pages/portfolio/index.vue',
         },
         {
             id: 'portfolio-edit',
@@ -123,6 +127,7 @@ export const state = () => ({
             includedInMainToolbar: false,
             protected: false,
             admin: false,
+            sourceURL: 'https://github.com/Strahinja/strahinja-org/blob/{0}/pages/veze/index.vue',
         },
         {
             id: 'blog-index',
@@ -144,6 +149,7 @@ export const state = () => ({
             includedInMainToolbar: true,
             protected: false,
             admin: false,
+            sourceURL: 'https://github.com/Strahinja/strahinja-org/blob/{0}/pages/blog/index.vue',
         },
         {
             id: 'blog-post',
@@ -165,6 +171,7 @@ export const state = () => ({
             includedInMainToolbar: false,
             protected: false,
             admin: false,
+            sourceURL: 'https://github.com/Strahinja/strahinja-org/blob/{0}/pages/blog/_slug.vue',
         },
         {
             id: 'blog-tag-index',
@@ -186,6 +193,7 @@ export const state = () => ({
             includedInMainToolbar: false,
             protected: false,
             admin: false,
+            sourceURL: 'https://github.com/Strahinja/strahinja-org/blob/{0}/pages/blog/tag/index.vue',
         },
         {
             id: 'search-index',
@@ -207,6 +215,7 @@ export const state = () => ({
             includedInMainToolbar: false,
             protected: false,
             admin: false,
+            sourceURL: 'https://github.com/Strahinja/strahinja-org/blob/{0}/pages/search/index.vue',
         },
         {
             id: 'users',
@@ -228,6 +237,7 @@ export const state = () => ({
             includedInMainToolbar: false,
             protected: true,
             admin: true,
+            sourceURL: 'https://github.com/Strahinja/strahinja-org/blob/{0}/pages/users/index.vue',
         },
         {
             id: 'users-me-index',
@@ -249,6 +259,7 @@ export const state = () => ({
             includedInMainToolbar: false,
             protected: true,
             admin: false,
+            sourceURL: 'https://github.com/Strahinja/strahinja-org/blob/{0}/pages/users/me/index.vue',
         },
     ],
     pageId: 'home',
@@ -314,6 +325,8 @@ export const getters = {
                 )
             )
     ),
+    sourceURL: state => state.list.find(page => page.id == state.pageId).sourceURL
+        .replace('{0}', state.sourceBranch),
     mainToolbarPages: state => state.list.filter(
         page => page.includedInMainToolbar),
     showCookieConsent: state => state.showCookieConsent,

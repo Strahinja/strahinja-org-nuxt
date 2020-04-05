@@ -43,7 +43,7 @@ export const actions = {
         {
             try
             {
-                let res = await this.$axios.$get(getters['apiPath'] + gistId + '.json');
+                let res = await this.$axios.$get(getters['apiPath'] + gistId);
 
                 dispatch('loading/stopLoading', {
                     id: 'gists'

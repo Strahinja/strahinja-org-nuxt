@@ -1,5 +1,5 @@
 <template lang="pug">
-    subpage
+    subpage(:source-url="true")
         section
             h1.display-1 Блог
             BlogPost(v-for="(post, postIndex) in posts",
@@ -20,6 +20,13 @@ export default {
     components: { BlogPost, Subpage },
     middleware: ['load-posts'],
     computed: {
+        sourceURL()
+        {
+            return this && this.$store
+                ? this.$store.getters['pages/pageById'](
+                    this.$store.getters['pages/pageId']).sourceURL
+                : null;
+        },
         posts()
         {
             if (this && this.$store)

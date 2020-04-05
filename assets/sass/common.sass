@@ -166,7 +166,7 @@ h1 .svg-icon
     margin: 0 -50px
 
 .v-avatar
-  overflow: initial
+    overflow: initial
 
 .v-avatar .v-image__image
     z-index: 1
@@ -182,5 +182,32 @@ h1 .svg-icon
     position: absolute
 
 .theme--light.v-btn
-  color: rgba(0,0,0,.87) !important
+    color: rgba(0,0,0,.87) !important
+
+::-webkit-scrollbar
+    background: $app-scrollbar-background-color
+    width: 1rem
+
+.theme--dark ::-webkit-scrollbar
+    background: $app-scrollbar-background-color-dark
+    width: 1rem
+
+::-webkit-scrollbar-track
+    background: $app-scrollbar-track-background-color
+    border: .25rem solid $app-scrollbar-track-border-color
+    border-radius: 1rem
+
+.theme--dark ::-webkit-scrollbar-track
+    background: $app-scrollbar-track-background-color-dark
+    border: .25rem solid $app-scrollbar-track-border-color-dark
+
+::-webkit-scrollbar-thumb
+    background: $app-scrollbar-thumb-color
+    border: 1px solid $app-scrollbar-thumb-border-color
+    border-radius: 1rem
+
+.theme--dark ::-webkit-scrollbar-thumb
+    background: $app-scrollbar-thumb-color-dark
+    border: none
+    //-border-color: $app-scrollbar-background-color-dark
 

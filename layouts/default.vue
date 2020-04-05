@@ -186,6 +186,10 @@ export default {
         };
     },
     computed: {
+        dark()
+        {
+            return this && this.$vuetify && this.$vuetify.theme.dark;
+        },
         page()
         {
             if (this && this.$store)
@@ -286,6 +290,16 @@ export default {
             return (new Date()).getFullYear();
         }
     },
+    watch: {
+        dark(newValue)
+        {
+            this.setHtmlClass(newValue);
+        }
+    },
+    mounted()
+    {
+        this.setHtmlClass(this.dark);
+    },
     head()
     {
         let url = 'https://strahinja.org';
@@ -366,6 +380,24 @@ export default {
         };
     },
     methods: {
+        setHtmlClass(dark)
+        {
+            if (document)
+            {
+                let html = document.getElementsByTagName('html');
+                if (html && html[0])
+                {
+                    if (dark)
+                    {
+                        html[0].classList.add('theme--dark');
+                    }
+                    else
+                    {
+                        html[0].classList.remove('theme--dark');
+                    }
+                }
+            }
+        },
         searchBtnClick()
         {
             if (!this.showSearch)
@@ -465,7 +497,7 @@ export default {
 
 .v-application.theme--dark .v-app-bar.primary,
 .v-application.theme--dark .v-card__actions.primary.darken-1
-    background-color: #272727 !important
+    background-color: $app-toolbar-background-color-dark !important
 
 .my-input-container
     height: 100%

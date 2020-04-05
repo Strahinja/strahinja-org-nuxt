@@ -19,15 +19,23 @@
                         v-on="on")
                             v-icon.align-center(dark) mdi-arrow-left
                     span Назад на {{ parentName }}
-            v-col(:cols="12",
+            v-col.source-url-container-wrapper(:cols="12",
             :sm="10")
+                v-container.py-0.source-url-container(v-if="sourceUrl")
+                    v-row
+                        v-col.py-0.text-right(:cols="12",
+                        :lg="10")
+                            source-url/
                 slot/
 </template>
 
 <script>
+import SourceUrl from '~/components/SourceUrl';
 export default {
+    components: { SourceUrl },
     props: {
         overrideHead: { type: Boolean, default: false, required: false },
+        sourceUrl: { type: Boolean, default: false, required: false },
     },
     computed: {
         page()
@@ -101,3 +109,18 @@ export default {
     },
 };
 </script>
+
+<style lang="sass" scoped>
+.source-url-container-wrapper
+    position: relative
+
+.sm-and-down .source-url-container-wrapper
+    position: static
+
+.source-url-container
+    position: absolute
+
+.sm-and-down .source-url-container
+    position: static
+</style>
+

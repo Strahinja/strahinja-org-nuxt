@@ -1,5 +1,5 @@
 <template lang="pug">
-    subpage
+    subpage(:source-url="true")
         h1.display-1 Портфолио
 
         v-progress-linear.my-5(indeterminate=true,
@@ -51,5 +51,3 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
-</style>
