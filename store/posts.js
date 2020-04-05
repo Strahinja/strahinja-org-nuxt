@@ -2,6 +2,26 @@ export const state = () => ({
     list: []
 });
 
+export const getters = {
+    all: state => state.list,
+    postBySlug: state => slug =>
+    {
+        return state.list.find(post => post.frontmatter.name == slug);
+    },
+    postsByTag: state => tag =>
+    {
+        return state.list.filter(
+            postToCompare => postToCompare.frontmatter.tags.indexOf(tag) != -1);
+    },
+    postsBySearchTerm: state => searchTerm =>
+    {
+        return state.list.filter(
+            postToCompare => postToCompare.htmlContent.indexOf(searchTerm) != -1);
+    },
+    postCount: state => state.list.length,
+    firstNPosts: state => n => state.list.slice(0,n),
+};
+
 export const mutations = {
     addPost(state, payload)
     {
@@ -81,24 +101,5 @@ export const actions = {
         commit('sortPosts');
         return getters['all'];
     }
-};
-
-export const getters = {
-    all: state => state.list,
-    postBySlug: state => slug =>
-    {
-        return state.list.find(post => post.frontmatter.name == slug);
-    },
-    postsByTag: state => tag =>
-    {
-        return state.list.filter(
-            postToCompare => postToCompare.frontmatter.tags.indexOf(tag) != -1);
-    },
-    postsBySearchTerm: state => searchTerm =>
-    {
-        return state.list.filter(
-            postToCompare => postToCompare.htmlContent.indexOf(searchTerm) != -1);
-    },
-    postCount: state => state.list.length
 };
 

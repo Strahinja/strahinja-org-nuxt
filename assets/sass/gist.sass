@@ -14,38 +14,84 @@
     color: $code-color
     line-height: 1em
 
+.theme--dark .gist .blob-code,
+.theme--dark .gist .blob-code-inner,
+.theme--dark .gist .gist-meta,
+.theme--dark .gist .blob-num
+    background-color: $code-background-color-dark
+    color: $code-color-dark
+
 .gist .gist-meta
     color: $code-function-color
+
+.theme--dark .gist .gist-meta
+    color: $code-function-color-dark
 
 .gist .gist-meta a
     color: $code-comment-color
     font-weight: $code-font-weight  
 
+.theme--dark .gist .gist-meta a
+    color: $code-comment-color-dark
+
 .gist .gist-meta a:hover
     color: $code-bold-color
 
+.theme--dark .gist .gist-meta a:hover
+    color: $code-bold-color-dark
+
 .gist .blob-num
     color: $code-const-color
+
+.theme--dark .gist .blob-num
+    color: $code-const-color-dark
 
 .gist .blob-num:hover,
 .gist tr:hover .blob-num
     color: $code-bold-color
 
+.theme--dark .gist .blob-num:hover,
+.theme--dark .gist tr:hover .blob-num
+    color: $code-bold-color-dark
+
 .gist .gist-meta
     line-height: 20px
-    border-radius: 0 0 16px 16px
+    border-radius: 0 0 .5rem .5rem
 
 .gist .gist-data
     border-bottom: 1px solid $code-color
-    border-radius: 16px 16px 0 0
+    border-radius: .5rem .5rem 0 0
     padding-top: 1em
     background: $code-background-color
     max-height: 25em
+
+.theme--dark .gist .gist-data
+    border-bottom: 1px solid $code-color-dark
+    background: $code-background-color-dark
+
+.gist ::-webkit-scrollbar
+    background: transparent
+    width: 1rem
+
+.gist ::-webkit-track
+    background: transparent
+
+.gist ::-webkit-scrollbar-thumb
+    background: $code-color
+    border-radius: .5rem
+
+.theme--dark .gist ::-webkit-scrollbar-thumb
+    background: $code-color-dark
 
 .gist .highlighted-line,
 .gist .highlighted-line>*
     background-color: $code-tag-color !important
     color: $code-background-color !important
+
+.theme--dark .gist .highlighted-line,
+.theme--dark .gist .highlighted-line>*
+    background-color: $code-tag-color-dark !important
+    color: $code-background-color-dark !important
 
 .gist-raw
     float: right

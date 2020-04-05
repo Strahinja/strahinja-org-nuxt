@@ -17,6 +17,11 @@
     border-radius: .5em
     box-shadow: none
 
+.theme--dark.v-application code,
+.theme--dark.v-application code[class*="language-"]
+    color: $code-color-dark
+    background: $code-background-color-dark
+
 .v-application pre[class*="language-"]
     width: 100%
 
@@ -55,14 +60,28 @@
 .v-application code .token.punctuation
     color: $code-bold-color
 
+.theme--dark.v-application code .token.important,
+.theme--dark.v-application code .token.bold,
+.theme--dark.v-application code .token.punctuation
+    color: $code-bold-color-dark
+
 .v-application code .token.function,
 .v-application code .token.function-variable.function
     color: $code-function-color
+
+.theme--dark.v-application code .token.function,
+.theme--dark.v-application code .token.function-variable.function
+    color: $code-function-color-dark
 
 .v-application code .token.operator,
 .v-application code .token.entity,
 .v-application code .token.url
     color: $code-operator-color
+
+.theme--dark.v-application code .token.operator,
+.theme--dark.v-application code .token.entity,
+.theme--dark.v-application code .token.url
+    color: $code-operator-color-dark
 
 .v-application code .token.selector,
 .v-application code .token.important,
@@ -70,6 +89,13 @@
 .v-application code .token.keyword,
 .v-application code .token.builtin
     color: $code-keyword-color
+
+.theme--dark.v-application code .token.selector,
+.theme--dark.v-application code .token.important,
+.theme--dark.v-application code .token.atrule,
+.theme--dark.v-application code .token.keyword,
+.theme--dark.v-application code .token.builtin
+    color: $code-keyword-color-dark
 
 .v-application code .token.boolean,
 .v-application code .token.number,
@@ -80,6 +106,15 @@
 .v-application code .token.variable
     color: $code-const-color
 
+.theme--dark.v-application code .token.boolean,
+.theme--dark.v-application code .token.number,
+.theme--dark.v-application code .token.string,
+.theme--dark.v-application code .token.char,
+.theme--dark.v-application code .token.attr-value,
+.theme--dark.v-application code .token.regex,
+.theme--dark.v-application code .token.variable
+    color: $code-const-color-dark
+
 .v-application code .token.comment,
 .v-application code .token.block-comment,
 .v-application code .token.prolog,
@@ -87,17 +122,36 @@
 .v-application code .token.cdata
     color: $code-comment-color
 
+.theme--dark.v-application code .token.comment,
+.theme--dark.v-application code .token.block-comment,
+.theme--dark.v-application code .token.prolog,
+.theme--dark.v-application code .token.doctype,
+.theme--dark.v-application code .token.cdata
+    color: $code-comment-color-dark
+
 .v-application code .token.tag,
 .v-application code .token.attr-name,
 .v-application code .token.namespace,
 .v-application code .token.deleted
     color: $code-tag-color
 
+.theme--dark.v-application code .token.tag,
+.theme--dark.v-application code .token.attr-name,
+.theme--dark.v-application code .token.namespace,
+.theme--dark.v-application code .token.deleted
+    color: $code-tag-color-dark
+
 .v-application code .token.property,
 .v-application code .token.class-name,
 .v-application code .token.constant,
 .v-application code .token.symbol
     color: $code-symbol-color
+
+.theme--dark.v-application code .token.property,
+.theme--dark.v-application code .token.class-name,
+.theme--dark.v-application code .token.constant,
+.theme--dark.v-application code .token.symbol
+    color: $code-symbol-color-dark
 
 .v-application code .token.entity
     cursor: help

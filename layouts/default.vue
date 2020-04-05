@@ -491,6 +491,9 @@ export default {
 .v-footer
     z-index: 40
 
+.v-footer button a
+    text-decoration: none
+
 .v-application .v-tooltip__content
     z-index: 50 !important
 

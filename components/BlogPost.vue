@@ -35,35 +35,16 @@
                         :highlight="highlight",
                         :extra-component="extraComponent",
                         :extra-component-params="extraComponentParams")
-            .folded-overlay.col-lg-10.col-12(v-ripple,
-            @click="toggleFolded")
-                .folded-overlay-inner
-                    v-btn.black--text(color="accent",
-                    hovered,
-                    elevation="2")
-                        v-icon {{ postFolded ? 'mdi-chevron-down' : 'mdi-chevron-up' }}
-                        span(v-if="postFolded") Прикажи чланак
-                        span(v-else) Сакриј чланак
 
-        //-v-container.py-0.pb-5.ml-0(:style=`{
-            'max-height': postFolded ? '15em' : rowHeight
-            }`)
-            v-row(ref="articleRow")
-                v-col.py-0(:cols="12",
-                :lg="10")
-                    dynamic-markdown(:file-name="frontmatter.name",
-                    :highlight="highlight",
-                    :extra-component="extraComponent",
-                    :extra-component-params="extraComponentParams")
             .folded-overlay.col-lg-10.col-12(v-ripple,
             @click="toggleFolded")
                 .folded-overlay-inner
-                    v-btn.black--text(color="accent",
-                    hovered,
-                    elevation="2")
-                        v-icon {{ postFolded ? 'mdi-chevron-down' : 'mdi-chevron-up' }}
-                        span(v-if="postFolded") Прикажи чланак
-                        span(v-else) Сакриј чланак
+                    //-v-btn.black--text(color="accent",
+                        hovered,
+                        elevation="2")
+                            v-icon {{ postFolded ? 'mdi-chevron-down' : 'mdi-chevron-up' }}
+                            span(v-if="postFolded") Прикажи чланак
+                            span(v-else) Сакриј чланак
         footer
             .tags-container(v-if="hasTags") Ознаке:
                 ul.tags
@@ -73,6 +54,18 @@
                         'highlight': tag==highlight
                     }`)
                         nuxt-link(:to="tagUrl(tag)") {{ '#' + tag }}
+            v-container.py-0(fluid)
+                v-row
+                    v-col.text-center(:cols="12",
+                    :lg="10")
+                        v-btn.black--text(color="accent",
+                        hovered,
+                        rounded,
+                        elevation="2",
+                        @click="toggleFolded")
+                            v-icon {{ postFolded ? 'mdi-chevron-down' : 'mdi-chevron-up' }}
+                            span(v-if="postFolded") Прикажи чланак
+                            span(v-else) Сакриј чланак
 </template>
 
 <script>
@@ -150,23 +143,23 @@ export default {
                         this.frontmatter.id,
                         ')');
             this.$vuetify.goTo(`#${this.frontmatter.id}`, {*/
-            let gbcr = this.$refs.title.getBoundingClientRect();
-            //console.log('gbcr = ', gbcr);
-            let navbarHeight = 0;
-            if (document)
-            {
-                let appBars = document.getElementsByClassName('v-app-bar');
-                if (appBars && appBars.length>0)
-                {
-                    navbarHeight = appBars[0].getBoundingClientRect().height;
-                }
-            }
-            smoothScrollBy(gbcr.top - navbarHeight);
+            this.postFolded = !this.postFolded;
             this.$nextTick(() =>
             {
-                this.postFolded = !this.postFolded;
+                let gbcr = this.$refs.title.getBoundingClientRect();
+                //console.log('gbcr = ', gbcr);
+                let navbarHeight = 0;
+                if (document)
+                {
+                    let appBars = document.getElementsByClassName('v-app-bar');
+                    if (appBars && appBars.length>0)
+                    {
+                        navbarHeight = appBars[0].getBoundingClientRect().height;
+                    }
+                }
+                smoothScrollBy(gbcr.top - navbarHeight);
+                gbcr = null;
             });
-            gbcr = null;
         }
     },
 };
@@ -211,7 +204,7 @@ article.blog-post > .container .row
     opacity: 1
     transition: height .5s ease-in-out, opacity .5s ease-in-out
 
-article.blog-post.folded > .container .row
+//-article.blog-post.folded > .container .row
     opacity: .5
 
 article.blog-post .folded-overlay

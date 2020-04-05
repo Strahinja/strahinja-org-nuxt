@@ -4,7 +4,7 @@
             h1.display-1 Блог
             BlogPost(v-for="(post, postIndex) in posts",
             :key="postIndex",
-            :folded="true",
+            :folded="postIndex>0",
             :frontmatter="post.frontmatter",
             :extra-component="post.extraComponent",
             :extra-component-params="post.extraComponentParams",
@@ -24,7 +24,7 @@ export default {
         {
             if (this && this.$store)
             {
-                return this.$store.state.posts.list;
+                return this.$store.getters['posts/firstNPosts'](5);
             }
             return [];
         },

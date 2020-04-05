@@ -55,6 +55,9 @@
     padding-bottom: 0.3rem
     background-color: $blockquote-background-color
 
+.theme--dark.v-application .markdown-body blockquote
+    background-color: $blockquote-background-color-dark
+
 .v-application .markdown-body blockquote::before
     content: ' '
     display: table
@@ -65,9 +68,19 @@
     left: 0
     top: 0
 
+.theme--dark.v-application .markdown-body blockquote::before
+    background-color: $blockquote-bar-color-dark
+
 .v-application .markdown-body blockquote > p
     margin-bottom: 0
 
+.v-application .markdown-body blockquote code
+    background: $blockquote-code-background-color
+    color: $blockquote-code-color
+
+.theme--dark.v-application .markdown-body blockquote code
+    background: $blockquote-code-background-color-dark
+    color: $blockquote-code-color-dark
 
 .v-application .markdown-body img
     border: 1px solid rgba(0, 0, 0, 0.5)
