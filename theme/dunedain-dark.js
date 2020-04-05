@@ -10,6 +10,7 @@ export default {
         lighten1: '#afcbae',
         darken1: '#526c53',
     },
+    anchor: '#74b679',
     accent: '#d3dc7b',
     error: '#d45858',
     info: '#4592cf',

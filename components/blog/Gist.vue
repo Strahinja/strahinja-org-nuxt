@@ -14,8 +14,8 @@
                 :class=`{
                     'xs': $breakpoint.is.xsOnly
                 }`) сиров преглед
-                | #[a(href="#") {{ filename }}] хостује са &#10084;
-                | #[a(href="https://github.com")] GitHub
+                | #[a(:href="gistPageUrl", target="_blank") {{ filename }}] хостује са &#10084;
+                | #[a(href="https://github.com", target="_blank") GitHub]
 </template>
 
 <script>
@@ -35,6 +35,13 @@ export default {
                 return null;
             }
             return this.gist.files[this.filename].raw_url;
+        },
+        gistPageUrl()
+        {
+            let hash = this.filename
+                .replace(/[.:;]/g, '-')
+                .toLowerCase();
+            return `https://gist.github.com/Strahinja/${this.gist.id}#file-${hash}`;
         },
         gistLines()
         {

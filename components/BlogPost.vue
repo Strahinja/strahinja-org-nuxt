@@ -263,6 +263,9 @@ article.blog-post.standalone h4
     font-size: .7rem
     color: $smallprint-color
 
+.theme--dark .categories-container
+    color: $smallprint-color-dark
+
 .blog-post.standalone .categories-container
     font-size: .8rem
 
@@ -286,6 +289,9 @@ article.blog-post.standalone h4
     font-size: .7rem
     color: $smallprint-color
     margin-left: 12px !important
+
+.theme--dark .tags-container
+    color: $smallprint-color-dark
 
 .tags
     list-style-type: none
