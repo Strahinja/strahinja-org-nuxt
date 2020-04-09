@@ -318,13 +318,16 @@ export const getters = {
     navigationPages: (state, getters, rootState, rootGetters) => state.list.filter(
         page => page.includedInNavigation &&
             (!page.protected ||
-                (page.protected && rootState.auth.loggedIn &&
+                (page.protected && rootGetters['local-auth/loggedIn'] &&
                     !page.admin ||
-                        (page.admin && getProp(rootState, 'auth.user.email')
-                            && rootGetters['users/isAdmin'](getProp(rootState, 'auth.user.email')))
+                        (page.admin && rootGetters['local-auth/user'].is_admin)
                 )
             )
     ),
+    isPageAdminById: (state, getters) => pageId =>
+        getters['pageById'](pageId).admin,
+    isPageProtectedById: (state, getters) => pageId =>
+        getters['pageById'](pageId).protected,
     sourceURL: state => state.list.find(page => page.id == state.pageId).sourceURL
         .replace('{0}', state.sourceBranch),
     mainToolbarPages: state => state.list.filter(

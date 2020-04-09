@@ -58,7 +58,9 @@ main.v-content
 
 .v-card__title,
 .v-application .v-card__title
-    font-size: .9rem
+    font-family: $heading-font-family
+    font-size: 1rem
+    font-weight: $heading-font-weight !important
 
 .v-bottom-sheet .v-card__title
     word-break: break-word
@@ -210,4 +212,7 @@ h1 .svg-icon
     background: $app-scrollbar-thumb-color-dark
     border: none
     //-border-color: $app-scrollbar-background-color-dark
+
+.v-text-field input[type="password"]
+    letter-spacing: .25rem
 

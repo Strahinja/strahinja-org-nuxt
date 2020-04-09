@@ -18,8 +18,8 @@ import markdownItMdi from 'markdown-it-mdi';
 import markdownItTocDoneRight from 'markdown-it-toc-done-right';
 import authConfig from './auth.config.js';
 
-var appMode = 'production';
-require('dotenv').config({ path: `.env.${appMode}` });
+var appModeStaging = false;
+require('dotenv').config({ path: `.env.${appModeStaging?'staging':'production'}` });
 console.log('dotenv: mode = ', process.env.VUE_APP_MODE);
 console.log('dotenv: path = ', process.env.VUE_APP_API_PATH);
 console.log('dotenv: browser path = ', process.env.VUE_APP_BROWSER_API_PATH);
@@ -79,6 +79,7 @@ export default {
      */
     plugins: [
         '~/plugins/breakpoint.js',
+        '~/plugins/check-login.js',
         '~/plugins/cookie-disclaimer.js',
         '~/plugins/datetime-picker.js',
         //{ src: '~/plugins/four-oh-four.js', mode: 'server' },
@@ -259,7 +260,7 @@ export default {
             /search/,
             /login/,
             /portfolio\/edit/,
-            // /users/,
+            /users/,
         ],
     },
     /*

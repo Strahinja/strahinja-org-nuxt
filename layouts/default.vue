@@ -3,7 +3,7 @@
         'sm-and-down': $breakpoint.is.smAndDown
     }`)
         v-navigation-drawer(v-model="showNav",
-        app=true,
+        app,
         :mini-variant="miniVariant",
         :clipped="clipped")
             v-list
@@ -24,23 +24,23 @@
                     v-list-item-action
                         v-icon {{ navigationPage.icon }}
                     v-list-item-title {{ navigationPage.title }}
-        v-app-bar.full-width-toolbar(app=true,
+        v-app-bar.full-width-toolbar(app,
         :clipped-left="clipped",
         dark,
         color="primary",
         :class="{ loading: pageLoading }")
             client-only
-                v-tooltip(bottom=true)
+                v-tooltip(bottom)
                     template(v-slot:activator="{ on }")
                         v-app-bar-nav-icon(v-on="on",
                         @click="showNav = !showNav")
                     span Главни мени
             v-toolbar-title.mr-4
                 nuxt-link.hidden-xs-only(:to="'/'") //strahinja.org
-            v-divider(vertical=true)/
+            v-divider(vertical)/
             client-only
                 v-tooltip.hidden-sm-and-up(v-if="showBackButton",
-                bottom=true)
+                bottom)
                     template(v-slot:activator="{ on }")
                         v-btn.hidden-sm-and-up.text-center.align-center(
                         v-if="showBackButton",
@@ -66,34 +66,33 @@
                                     v-on-clickaway="searchClickaway",
                                     name="q",
                                     label="Претрага",
-                                    text=true,
                                     color="black--text",
-                                    solo-inverted=true,
+                                    solo-inverted,
                                     :rules="appbarSearchTextRules",
-                                    hover=true,
+                                    hover,
                                     :counter="maxSearchTextLength",
-                                    clearable=true,
-                                    dense=true,
+                                    clearable,
+                                    dense,
                                     prepend-inner-icon="mdi-magnify",
                                     @blur="searchBlur()")
                     v-fade-transition(:hide-on-leave="true")
                         .vertical-center(v-show="!showSearch")
                             .vertical-center-slot
                                 client-only
-                                    v-tooltip(bottom=true)
+                                    v-tooltip(bottom)
                                         template(v-slot:activator="{ on }")
                                             v-btn(ref="appbarSearchBtn",
-                                            icon=true,
+                                            icon,
                                             v-on="on",
                                             @click="searchBtnClick()")
                                                 v-icon(ref="appbarSearchIcon").
                                                     | mdi-magnify
                                         span Претрага
                                     profile-menu/
-                                    v-tooltip(bottom=true)
+                                    v-tooltip(bottom)
                                         template(v-slot:activator="{ on }")
                                             v-btn(ref="appbarThemeModeBtn",
-                                            icon=true,
+                                            icon,
                                             v-on="on",
                                             @click="themeModeBtnClick()")
                                                 v-icon(ref="appbarThemeModeIcon").
@@ -142,9 +141,9 @@
                             v-col.pa-0(:cols="12") Copyright © 1999-{{ currentYear }}
                         v-row.ma-0
                             v-col.pa-0(:cols="12") Страхиња Радић (Strahinya Radich)
-                    v-container.ma-0.pa-0(v-else=true,
-                    fluid=true,
-                    no-gutters=true)
+                    v-container.ma-0.pa-0(v-else,
+                    fluid,
+                    no-gutters)
                         v-row.ma-0
                             v-col.pa-0(:cols="12")
                                 .d-inline-block.mr-1
@@ -517,7 +516,7 @@ export default {
     margin-top: -3px
 
 .v-navigation-drawer
-    z-index: 20 !important
+    z-index: 55 !important
     max-height: 100% !important
 
 .v-footer
@@ -526,8 +525,14 @@ export default {
 .v-footer button a
     text-decoration: none
 
-.v-application .v-tooltip__content
+.v-overlay
     z-index: 50 !important
+
+.v-dialog__content
+    z-index: 55 !important
+
+.v-application .v-tooltip__content
+    z-index: 60 !important
 
 .v-navigation-drawer svg,
 .v-navigation-drawer svg *

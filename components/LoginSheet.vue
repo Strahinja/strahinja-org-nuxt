@@ -1,10 +1,13 @@
 <template lang="pug">
     v-bottom-sheet.login-sheet(v-model="sheetActive",
+    inset,
+    :max-width="width",
     :width="width")
         template(v-slot:activator="{ on }")
             slot(name="login-sheet-activator")
         login-form(:standalone="false",
-        @close-button-clicked="sheetActive = false",
+        @login-success="setSheetActive(false)",
+        @close-button-clicked="setSheetActive(false)",
         @service-button-clicked="serviceBtnClick($event)")
 </template>
 
@@ -28,20 +31,29 @@ export default {
     {
         active: function(newActive)
         {
+            console.log('components/LoginSheet.vue: passed parameter changed,'
+                + ' setting this.sheetActive = ', newActive);
             this.sheetActive = newActive;
         },
-        sheetActive: function(newSheetActive)
+        sheetActive(newValue)
         {
-            this.$emit('active-changed', newSheetActive);
+            this.$emit('active-changed', newValue);
         }
     },
     methods: {
         serviceBtnClick(serviceName)
         {
             console.log('LoginSheet.serviceBtnClick(', serviceName, ')');
-            this.sheetActive = false;
+            this.setSheetActive(false);
             this.$emit('service-button-clicked', serviceName);
-        }
+        },
+        setSheetActive(newValue)
+        {
+            console.log('components/LoginSheet.vue: setSheetactive(', newValue,
+                        ')');
+            this.sheetActive = newValue;
+            this.$emit('active-changed', newValue);
+        },
     }
 };
 </script>

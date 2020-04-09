@@ -2,16 +2,17 @@
     .profile-menu
         login-sheet(v-if="!loggedIn",
         :key="refreshOnAuthChange",
+        :inset="true",
         :width="500",
         :active="loginSheetActive",
-        @active-changed="loginSheetActive = $event",
+        @active-changed="setLoginSheetActive($event)",
         @service-button-clicked="loginSheetServiceBtnClick($event)")
             template(#login-sheet-activator)
                 v-tooltip(bottom=true)
                     template(v-slot:activator="{ on }")
                         v-btn(icon=true,
                         v-on="on",
-                        @click.stop="loginSheetActive = true")
+                        @click.stop="loginSheetActivatorClick()")
                             v-icon mdi-account-question
                     span Пријава
         v-menu(v-if="loggedIn",
@@ -52,21 +53,41 @@ export default {
     computed: {
         loggedIn()
         {
-            return getProp(this.$auth, 'loggedIn') || false;
+            return this && this.$store
+                ? this.$store.getters['local-auth/loggedIn']
+                : false;
+            // return getProp(this.$auth, 'loggedIn') || false;
+        },
+        user()
+        {
+            return this && this.$store
+                ? this.$store.getters['local-auth/user']
+                : {};
         },
         userDisplayName()
         {
-            return getProp(this.$auth, 'user.name') || 'Анониман';
+            return this
+                ? this.user.username
+                : 'Анониман';
+            //return getProp(this.$auth, 'user.name') || 'Анониман';
         },
         userAvatar()
         {
-            return getProp(this.$auth, 'user.picture.data.url')
+            return this && this.$store
+                ? this.$store.getters['local-auth/avatarUrl']
+                : null;
+            /*return getProp(this.$auth, 'user.picture.data.url')
                 || getProp(this.$auth, 'user.picture')
-                || null;
+                || null;*/
         },
     },
     watch: {
-        async loggedIn(newValue)
+        loggedIn()
+        {
+            this.refreshOnAuthChange = new Date().toISOString();
+        },
+
+        /*async loggedIn(newValue)
         {
             if (!newValue) return;
 
@@ -158,24 +179,40 @@ export default {
                     console.error(error);
                 }
             }
-        }
+        }*/
     },
     methods:
     {
+        setLoginSheetActive(newValue)
+        {
+            console.log('components/ProfileMenu.vue: setLoginSheetActive(',
+                        newValue, ')');
+            this.loginSheetActive = newValue;
+        },
         settingsClick()
         {
             this.$router.push({ path: '/users/me' });
         },
         logoutClick()
         {
-            if (this.$auth && this.loggedIn)
+            console.log('components/ProfileMenu.vue: logoutClick()');
+            this.$store.dispatch('local-auth/logout', { root: true });
+
+            /*if (this.$auth && this.loggedIn)
             {
                 this.$auth.logout()
                     .then(() =>
                     {
                         this.refreshOnAuthChange = new Date().toISOString();
                     });
-            }
+            }*/
+        },
+        loginSheetActivatorClick()
+        {
+            console.log('components/ProfileMenu.vue: loginSheetActivatorClick()');
+            console.log('(before) this.loginSheetActive = ', this.loginSheetActive ? 'true' : 'false');
+            this.loginSheetActive = true;
+            console.log('(after)  this.loginSheetActive = ', this.loginSheetActive ? 'true' : 'false');
         },
         async loginSheetServiceBtnClick(serviceName)
         {
@@ -222,9 +259,9 @@ export default {
     display: inline-block
 
 .v-application .v-menu__content
-    z-index: 52 !important
+    z-index: 62 !important
 
 .v-application .v-tooltip__content
-    z-index: 50 !important
+    z-index: 60 !important
 
 </style>
