@@ -20,9 +20,12 @@
                                 v-row
                                     v-col.card-left-col.field-title(:class=`{
                                         xs: $breakpoint.is.xsOnly
-                                    }`) Провајдер:
+                                    }`) Провајдери:
                                     v-col(:cols="10",
-                                    :xs="12") {{ userProvider }}
+                                    :xs="12")
+                                        ul
+                                            li(v-for="(provider, providerIndex) in userProviders"
+                                            :key="providerIndex") {{ provider.name }}
                                 v-row
                                     v-col.card-left-col.field-title(:class=`{
                                         xs: $breakpoint.is.xsOnly
@@ -51,57 +54,49 @@ import Subpage from '~/components/Subpage';
 export default {
     name: 'Me',
     components: { Subpage },
-    middleware: ['local-auth'],
+    middleware: ['local-auth', 'load-single-user'],
     computed: {
         loggedIn()
         {
-            return this ? this.$store.getters['local-auth/loggedIn'] : false;
+            return this && this.$store.getters['local-auth/loggedIn'];
         },
-        userProvider()
+        userId()
         {
-            if (this && this.loggedIn)
-            {
-                const providers =
-                    this.$store.getters['social/loginProviders'];
-                if (providers)
-                {
-                    return providers[this.$auth.strategy.name].title;
-                }
-                return '(без провајдера)';
-            }
-            return '(без провајдера)';
+            return this && this.loggedIn
+                ? this.$store.getters['local-auth/userId']
+                : 0;
+        },
+        user()
+        {
+            return this && this.userId
+                ? this.$store.getters['users/userById'](this.userId)
+                : {};
+        },
+        userProviders()
+        {
+            return this && this.user
+                ? this.user.providers
+                : [];
         },
         userDisplayName()
         {
-            if (this && this.loggedIn)
-            {
-                return this.$store.getters['local-auth/user'].username;
-            }
-            return 'Анониман';
+            return this && this.user ? this.user.username : 'Анониман';
         },
         userEmail()
         {
-            if (this && this.loggedIn)
-            {
-                return this.$store.getters['local-auth/user'].email;
-            }
-            return null;
+            return this && this.user ? this.user.email : null;
         },
         userAvatar()
         {
-            if (this && this.loggedIn)
-            {
-                return this.$store.getters['local-auth/avatarUrl'];
-            }
-            return null;
+            return this && this.loggedIn
+                ? this.$store.getters['local-auth/avatarUrl']
+                : null;
         },
         userRole()
         {
-            if (this && this.loggedIn)
-            {
-                return this.$store.getters['local-auth/user'].role;
-            }
-            return 'Непозната';
+            return this && this.user
+                ? this.user.role
+                : 'Непозната';
         },
     },
     methods:

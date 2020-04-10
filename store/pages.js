@@ -328,8 +328,11 @@ export const getters = {
         getters['pageById'](pageId).admin,
     isPageProtectedById: (state, getters) => pageId =>
         getters['pageById'](pageId).protected,
-    sourceURL: state => state.list.find(page => page.id == state.pageId).sourceURL
-        .replace('{0}', state.sourceBranch),
+    sourceURL: state =>
+    {
+        let sourceUrl = state.list.find(page => page.id == state.pageId).sourceURL;
+        return sourceUrl ? sourceUrl.replace('{0}', state.sourceBranch) : null;
+    },
     mainToolbarPages: state => state.list.filter(
         page => page.includedInMainToolbar),
     showCookieConsent: state => state.showCookieConsent,

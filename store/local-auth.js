@@ -38,6 +38,7 @@ export const getters = {
     processingLogin: state => state.processingLogin,
     loginError: state => state.loginError,
     loggedIn: state => !isObjectEmpty(state.user),
+    userId: state => !isObjectEmpty(state.user) ? state.user.id : 0,
     avatarUrl: state => !isObjectEmpty(state.user)
         ? state.avatarUrl.replace('{0}', state.user.id)
         : null,
@@ -86,18 +87,25 @@ export const actions = {
             });
     },
 
-    checkLogin({ commit, getters })
+    async checkLogin({ commit, getters })
     {
-        this.$axios.$get(getters['apiCheckLoginPath'])
-            .then((res) =>
+        try
+        {
+            let res = await this.$axios.$get(getters['apiCheckLoginPath']);
+            console.log('store/local-auth: checkLogin: res = ', res);
+            commit('setUser', res.data || {});
+            if (res.code != 200 && res.message != 'Недоступан кључ')
             {
-                console.log('store/local-auth: checkLogin: res = ', res);
-                commit('setUser', res.data || {});
-            })
-            .catch((err) =>
+                this.$toast.error(res.message, { icon: 'mdi mdi-alert' });
+            }
+        }
+        catch(err)
+        {
+            if (err != 'Недоступан кључ')
             {
                 this.$toast.error(err, { icon: 'mdi mdi-alert' });
-            });
+            }
+        }
     },
 
     logout({ commit, getters, rootGetters })

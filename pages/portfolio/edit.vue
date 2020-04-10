@@ -50,7 +50,7 @@ import EditPortfolioItem from '~/components/EditPortfolioItem';
 export default {
     name: 'PortfolioEdit',
     components: { EditPortfolioItem, Subpage },
-    middleware: ['auth'],
+    middleware: ['local-auth'],
     data()
     {
         return {

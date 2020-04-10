@@ -79,7 +79,7 @@ export default {
      */
     plugins: [
         '~/plugins/breakpoint.js',
-        '~/plugins/check-login.js',
+        { src: '~/plugins/check-login.js', mode: 'client' },
         '~/plugins/cookie-disclaimer.js',
         '~/plugins/datetime-picker.js',
         //{ src: '~/plugins/four-oh-four.js', mode: 'server' },
@@ -88,12 +88,7 @@ export default {
         { src: '~/plugins/theme-settings.js', mode: 'client' },
         //{ src: '~/plugins/auth.js', mode: 'client' },
     ],
-    /*
-     ** Router configuration
-     */
-    router: {
-    },
-    auth: {
+    /*auth: {
         cookie: {
             options: {
                 expires: 7, // days
@@ -112,7 +107,7 @@ export default {
                 client_id: authConfig.facebook.client_id,
                 scope: authConfig.facebook.scope,
                 userinfo_endpoint: authConfig.facebook.userinfo_endpoint,
-                /*redirect_uri: authConfig.facebook.redirect_uri,*/
+                /*redirect_uri: authConfig.facebook.redirect_uri,* /
             },
             github: {
                 client_id: authConfig.github.client_id,
@@ -128,7 +123,7 @@ export default {
             logout: '/',
             callback: '/login/callback',
         }
-    },
+    },*/
     /*
      ** Nuxt.js dev-modules
      */
