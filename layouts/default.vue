@@ -88,7 +88,6 @@
                                                 v-icon(ref="appbarSearchIcon").
                                                     | mdi-magnify
                                         span Претрага
-                                    profile-menu/
                                     v-tooltip(bottom)
                                         template(v-slot:activator="{ on }")
                                             v-btn(ref="appbarThemeModeBtn",
@@ -98,6 +97,7 @@
                                                 v-icon(ref="appbarThemeModeIcon").
                                                     | {{ isThemeDark ? 'mdi-white-balance-sunny' : 'mdi-weather-night' }}
                                         span Тема: {{ isThemeDark ?  'светла' : 'тамна' }}
+                                    profile-menu/
         v-content
             nuxt/
         client-only
@@ -525,15 +525,6 @@ export default {
 .v-footer button a
     text-decoration: none
 
-.v-overlay
-    z-index: 50 !important
-
-.v-dialog__content
-    z-index: 55 !important
-
-.v-application .v-tooltip__content
-    z-index: 60 !important
-
 .v-navigation-drawer svg,
 .v-navigation-drawer svg *
     fill: map-get($material-light, 'text-color') !important
@@ -541,4 +532,8 @@ export default {
 .theme--dark.v-application .v-navigation-drawer svg,
 .theme--dark.v-application .v-navigation-drawer svg *
     fill: map-get($material-dark, 'text-color') !important
+
+.v-navigation-drawer--clipped:not(.v-navigation-drawer--temporary):not(.v-navigation-drawer--is-mobile)
+    z-index: 40 !important
+
 </style>

@@ -75,7 +75,7 @@ export default {
         },
         prettyDate(dateStr)
         {
-            if (dateStr)
+            if (dateStr && typeof(dateStr)==='string')
             {
                 let [sdate/*, stime*/] = dateStr.split(' ');
                 let [year, month/*, day*/] = sdate.split('-');

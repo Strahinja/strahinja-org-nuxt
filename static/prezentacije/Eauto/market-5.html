@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>EA Market</title>
+<meta charset="utf8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="css/msdropdown/dd.css" />
+<link rel="stylesheet" href="css/megalist/megalist.css" />
+<link rel="stylesheet" href="css/complex/common.css" />
+<link rel="stylesheet" href="css/complex/menu.css" />
+<link rel="stylesheet" href="css/complex/content.css" />
+<link rel="stylesheet" href="css/complex/footer.css" />
+<link rel="stylesheet" href="css/complex/market.css" />
+<!--[if gt IE 5.5]>
+<link rel="stylesheet" href="css/complex/iecommon.css" />
+<![endif]-->
+<!--[if lt IE 9]>
+<link rel="stylesheet" href="css/complex/ie8.css" />
+<![endif]-->
+<!--[if lt IE 8]>
+<link rel="stylesheet" href="css/complex/ie7.css" />
+<![endif]-->
+<!--[if lt IE 7]>
+<link rel="stylesheet" href="css/complex/ie6.css" />
+<![endif]-->
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.ui.draggable.min.js"></script>
+<script src="js/jquery.slimscroll.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/megalist/lib/raf.js"></script>
+<script src="js/megalist/megalist.js"></script>
+<script src="js/msdropdown/jquery.dd.min.js"></script>
+<script src="js/carouFredSel/jquery.carouFredSel-6.2.1.js"></script>
+<script src="js/jquery.tinysort.min.js"></script>
+<script src="js/select.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/forms.js"></script>
+<script src="js/market-z72.js"></script>
+<script src="js/right-detail.js"></script>
+<script>
+$(function(){
+	switchView(1);
+});
+</script>
+</head>
+<body>
+<div id="body-inner">
+<div id="menubar">
+	<!--div style="width: 1150px; margin-left: 50%">
+	<div style="width: 1150px; margin-left: -50%"-->
+	<!--div class="row-fluid">
+	<div class="span10 offset2" style="text-align: center"-->
+	<!--div id="topmenu-wrapper"-->
+	<div id="topmenu">
+	<div class="row-fluid">
+	<div class="span8">
+	<ul>
+		<li class="logo">Market
+			<ul>
+			<li>Test 1</li>
+			<li>Test 2</li>
+			<li>Test 3</li>
+			</ul>
+		</li>
+		<li>Pocetna</li>
+		<li>Alati
+			<ul>
+			<li>Test 1</li>
+			<li>Test 2</li>
+			<li>Test 3</li>
+			</ul>
+		</li>
+		<li>Baza modela</li>
+		<li>Dodaj oglas</li>
+	</ul>
+	</div><!--span-->
+	<div class="span4 right-link">
+	<ul>
+		<li>Moj Eauto
+			<ul>
+			<li>Test 1</li>
+			<li>Test 2</li>
+			<li>Test 3</li>
+			</ul>
+		</li>
+	</ul>
+	</div><!--span-->
+	</div><!--row-->
+	</div><!-- topmenu -->
+	<!--/div--><!--topmenu-wrapper-->
+	<!--/div><!--span-->
+	</div--><!--row-->
+</div><!-- menubar -->
+
+<!--div id="content-wrapper"-->
+<div id="content">
+<!--div id="content-body"-->
+<div id="content-spacer-top"></div>
+
+<div id="top-ad"><a href="#"><img src="img/ad-001.png" /></a></div>
+
+<div id="filter-toolbar" class="btn-toolbar btn-custom-toolbar" style="margin-left: 1px">
+	<div class="btn-group">
+	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		Polovna
+		<span class="caret"></span>
+	</a>
+	<ul class="dropdown-menu">
+		<li><a href="#">Test 1</a></li>
+		<li><a href="#">Test 2</a></li>
+		<li><a href="#">Test 3</a></li>
+	</ul>
+	</div><!--btn-group-->
+	<div class="btn-group">
+	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		Cena
+		<span class="caret"></span>
+	</a>
+	<ul class="dropdown-menu">
+		<li><a href="#">Test 1</a></li>
+		<li><a href="#">Test 2</a></li>
+		<li><a href="#">Test 3</a></li>
+	</ul>
+	</div><!--btn-group-->
+	<div class="btn-group">
+	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		Kilometraza
+		<span class="caret"></span>
+	</a>
+	<ul class="dropdown-menu">
+		<li><a href="#">Test 1</a></li>
+		<li><a href="#">Test 2</a></li>
+		<li><a href="#">Test 3</a></li>
+	</ul>
+	</div><!--btn-group-->
+	<div class="btn-group">
+	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		Motor
+		<span class="caret"></span>
+	</a>
+	<ul class="dropdown-menu">
+		<li><a href="#">Test 1</a></li>
+		<li><a href="#">Test 2</a></li>
+		<li><a href="#">Test 3</a></li>
+	</ul>
+	</div><!--btn-group-->
+	<div class="btn-group">
+	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		Karoserija
+		<span class="caret"></span>
+	</a>
+	<ul class="dropdown-menu">
+		<li><a href="#">Test 1</a></li>
+		<li><a href="#">Test 2</a></li>
+		<li><a href="#">Test 3</a></li>
+	</ul>
+	</div><!--btn-group-->
+	<div class="btn-group">
+	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		Lokacija
+		<span class="caret"></span>
+	</a>
+	<ul class="dropdown-menu">
+		<li><a href="#">Test 1</a></li>
+		<li><a href="#">Test 2</a></li>
+		<li><a href="#">Test 3</a></li>
+	</ul>
+	</div><!--btn-group-->
+	<div class="btn-group">
+	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		Polovna
+		<span class="caret"></span>
+	</a>
+	<ul class="dropdown-menu">
+		<li><a href="#">Test 1</a></li>
+		<li><a href="#">Test 2</a></li>
+		<li><a href="#">Test 3</a></li>
+	</ul>
+	</div><!--btn-group-->
+	<div class="btn-group">
+	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		Cena
+		<span class="caret"></span>
+	</a>
+	<ul class="dropdown-menu">
+		<li><a href="#">Test 1</a></li>
+		<li><a href="#">Test 2</a></li>
+		<li><a href="#">Test 3</a></li>
+	</ul>
+	</div><!--btn-group-->
+	<div class="btn-group">
+	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		Kilometraza
+		<span class="caret"></span>
+	</a>
+	<ul class="dropdown-menu">
+		<li><a href="#">Test 1</a></li>
+		<li><a href="#">Test 2</a></li>
+		<li><a href="#">Test 3</a></li>
+	</ul>
+	</div><!--btn-group-->
+	<div class="btn-group">
+		<button class="btn ico-button">+</button>
+		<button class="btn ico-button"><i class="icon-envelope"></i></button>
+	</div><!--btn-group-->
+</div><!--btn-toolbar-->
+
+<div class="row-fluid" style="border-top: 1px solid #ddd; height: 100%">
+<div class="span6" id="left-side" style="border-right: 1px solid #ddd; height: 100%;">
+<div class="btn-group pull-right">
+<a class="btn dropdown-toggle" data-toggle="dropdown" href="#"
+	style="margin-top: 0.2em; margin-bottom: 0.2em; margin-right: 1em">
+	Sortiraj
+	<span class="caret"></span>
+</a>
+<ul class="dropdown-menu">
+	<li><a href="#">Test 1</a></li>
+	<li><a href="#">Test 2</a></li>
+	<li><a href="#">Test 3</a></li>
+</ul>
+</div><!--btn-group-->
+<ul class="nav nav-tabs">
+	<li class="active">
+		<a href="#" id="results-tab"><i class="icon-th-list"></i>
+		Rezultati (54)</a>
+	</li>
+	<li>
+		<a href="#" id="favorites-tab"><i class="icon-star"></i>
+		Odabrani (6)</a>
+	</li>
+</ul><!--nav-->
+<div class="megalist" id="left-list"></div>
+<div id="left-list-favorites-wrapper">
+<div id="left-list-favorites" class="megalist"></div>
+</div><!--left-list-favorites-->
+</div><!--span-->
+<div class="span6" id="right-side" style="width: 50%; margin-left: 0;">
+<div id="right-detail">
+<a class="favorite-link" href="#"><i class="icon-star-empty dimmed"></i></a>
+<h2 style="border-bottom: 1px solid #ddd" id="right-detail-title">2005 Renault Laguna 1.9dci</h2>
+<div id="right-detail-content">
+<div class="row-fluid">
+<div class="span9">
+<div id="right-detail-picture">
+<div class="row-fluid" style="height: 100%; margin-bottom: -70px">
+<div class="span12">
+	<div class="right-detail-main">
+	<!--img src="img/car/m-z72-001-sm.png" id="p001" />
+	<img src="img/car/m-z72-002-sm.png" id="p002"  />
+	<img src="img/car/m-z72-003-sm.png" id="p003"  />
+	<img src="img/car/m-z72-004-sm.png" id="p004"  />
+	<img src="img/car/m-z72-005-sm.png" id="p005"  /-->
+	</div><!--right-detail-main-->
+</div><!--span-->
+</div><!--row-->
+<div class="row-fluid right-detail-thumbs">
+<div class="span1 right-detail-nav-prev">
+</div><!--right-detail-nav-prev-->
+<div class="span10 right-detail-nav-thumbs">
+	<!--img src="img/car/m-z72-001-sm.png" id="th001" />
+	<img src="img/car/m-z72-002-sm.png" id="th002"  />
+	<img src="img/car/m-z72-003-sm.png" id="th003"  />
+	<img src="img/car/m-z72-004-sm.png" id="th004"  />
+	<img src="img/car/m-z72-005-sm.png" id="th005"  /-->
+</div><!--right-detail-nav-thumbs-->
+<div class="span1 right-detail-nav-next">
+</div><!--right-detail-nav-next-->
+</div><!--row-->
+</div><!--right-detail-picture-->
+<h3 style="padding-top: 0">Prodavac</h3>
+<div id="right-detail-seller">
+<div class="row-fluid">
+<div class="span8" style="white-space: nowrap">
+<p id="right-detail-seller-company"></p>
+<p id="right-detail-seller-address"></p>
+<p id="right-detail-seller-phone"></p>
+</div><!--span-->
+<div class="span4" style="text-align: right">
+<p><a href="#">Chat</a> (online)</p>
+<p><a href="#">Posalji email</a></p>
+</div><!--span-->
+</div><!--row-->
+</div><!--right-detail-seller-->
+</div><!--span-->
+<div class="span3" style="margin-left: 0.2em; width: 24.7%;">
+<div id="right-detail-right">
+<div id="right-detail-price">
+</div><!--right-detail-price-->
+<div id="right-detail-eval">
+<div id="right-detail-eval-price">
+</div><!--right-detail-eval-price-->
+<div id="right-detail-eval-desc">
+</div><!--right-detail-eval-desc-->
+</div><!--right-detail-eval-->
+<h3>Osnovno</h3>
+<div id="right-detail-basic">
+</div><!--right-detail-basic-->
+</div><!--right-detail-right-->
+</div><!--span-->
+</div><!--row-->
+<div class="row-fluid">
+<div class="span9">
+<h3>E-auto alati</h3>
+<div id="right-detail-tools">
+<div class="row-fluid">
+<div class="span4" style="border-right: 1px solid #ddd">
+Pet godina  voznje
+<a href="#" class="right-detail-tools-link"><i class="icon-share"></i>
+8.7/10</a>
+</div><!--span-->
+<div class="span4" style="border-right: 1px solid #ddd">
+Cena registracije
+<a href="#" class="right-detail-tools-link"><i class="icon-share"></i>
+450 ˆ</a>
+</div><!--span-->
+<div class="span4">
+Rata kredita od
+<a href="#" class="right-detail-tools-link"><i class="icon-share"></i>
+200 ˆ</a>
+</div><!--span-->
+</div><!--row-->
+</div><!--right-detail-tools-->
+</div><!--span-->
+<div class="span3" style="text-align: right">
+<h3>Ocene vozaca</h3>
+<div id="right-detail-score">
+21 unetih ocena
+<a href="#" class="right-detail-score-link"><i class="icon-share"></i>
+4.5/10</a>
+</div><!--right-detail-score-->
+</div><!--span-->
+</div><!--row-->
+<h3 class="right-detail-big-section">Detaljno</h3>
+<h4>Pogon</h4>
+<div id="right-detail-engine">
+</div><!--right-detail-engine-->
+<h4>Izgled &amp; oprema</h4>
+<div id="right-detail-looks">
+</div><!--right-detail-looks-->
+<h4>Bezbednost i sigurnost</h4>
+<div id="right-detail-safety">
+</div><!--right-detail-safety-->
+<h4>Dodatne karakteristike</h4>
+<div id="right-detail-additional">
+</div><!--right-detail-additional-->
+<h4>Komentar prodavca</h4>
+<div id="right-detail-comment">
+</div><!--right-detail-comment-->
+</div><!--right-detail-content-->
+</div><!--right-detail-->
+</div><!--span-->
+</div><!--row-->
+
+<!--/div--><!-- content-body -->
+</div><!-- content -->
+<!--/div--><!-- content-wrapper -->
+</div><!--body-inner-->
+
+<div id="footer-wrapper">
+<div id="footer-border">
+</div><!--footer-border-->
+<div id="footer">
+<div id="footer-body">
+<ul>
+<li>
+	<div class="footer-list-title">
+	Kupovina na eauto</div>
+	<ul>
+	<li>Post buzing requests</li>
+	<li>Browse Categories</li>
+	</ul>
+</li>
+<li>
+	<div class="footer-list-title">
+	Prodaja na eauto</div>
+	<ul>
+	<li>Premium Membership</li>
+	<li>Verified Membership</li>
+	</ul>
+</li>
+<li>
+	<div class="footer-list-title">
+	Servis i podesavanja</div>
+	<ul>
+	<li>My Eauto</li>
+	<li>Trade Manager</li>
+	</ul>
+</li>
+</ul>
+</div><!--footer-body-->
+</div><!--footer-->
+</div><!--footer-wrapper-->
+</body>
+</html>

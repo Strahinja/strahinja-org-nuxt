@@ -1,0 +1,543 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>EA Market</title>
+<meta charset="utf8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href='http://fonts.googleapis.com/css?family=Oxygen:300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="css/msdropdown/dd.css" />
+<link rel="stylesheet" href="css/complex/common.css" />
+<link rel="stylesheet" href="css/complex/menu.css" />
+<link rel="stylesheet" href="css/complex/content.css" />
+<link rel="stylesheet" href="css/complex/footer.css" />
+<link rel="stylesheet" href="css/complex/market.css" />
+<link rel="stylesheet" href="css/complex/tools.css" />
+<link rel="stylesheet" href="css/complex/menoglasa.css" />
+<!--[if gt IE 5.5]>
+<link rel="stylesheet" href="css/complex/iecommon.css" />
+<![endif]-->
+<!--[if lt IE 9]>
+<link rel="stylesheet" href="css/complex/ie8.css" />
+<![endif]-->
+<!--[if lt IE 8]>
+<link rel="stylesheet" href="css/complex/ie7.css" />
+<![endif]-->
+<!--[if lt IE 7]>
+<link rel="stylesheet" href="css/complex/ie6.css" />
+<![endif]-->
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.ui.draggable.min.js"></script>
+<script src="js/jquery.slimscroll.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/msdropdown/jquery.dd.min.js"></script>
+<script src="js/jquerysvg/jquery.svg.js"></script>
+<script src="js/jquerysvg/jquery.svgplot.js"></script>
+<script src="js/jquerysvg/jquery.svgfilter.min.js"></script>
+<script src="js/advlist/advlist.min.js"></script>
+<script src="js/carouFredSel/jquery.carouFredSel-6.2.1.js"></script>
+<script src="js/util.js"></script>
+<script src="js/select.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/forms.js"></script>
+<script src="js/image-popup.js"></script>
+<script src="js/market.js"></script>
+<script src="js/menoglasa.js"></script>
+</head>
+<body class="menoglasa">
+<div id="body-inner">
+<div id="menubar">
+	<!--div style="width: 1150px; margin-left: 50%">
+	<div style="width: 1150px; margin-left: -50%"-->
+	<!--div class="row-fluid">
+	<div class="span10 offset2" style="text-align: center"-->
+	<!--div id="topmenu-wrapper"-->
+	<div id="topmenu">
+	<div class="row-fluid">
+	<div id="topmenu-wrapper" class="span8">
+	<ul>
+		<li class="logo"><a href="#">Market</a>
+			<ul>
+			<li><a href="#">Test 1</a></li>
+			<li><a href="#">Test 2</a></li>
+			<li><a href="#">Test 3</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Pocetna</a></li>
+		<li><a href="#">Alati</a>
+			<ul>
+			<li><a href="#">Test 1</a></li>
+			<li><a href="#">Test 2</a></li>
+			<li><a href="#">Test 3</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Baza modela</a></li>
+		<li><a href="#">Dodaj oglas</a></li>
+	</ul>
+	</div><!--span-->
+	<div class="span4 right-link">
+	<ul>
+		<li><a href="#">Moj Eauto</a>
+			<ul>
+			<li><a href="#">Test 1</a></li>
+			<li><a href="#">Test 2</a></li>
+			<li><a href="#">Test 3</a></li>
+			</ul>
+		</li>
+	</ul>
+	</div><!--topmenu-wrapper-->
+	</div><!--row-->
+	</div><!-- topmenu -->
+	<!--/div--><!--topmenu-wrapper-->
+	<!--/div--><!--span-->
+	<!--/div--><!--row-->
+</div><!-- menubar -->
+
+<!--div id="content-wrapper"-->
+<div id="content">
+<!--div id="content-body"-->
+<div id="content-spacer-top"></div>
+
+<div id="info">
+<div id="info-background">
+&nbsp;
+</div><!--info-background-->
+<div id="info-popup">
+<div class="close">
+<a href="#" class="btn"><i class="icon-remove"></i></a>
+</div>
+<span id="info-text">
+<div class="row-fluid" style="height: 100%; margin-bottom: -70px">
+<div class="span12">
+	<div class="info-main">
+	</div><!--info-main-->
+	<div class="info-main-prev">
+	</div><!--info-main-prev-->
+	<div class="info-main-next">
+	</div><!--info-main-next-->
+</div><!--span-->
+</div><!--row-->
+<div class="row-fluid info-thumbs">
+<div class="span1 info-nav-prev">
+</div><!--info-nav-prev-->
+<div class="span10 info-nav-thumbs">
+</div><!--info-nav-thumbs-->
+<div class="span1 info-nav-next">
+</div><!--info-nav-next-->
+</div><!--row-->
+</span><!--info-text-->
+</div><!--info-popup-->
+</div><!--info-->
+
+<div id="settings-data-login-background" class="popup-background">
+&nbsp;
+</div><!--popup-background-->
+<div id="settings-data-login-popup" class="popup">
+<div class="popup-inner">
+<div class="popup-heading">
+<div class="close">
+<a href="#" class="btn"><i class="icon-remove"></i></a>
+</div>
+<div class="popup-title">
+<h2>Pristupni podaci</h2>
+</div><!--popup-title-->
+</div><!--popup-heading-->
+
+<div class="popup-body">
+<div class="popup-row">
+<div class="popup-field-title">
+Email adresa:
+</div><!--popup-field-title-->
+<div class="popup-field-data">
+<input type="text" placeholder="Unesite email adresu" class="formatted" id="settings-data-login-popup-email">
+</div><!--popup-field-data-->
+<div class="popup-row-clear"></div>
+</div><!--popup-row-->
+
+<div class="popup-row">
+<div class="popup-field-title">
+Sifra:
+</div><!--popup-field-title-->
+<div class="popup-field-data">
+<input type="password" placeholder="Unesite sifru" class="formatted" id="settings-data-login-popup-password">
+</div><!--popup-field-data-->
+<div class="popup-row-clear"></div>
+</div><!--popup-row-->
+</div><!--popup-body-->
+
+<div class="popup-footer">
+<div class="pull-right">
+<a href="#" id="settings-data-login-save-button" class="btn blue">Sacuvaj</a>
+</div><!--pull-right-->
+</div><!--popup-footer-->
+</div><!--popup-inner-->
+</div><!--popup-->
+
+<div id="settings-data-contact-background" class="popup-background">
+&nbsp;
+</div><!--popup-background-->
+<div id="settings-data-contact-popup" class="popup">
+<div class="popup-inner">
+<div class="popup-heading">
+<div class="close">
+<a href="#" class="btn"><i class="icon-remove"></i></a>
+</div>
+<div class="popup-title">
+<h2>Kontakt podaci</h2>
+</div><!--popup-title-->
+</div><!--popup-heading-->
+
+<div class="popup-body">
+<div class="popup-row">
+<div class="popup-field-title">
+Ime:
+</div><!--popup-field-title-->
+<div class="popup-field-data">
+<input type="text" placeholder="Unesite ime" class="formatted" id="settings-data-contact-popup-name">
+</div><!--popup-field-data-->
+<div class="popup-row-clear"></div>
+</div><!--popup-row-->
+
+<div class="popup-row">
+<div class="popup-field-title">
+Prezime:
+</div><!--popup-field-title-->
+<div class="popup-field-data">
+<input type="text" placeholder="Unesite prezime" class="formatted" id="settings-data-contact-popup-surname">
+</div><!--popup-field-data-->
+<div class="popup-row-clear"></div>
+</div><!--popup-row-->
+
+<div class="popup-row">
+<div class="popup-field-title">
+Grad:
+</div><!--popup-field-title-->
+<div class="popup-field-data">
+<input type="text" placeholder="Unesite grad" class="formatted" id="settings-data-contact-popup-city">
+</div><!--popup-field-data-->
+<div class="popup-row-clear"></div>
+</div><!--popup-row-->
+
+<div class="popup-row">
+<div class="popup-field-title">
+Adresa:
+</div><!--popup-field-title-->
+<div class="popup-field-data">
+<input type="text" placeholder="Unesite adresu" class="formatted" id="settings-data-contact-popup-address">
+</div><!--popup-field-data-->
+<div class="popup-row-clear"></div>
+</div><!--popup-row-->
+
+<div class="popup-row">
+<div class="popup-field-title">
+Telefon 1:
+</div><!--popup-field-title-->
+<div class="popup-field-data">
+<input type="text" placeholder="Unesite telefon 1" class="formatted" id="settings-data-contact-popup-phone-001">
+</div><!--popup-field-data-->
+<div class="popup-row-clear"></div>
+</div><!--popup-row-->
+
+<div class="popup-row">
+<div class="popup-field-title">
+Telefon 2:
+</div><!--popup-field-title-->
+<div class="popup-field-data">
+<input type="text" placeholder="Unesite telefon 2" class="formatted" id="settings-data-contact-popup-phone-002">
+</div><!--popup-field-data-->
+<div class="popup-row-clear"></div>
+</div><!--popup-row-->
+</div><!--popup-body-->
+
+<div class="popup-footer">
+<div class="pull-right">
+<a href="#" id="settings-data-contact-save-button" class="btn blue">Sacuvaj</a>
+</div><!--pull-right-->
+</div><!--popup-footer-->
+</div><!--popup-inner-->
+</div><!--popup-->
+
+
+<div id="tools-right-ad">
+<a href="#"><img src="img/ad-005.png" /></a>
+<a href="#"><img src="img/ad-006.png" /></a>
+</div><!--tools-right-ad-->
+
+<div id="content-left">
+<div id="user-info-pane">
+<div id="user-info-pane-left">
+<div id="user-info-pane-picture">
+<img src="img/user/user-000.png" />
+</div><!--user-info-pane-picture-->
+<div id="user-info-pane-data">
+<h2>Janko Jankovic</h2>
+<p><span id="user-info-pane-comments">120 komentara</span></p>
+<p><img src="img/thumbsup.png" /> <span id="user-info-pane-comments-useful">65 korisnih</span></p>
+</div><!--user-info-pane-data-->
+</div><!--user-info-pane-left-->
+<div id="user-info-pane-right">
+<div id="user-info-pane-right-rank">
+<div id="user-info-pane-right-rank-bar">
+<span class="score-bar score-3of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+<span class="moreinfo">
+<span class="moreinfo-desc">
+Opis ranga korisnika
+</span>
+?
+</span><!--moreinfo-->
+</div><!--user-info-pane-right-rank-bar-->
+<div id="user-info-pane-right-rank-text">
+Pocetnik
+</div><!--user-info-pane-right-rank-text-->
+</div><!--user-info-pane-right-rank-->
+<div id="user-info-pane-right-buttons">
+<a href="#" class="btn gray">Posalji poruku</a><!--
+--><a href="#" class="btn blue">Sacuvaj</a>
+</div><!--user-info-pane-right-buttons-->
+</div><!--user-info-pane-right-->
+</div><!--user-info-pane-->
+<div class="tabbable">
+<ul class="nav nav-tabs">
+<li class="active"><a href="#ad-page" data-toggle="tab" id="ad-tab">Moji oglasi</a></li>
+<li><a href="#favorites-page" data-toggle="tab" id="favorites-tab">Sacuvani</a></li>
+<li><a href="#settings-page" data-toggle="tab" id="settings-tab">Podesavanja</a></li>
+<li><a href="#garage-page" data-toggle="tab" id="garage-tab">Garaza</a></li>
+</ul>
+<div class="tab-content">
+<div id="ad-page" class="tab-pane active">
+<div class="row-fluid">
+<div class="span6">
+<p>Raspolozivi kredit: <span id="credit-amount">500 din</span> <a href="#">Vise...</a></p>
+</div><!--span-->
+<div class="span6" id="ad-page-top-right">
+<p>Potrebna Vam je pomoc?<br />
+Pogledajte <a href="#">help</a> ili pozovite 0800/111 22 33</p>
+</div><!--span-->
+</div><!--row-fluid-->
+
+<div class="pull-right">
+<a href="#" class="btn blue">Dodaj novi oglas</a>
+</div><!--pull-right-->
+
+<div id="filter-ad-type-wrapper">
+<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+	Svi oglasi
+	<span class="caret"></span>
+</a>
+<ul id="filter-ads-active" class="dropdown-menu">
+	<li class="filter-all" data-filter-id="0" checked"><a href="#"><span class="ok-mark checked">&nbsp;</span> Svi oglasi</a></li>
+	<li data-filter-id="1"><a href="#"><span class="ok-mark">&nbsp;</span> Aktivni</a></li>
+	<li data-filter-id="2"><a href="#"><span class="ok-mark">&nbsp;</span> Neaktivni</a></li>
+</ul>
+</div><!--filter-ad-type-wrapper-->
+
+<div id="left-list-header" class="advheader">
+<div class="col-1">
+</div><!--col-1-->
+<div class="col-2">
+Status
+</div><!--col-2-->
+<div class="col-3">
+Naziv
+</div><!--col-3-->
+<div class="col-4">
+Promocija
+</div><!--col-4-->
+<div class="col-5">
+Dnevni budzet
+</div><!--col-5-->
+<div class="col-6">
+Radijus
+</div><!--col-6-->
+<div class="col-7">
+Regularni pregledi
+</div><!--col-7-->
+<div class="col-8">
+Promo pregledi
+</div><!--col-8-->
+<div class="col-9">
+Ukupno pregleda
+</div><!--col-9-->
+</div><!--left-list-header-->
+<div id="left-list" class="advlist">
+</div><!--left-list-->
+
+
+</div><!--ad-page-->
+<div id="favorites-page" class="tab-pane">
+<p>Sacuvani...</p>
+</div><!--favorites-page-->
+<div id="settings-page" class="tab-pane">
+
+<div class="tabbable">
+<ul class="nav nav-tabs">
+<li class="active"><a href="#settings-data-page" data-toggle="tab" id="settings-data-tab">Moji podaci</a></li>
+<li><a href="#settings-notifications-page" data-toggle="tab" id="settings-notifications-tab">Obavestenja</a></li>
+</ul>
+<div class="tab-content">
+
+<div id="settings-data-page" class="tab-pane active">
+<h2>Pristupni podaci</h2>
+<div class="settings-data-page-row">
+<div class="settings-data-page-title-field">
+Email adresa:
+</div><!--settings-data-page-title-field-->
+<div id="settings-data-page-field-000-000" class="settings-data-page-data-field">
+</div><!--settings-data-page-data-field-->
+<div class="settings-data-page-row-clear"></div>
+</div><!--settings-data-page-row-->
+<div class="settings-data-page-row">
+<div class="settings-data-page-title-field">
+Sifra:
+</div><!--settings-data-page-title-field-->
+<div id="settings-data-page-field-000-001" class="settings-data-page-data-field">
+</div><!--settings-data-page-data-field-->
+<div class="settings-data-page-row-clear"></div>
+</div><!--settings-data-page-row-->
+<div class="settings-data-page-footer">
+<a href="#" class="btn gray" id="settings-data-page-edit-link-000">Izmeni</a>
+</div><!--settings-data-page-footer-->
+
+
+<h2>Kontakt podaci
+<span class="moreinfo">
+<span class="moreinfo-desc">
+Opis kontakt podataka
+</span>
+?
+</span><!--moreinfo-->
+</h2>
+<div class="settings-data-page-row">
+<div class="settings-data-page-title-field">
+Ime:
+</div><!--settings-data-page-title-field-->
+<div id="settings-data-page-field-001-000" class="settings-data-page-data-field">
+</div><!--settings-data-page-data-field-->
+<div class="settings-data-page-row-clear"></div>
+</div><!--settings-data-page-row-->
+<div class="settings-data-page-row">
+<div class="settings-data-page-title-field">
+Prezime:
+</div><!--settings-data-page-title-field-->
+<div id="settings-data-page-field-001-001" class="settings-data-page-data-field">
+</div><!--settings-data-page-data-field-->
+<div class="settings-data-page-row-clear"></div>
+</div><!--settings-data-page-row-->
+<div class="settings-data-page-row">
+<div class="settings-data-page-title-field">
+Grad:
+</div><!--settings-data-page-title-field-->
+<div id="settings-data-page-field-001-002" class="settings-data-page-data-field">
+</div><!--settings-data-page-data-field-->
+<div class="settings-data-page-row-clear"></div>
+</div><!--settings-data-page-row-->
+<div class="settings-data-page-row">
+<div class="settings-data-page-title-field">
+Adresa:
+</div><!--settings-data-page-title-field-->
+<div id="settings-data-page-field-001-003" class="settings-data-page-data-field">
+</div><!--settings-data-page-data-field-->
+<div class="settings-data-page-row-clear"></div>
+</div><!--settings-data-page-row-->
+<div class="settings-data-page-row">
+<div class="settings-data-page-title-field">
+Telefon 1:
+</div><!--settings-data-page-title-field-->
+<div id="settings-data-page-field-001-004" class="settings-data-page-data-field">
+</div><!--settings-data-page-data-field-->
+<div class="settings-data-page-row-clear"></div>
+</div><!--settings-data-page-row-->
+<div class="settings-data-page-row">
+<div class="settings-data-page-title-field">
+Telefon 2:
+</div><!--settings-data-page-title-field-->
+<div id="settings-data-page-field-001-005" class="settings-data-page-data-field">
+</div><!--settings-data-page-data-field-->
+<div class="settings-data-page-row-clear"></div>
+</div><!--settings-data-page-row-->
+<div class="settings-data-page-footer">
+<a href="#" class="btn gray" id="settings-data-page-edit-link-001">Izmeni</a>
+</div><!--settings-data-page-footer-->
+
+</div><!--settings-data-page-->
+
+<div id="settings-notifications-page" class="tab-pane">
+</div><!--settings-notifications-page-->
+
+</div><!--tab-content-->
+</div><!--tabbable-->
+
+</div><!--settings-page-->
+<div id="garage-page" class="tab-pane">
+<!--div id="garage-list-border">
+</div--><!--garage-list-border-->
+<div id="garage-list" class="advlist">
+</div><!--garage-list-->
+</div><!--garage-page-->
+</div><!--tab-content-->
+</div><!--tabbable-->
+</div><!--content-left-->
+
+<div id="graphHint">
+<div class="callout-outer">
+<div class="callout"></div>
+</div><!--callout-outer-->
+<span class="hint-text">
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+</span>
+</div><!--graphHint-->
+
+</div><!-- content -->
+<!--/div--><!-- content-wrapper -->
+</div><!--body-inner-->
+
+<!--div id="footer-wrapper">
+<div id="footer-border">
+</div--><!--footer-border-->
+<!--div id="footer">
+<div id="footer-body">
+<ul>
+<li>
+	<h3>Kupovina na eauto</h3>
+	<ul>
+	<li>Post buzing requests</li>
+	<li>Browse Categories</li>
+	</ul>
+</li>
+<li>
+	<h3>Prodaja na eauto</h3>
+	<ul>
+	<li>Premium Membership</li>
+	<li>Verified Membership</li>
+	</ul>
+</li>
+<li>
+	<h3>Servis i podesavanja</h3>
+	<ul>
+	<li>My Eauto</li>
+	<li>Trade Manager</li>
+	</ul>
+</li>
+</ul-->
+<!--/div--><!--footer-body-->
+<!--/div--><!--footer-->
+<!--/div--><!--footer-wrapper-->
+</body>
+</html>

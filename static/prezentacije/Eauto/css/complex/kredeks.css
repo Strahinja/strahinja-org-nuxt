@@ -1,0 +1,173 @@
+.kredeks .twocol .left-side
+{
+	border-right: 1px solid #ddd;
+	min-height: 600px !important;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.kredeks .nav-tabs
+{
+	padding-top: 0.2em !important;
+	border-bottom: none !important;
+}
+
+.kredeks .popup-title h2
+{
+	line-height: 40px !important;
+}
+
+.tab-content
+{
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+}
+
+#leasing-page
+{
+	min-height: 400px;
+}
+
+#leasing-page h2
+{
+	margin-left: 0;
+}
+
+.spaced-out .dd,
+.spaced-out input[type="text"],
+.spaced-out input[type="checkbox"] + label.inline
+{
+	vertical-align: baseline !important;
+	margin: 0 !important;
+	/*padding: 0 !important;*/
+
+	position: absolute;
+	top: 50%;
+	height: 30px;
+	margin-top: -15px !important;
+}
+
+#leasing-page p
+{
+	padding-top: 10px;
+}
+
+#leasing-page p.spaced-out
+{
+	padding-top: 0;
+}
+
+p.spaced-out,
+p.spaced-out + p
+{
+	clear: both;
+}
+
+.spaced-out span.wrapper
+{
+	position: relative;
+	height: 30px;
+	min-height: 30px;
+	margin-right: 1.5em;
+	margin-bottom: 20px;
+	width: 150px;
+	min-width: 150px;
+	display: block;
+	float: left;
+}
+
+.spaced-out span.wrapper.hidden
+{
+	display: none;
+}
+
+.spaced-out .dd
+{
+}
+
+.spaced-out input[type="text"]
+{
+}
+
+.spaced-out input[type="checkbox"] + label
+{
+}
+
+tr.spaced-after td
+{
+	padding-bottom: 1em;
+	background-position: 1em 0 !important;
+}
+
+.popup table .intertext td
+{
+	padding-left: 1.5em;
+}
+
+.popup .btn.blue
+{
+	margin-left: 1em;
+}
+
+.popup2
+{
+	display: none;
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	width: 800px;
+	min-width: 800px;
+	height: 0px;
+	min-height: 0px;
+	z-index: 100001;
+}
+
+.popup2.active
+{
+	display: block;
+}
+
+.popup2 .popup-heading
+{
+	margin-bottom: 15px;
+}
+
+.popup2 h2
+{
+	font-size: 100%;
+	padding: 0 !important;
+	margin: 0 !important;
+	line-height: 100%;
+}
+
+.popup2 h3
+{
+	color: #8d8b91;
+	font-size: 80%;
+}
+
+.popup .popup-inner,
+.popup2 .popup-inner
+{
+	padding-left: 20px;
+}
+
+/*.spaced-out
+{
+	min-height: 30px;
+}*/
+
+.popup-footer
+{
+	clear: both;
+	margin-top: 5em;
+	border-top: 1px solid #ddd;
+	padding-top: 10px;
+}
+
+.popup-footer .btn
+{
+	margin-top: 10px;
+	margin-right: 10px;
+	float: right;
+}

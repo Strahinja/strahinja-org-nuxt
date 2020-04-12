@@ -121,13 +121,17 @@ export default {
         },
         prettyDate(dateStr)
         {
-            //eslint-disable-next-line no-unused-vars
-            let [sdate, stime] = dateStr.split(' ');
-            //eslint-disable-next-line no-unused-vars
-            let [year, month, day] = sdate.split('-');
-            //eslint-disable-next-line no-unused-vars
-            let [hour, minute, sec] = stime.split(':');
-            return '' + month + '.' + year;
+            if (dateStr && typeof(dateStr)==='string')
+            {
+                let [sdate/*, stime*/] = dateStr.split(' ');
+                let [year, month/*, day*/] = sdate.split('-');
+                //let [hour, minute, sec] = stime.split(':');
+                return '' + month + '.' + year;
+            }
+            else
+            {
+                return '';
+            }
         },
         prettyDateRange(startDate, endDate)
         {

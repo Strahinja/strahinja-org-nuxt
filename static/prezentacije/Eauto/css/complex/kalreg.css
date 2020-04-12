@@ -1,0 +1,95 @@
+.kalreg .twocol .left-side
+{
+	border-right: 1px solid #ddd;
+	min-height: 600px !important;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.kalreg .nav-tabs
+{
+	padding-top: 0.2em !important;
+	border-bottom: none !important;
+}
+
+.kalreg .popup-title h2
+{
+	line-height: 40px !important;
+}
+
+.tab-content
+{
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+}
+
+#kasko-page
+{
+	min-height: 400px;
+	padding-top: 30px;
+}
+
+#kasko-page h2
+{
+	margin-left: 0;
+}
+
+.spaced-out .dd,
+.spaced-out input[type="text"],
+.spaced-out input[type="checkbox"] + label.inline
+{
+	vertical-align: baseline !important;
+	margin: 0 !important;
+	/*padding: 0 !important;*/
+
+	position: absolute;
+	top: 50%;
+	height: 30px;
+	margin-top: -15px !important;
+}
+
+#kasko-page p
+{
+	padding-top: 10px;
+}
+
+#kasko-page p.spaced-out
+{
+	padding-top: 0;
+}
+
+p.spaced-out,
+p.spaced-out + p
+{
+	clear: both;
+}
+
+.spaced-out span.wrapper
+{
+	position: relative;
+	height: 30px;
+	min-height: 30px;
+	margin-right: 1.5em;
+	margin-bottom: 20px;
+	width: 150px;
+	min-width: 150px;
+	display: block;
+	float: left;
+}
+
+.spaced-out span.wrapper.hidden
+{
+	display: none;
+}
+
+.spaced-out .dd
+{
+}
+
+.spaced-out input[type="text"]
+{
+}
+
+.spaced-out input[type="checkbox"] + label
+{
+}

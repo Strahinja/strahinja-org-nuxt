@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>EA Market</title>
+<meta charset="utf8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href='http://fonts.googleapis.com/css?family=Oxygen:300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="css/msdropdown/dd.css" />
+<link rel="stylesheet" href="css/complex/common.css" />
+<link rel="stylesheet" href="css/complex/menu.css" />
+<link rel="stylesheet" href="css/complex/content.css" />
+<link rel="stylesheet" href="css/complex/footer.css" />
+<link rel="stylesheet" href="css/complex/market.css" />
+<link rel="stylesheet" href="css/complex/tools.css" />
+<link rel="stylesheet" href="css/complex/reg.css" />
+<!--[if gt IE 5.5]>
+<link rel="stylesheet" href="css/complex/iecommon.css" />
+<![endif]-->
+<!--[if lt IE 9]>
+<link rel="stylesheet" href="css/complex/ie8.css" />
+<![endif]-->
+<!--[if lt IE 8]>
+<link rel="stylesheet" href="css/complex/ie7.css" />
+<![endif]-->
+<!--[if lt IE 7]>
+<link rel="stylesheet" href="css/complex/ie6.css" />
+<![endif]-->
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.ui.draggable.min.js"></script>
+<script src="js/jquery.slimscroll.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/msdropdown/jquery.dd.min.js"></script>
+<script src="js/advlist/advlist.js"></script>
+<script src="js/carouFredSel/jquery.carouFredSel-6.2.1.js"></script>
+<script src="js/util.js"></script>
+<script src="js/select.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/forms.js"></script>
+<script src="js/market.js"></script>
+<script src="js/reg.js"></script>
+</head>
+<body class="reg">
+<div id="body-inner">
+<div id="menubar">
+	<!--div style="width: 1150px; margin-left: 50%">
+	<div style="width: 1150px; margin-left: -50%"-->
+	<!--div class="row-fluid">
+	<div class="span10 offset2" style="text-align: center"-->
+	<!--div id="topmenu-wrapper"-->
+	<div id="topmenu">
+	<div class="row-fluid">
+	<div id="topmenu-wrapper" class="span8">
+	<ul>
+		<li class="logo"><a href="#">Market</a>
+			<ul>
+			<li><a href="#">Test 1</a></li>
+			<li><a href="#">Test 2</a></li>
+			<li><a href="#">Test 3</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Pocetna</a></li>
+		<li><a href="#">Alati</a>
+			<ul>
+			<li><a href="#">Test 1</a></li>
+			<li><a href="#">Test 2</a></li>
+			<li><a href="#">Test 3</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Baza modela</a></li>
+		<li><a href="#">Dodaj oglas</a></li>
+	</ul>
+	</div><!--span-->
+	<div class="span4 right-link">
+	<ul>
+		<li><a href="#">Moj Eauto</a>
+			<ul>
+			<li><a href="#">Test 1</a></li>
+			<li><a href="#">Test 2</a></li>
+			<li><a href="#">Test 3</a></li>
+			</ul>
+		</li>
+	</ul>
+	</div><!--topmenu-wrapper-->
+	</div><!--row-->
+	</div><!-- topmenu -->
+	<!--/div--><!--topmenu-wrapper-->
+	<!--/div--><!--span-->
+	<!--/div--><!--row-->
+</div><!-- menubar -->
+
+<!--div id="content-wrapper"-->
+<div id="content">
+<!--div id="content-body"-->
+<div id="content-spacer-top"></div>
+
+<div id="tools-right-ad">
+<a href="#"><img src="img/ad-005.png" /></a>
+<a href="#"><img src="img/ad-006.png" /></a>
+</div><!--tools-right-ad-->
+
+<div id="content-left" class="tools-content-left">
+
+<!--div id="top-ad"><a href="#"><img src="img/ad-001.png" /></a></div-->
+
+<h3>I Podaci o nalogu</h3>
+<p class="spaced-out">
+<input type="text" placeholder="Email adresa" id="company-email" class="inline" />
+<input type="password" placeholder="Sifra" id="company-password1" class="inline" />
+<input type="password" placeholder="Ponovite sifru" id="company-password2" class="inline" />
+</p>
+
+<h3>II Podaci o firmi</h3>
+
+<p class="spaced-out">
+<input type="text" placeholder="Naziv firme" id="company-name" class="inline" />
+</p>
+
+<p class="spaced-out">
+<a href="#" class="btn gray">Logotip</a> <span id="company-logo-status-text">Odaberite fajl</span>
+</p>
+
+<textarea rows="9" placeholder="O nama..." class="formatted" id="company-about">
+</textarea>
+
+<h3>Galerija:</h3>
+
+<ul id="company-gallery">
+<li><a href="#"><img src="img/car/t1.jpg" /></a></li>
+<li><a href="#"><img src="img/car/t2.jpg" /></a></li>
+<li><a href="#"><img src="img/car/t3.jpg" /></a></li>
+<li><a href="#"><img src="img/car/t4.jpg" /></a></li>
+<li><a href="#"><img src="img/car/t5.jpg" /></a></li>
+<li><a href="#"><img src="img/car/t6.jpg" /></a></li>
+<li><a href="#"><img src="img/car/t7.jpg" /></a></li>
+<li class="empty"><img src="img/camera.png" /></li>
+<li class="empty"><img src="img/camera.png" /></li>
+<li class="empty"><img src="img/camera.png" /></li>
+</ul>
+
+<h3>Poslovna jedinica 1</h3>
+
+<p class="spaced-out">
+<input type="text" placeholder="Naziv jedinice" id="company-unit-name-001" class="inline company-unit-name" />
+<span class="moreinfo">
+<span class="moreinfo-desc">
+Opis naziva jedinice
+</span>
+?
+</span><!--moreinfo-->
+</p>
+
+<p class="spaced-out">
+<select class="styled-select" name="company-unit-city-001" id="company-unit-city-001" class="company-unit-city">
+	<option value="" selected="selected">Grad</option>
+	<option value="Beograd">Beograd</option>
+	<option value="Cacak">Cacak</option>
+	<option value="Nis">Nis</option>
+	<option value="Kragujevac">Kragujevac</option>
+</select>
+</p>
+
+<p class="spaced-out">
+<input type="text" placeholder="Adresa" id="company-unit-address-001" class="inline company-unit-address" />
+</p>
+
+<p class="spaced-out">
+<input type="text" placeholder="Telefon 1" id="company-unit-phone1-001" class="inline company-unit-phone1" />
+</p>
+
+<p class="spaced-out">
+<input type="text" placeholder="Telefon 2" id="company-unit-phone2-001" class="inline company-unit-phone2" />
+</p>
+
+<p class="spaced-out">
+<input type="text" placeholder="Email adresa" id="company-unit-email-001" class="inline company-unit-email" />
+</p>
+
+<h3>Radno vreme:</h3>
+
+<p class="spaced-out time-dropdowns">
+<span class="time-dropdowns-title-column">Pon-pet:</span>
+<select class="styled-select" name="company-unit-worktime-start-hours-001-001" id="company-unit-worktime-start-hours-001-001"
+	class="company-unit-worktime-start-hours-001">
+	<option value="00">00</option>
+	<option value="01">01</option>
+	<option value="02">02</option>
+	<option value="03">03</option>
+	<option value="04">04</option>
+	<option value="05">05</option>
+	<option value="06">06</option>
+	<option value="07">07</option>
+	<option value="08" selected="selected">08</option>
+	<option value="09">09</option>
+	<option value="10">10</option>
+	<option value="11">11</option>
+	<option value="12">12</option>
+	<option value="13">13</option>
+	<option value="14">14</option>
+	<option value="15">15</option>
+	<option value="16">16</option>
+	<option value="17">17</option>
+	<option value="18">18</option>
+	<option value="19">19</option>
+	<option value="20">20</option>
+	<option value="21">21</option>
+	<option value="22">22</option>
+	<option value="23">23</option>
+	<option value="24">24</option>
+</select>:
+<select class="styled-select" name="company-unit-worktime-start-mins-001-001" id="company-unit-worktime-start-mins-001-001"
+	class="company-unit-worktime-start-mins-001">
+	<option value="00" selected="selected">00</option>
+	<option value="01">10</option>
+	<option value="02">20</option>
+	<option value="03">30</option>
+	<option value="04">40</option>
+	<option value="05">50</option>
+</select> - 
+<select class="styled-select" name="company-unit-worktime-end-hours-001-001" id="company-unit-worktime-end-hours-001-001"
+	class="company-unit-worktime-end-hours-001">
+	<option value="00">00</option>
+	<option value="01">01</option>
+	<option value="02">02</option>
+	<option value="03">03</option>
+	<option value="04">04</option>
+	<option value="05">05</option>
+	<option value="06">06</option>
+	<option value="07">07</option>
+	<option value="08" selected="selected">08</option>
+	<option value="09">09</option>
+	<option value="10">10</option>
+	<option value="11">11</option>
+	<option value="12">12</option>
+	<option value="13">13</option>
+	<option value="14">14</option>
+	<option value="15">15</option>
+	<option value="16">16</option>
+	<option value="17">17</option>
+	<option value="18">18</option>
+	<option value="19">19</option>
+	<option value="20">20</option>
+	<option value="21">21</option>
+	<option value="22">22</option>
+	<option value="23">23</option>
+	<option value="24">24</option>
+</select>:
+<select class="styled-select" name="company-unit-worktime-end-mins-001-001" id="company-unit-worktime-end-mins-001-001"
+	class="company-unit-worktime-end-mins-001">
+	<option value="00" selected="selected">00</option>
+	<option value="01">10</option>
+	<option value="02">20</option>
+	<option value="03">30</option>
+	<option value="04">40</option>
+	<option value="05">50</option>
+</select>
+</p>
+
+<p class="spaced-out time-dropdowns">
+<span class="time-dropdowns-title-column">Subota:</span>
+<select class="styled-select" name="company-unit-worktime-start-hours-002-001" id="company-unit-worktime-start-hours-002-001"
+	class="company-unit-worktime-start-hours-002">
+	<option value="00">00</option>
+	<option value="01">01</option>
+	<option value="02">02</option>
+	<option value="03">03</option>
+	<option value="04">04</option>
+	<option value="05">05</option>
+	<option value="06">06</option>
+	<option value="07">07</option>
+	<option value="08" selected="selected">08</option>
+	<option value="09">09</option>
+	<option value="10">10</option>
+	<option value="11">11</option>
+	<option value="12">12</option>
+	<option value="13">13</option>
+	<option value="14">14</option>
+	<option value="15">15</option>
+	<option value="16">16</option>
+	<option value="17">17</option>
+	<option value="18">18</option>
+	<option value="19">19</option>
+	<option value="20">20</option>
+	<option value="21">21</option>
+	<option value="22">22</option>
+	<option value="23">23</option>
+	<option value="24">24</option>
+</select>:
+<select class="styled-select" name="company-unit-worktime-start-mins-002-001" id="company-unit-worktime-start-mins-002-001"
+	class="company-unit-worktime-start-mins-002">
+	<option value="00" selected="selected">00</option>
+	<option value="01">10</option>
+	<option value="02">20</option>
+	<option value="03">30</option>
+	<option value="04">40</option>
+	<option value="05">50</option>
+</select> - 
+<select class="styled-select" name="company-unit-worktime-end-hours-002-001" id="company-unit-worktime-end-hours-002-001"
+	class="company-unit-worktime-end-hours-002">
+	<option value="00">00</option>
+	<option value="01">01</option>
+	<option value="02">02</option>
+	<option value="03">03</option>
+	<option value="04">04</option>
+	<option value="05">05</option>
+	<option value="06">06</option>
+	<option value="07">07</option>
+	<option value="08" selected="selected">08</option>
+	<option value="09">09</option>
+	<option value="10">10</option>
+	<option value="11">11</option>
+	<option value="12">12</option>
+	<option value="13">13</option>
+	<option value="14">14</option>
+	<option value="15">15</option>
+	<option value="16">16</option>
+	<option value="17">17</option>
+	<option value="18">18</option>
+	<option value="19">19</option>
+	<option value="20">20</option>
+	<option value="21">21</option>
+	<option value="22">22</option>
+	<option value="23">23</option>
+	<option value="24">24</option>
+</select>:
+<select class="styled-select" name="company-unit-worktime-end-mins-002-001" id="company-unit-worktime-end-mins-002-001"
+	class="company-unit-worktime-end-mins-002">
+	<option value="00" selected="selected">00</option>
+	<option value="01">10</option>
+	<option value="02">20</option>
+	<option value="03">30</option>
+	<option value="04">40</option>
+	<option value="05">50</option>
+</select>
+</p>
+
+<p class="spaced-out time-dropdowns">
+<span class="time-dropdowns-title-column">Nedelja:</span>
+<select class="styled-select" name="company-unit-worktime-start-hours-003-001" id="company-unit-worktime-start-hours-003-001"
+	class="company-unit-worktime-start-hours-003">
+	<option value="00">00</option>
+	<option value="01">01</option>
+	<option value="02">02</option>
+	<option value="03">03</option>
+	<option value="04">04</option>
+	<option value="05">05</option>
+	<option value="06">06</option>
+	<option value="07">07</option>
+	<option value="08" selected="selected">08</option>
+	<option value="09">09</option>
+	<option value="10">10</option>
+	<option value="11">11</option>
+	<option value="12">12</option>
+	<option value="13">13</option>
+	<option value="14">14</option>
+	<option value="15">15</option>
+	<option value="16">16</option>
+	<option value="17">17</option>
+	<option value="18">18</option>
+	<option value="19">19</option>
+	<option value="20">20</option>
+	<option value="21">21</option>
+	<option value="22">22</option>
+	<option value="23">23</option>
+	<option value="24">24</option>
+</select>:
+<select class="styled-select" name="company-unit-worktime-start-mins-003-001" id="company-unit-worktime-start-mins-003-001"
+	class="company-unit-worktime-start-mins-003">
+	<option value="00" selected="selected">00</option>
+	<option value="01">10</option>
+	<option value="02">20</option>
+	<option value="03">30</option>
+	<option value="04">40</option>
+	<option value="05">50</option>
+</select> - 
+<select class="styled-select" name="company-unit-worktime-end-hours-003-001" id="company-unit-worktime-end-hours-003-001"
+	class="company-unit-worktime-end-hours-003">
+	<option value="00">00</option>
+	<option value="01">01</option>
+	<option value="02">02</option>
+	<option value="03">03</option>
+	<option value="04">04</option>
+	<option value="05">05</option>
+	<option value="06">06</option>
+	<option value="07">07</option>
+	<option value="08" selected="selected">08</option>
+	<option value="09">09</option>
+	<option value="10">10</option>
+	<option value="11">11</option>
+	<option value="12">12</option>
+	<option value="13">13</option>
+	<option value="14">14</option>
+	<option value="15">15</option>
+	<option value="16">16</option>
+	<option value="17">17</option>
+	<option value="18">18</option>
+	<option value="19">19</option>
+	<option value="20">20</option>
+	<option value="21">21</option>
+	<option value="22">22</option>
+	<option value="23">23</option>
+	<option value="24">24</option>
+</select>:
+<select class="styled-select" name="company-unit-worktime-end-mins-003-001" id="company-unit-worktime-end-mins-003-001"
+	class="company-unit-worktime-end-mins-003">
+	<option value="00" selected="selected">00</option>
+	<option value="01">10</option>
+	<option value="02">20</option>
+	<option value="03">30</option>
+	<option value="04">40</option>
+	<option value="05">50</option>
+</select>
+</p>
+
+<h3>Delatnosti:</h3>
+
+<p class="spaced-out">
+<input type="radio" name="company-unit-type-001" value="type-001" 
+	id="company-unit-type-001-001" />
+<label for="company-unit-type-001-001"><span class="radio">&nbsp;</span>
+	1. Prodaja vozila
+</label>
+</p>
+
+<p class="spaced-out">
+<input type="radio" name="company-unit-type-001" value="type-002" 
+	id="company-unit-type-001-002" />
+<label for="company-unit-type-001-002"><span class="radio">&nbsp;</span>
+	2. Prodaja delova
+</label>
+</p>
+
+<div class="company-unit-subtypes">
+<p class="spaced-out">
+<input type="radio" name="company-unit-subtype-001" value="subtype-001" 
+	id="company-unit-subtype-001-002-001" />
+<label for="company-unit-subtype-001-002-001"><span class="radio">&nbsp;</span>
+	2.1. Delovi mehanike
+</label>
+</p>
+
+<!-- [unit]-[type]-[subtype] -->
+<p class="spaced-out">
+<input type="radio" name="company-unit-subtype-001" value="subtype-002" 
+	id="company-unit-subtype-001-002-002" />
+<label for="company-unit-subtype-001-002-002"><span class="radio">&nbsp;</span>
+	2.2. Elektrika
+</label>
+</p>
+
+<p class="spaced-out">
+<input type="radio" name="company-unit-subtype-001" value="subtype-003" 
+	id="company-unit-subtype-001-002-003" />
+<label for="company-unit-subtype-001-002-003"><span class="radio">&nbsp;</span>
+	2.3. Karoserija
+</label>
+</p>
+</div><!--company-unit-subtypes-->
+
+<p class="spaced-out">
+<input type="radio" name="company-unit-type-001" value="type-003" 
+	id="company-unit-type-001-003" />
+<label for="company-unit-type-001-003"><span class="radio">&nbsp;</span>
+	3. Automehanicari
+</label>
+</p>
+
+<p class="spaced-out">
+<input type="radio" name="company-unit-type-001" value="type-004" 
+	id="company-unit-type-001-004" />
+<label for="company-unit-type-001-004"><span class="radio">&nbsp;</span>
+	4. Limari/farbari
+</label>
+</p>
+
+<p>Imate jos poslovnih jedinica? <a href="#">Dodajte novu poslovnu jedinicu</a>.</p>
+
+<p>
+<a href="#" class="btn blue">Zavrsi unos</a>
+</p>
+
+</div><!--content-left-->
+
+</div><!-- content -->
+<!--/div--><!-- content-wrapper -->
+</div><!--body-inner-->
+
+<div id="footer-wrapper">
+<div id="footer-border">
+</div><!--footer-border-->
+<div id="footer">
+<div id="footer-body">
+<ul>
+<li>
+	<h3>Kupovina na eauto</h3>
+	<ul>
+	<li>Post buzing requests</li>
+	<li>Browse Categories</li>
+	</ul>
+</li>
+<li>
+	<h3>Prodaja na eauto</h3>
+	<ul>
+	<li>Premium Membership</li>
+	<li>Verified Membership</li>
+	</ul>
+</li>
+<li>
+	<h3>Servis i podesavanja</h3>
+	<ul>
+	<li>My Eauto</li>
+	<li>Trade Manager</li>
+	</ul>
+</li>
+</ul>
+</div><!--footer-body-->
+</div><!--footer-->
+</div><!--footer-wrapper-->
+</body>
+</html>

@@ -1,0 +1,255 @@
+#menubar
+{
+	top: 0;
+	margin-top: -1em;
+	padding-top: 1em;
+	display: block;
+	/*position: absolute;*/
+	position: fixed;
+	/*min-width: 100%;*/
+	/*width: 1024px;*/
+	width: 100%;
+	height: 2.8em !important;
+	background-color: #5e5e5e;
+	/*color: #fdfbfc;*/
+	color: #fff;
+	padding: 0 auto 0 auto;
+	/*overflow: hidden;*/
+
+	-moz-user-select: -moz-none;
+	-khtml-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	z-index: 300000;
+}
+
+#topmenu
+{
+	/*width: 1024px;*/
+	width: 1130px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+/*#topmenu-wrapper
+{
+	width: 1024px;
+	margin-left: 50%;
+}*/
+
+/*#topmenu
+{
+	width: 100%;
+	margin-left: -50%;
+}*/
+
+#topmenu > div > div > ul
+{
+	/*width: 1024px;
+	margin-left: -50%;*/
+	padding-left: 0;
+	margin-left: 0;
+}
+
+#topmenu > div > div > ul > li
+{
+	float: left;
+	padding: 0;
+	border-left: 3px solid transparent;
+	border-right: 3px solid transparent;
+	white-space: nowrap;
+	list-style-type: none;
+	line-height: 100%;
+	cursor: pointer;
+	min-height: 100%;
+	height: 100%;
+}
+
+#topmenu .right-link li,
+#topmenu .right-link li.topmenuarrow
+{
+	float: right;
+}
+
+#topmenu .right-link > ul > li
+{
+	margin-right: 1em;
+}
+
+#topmenu .right-link > ul > li.topmenuarrow
+{
+	margin-left: 100%;
+	margin-right: 0;
+	margin-top: -2.9em;
+}
+
+#topmenu > div > div > ul > li.fixedmenu
+{
+	position: fixed;
+	right: 0;
+	top: -0.4em !important;
+	margin-left: -25%;
+	margin: 0;
+	margin-right: 25%;
+	width: auto;
+	padding-right: 40px;
+}
+
+#topmenu > div > div > ul > li.fixedmenu.topmenuarrow
+{
+	top: 0;
+}
+
+/*#topmenu > div > div > ul > li.selected,
+#topmenu > div > div > ul > li.arrowselected,
+#topmenu > div > div > ul > li.hovered,
+#topmenu > div > div > ul > li.arrowhovered,
+#topmenu > div > div > ul > li.logoselected,
+#topmenu > div > div > ul > li.logoarrowselected,
+#topmenu > div > div > ul > li.logohovered,
+#topmenu > div > div > ul > li.logoarrowhovered*/
+
+#topmenu > div > div > ul > li.logo
+{
+	border-left: 3px solid #fff;
+	color: #fff;
+}
+
+#topmenu > div > div > ul > li.logo + li.topmenuarrow
+{
+	border-right: 3px solid #fff;
+	color: #fff;
+}
+
+#topmenu > div > div > ul,
+#topmenu > div > div > ul > li,
+#topmenu > div > div > ul > li > a
+{
+	display: block;
+}
+
+#topmenu-wrapper
+{
+	min-height: 2.8em !important;
+	height: 2.8em !important;
+}
+
+#topmenu > div > div > ul
+{
+	min-height: 2.8em !important;
+	height: 2.8em !important;
+}
+
+#topmenu > div > div > ul > li > a:link,
+#topmenu > div > div > ul > li > a:hover,
+#topmenu > div > div > ul > li > a:focus,
+#topmenu > div > div > ul > li > a:visited
+{
+	color: #fff;
+	text-decoration: none;
+	margin-top: 0.3em;
+	padding-top: 0.7em;
+	padding-left: 0.6em;
+	padding-right: 0.6em;
+	padding-bottom: 0em;
+	min-height: 1.8em;
+	height: 1.8em;
+	bottom: 0;
+	margin-right: -0.3em;
+}
+
+/*#topmenu > div > div > ul > li.hasarrow
+{
+	border-right: 3px solid transparent !important;
+}*/
+
+li.logo > a
+{
+  background-repeat: no-repeat;
+  background-position: 0.6em 0.5em;
+  padding-left: 2.7em !important;
+}
+
+#topmenu > div > div > ul > li > ul
+{
+	position: absolute;
+	visibility: hidden;
+	background-color: #fff;
+	margin: 0;
+	margin-top: 0;/*0.9em;*/
+	margin-left: -0.2em;/*-0.8em;*/
+	padding-top: 0;
+	padding-left: 0 !important;
+	padding-bottom: 0;
+	width: 10em;
+	z-index: 1000000;
+}
+
+#topmenu > div > div > ul > li.logo > ul
+{
+	margin-left: 0em;/*-2.5em;*/
+}
+
+#topmenu > div > div > ul > li > ul > li
+{
+	display: block;
+	color: #000;
+	width: 100%;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+	list-style-type: none;
+}
+
+#topmenu > div > div > ul > li > ul > li > a
+{
+	color: #000;
+	text-decoration: none;
+	padding-left: 0.3em;
+}
+
+#topmenu > div > div > ul > li > ul > li.hovered
+{
+	color: #333;
+	background: #f2f2f2;
+	/*color: #fff;
+	background-color: #5e5e5e;*/
+}
+
+#topmenu > div > div > ul > li > ul > li.hovered a
+{
+	color: #333;
+	/*color: #fff;*/
+}
+
+#topmenu > div > div > ul > li.topmenuarrow .arrow
+{
+	width: 15px;
+	padding: 0;
+	background-repeat: no-repeat;
+	background-position: -5px 0.4em;
+	border-left: none;
+
+	display: block;
+	margin-top: 0.3em;
+	padding-top: 0.7em;
+	min-height: 1.8em;
+	height: 1.8em;
+	margin-left: -2px;
+}
+
+#topmenu > div > div > ul > li.logo + li.topmenuarrow .arrow
+{
+	width: 25px;
+	margin-left: -3px;
+	background-position: -1px 0.4em;
+}
+
+#topmenu > div > div > ul > li.topmenuarrow.arrowhovered
+{
+}
+
+.visible
+{
+	visibility: visible !important;
+}

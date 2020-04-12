@@ -1,0 +1,694 @@
+@font-face {
+    font-family: 'entypo';
+    src: url('../../fonts/entypo.eot');
+    src: url('../../fonts/entypo.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/entypo.woff') format('woff'),
+         url('../../fonts/entypo.ttf') format('truetype'),
+         url('../../fonts/entypo.svg#entypo') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'symbol_signsbasis_set';
+    src: url('../../fonts/symbol-signs-webfont.eot');
+    src: url('../../fonts/symbol-signs-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/symbol-signs-webfont.woff') format('woff'),
+         url('../../fonts/symbol-signs-webfont.ttf') format('truetype'),
+         url('../../fonts/symbol-signs-webfont.svg#symbol_signsbasis_set') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+} 
+
+@font-face {
+    font-family: 'helveticaregular';
+    src: url('../../fonts/helvetica-webfont.eot');
+    src: url('../../fonts/helvetica-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/helvetica-webfont.woff') format('woff'),
+         url('../../fonts/helvetica-webfont.ttf') format('truetype'),
+         url('../../fonts/helvetica-webfont.svg#helveticaregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'lucida_granderegular';
+    src: url('../../fonts/lucida_grande-webfont.eot');
+    src: url('../../fonts/lucida_grande-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../../fonts/lucida_grande-webfont.woff') format('woff'),
+         url('../../fonts/lucida_grande-webfont.ttf') format('truetype'),
+         url('../../fonts/lucida_grande-webfont.svg#lucida_granderegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+html, body
+{
+	top: 0;
+	padding: 0;
+	margin: 0;
+	font-family: Calibri, Arial, sans-serif;
+	font-size: 11pt;
+	background-color: #fdfdfd;
+	/*background-color: #fff;*/
+	min-height: 100%;
+	height: 100%;
+}
+
+#body-inner
+{
+	position: relative;
+	/*min-height: 100%;
+	height: 100%;*/
+	vertical-align: bottom;
+	padding-bottom: 0;
+	margin-top: 0;
+	margin-left: auto;
+	margin-right: auto;
+	margin-bottom: 0;
+	background-color: #fff;
+}
+
+select
+{
+	padding-top: 0;
+	-webkit-appearance: none;
+	/*background: transparent url(../../img/selectarrow.png) no-repeat 95% center;*/
+}
+
+option
+{
+	padding-top: 0.3em;
+	padding-bottom: 0.3em;
+}
+
+select.styled-select
+{
+	
+}
+
+.dd
+{
+	background: #fff;
+	/*max-width: 10em;*/
+	/*width: 156px;
+	min-width: 156px;*/
+	max-width: 156px;
+}
+
+.single-picture
+{
+	display: inline;
+}
+
+.single-picture select
+{
+	min-width: 70px;
+	width: 70px;
+}
+
+.single-picture .ddTitleText .ddlabel
+{
+	display: none;
+}
+
+.dd .ddChild li,
+.ddTitleText
+{
+	padding-left: 15px !important;
+}
+
+.single-picture .ddChild
+{
+	/*min-width: 15em;*/
+	white-space: nowrap;
+}
+
+.dd .ddTitle
+{
+	background: none;
+	color: #333;
+}
+
+.dd .divider
+{
+	border: none;
+}
+
+.dd .arrow
+{
+	background: url(../../img/selectarrowdowngrad.png) no-repeat right center;
+	width: 34px !important;
+	/*background: url(../../img/selectarrowdown.png) no-repeat right center;*/
+}
+
+.dd .arrow:hover
+{
+	background-position: right center;
+}
+
+.ddChild ul
+{
+	padding-bottom: 0 !important;
+}
+
+.ddChild li,
+.ddChild li.selected
+{
+	border: none !important;
+}
+
+.wide-image-button
+{
+	min-width: 3em;
+	vertical-align: top;
+}
+
+.btn-custom-toolbar > .btn-group
+{
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+.btn-custom-toolbar > .btn-group > .btn,
+.btn-custom-toolbar > .btn-group > .dropdown-toggle
+{
+	-webkit-border-radius: 0px;
+	border-radius: 0px;
+	-moz-border-radius: 0px;
+	margin-left: -1px;
+}
+
+.btn-custom-toolbar > .btn-group:first-child > .btn:first-child
+{
+	-webkit-border-bottom-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+	-webkit-border-top-left-radius: 4px;
+	border-top-left-radius: 4px;
+	-moz-border-radius-bottomleft: 4px;
+	-moz-border-radius-topleft: 4px; 
+}
+
+.btn-custom-toolbar > .btn-group:last-child > .btn:last-child
+{
+	-webkit-border-bottom-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+	-webkit-border-top-right-radius: 4px;
+	border-top-right-radius: 4px;
+	-moz-border-radius-bottomright: 4px;
+	-moz-border-radius-topright: 4px; 
+}
+
+.caret
+{
+	border: none;
+	background: url('../../img/eamarketfilterarrow.png') center center no-repeat;
+	min-width: 10px;
+	min-height: 20px;
+	margin-top: 0 !important;
+}
+
+.btn-group .btn,
+.btn-group-vertical .btn
+{
+	background: #fff;
+}
+
+/*.btn-group.open,*/
+.btn-group.open .btn,
+.btn-group-vertical.open .btn
+{
+	/*background: #eee !important;*/
+	background: #fff;
+}
+
+.btn-group .btn:hover,
+.btn-group-vertical .btn:hover
+{
+	background: #eee;
+}
+
+.btn-custom-toolbar
+{
+	z-index: 500;
+}
+
+.nav-tabs
+{
+	padding: 0 !important;
+}
+
+.nav-tabs > li > a
+{
+	-webkit-border-radius: 0;
+	cursor: pointer !important;
+}
+
+.nav-tabs > .active > a,
+.nav-tabs > .active > a:hover,
+.nav-tabs > .active > a:focus,
+.nav-tabs > li > a
+{
+	border: none;
+	/*border-top: none;*/
+}
+
+a, li
+{
+	outline: 0 !important;
+}
+
+h1,
+h2,
+h3
+{
+	font-family: 'Oxygen', sans-serif;
+	font-weight: normal;
+}
+
+.cell
+{
+	display: inline;
+	width: auto;
+	text-align: right;
+	float: left;
+}
+
+.cell .dd
+{
+	text-align: left;
+}
+
+.cell-below
+{
+	display: block;
+	clear: both;
+	width: auto;
+}
+
+.clear
+{
+	clear: both;
+	height: 0;
+}
+
+.clearWithHeight
+{
+	clear: both;
+}
+
+.smaller
+{
+	font-size: 80%;
+}
+
+/*.single-picture .ddTitleText
+{
+	padding-right: 5px !important;
+}
+
+.single-picture .ddChild li,
+.single-picture .ddTitleText
+{
+	text-align: center;
+}*/
+
+.dd,
+.dd.disabledAll:hover
+{
+	border: 1px solid #dcdcdc;
+}
+
+.dd:hover
+{
+	border: 1px solid #b9b9b9;
+	/*box-shadow: 0 0 1px #aaa;*/
+}
+
+/* Chrome orange border fix */
+*:focus
+{
+    outline: 0;
+}
+
+.ddChild
+{
+	min-width: 18em;
+	width: 18em;
+	border-radius: 0 !important;
+}
+
+.dd .ddChild li
+{
+	margin-right: 10px;
+}
+
+.dd .ddChild li.selected
+{
+	background: #f2f2f2;
+}
+
+.dd .ddChild:hover li.selected
+{
+	background: #fff;
+}
+
+.dd .ddChild li.hover
+{
+	background: #f2f2f2 !important;
+}
+
+.single-picture .ddChild
+{
+	min-width: 70px;
+	width: 70px;
+}
+
+.btn,
+*.unselectable {
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+
+   /*
+     Introduced in IE 10.
+     See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+   */
+   -ms-user-select: none;
+   user-select: none;
+}
+
+*.selectable
+{
+   -moz-user-select: text;
+   -khtml-user-select: text;
+   -webkit-user-select: text;
+   -ms-user-select: text;
+   user-select: text;
+}
+
+/* TODO */
+
+.ddChild
+{
+	overflow: hidden !important;
+}
+
+.ddTitle
+{
+	overflow: hidden;
+}
+
+.ddTitleText
+{
+	white-space: nowrap;
+}
+
+/*input[type=checkbox]
+{
+	float: left;
+	margin-right: 0.4em;
+}*/
+
+.dd
+{
+	height: 30px;
+	border-radius: 2px !important;
+}
+
+input[type="checkbox"],
+input[type="radio"]
+{
+	display: none;
+}
+
+input[type="checkbox"] + span.wrapper label,
+input[type="checkbox"] + label,
+input[type="radio"] + span.wrapper label,
+input[type="radio"] + label
+{
+	cursor: default;
+}
+
+input[type="checkbox"] + label span.checkbox,
+input[type="checkbox"] + span.wrapper label span.checkbox,
+input[type="radio"] + label span.radio,
+input[type="radio"] + span.wrapper label span.radio
+{
+	display: inline-block;
+	width: 13px !important;
+	min-width: 13px !important;
+	height: 13px !important;
+	min-height: 13px !important;
+	padding: 0;
+	margin: 0;
+	vertical-align: middle;
+	border: 1px solid #dcdcdc;
+	border-radius: 2px;
+	margin-bottom: 2px;
+	/*margin-right: 2px;*/
+	margin-right: 5px;
+}
+
+input[type="checkbox"] + label span.checkbox,
+input[type="checkbox"] + span.wrapper label span.checkbox
+{
+	background: url(../../img/checkboxsprite.png) -15px top no-repeat;
+}
+
+input[type="radio"] + label span.radio,
+input[type="radio"] + span.wrapper label span.radio
+{
+	background: url(../../img/radiosprite.png) -15px top no-repeat;
+}
+
+input[type="checkbox"] + label:hover span.checkbox,
+input[type="checkbox"] + span.wrapper label:hover span.checkbox,
+input[type="radio"] + label:hover span.radio,
+input[type="radio"] + span.wrapper label:hover span.radio
+{
+	background-position: -45px top;
+	border: 1px solid #b9b9b9;
+}
+
+input[type="checkbox"]:checked + label span.checkbox,
+input[type="checkbox"]:checked + span.wrapper label span.checkbox,
+input[type="radio"]:checked + label span.radio,
+input[type="radio"]:checked + span.wrapper label span.radio
+{
+	background-position: -1px top;
+	border: 1px solid #dcdcdc;
+}
+
+input[type="checkbox"]:checked + label:hover span.checkbox,
+input[type="checkbox"]:checked + span.wrapper label:hover span.checkbox,
+input[type="radio"]:checked + label:hover span.radio,
+input[type="radio"]:checked + span.wrapper label:hover span.radio
+{
+	background-position: -31px top;
+	border: 1px solid #b9b9b9;
+}
+
+input[type="text"],
+input[type="password"]
+{
+	font-family: Calibri, Arial, sans-serif;
+	font-size: 11pt;
+	margin-top: 0;
+	margin-bottom: 0;
+	height: 30px;
+	min-height: 30px;
+	padding-left: 15px;
+	padding-right: 15px;
+	padding-top: 0;
+	padding-bottom: 0;
+	border: 1px solid #dcdcdc;
+	width: 126px;
+	min-width: 126px;
+	max-width: 126px;
+	z-index: 1;
+  -webkit-transition: none; /*border linear 0.2s, box-shadow linear 0.2s;*/
+     -moz-transition: none; /*border linear 0.2s, box-shadow linear 0.2s;*/
+       -o-transition: none; /*border linear 0.2s, box-shadow linear 0.2s;*/
+          transition: none; /*border linear 0.2s, box-shadow linear 0.2s;*/
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	border-radius: 2px !important;
+}
+
+input[type="text"].inline,
+input[type="password"].inline
+{
+	margin-top: 6px;
+	margin-bottom: 10px;
+}
+
+input[type="text"]:hover,
+input[type="text"]:focus,
+input[type="password"]:hover,
+input[type="password"]:focus
+{
+  border-color: #b9b9b9;
+  /*rgba(82, 168, 236, 0.8);*/
+  outline: 0;
+  outline: thin dotted \9;
+  /* IE6-9 */
+
+  -webkit-box-shadow: none; /*inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);*/
+     -moz-box-shadow: none; /*inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);*/
+          box-shadow: none; /*inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6); */
+}
+		  
+:-moz-placeholder
+{
+	opacity: 1.0;
+	color: #333 !important;
+	/*padding-left: 10px;*/
+}
+
+::-moz-placeholder
+{
+	opacity: 1.0;
+	color: #333 !important;
+	/*padding-left: 10px;*/
+}
+
+:-ms-input-placeholder
+{
+	opacity: 1.0;
+	color: #333 !important;
+	/*padding-left: 10px;*/
+}
+
+::-webkit-input-placeholder
+{
+	opacity: 1.0;
+	color: #333 !important;
+	/*padding-left: 10px;*/
+}
+
+label.inline
+{
+	display: inline-block;
+	width: 150px;
+	min-width: 150px;
+	max-width: 150px;
+	white-space: nowrap;
+	overflow: hidden;
+	position: relative;
+	padding-top: 6px;
+	z-index: 1;
+}
+
+label.inline:before
+{
+	content: "&nbsp;";
+	color: transparent;
+	background-color: transparent;
+	background: url(../../img/labelgrad.png) top right repeat-y;
+	width: 150px;
+	height: 30px;
+	position: absolute;
+	float: left;
+	z-index: 2;
+}
+
+i.icon-share
+{
+	background-image: url(../../img/details.png) !important;
+	background-position: 0 0 !important;
+}
+
+input[disabled]
+{
+	cursor: default !important;
+	background-color: #fff !important;
+	color: rgba(51, 51, 51, 0.5) !important;
+}
+
+input[disabled]:-moz-placeholder
+{
+	color: rgba(51, 51, 51, 0.5) !important;
+}
+
+input[disabled]::-moz-placeholder
+{
+	color: rgba(51, 51, 51, 0.5) !important;
+}
+
+input[disabled]:-ms-input-placeholder
+{
+	color: rgba(51, 51, 51, 0.5) !important;
+}
+
+input[disabled]::-webkit-input-placeholder
+{
+	color: rgba(51, 51, 51, 0.5) !important;
+}
+
+.ddcommon .disabled img,
+.ddcommon .disabled span,
+.ddcommon.disabledAll
+{
+	opacity: 1;
+}
+
+.ddcommon.disabledAll .ddTitle,
+.ddcommon.disabledAll .ddChild,
+.ddcommon.disabledAll input
+{
+	opacity: 0.5;
+}
+
+.ddcommon .arrow
+{
+	right: 0 !important;
+}
+
+img
+{
+	border: none;
+}
+
+.icon
+{
+	display: inline-block;
+	background-color: #ddd;
+	color: #fff;
+	font-family: 'entypo';
+	font-size: 25px;
+	width: 10px;
+	min-width: 10px;
+	max-width: 10px;
+	height: 10px;
+	min-height: 10px;
+	max-height: 10px;
+	line-height: 0px !important;
+	padding: 2px;
+	padding-top: 0;
+	padding-left: 0;
+	padding-right: 3px;
+	margin: 0;
+	margin-bottom: -2px;
+	border-radius: 2px;
+}
+
+.icon.active
+{
+	background-color: #5e6cfa;
+}
+
+.slimScrollBar
+{
+	border-radius: 0 !important;
+	z-index: 500000 !important;
+}
+
+.slimScrollBar:hover
+{
+	background: #7e7e7e !important;
+	opacity: 1.0 !important;
+}

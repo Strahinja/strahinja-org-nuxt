@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>EA Market</title>
+<meta charset="utf8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href='http://fonts.googleapis.com/css?family=Oxygen:300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="css/msdropdown/dd.css" />
+<!--link rel="stylesheet" href="css/megalist/megalist.css" /-->
+<link rel="stylesheet" href="css/complex/common.css" />
+<link rel="stylesheet" href="css/complex/menu.css" />
+<link rel="stylesheet" href="css/complex/content.css" />
+<link rel="stylesheet" href="css/complex/footer.css" />
+<link rel="stylesheet" href="css/complex/usluge.css" />
+<link rel="stylesheet" href="css/complex/usluge-results.css" />
+<link rel="stylesheet" href="css/jqrangeslider/classic.css" />
+<!--[if gt IE 5.5]>
+<link rel="stylesheet" href="css/complex/iecommon.css" />
+<![endif]-->
+<!--[if lt IE 9]>
+<link rel="stylesheet" href="css/complex/ie8.css" />
+<![endif]-->
+<!--[if lt IE 8]>
+<link rel="stylesheet" href="css/complex/ie7.css" />
+<![endif]-->
+<!--[if lt IE 7]>
+<link rel="stylesheet" href="css/complex/ie6.css" />
+<![endif]-->
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.ui.draggable.min.js"></script>
+<script src="js/jquery.slimscroll.min.js"></script>
+<script src="js/jqrangeslider/jQRangeSlider-min.js"></script>
+<script src="js/jquery.numeric.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/advlist/advlist.min.js"></script>
+
+<script>
+$(function(){
+	$('#hello').click(function(){
+		$.ajax({
+			url: 'http://eauto/user/municipality',
+			type: 'POST',
+			data: {
+				city_id: 1
+			},
+			success: function(data) {
+				$('#response').text(data);
+			}
+		});
+	});
+});
+</script>
+</head>
+<body class="municipalitytest">
+<button class="btn blue" id="hello">Hello</button>
+<pre id="response">
+</pre>
+</body>
+</html>

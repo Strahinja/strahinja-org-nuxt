@@ -7,40 +7,51 @@
                     edit-portfolio-item(v-for="(item, itemIndex) in portfolio",
                     :key="item.link_id",
                     :item="item",
-                    :item-index="itemIndex",
                     :item-count="portfolio.length",
-                    @save-clicked="saveClicked(itemIndex)",
-                    @move-up-clicked="moveUpClicked(itemIndex)",
-                    @move-down-clicked="moveDownClicked(itemIndex)")
-        v-speed-dial(v-model="speedDial",
-        direction="top",
-        fixed,
-        bottom,
-        right,
-        open-on-hover,
-        transition="slide-y-reverse-transition")
+                    @save-clicked="saveClicked(item.link_id)",
+                    @delete-clicked="deleteClicked(item.link_id)",
+                    @link-id-changed="changeLinkId(item.link_id, $event)",
+                    @move-up-clicked="moveUpClicked(item.link_id)",
+                    @move-down-clicked="moveDownClicked(item.link_id)")
+        v-fab-transition
             v-btn(v-show="showFab",
-            slot="activator",
-            v-model="speedDial",
-            color="accent",
-            fab,
-            light)
-                transition(appear,
-                name="speed-dial-trans")
-                    v-icon(v-if="!speedDial") mdi-format-list-text
-                    v-icon(v-if="speedDial") mdi-close
-            v-btn(color="success",
-            fab,
-            small,
+            color="primary lighten-1",
             dark,
+            fixed,
+            bottom,
+            right,
+            fab,
             @click="addItemClicked()")
                 v-icon mdi-plus
-            v-btn(color="error",
-            fab,
-            small,
-            dark,
-            @click="removeItemClicked(portfolioCount)")
-                v-icon mdi-delete
+        //-v-speed-dial(v-model="speedDial",
+            direction="top",
+            fixed,
+            bottom,
+            right,
+            open-on-hover,
+            transition="slide-y-reverse-transition")
+                v-btn(v-show="showFab",
+                slot="activator",
+                v-model="speedDial",
+                color="accent",
+                fab,
+                light)
+                    transition(appear,
+                    name="speed-dial-trans")
+                        v-icon(v-if="!speedDial") mdi-format-list-text
+                        v-icon(v-if="speedDial") mdi-close
+                v-btn(color="success",
+                fab,
+                small,
+                dark,
+                @click="addItemClicked()")
+                    v-icon mdi-plus
+                v-btn(color="error",
+                fab,
+                small,
+                dark,
+                @click="removeItemClicked(portfolioCount)")
+                    v-icon mdi-delete
 
 </template>
 
@@ -80,29 +91,29 @@ export default {
     },
     fetch({ store })
     {
-        store.dispatch('portfolio/loadItems');
+        store.dispatch('portfolio/loadItems', { root: true });
     },
     created()
     {
-        this.$store.dispatch('portfolio/loadItems');
+        this.$store.dispatch('portfolio/loadItems', { root: true });
     },
     mounted()
     {
-        this.$store.dispatch('portfolio/loadItems');
+        this.$store.dispatch('portfolio/loadItems', { root: true });
         this.showFab = true;
     },
     methods:
     {
-        moveUpClicked(itemIndex)
+        moveUpClicked(linkId)
         {
-            console.log(`pages/portfolio/edit: moveUpClicked(${itemIndex})`);
-            this.$store.dispatch('portfolio/moveItemUp', itemIndex);
+            this.$store.dispatch('portfolio/moveItemUp', linkId,
+                                 { root: true });
         },
 
-        moveDownClicked(itemIndex)
+        moveDownClicked(linkId)
         {
-            console.log(`pages/portfolio/edit: moveDownClicked(${itemIndex})`);
-            this.$store.dispatch('portfolio/moveItemDown', itemIndex);
+            this.$store.dispatch('portfolio/moveItemDown', linkId,
+                                 { root: true });
         },
 
         addItemClicked()
@@ -115,18 +126,62 @@ export default {
                 short_desc: 'Short description',
                 image: 'untitled.png',
                 image_thumb: 'untitled_thumb.png',
-            });
+            }, { root: true });
         },
 
-        saveClicked(itemIndex)
+        saveClicked(linkId)
         {
-            // this.$store.dispatch('portfolio/updateItem', itemIndex);
+            this.$store.dispatch('portfolio/saveItem', {
+                linkId,
+                error: (result) =>
+                {
+                    if (result.message)
+                    {
+                        if (this && typeof this.$toast === 'function')
+                        {
+                            this.$toast(result.message, {
+                                icon: 'mdi mdi-alert'
+                            });
+                        }
+                        else
+                        {
+                            console.error(result.message);
+                            console.log(this);
+                        }
+                    }
+                }
+            }, { root: true });
         },
 
-        removeItemClicked(itemIndex)
+        deleteClicked(linkId)
         {
-            this.$store.dispatch('portfolio/removeItem', itemIndex);
-        }
+            this.$store.dispatch('portfolio/removeItem', {
+                linkId,
+                error: (result) =>
+                {
+                    if (result.message)
+                    {
+                        if (this && typeof this.$toast === 'function')
+                        {
+                            this.$toast(result.message, {
+                                icon: 'mdi mdi-alert'
+                            });
+                        }
+                        else
+                        {
+                            console.error(result.message);
+                            console.log(this);
+                        }
+                    }
+                }
+            }, { root: true });
+        },
+
+        changeLinkId(from, to)
+        {
+            this.$store.dispatch('portfolio/changeLinkId',
+                                 { from, to }, { root: true });
+        },
     },
 };
 </script>

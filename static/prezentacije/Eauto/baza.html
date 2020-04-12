@@ -1,0 +1,1380 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>EA Market</title>
+<meta charset="utf8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href='http://fonts.googleapis.com/css?family=Oxygen:300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="css/msdropdown/dd.css" />
+<link rel="stylesheet" href="css/complex/common.css" />
+<link rel="stylesheet" href="css/complex/menu.css" />
+<link rel="stylesheet" href="css/complex/content.css" />
+<link rel="stylesheet" href="css/complex/footer.css" />
+<link rel="stylesheet" href="css/complex/market.css" />
+<link rel="stylesheet" href="css/complex/tools.css" />
+<link rel="stylesheet" href="css/complex/baza.css" />
+<!--[if gt IE 5.5]>
+<link rel="stylesheet" href="css/complex/iecommon.css" />
+<![endif]-->
+<!--[if lt IE 9]>
+<link rel="stylesheet" href="css/complex/ie8.css" />
+<![endif]-->
+<!--[if lt IE 8]>
+<link rel="stylesheet" href="css/complex/ie7.css" />
+<![endif]-->
+<!--[if lt IE 7]>
+<link rel="stylesheet" href="css/complex/ie6.css" />
+<![endif]-->
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.ui.draggable.min.js"></script>
+<script src="js/jquery.slimscroll.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/msdropdown/jquery.dd.min.js"></script>
+<script src="js/jquerysvg/jquery.svg.js"></script>
+<script src="js/jquerysvg/jquery.svgplot.js"></script>
+<script src="js/jquerysvg/jquery.svgfilter.min.js"></script>
+<script src="js/advlist/advlist.js"></script>
+<script src="js/carouFredSel/jquery.carouFredSel-6.2.1.js"></script>
+<script src="js/util.js"></script>
+<script src="js/select.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/forms.js"></script>
+<script src="js/market.js"></script>
+<script src="js/baza.js"></script>
+</head>
+<body class="baza">
+<div id="body-inner">
+<div id="menubar">
+	<!--div style="width: 1150px; margin-left: 50%">
+	<div style="width: 1150px; margin-left: -50%"-->
+	<!--div class="row-fluid">
+	<div class="span10 offset2" style="text-align: center"-->
+	<!--div id="topmenu-wrapper"-->
+	<div id="topmenu">
+	<div class="row-fluid">
+	<div id="topmenu-wrapper" class="span8">
+	<ul>
+		<li class="logo"><a href="#">Market</a>
+			<ul>
+			<li><a href="#">Test 1</a></li>
+			<li><a href="#">Test 2</a></li>
+			<li><a href="#">Test 3</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Pocetna</a></li>
+		<li><a href="#">Alati</a>
+			<ul>
+			<li><a href="#">Test 1</a></li>
+			<li><a href="#">Test 2</a></li>
+			<li><a href="#">Test 3</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Baza modela</a></li>
+		<li><a href="#">Dodaj oglas</a></li>
+	</ul>
+	</div><!--span-->
+	<div class="span4 right-link">
+	<ul>
+		<li><a href="#">Moj Eauto</a>
+			<ul>
+			<li><a href="#">Test 1</a></li>
+			<li><a href="#">Test 2</a></li>
+			<li><a href="#">Test 3</a></li>
+			</ul>
+		</li>
+	</ul>
+	</div><!--topmenu-wrapper-->
+	</div><!--row-->
+	</div><!-- topmenu -->
+	<!--/div--><!--topmenu-wrapper-->
+	<!--/div--><!--span-->
+	<!--/div--><!--row-->
+</div><!-- menubar -->
+
+<!--div id="content-wrapper"-->
+<div id="content">
+<!--div id="content-body"-->
+<div id="content-spacer-top"></div>
+
+<div id="right-ad">
+<a href="#"><img src="img/ad-005.png" /></a>
+<a href="#"><img src="img/ad-006.png" /></a>
+</div><!--right-ad-->
+
+<div id="content-left">
+
+<div id="vehicle-info-pane">
+<div id="vehicle-info-pane-left">
+<div id="vehicle-info-pane-picture">
+<img src="img/car/v1.jpg" />
+</div><!--vehicle-info-pane-picture-->
+<div id="vehicle-info-pane-data">
+<h2 class="vehicle-info-name">2010 Volkswagen Golf 6 / hecbek</h2>
+<p>Ocena vozaca: <span class="score">
+<span class="score-bar score-3of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+</span><!--score--> <span class="vehicle-info-score-text">3.2/5</span> (<span class="vehicle-info-score-amount">15 ocena</span>)</p>
+<p>Ponuda modela: <span class="vehicle-info-stock-price-range">3.400 - 3.700 €</span>
+(<span class="vehicle-info-stock-amount">50 vozila</span>)</p>
+</div><!--vehicle-info-pane-data-->
+</div><!--vehicle-info-pane-left-->
+<!--div id="vehicle-info-pane-right">
+<div id="vehicle-info-pane-right-rank">
+<div id="vehicle-info-pane-right-rank-bar">
+<span class="score-bar score-3of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span--><!--score-segment-->
+<!--span class="score-segment score-segment-2">
+&nbsp;
+</span--><!--score-segment-->
+<!--span class="score-segment score-segment-3">
+&nbsp;
+</span--><!--score-segment-->
+<!--span class="score-segment score-segment-4">
+&nbsp;
+</span--><!--score-segment-->
+<!--span class="score-segment score-segment-5">
+&nbsp;
+</span--><!--score-segment-->
+<!--/span--><!--score-bar-->
+<!--span class="moreinfo">
+<span class="moreinfo-desc">
+Opis ranga korisnika
+</span>
+?
+</span--><!--moreinfo-->
+<!--/div--><!--vehicle-info-pane-right-rank-bar-->
+<!--div id="vehicle-info-pane-right-rank-text">
+Pocetnik
+</div--><!--vehicle-info-pane-right-rank-text-->
+<!--/div--><!--vehicle-info-pane-right-rank-->
+<div id="vehicle-info-pane-right-buttons">
+<a href="#" class="btn gray">Pogledaj ponudu</a>
+</div><!--vehicle-info-pane-right-buttons-->
+<!--/div--><!--vehicle-info-pane-right-->
+</div><!--vehicle-info-pane-->
+
+<!--div id="intro">
+<div class="pull-right close-button">
+<a href="#" class="btn gray close"><div class="button-icon up">&nbsp;</div></a>
+</div--><!--pull-right-->
+
+<!--h1>2010 Volkswagen Golf 6 / hecbek</h1>
+<div class="row-fluid intro-inner">
+<div class="span6 left-side">
+<p>Ocena vozaca: <span class="score">
+<span class="score-bar score-3of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span--><!--score-segment-->
+<!--span class="score-segment score-segment-2">
+&nbsp;
+</span--><!--score-segment-->
+<!--span class="score-segment score-segment-3">
+&nbsp;
+</span--><!--score-segment-->
+<!--span class="score-segment score-segment-4">
+&nbsp;
+</span--><!--score-segment-->
+<!--span class="score-segment score-segment-5">
+&nbsp;
+</span--><!--score-segment-->
+<!--/span--><!--score-bar-->
+<!--/span--><!--score--><!-- 3.2/5 (15 ocena)</p>
+<p>Ponuda modela: 3.400 - 3.700 € (50 vozila)</p>
+<p>&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vestibulum auctor faucibus.
+Fusce hendrerit a ipsum et sodales. Proin accumsan, ipsum vel dignissim lobortis, ipsum turpis
+suscipit urna, vel tincidunt turpis...&quot;&nbsp;<a href="#">Vise&nbsp;&gt;</a></p>
+
+</div--><!--left-side-->
+<!--div class="span6 right-side">
+
+<img src="img/baza-right-car.png" />
+
+</div--><!--right-side-->
+<!--/div--><!--row-->
+<!--/div--><!--intro-->
+
+<div id="info-background">
+&nbsp;
+</div><!--info-background-->
+<div id="info">
+<div class="close">
+<a href="#" class="btn"><i class="icon-remove"></i></a>
+</div>
+<span id="info-text">
+</span><!--info-text-->
+</div><!--info-->
+
+<div class="tabbable">
+<ul class="nav nav-tabs">
+	<li class="active">
+	<a href="#page-1" data-toggle="tab" id="tab-1">Specifikacije</a>
+	</li>
+	<li>
+	<a href="#page-2" data-toggle="tab" id="tab-2">Slike</a>
+	</li>
+	<li>
+	<a href="#page-3" data-toggle="tab" id="tab-3">Ponuda</a>
+	</li>
+	<li>
+	<a href="#page-4" data-toggle="tab" id="tab-4">Ocene</a>
+	</li>
+	<li>
+	<a href="#page-5" data-toggle="tab" id="tab-5">Pet godina voznje</a>
+	</li>
+</ul><!--nav-tabs-->
+
+<div class="tab-content">
+<div id="page-1" class="tab-pane active">
+<div class="tabbable">
+<ul class="nav nav-tabs">
+	<li class="active">
+	<a href="#page-1-1" data-toggle="tab" id="tab-1-1">Tehn. karakteristike</a>
+	</li>
+	<li>
+	<a href="#page-1-2" data-toggle="tab" id="tab-1-2">Oprema</a>
+	</li>
+</ul><!--nav-tabs-->
+
+<div class="tab-content">
+<div id="page-1-1" class="tab-pane active">
+<div class="accordion" id="page-1-1-accordion">
+<div class="accordion-group">
+<div class="accordion-heading">
+<div class="pull-right accordion-collapse">
+<a href="#" class="btn gray close"><div class="button-icon up">&nbsp;</div></a>
+</div><!--accordion-collapse-->
+<!--data-parent="#page-1-1-accordion"-->
+<a class="accordion-toggle" data-toggle="collapse"
+	data-target="#page-1-1-1" href="#page-1-1-1">
+	Dimenzije
+</a>
+</div><!--accordion-heading-->
+<div id="page-1-1-1" class="accordion-body collapse in">
+<div class="row">
+<div class="span6 left-side">
+<table>
+<tr>
+<td class="description">Godiste:</td>
+<td class="value">2007</td>
+</tr>
+<tr>
+<td class="description">Kilometraza:</td>
+<td class="value">85.000 km</td>
+</tr>
+<tr>
+<td class="description">Gorivo:</td>
+<td class="value">Dizel</td>
+</tr>
+<tr>
+<td class="description">Menjac:</td>
+<td class="value">Manuelni</td>
+</tr>
+<tr>
+<td class="description">Oblik karoserije:</td>
+<td class="value">Karavan</td>
+</tr>
+<tr>
+<td class="description">Broj vrata:</td>
+<td class="value">2</td>
+</tr>
+<tr>
+<td class="description">Broj sedista:</td>
+<td class="value">5</td>
+</tr>
+<tr>
+<td class="description">Zapremina motora:</td>
+<td class="value">1900 cm3</td>
+</tr>
+<tr>
+<td class="description">Snaga motora:</td>
+<td class="value">10 kW (170 KS)</td>
+</tr>
+</table>
+</div><!--span-->
+<div class="span6 right-side">
+<table>
+<tr>
+<td class="description">Pogon:</td>
+<td class="value">Prednji</td>
+</tr>
+<tr>
+<td class="description">Potrosnja:</td>
+<td class="value">12 l/100 km</td>
+</tr>
+<tr>
+<td class="description">Emisiona klasa:</td>
+<td class="value">Euro 3</td>
+</tr>
+<tr>
+<td class="description">Boja:</td>
+<td class="value">Metalik crna</td>
+</tr>
+<tr>
+<td class="description">Registracija:</td>
+<td class="value">Registrovan do 20.2.2014.</td>
+</tr>
+<tr>
+<td class="description">Napomene:</td>
+<td class="value">Servisna knjizica</td>
+</tr>
+<tr>
+<td class="description"></td>
+<td class="value">Prvi vlasnik</td>
+</tr>
+<tr>
+<td class="description"></td>
+<td class="value">Kupljen nov u Srbiji</td>
+</tr>
+</table>
+</div><!--span-->
+</div><!--row-->
+</div><!--page-1-1-1-->
+</div><!--accordion-group-->
+<div class="accordion-group">
+<div class="accordion-heading">
+<div class="pull-right accordion-collapse">
+<a href="#" class="btn gray close"><div class="button-icon up">&nbsp;</div></a>
+</div><!--accordion-collapse-->
+<!--data-parent="#page-1-1-accordion"-->
+<a class="accordion-toggle" data-toggle="collapse"
+	data-target="#page-1-1-2"
+	href="#page-1-1-2">
+	Potrosnja
+</a>
+</div><!--accordion-heading-->
+<div id="page-1-1-2" class="accordion-body collapse in">
+Potrosnja...
+</div><!--page-1-1-2-->
+</div><!--accordion-group-->
+</div><!--accordion-->
+</div><!--page-1-1-->
+<div id="page-1-2" class="tab-pane">
+</div><!--page-1-2-->
+</div><!--tab-content-->
+</div><!--tabbable-->
+</div><!--page-1-->
+
+<div id="page-2" class="tab-pane">
+<div class="tabbable">
+<ul class="nav nav-tabs">
+	<li class="active">
+	<a href="#page-2-1" data-toggle="tab" id="tab-2-1">Fabricke slike</a>
+	</li>
+	<li>
+	<a href="#page-2-2" data-toggle="tab" id="tab-2-2">Slike korisnika</a>
+	</li>
+</ul><!--nav-tabs-->
+
+<div class="tab-content">
+<div id="page-2-1" class="tab-pane active">
+<div id="page-2-1-picture">
+	<div id="page-2-1-picture-main-prev">
+	</div><!--page-2-1-picture-main-prev-->
+	<div id="page-2-1-picture-main">
+	<div>
+	<img src="img/car/v1.jpg" id="p001"  />
+	</div>
+	<div>
+	<img src="img/car/v2.jpg" id="p002"  />
+	</div>
+	<div>
+	<img src="img/car/v3.jpg" id="p003"  />
+	</div>
+	<div>
+	<img src="img/car/v4.jpg" id="p004"  />
+	</div>
+	<div>
+	<img src="img/car/v5.jpg" id="p005"  />
+	</div>
+	<div>
+	<img src="img/car/v6.jpg" id="p006"  />
+	</div>
+	<div>
+	<img src="img/car/v7.jpg" id="p007"  />
+	</div>
+	<div>
+	<img src="img/car/v8.jpg" id="p008"  />
+	</div>
+	<div>
+	<img src="img/car/v9.jpg" id="p009"  />
+	</div>
+	</div><!--page-2-1-picture-main-->
+	<div id="page-2-1-picture-main-next">
+	</div><!--page-2-1-picture-main-next-->
+</div><!--page-2-1-picture-->
+<div id="page-2-1-thumbs">
+<ul>
+	<li><img src="img/car/v1.jpg" id="th001"  /></li>
+	<li><img src="img/car/v2.jpg" id="th002"  /></li>
+	<li><img src="img/car/v3.jpg" id="th003"  /></li>
+	<li><img src="img/car/v4.jpg" id="th004"  /></li>
+	<li><img src="img/car/v5.jpg" id="th005"  /></li>
+	<li><img src="img/car/v6.jpg" id="th006"  /></li>
+	<li><img src="img/car/v7.jpg" id="th007"  /></li>
+	<li><img src="img/car/v8.jpg" id="th008"  /></li>
+	<li><img src="img/car/v9.jpg" id="th009"  /></li>
+</ul>
+</div><!--page-2-1-thumbs-->
+</div><!--page-2-1-->
+<div id="page-2-2" class="tab-pane">
+<div id="page-2-2-picture">
+	<div id="page-2-2-picture-main-prev">
+	</div><!--page-2-2-picture-main-prev-->
+	<div id="page-2-2-picture-main">
+	<div>
+	<img src="img/car/m-z72-002-sm.png" id="p001"  />
+	</div>
+	<div>
+	<img src="img/car/m-z72-001-sm.png" id="p002"  />
+	</div>
+	<div>
+	<img src="img/car/m-z72-003-sm.png" id="p003"  />
+	</div>
+	<div>
+	<img src="img/car/m-z72-004-sm.png" id="p004"  />
+	</div>
+	</div><!--page-2-2-picture-main-->
+	<div id="page-2-2-picture-main-next">
+	</div><!--page-2-1-picture-main-next-->
+</div><!--page-2-2-picture-->
+<div id="page-2-2-users">
+	<div id="page-2-2-users-main-prev">
+	</div><!--page-2-2-users-main-prev-->
+	<div id="page-2-2-users-main">
+	<div class="row-fluid" data-user-id="0">
+	<div class="span3">
+	<img src="img/user-sm-001.png" />
+	</div><!--span-->
+	<div class="span9">
+	<div class="user-name">
+	Marko Markovic
+	</div><!--user-name-->
+	<div class="user-summary">
+	Pocetnik, 50 poena
+	</div><!--user-name-->
+	</div><!--span-->
+	</div><!--row-->
+	<div class="row-fluid" data-user-id="1">
+	<div class="span3">
+	<img src="img/user-sm-002.png" />
+	</div><!--span-->
+	<div class="span9">
+	<div class="user-name">
+	Janko Jankovic
+	</div><!--user-name-->
+	<div class="user-summary">
+	Pocetnik, 50 poena
+	</div><!--user-name-->
+	</div><!--span-->
+	</div><!--row-->
+	</div><!--page-2-2-users-main-->
+	<div id="page-2-2-users-main-next">
+	</div><!--page-2-1-users-main-next-->
+</div><!--page-2-2-users-->
+<div id="page-2-2-thumbs">
+<ul>
+	<li><img src="img/car/m-z72-002-sm.png" id="th001"  /></li>
+	<li><img src="img/car/m-z72-001-sm.png" id="th002"  /></li>
+	<li><img src="img/car/m-z72-003-sm.png" id="th003"  /></li>
+	<li><img src="img/car/m-z72-004-sm.png" id="th004"  /></li>
+</ul>
+</div><!--page-2-2-thumbs-->
+</div><!--page-2-2-->
+</div><!--tab-content-->
+</div><!--tabbable-->
+</div><!--page-2-->
+
+<div id="page-3" class="tab-pane">
+<div class="tabbable">
+<ul class="nav nav-tabs">
+	<li class="active">
+	<a href="#page-3-1" data-toggle="tab" id="tab-3-1">Sva godista</a>
+	</li>
+	<li>
+	<a href="#page-3-2" data-toggle="tab" id="tab-3-2">2002</a>
+	</li>
+	<li>
+	<a href="#page-3-3" data-toggle="tab" id="tab-3-3">2003</a>
+	</li>
+	<li>
+	<a href="#page-3-4" data-toggle="tab" id="tab-3-4">2004</a>
+	</li>
+	<li>
+	<a href="#page-3-5" data-toggle="tab" id="tab-3-5">2005</a>
+	</li>
+</ul><!--nav-tabs-->
+
+<div class="tab-content">
+<div id="page-3-1" class="tab-pane active">
+<div class="row">
+<div class="span6 left-side">
+<div class="graph" id="graph001">
+</div><!--graph-->
+</div><!--left-side-->
+<div class="span6 right-side">
+<table>
+<tr>
+<td class="description">Broj vozila u ponudi:</td>
+<td class="value">37</td>
+</tr>
+<tr>
+<td class="description">Procena stanja:<span class="moreinfo">
+<span class="moreinfo-desc">
+Opis procene stanja...
+</span>
+?
+</span><!--moreinfo-->
+</td>
+<td class="value">5.3/10</td>
+</tr>
+<tr>
+<td class="description">Ocekivana vrednost:<span class="moreinfo">
+<span class="moreinfo-desc">
+Opis ocekivane vrednosti...
+</span>
+?
+</span><!--moreinfo-->
+</td>
+<td class="value">3.500 €</td>
+</tr>
+<tr class="intertext">
+<td colspan="2">* Procene uradjene pomocu alata
+<a href="#">Eauto procena</a>, koriscenjem prosecnih vrednosti
+kilometraze i opreme.
+</td>
+</tr>
+</table>
+</div><!--right-side-->
+</div><!--row-->
+<h3>Struktura ponude</h3>
+<table id="page-3-1-structure-table">
+<thead>
+<tr>
+<th colspan="2">Po ceni</th>
+<th colspan="2">Po kilometrazi</th>
+<th colspan="2">Po prodavcu</th>
+<th colspan="2">Po lokaciji</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="description">Ispod ocekivane:</td>
+<td class="value">7</td>
+<td class="description">100-150.000 km:</td>
+<td class="value">7</td>
+<td class="description">Fizicko lice:</td>
+<td class="value">7</td>
+<td class="description">Beograd:</td>
+<td class="value">7</td>
+</tr>
+<tr>
+<td class="description">Blizu ocekivane:</td>
+<td class="value">15</td>
+<td class="description">150-200.000 km:</td>
+<td class="value">15</td>
+<td class="description">Pravno lice:</td>
+<td class="value">15</td>
+<td class="description">Novi Sad:</td>
+<td class="value">15</td>
+</tr>
+<tr>
+<td class="description">Ispod ocekivane:</td>
+<td class="value">15</td>
+<td class="description">200-250.000 km:</td>
+<td class="value">15</td>
+<td class="description"></td>
+<td class="value"></td>
+<td class="description">Gornji Milanovac:</td>
+<td class="value">1</td>
+</tr>
+<tr>
+<td class="description"></td>
+<td class="value"></td>
+<td class="description">250-300.000 km:</td>
+<td class="value">3</td>
+<td class="description"></td>
+<td class="value"></td>
+<td class="description">Nova Varos:</td>
+<td class="value">2</td>
+</tr>
+<tr>
+<td class="description"></td>
+<td class="value"></td>
+<td class="description"></td>
+<td class="value"></td>
+<td class="description"></td>
+<td class="value"></td>
+<td class="description">Nis:</td>
+<td class="value">42</td>
+</tr>
+<tr>
+<td class="description"></td>
+<td class="value"></td>
+<td class="description"></td>
+<td class="value"></td>
+<td class="description"></td>
+<td class="value"></td>
+<td class="description">Vlasotince:</td>
+<td class="value">2</td>
+</tr>
+<tr>
+<td class="description"></td>
+<td class="value"></td>
+<td class="description"></td>
+<td class="value"></td>
+<td class="description"></td>
+<td class="value"></td>
+<td class="description">Ostale opstine:</td>
+<td class="value">8</td>
+</tr>
+</tbody>
+</table>
+</div><!--page-3-1-->
+</div><!--tab-content-->
+</div><!--tabbable-->
+</div><!--page-3-->
+
+<div id="page-4" class="tab-pane">
+<div class="row-fluid review">
+<div class="span3 review-user">
+<div class="row-fluid">
+<div class="span3">
+<img src="img/user-sm-001.png" />
+</div><!--span-->
+<div class="span9">
+<div class="review-user-name">
+Marko Markovic
+</div><!--review-user-name-->
+<div class="review-user-summary">
+Pocetnik, 50 poena
+</div><!--review-user-name-->
+</div><!--span-->
+</div><!--row-->
+</div><!--span-->
+<div class="span3">
+<table>
+<tr class="post-summary">
+<td class="description">
+Opsta ocena
+</td>
+<td class="score">
+<span class="score-bar score-3of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+</td>
+</tr>
+<tr class="post-post-summary">
+<td class="description">
+Izgled
+</td>
+<td class="score">
+<span class="score-bar score-4of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+</td>
+</tr>
+<tr>
+<td class="description">
+Komfor
+</td>
+<td class="score">
+<span class="score-bar score-3of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+</td>
+</tr>
+<tr>
+<td class="description">
+Troskovi
+</td>
+<td class="score">
+<span class="score-bar score-5of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+</td>
+</tr>
+<tr>
+<td class="description">
+Performanse
+</td>
+<td class="score">
+<span class="score-bar score-3of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+</td>
+</tr>
+<tr>
+<td class="description">
+Pouzdanost
+</td>
+<td class="score">
+<span class="score-bar score-5of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+</td>
+</tr>
+</table>
+</div><!--span-->
+<div class="span6 review-text">
+&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vestibulum auctor faucibus.
+Fusce hendrerit a ipsum et sodales. Proin accumsan, ipsum vel dignissim lobortis, ipsum turpis
+suscipit urna, vel tincidunt turpis...&quot;
+<div class="review-thumbsup">
+<a href="#" class="review-thumbsup-link"><img src="img/thumbsup.png" /></a>
+<span class="review-thumbsup-text">
+<span class="review-thumbsup-number">12</span> ljudi smatra
+ovo korisnim
+</span><!--review-thumbsup-text-->
+</div><!--review-thumbsup-->
+</div><!--span-->
+</div><!--review-->
+
+<div class="row-fluid review">
+<div class="span3 review-user">
+<div class="row-fluid">
+<div class="span3">
+<img src="img/user-sm-002.png" />
+</div><!--span-->
+<div class="span9">
+<div class="review-user-name">
+Janko Jankovic
+</div><!--review-user-name-->
+<div class="review-user-summary">
+Pocetnik, 50 poena
+</div><!--review-user-name-->
+</div><!--span-->
+</div><!--row-->
+</div><!--span-->
+<div class="span3">
+<table>
+<tr class="post-summary">
+<td class="description">
+Opsta ocena
+</td>
+<td class="score">
+<span class="score-bar score-3of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+</td>
+</tr>
+<tr class="post-post-summary">
+<td class="description">
+Izgled
+</td>
+<td class="score">
+<span class="score-bar score-4of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+</td>
+</tr>
+<tr>
+<td class="description">
+Komfor
+</td>
+<td class="score">
+<span class="score-bar score-3of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+</td>
+</tr>
+<tr>
+<td class="description">
+Troskovi
+</td>
+<td class="score">
+<span class="score-bar score-5of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+</td>
+</tr>
+<tr>
+<td class="description">
+Performanse
+</td>
+<td class="score">
+<span class="score-bar score-3of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+</td>
+</tr>
+<tr>
+<td class="description">
+Pouzdanost
+</td>
+<td class="score">
+<span class="score-bar score-5of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+</td>
+</tr>
+</table>
+</div><!--span-->
+<div class="span6 review-text">
+&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vestibulum auctor faucibus.
+Fusce hendrerit a ipsum et sodales. Proin accumsan, ipsum vel dignissim lobortis, ipsum turpis
+suscipit urna, vel tincidunt turpis...&quot;
+<div class="review-thumbsup">
+<a href="#" class="review-thumbsup-link"><img src="img/thumbsup.png" /></a>
+<span class="review-thumbsup-text">
+<span class="review-thumbsup-number">12</span> ljudi smatra
+ovo korisnim
+</span><!--review-thumbsup-text-->
+</div><!--review-thumbsup-->
+</div><!--span-->
+</div><!--review-->
+
+<div class="row-fluid review">
+<div class="span3 review-user">
+<div class="row-fluid">
+<div class="span3">
+<img src="img/user-sm-002.png" />
+</div><!--span-->
+<div class="span9">
+<div class="review-user-name">
+Janko Jankovic
+</div><!--review-user-name-->
+<div class="review-user-summary">
+Pocetnik, 50 poena
+</div><!--review-user-name-->
+</div><!--span-->
+</div><!--row-->
+</div><!--span-->
+<div class="span3">
+<table>
+<tr class="post-summary">
+<td class="description">
+Opsta ocena
+</td>
+<td class="score">
+<span class="score-bar score-3of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+</td>
+</tr>
+<tr class="post-post-summary">
+<td class="description">
+Izgled
+</td>
+<td class="score">
+<span class="score-bar score-4of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+</td>
+</tr>
+<tr>
+<td class="description">
+Komfor
+</td>
+<td class="score">
+<span class="score-bar score-3of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+</td>
+</tr>
+<tr>
+<td class="description">
+Troskovi
+</td>
+<td class="score">
+<span class="score-bar score-5of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+</td>
+</tr>
+<tr>
+<td class="description">
+Performanse
+</td>
+<td class="score">
+<span class="score-bar score-3of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+</td>
+</tr>
+<tr>
+<td class="description">
+Pouzdanost
+</td>
+<td class="score">
+<span class="score-bar score-5of5">
+<span class="score-segment score-segment-1">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-2">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-3">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-4">
+&nbsp;
+</span><!--score-segment-->
+<span class="score-segment score-segment-5">
+&nbsp;
+</span><!--score-segment-->
+</span><!--score-bar-->
+</td>
+</tr>
+</table>
+</div><!--span-->
+<div class="span6 review-text">
+&quot;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vestibulum auctor faucibus.
+Fusce hendrerit a ipsum et sodales. Proin accumsan, ipsum vel dignissim lobortis, ipsum turpis
+suscipit urna, vel tincidunt turpis...&quot;
+<div class="review-thumbsup">
+<a href="#" class="review-thumbsup-link"><img src="img/thumbsup.png" /></a>
+<span class="review-thumbsup-text">
+<span class="review-thumbsup-number">12</span> ljudi smatra
+ovo korisnim
+</span><!--review-thumbsup-text-->
+</div><!--review-thumbsup-->
+</div><!--span-->
+</div><!--review-->
+</div><!--page-4-->
+
+<div id="page-5" class="tab-pane">
+<div class="row-fluid twocol">
+<div class="span6">
+<div class="canvas">
+<div class="row1">
+
+<div class="circle size60 green">
+<div class="inner">
+<div class="inner2">
+<div class="text">
+<div class="text-inner">
+Gorivo<br />
+<div class="text-inner-amount">3&thinsp;500 €</div>
+</div><!--text-inner-->
+</div><!--text-->
+</div><!--inner2-->
+<div class="hint">
+<div class="callout-outer">
+<div class="callout"></div>
+</div><!--callout-outer-->
+<strong>Fuel</strong> - based on 15,000 miles<br />
+driven per year<br />
+<big>26%</big><br />
+Average for all vehicles
+</div><!--hint-->
+</div><!--inner-->
+</div><!--circle-->
+
+<div class="circle size80 red">
+<div class="inner">
+<div class="inner2">
+<div class="text">
+<div class="text-inner">
+Održavanje<br />
+<div class="text-inner-amount">1&thinsp;700 €</div>
+</div><!--text-inner-->
+</div><!--text-->
+</div><!--inner2-->
+<div class="hint">
+<div class="callout-outer">
+<div class="callout"></div>
+</div><!--callout-outer-->
+<strong>Maintenance</strong> - based on 15,000<br />
+miles driven per year<br />
+<big>26%</big><br />
+Average for all vehicles
+</div><!--hint-->
+</div><!--inner-->
+</div><!--circle-->
+
+</div><!--row1-->
+
+<div class="row2">
+
+<div class="circle size80 orange">
+<div class="inner">
+<div class="inner2">
+<div class="text">
+<div class="text-inner">
+Osiguranje<br />
+<div class="text-inner-amount">2&thinsp;100 €</div>
+</div><!--text-inner-->
+</div><!--text-->
+</div><!--inner2-->
+<div class="hint">
+<div class="callout-outer">
+<div class="callout"></div>
+</div><!--callout-outer-->
+<strong>Insurance</strong> - based on 15,000<br />
+miles driven per year<br />
+<big>26%</big><br />
+Average for all vehicles
+</div><!--hint-->
+</div><!--inner-->
+</div><!--circle-->
+
+<div class="circle size125 blue">
+<div class="inner">
+<div class="inner2">
+<div class="text">
+<div class="text-inner">
+5 godina<br />
+<small>troškova vožnje</small><br />
+<div class="text-inner-amount">2&thinsp;100 €</div>
+</div><!--text-inner-->
+</div><!--text-->
+</div><!--inner2-->
+<div class="hint">
+<div class="callout-outer">
+<div class="callout"></div>
+</div><!--callout-outer-->
+<strong>5 years</strong> - based on 15,000 miles<br />
+driven per year<br />
+<big>26%</big><br />
+Average for all vehicles
+</div><!--hint-->
+</div><!--inner-->
+</div><!--circle-->
+
+</div><!--row2-->
+
+<div class="signsrow">
+<div class="plus">&nbsp;</div>
+<div class="plus">&nbsp;</div>
+<div class="equals">&nbsp;</div>
+</div><!--signsrow-->
+</div><!--canvas-->
+</div><!--span-->
+<div class="span6 right-text">
+<table>
+<tbody>
+<tr>
+<td class="green description">Gorivo:</td><td class="fuel">3&thinsp;500 €</td>
+</tr>
+<tr>
+<td class="orange description">Osiguranje:</td><td class="insurance">1&thinsp;700 €</td>
+</tr>
+<tr class="pre-summary">
+<td class="red description">Odrzavanje:</td><td class="maintenance">2&thinsp;100 €</td>
+</tr>
+<tr class="summary">
+<td class="blue description">5 godina voznje:</td><td class="fiveyear">2&thinsp;100 €</td>
+</tr>
+<tr>
+<td class="blue description">Trosak po kilometru:</td><td class="expensepk">0,15 €</td>
+</tr>
+<tr class="intertext">
+<td colspan="2">* Bazirano na predjenih 15 000 km godisnje,
+malom servisu na predjenih 10 000 km,
+velikom servisu na predjenih 100 000 km
+i standardnoj polisi osiguranja.</td>
+</tr>
+</tbody>
+</table>
+</div><!--span-->
+</div><!--row-->
+</div><!--page-5-->
+</div><!--tab-content-->
+
+</div><!--tabbable-->
+</div><!--content-left-->
+
+<div id="graphHint">
+<div class="callout-outer">
+<div class="callout"></div>
+</div><!--callout-outer-->
+<span class="hint-text">
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+</span>
+</div><!--graphHint-->
+
+</div><!-- content -->
+<!--/div--><!-- content-wrapper -->
+</div><!--body-inner-->
+
+<div id="footer-wrapper">
+<div id="footer-border">
+</div><!--footer-border-->
+<div id="footer">
+<div id="footer-body">
+<ul>
+<li>
+	<h3>Kupovina na eauto</h3>
+	<ul>
+	<li>Post buzing requests</li>
+	<li>Browse Categories</li>
+	</ul>
+</li>
+<li>
+	<h3>Prodaja na eauto</h3>
+	<ul>
+	<li>Premium Membership</li>
+	<li>Verified Membership</li>
+	</ul>
+</li>
+<li>
+	<h3>Servis i podesavanja</h3>
+	<ul>
+	<li>My Eauto</li>
+	<li>Trade Manager</li>
+	</ul>
+</li>
+</ul>
+</div><!--footer-body-->
+</div><!--footer-->
+</div><!--footer-wrapper-->
+</body>
+</html>

@@ -1,0 +1,52 @@
+#left-list-tabs,
+#right-detail-tabs
+{
+	width: 100%;
+	min-width: 100%;
+}
+
+#left-list-tabs
+{
+	margin-top: -2.3em !important;
+}
+
+.nav-tabs li
+{
+	max-width: 8em;
+	width: 8em;
+}
+
+.nav-tabs .tab-arrow-placeholder-wrapper
+{
+	background: #00f;
+	max-width: 8em;
+	width: 8em;
+	margin-left: 0;
+}
+
+#right-side .nav-tabs li,
+#right-side .nav-tabs .tab-arrow-placeholder-wrapper
+{
+	/*display: inline-block;
+	max-width: auto !important;
+	width: auto !important;*/
+	max-width: 6.5em;
+	width: 6.5em;
+	font-size: 80%;
+}
+
+.nav-tabs .tab-arrow-placeholder
+{
+	margin-left: -20% !important;
+}
+
+#right-side
+{
+	float: right !important;
+	position: absolute !important;
+}
+
+#right-detail-right
+{
+	position: absolute;
+}

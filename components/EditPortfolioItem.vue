@@ -56,9 +56,18 @@
                                         v-icon mdi-calendar-clock
                 v-col(:cols="12",
                 :sm="3")
-                    v-text-field(label="Веза",
-                    dense,
-                    v-model="item.path")
+                    v-container.pa-0(fluid)
+                        v-row
+                            v-col.py-0
+                                v-text-field(label="Веза",
+                                dense,
+                                v-model="item.path")
+                        v-row
+                            v-col.py-0
+                                v-text-field(label="Link ID",
+                                dense,
+                                v-model="linkId",
+                                @blur="$emit('link-id-changed', linkId)")
                 v-col(:cols="12",
                 :sm="3")
                     v-container.pa-0(fluid)
@@ -78,12 +87,21 @@
                         v-row.full-height(align="end")
                             v-col.pa-0.d-flex.flex-end(align-self="end")
                                 v-btn.spaced(fab,
-                                color="success",
+                                color="accent",
                                 light,
                                 depressed,
                                 small,
-                                v-on="on")
+                                v-on="on",
+                                @click="$emit('save-clicked')")
                                     v-icon.align-center(light) mdi-content-save
+                                v-btn.spaced(fab,
+                                color="error",
+                                dark,
+                                depressed,
+                                small,
+                                v-on="on",
+                                @click="$emit('delete-clicked')")
+                                    v-icon.align-center(light) mdi-delete
                                 v-btn.spaced(fab,
                                 color="primary",
                                 :disabled="upBtnDisabled",
@@ -119,12 +137,12 @@ export default {
                 name: '',
                 description: '',
                 short_desc: '',
+                path: '',
                 link_id: '',
                 image: '',
                 image_thumb: '',
             };
         }, required: true },
-        itemIndex: { type: Number, default: 0, required: true },
         itemCount: { type: Number, default: 0, required: true },
     },
     data()
@@ -142,10 +160,16 @@ export default {
                 format: '24hr',
                 useSeconds: true,
             },
+            linkId: '',
         };
     },
     computed:
     {
+        itemIndex()
+        {
+            return this.$store.getters['portfolio/indexByLinkId'](
+                this.item.link_id);
+        },
         upBtnDisabled()
         {
             return this.itemIndex < 1;
@@ -173,12 +197,13 @@ export default {
         {
             console.log('EditPortfolioItem.mounted: link_id = ',
                         this.item.link_id);
+            this.linkId = this.item.link_id;
         }
         else
         {
             console.log('EditPortfolioItem.mounted: this = null');
         }
-    }
+    },
 };
 </script>
 

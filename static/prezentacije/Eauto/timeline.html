@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>EA Market</title>
+<meta charset="utf8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href='http://fonts.googleapis.com/css?family=Oxygen:300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="css/msdropdown/dd.css" />
+<link rel="stylesheet" href="css/complex/common.css" />
+<link rel="stylesheet" href="css/complex/menu.css" />
+<link rel="stylesheet" href="css/complex/content.css" />
+<link rel="stylesheet" href="css/complex/footer.css" />
+<link rel="stylesheet" href="css/complex/market.css" />
+<link rel="stylesheet" href="css/complex/tools.css" />
+<link rel="stylesheet" href="css/complex/timeline.css" />
+<!--[if gt IE 5.5]>
+<link rel="stylesheet" href="css/complex/iecommon.css" />
+<![endif]-->
+<!--[if lt IE 9]>
+<link rel="stylesheet" href="css/complex/ie8.css" />
+<![endif]-->
+<!--[if lt IE 8]>
+<link rel="stylesheet" href="css/complex/ie7.css" />
+<![endif]-->
+<!--[if lt IE 7]>
+<link rel="stylesheet" href="css/complex/ie6.css" />
+<![endif]-->
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.ui.draggable.min.js"></script>
+<script src="js/jquery.slimscroll.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/msdropdown/jquery.dd.min.js"></script>
+<script src="js/jquerysvg/jquery.svg.js"></script>
+<script src="js/jquerysvg/jquery.svgplot.js"></script>
+<script src="js/jquerysvg/jquery.svgfilter.min.js"></script>
+<script src="js/domlist/domlist.js"></script>
+<script src="js/carouFredSel/jquery.carouFredSel-6.2.1.js"></script>
+<script src="js/util.js"></script>
+<script src="js/select.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/forms.js"></script>
+<script src="js/image-popup.js"></script>
+<script src="js/market.js"></script>
+<script src="js/timeline.js"></script>
+</head>
+<body class="timeline">
+<div id="body-inner">
+<div id="menubar">
+	<!--div style="width: 1150px; margin-left: 50%">
+	<div style="width: 1150px; margin-left: -50%"-->
+	<!--div class="row-fluid">
+	<div class="span10 offset2" style="text-align: center"-->
+	<!--div id="topmenu-wrapper"-->
+	<div id="topmenu">
+	<div class="row-fluid">
+	<div id="topmenu-wrapper" class="span8">
+	<ul>
+		<li class="logo"><a href="#">Prica</a>
+			<ul>
+			<li><a href="#">Test 1</a></li>
+			<li><a href="#">Test 2</a></li>
+			<li><a href="#">Test 3</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Pocetna</a></li>
+		<li><a href="#">Alati</a>
+			<ul>
+			<li><a href="#">Test 1</a></li>
+			<li><a href="#">Test 2</a></li>
+			<li><a href="#">Test 3</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Baza modela</a></li>
+		<li><a href="#">Dodaj oglas</a></li>
+	</ul>
+	</div><!--span-->
+	<div class="span4 right-link">
+	<ul>
+		<li><a href="#">Moj Eauto</a>
+			<ul>
+			<li><a href="#">Test 1</a></li>
+			<li><a href="#">Test 2</a></li>
+			<li><a href="#">Test 3</a></li>
+			</ul>
+		</li>
+	</ul>
+	</div><!--topmenu-wrapper-->
+	</div><!--row-->
+	</div><!-- topmenu -->
+	<!--/div--><!--topmenu-wrapper-->
+	<!--/div--><!--span-->
+	<!--/div--><!--row-->
+</div><!-- menubar -->
+
+<!--div id="content-wrapper"-->
+<div id="content">
+<!--div id="content-body"-->
+<div id="content-spacer-top"></div>
+
+<div id="info">
+<div id="info-background">
+&nbsp;
+</div><!--info-background-->
+<div id="info-popup">
+<div class="close">
+<a href="#" class="btn"><i class="icon-remove"></i></a>
+</div>
+<span id="info-text">
+<div class="row-fluid" style="height: 100%; margin-bottom: -70px">
+<div class="span12">
+	<div class="info-main">
+	</div><!--info-main-->
+	<div class="info-main-prev">
+	</div><!--info-main-prev-->
+	<div class="info-main-next">
+	</div><!--info-main-next-->
+</div><!--span-->
+</div><!--row-->
+<div class="row-fluid info-thumbs">
+<div class="span1 info-nav-prev">
+</div><!--info-nav-prev-->
+<div class="span10 info-nav-thumbs">
+</div><!--info-nav-thumbs-->
+<div class="span1 info-nav-next">
+</div><!--info-nav-next-->
+</div><!--row-->
+</span><!--info-text-->
+</div><!--info-popup-->
+</div><!--info-->
+
+<div id="right-ad">
+<a href="#"><img src="img/ad-005.png" /></a>
+<a href="#"><img src="img/ad-006.png" /></a>
+</div><!--right-ad-->
+
+<div id="content-left">
+<div id="filter-toolbar-outer" class="active">
+<div id="filter-toolbar" class="btn-toolbar btn-custom-toolbar" style="margin-left: 1px">
+	<div data-filter="maker" class="btn-group filter-radio-menu">
+	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		Marka
+		<span class="caret"></span>
+	</a>
+	<ul id="filter-brand-menu" class="dropdown-menu">
+		<li class="filter-all checked"><a href="#"><span class="ok-mark checked">&nbsp;</span> Sve marke</a></li>
+		<li class="divider"></li>
+	</ul>
+	</div><!--btn-group-->
+	<div data-filter="model" class="btn-group filter-radio-menu">
+	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		Model
+		<span class="caret"></span>
+	</a>
+	<ul id="filter-model-menu" class="dropdown-menu">
+		<li class="filter-all checked"><a href="#"><span class="ok-mark checked">&nbsp;</span> Svi modeli</a></li>
+		<li class="divider"></li>
+	</ul>
+	</div><!--btn-group-->
+	<div data-filter="type" class="btn-group filter-radio-menu">
+	<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+		Delatnost
+		<span class="caret"></span>
+	</a>
+	<ul id="filter-type-menu" class="dropdown-menu">
+		<li class="filter-all checked"><a href="#"><span class="ok-mark checked">&nbsp;</span> Sve delatnosti</a></li>
+		<li class="divider"></li>
+	</ul>
+	</div><!--btn-group-->
+</div><!--filter-toolbar-->
+</div><!--filter-outer-->
+<div class="tabbable">
+<div id="nav-tabs-wrapper">
+<ul id="nav-tabs" class="nav nav-tabs">
+<li class="active"><a href="#" id="all-tab">Sve</a></li>
+<li data-type="question"><a href="#" id="questions-tab">Pitanja</a></li>
+<li data-type="gallery"><a href="#" id="gallery-tab">Galerija</a></li>
+<li data-type="score"><a href="#" id="scores-tab">Ocene</a></li>
+<li data-type="ad"><a href="#" id="discounts-tab">Popusti</a></li>
+</ul>
+</div><!--nav-tabs-wrapper-->
+<div class="tab-content">
+
+<div id="timeline">
+<input type="text" placeholder="Postavi pitanje..." class="formatted" id="timeline-comment-main"></input>
+<ul>
+</ul>
+</div><!--timeline-->
+
+</div><!--tab-content-->
+</div><!--tabbable-->
+</div><!--content-left-->
+
+<div id="graphHint">
+<div class="callout-outer">
+<div class="callout"></div>
+</div><!--callout-outer-->
+<span class="hint-text">
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+</span>
+</div><!--graphHint-->
+
+</div><!-- content -->
+<!--/div--><!-- content-wrapper -->
+</div><!--body-inner-->
+
+</body>
+</html>

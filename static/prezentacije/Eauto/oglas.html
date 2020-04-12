@@ -1,0 +1,1254 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>EA Market</title>
+<meta charset="utf8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link href='http://fonts.googleapis.com/css?family=Oxygen:300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+<link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+<link rel="stylesheet" href="css/msdropdown/dd.css" />
+<link rel="stylesheet" href="css/jquery-ui/jquery-ui.min.css" />
+<link rel="stylesheet" href="css/jquery-ui/jquery.ui.core.min.css" />
+<link rel="stylesheet" href="css/jquery-ui/jquery.ui.slider.min.css" />
+<link rel="stylesheet" href="css/jquery-ui/jquery.ui.theme.min.css" />
+<link rel="stylesheet" href="css/complex/common.css" />
+<link rel="stylesheet" href="css/complex/menu.css" />
+<link rel="stylesheet" href="css/complex/content.css" />
+<link rel="stylesheet" href="css/complex/footer.css" />
+<link rel="stylesheet" href="css/complex/market.css" />
+<link rel="stylesheet" href="css/complex/tools.css" />
+<link rel="stylesheet" href="css/complex/oglas.css" />
+<!--[if gt IE 5.5]>
+<link rel="stylesheet" href="css/complex/iecommon.css" />
+<![endif]-->
+<!--[if lt IE 9]>
+<link rel="stylesheet" href="css/complex/ie8.css" />
+<![endif]-->
+<!--[if lt IE 8]>
+<link rel="stylesheet" href="css/complex/ie7.css" />
+<![endif]-->
+<!--[if lt IE 7]>
+<link rel="stylesheet" href="css/complex/ie6.css" />
+<![endif]-->
+<script src="js/jquery-1.9.1.min.js"></script>
+<script src="js/jquery-ui.min.js"></script>
+<script src="js/jquery.ui.draggable.min.js"></script>
+<script src="js/jquery.slimscroll.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/msdropdown/jquery.dd.min.js"></script>
+<script src="js/advlist/advlist.js"></script>
+<script src="js/carouFredSel/jquery.carouFredSel-6.2.1.js"></script>
+<script src="js/util.js"></script>
+<script src="js/select.js"></script>
+<script src="js/menu.js"></script>
+<script src="js/forms.js"></script>
+<script src="js/market.js"></script>
+<script src="js/oglas.js"></script>
+</head>
+<body class="oglas">
+<div id="body-inner">
+<div id="menubar">
+	<!--div style="width: 1150px; margin-left: 50%">
+	<div style="width: 1150px; margin-left: -50%"-->
+	<!--div class="row-fluid">
+	<div class="span10 offset2" style="text-align: center"-->
+	<!--div id="topmenu-wrapper"-->
+	<div id="topmenu">
+	<div class="row-fluid">
+	<div id="topmenu-wrapper" class="span8">
+	<ul>
+		<li class="logo"><a href="#">Market</a>
+			<ul>
+			<li><a href="#">Test 1</a></li>
+			<li><a href="#">Test 2</a></li>
+			<li><a href="#">Test 3</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Pocetna</a></li>
+		<li><a href="#">Alati</a>
+			<ul>
+			<li><a href="#">Test 1</a></li>
+			<li><a href="#">Test 2</a></li>
+			<li><a href="#">Test 3</a></li>
+			</ul>
+		</li>
+		<li><a href="#">Baza modela</a></li>
+		<li><a href="#">Dodaj oglas</a></li>
+	</ul>
+	</div><!--span-->
+	<div class="span4 right-link">
+	<ul>
+		<li><a href="#">Moj Eauto</a>
+			<ul>
+			<li><a href="#">Test 1</a></li>
+			<li><a href="#">Test 2</a></li>
+			<li><a href="#">Test 3</a></li>
+			</ul>
+		</li>
+	</ul>
+	</div><!--topmenu-wrapper-->
+	</div><!--row-->
+	</div><!-- topmenu -->
+	<!--/div--><!--topmenu-wrapper-->
+	<!--/div--><!--span-->
+	<!--/div--><!--row-->
+</div><!-- menubar -->
+
+<!--div id="content-wrapper"-->
+<div id="content">
+<!--div id="content-body"-->
+<div id="content-spacer-top"></div>
+
+<div id="top-ad"><a href="#"><img src="img/ad-001.png" /></a></div>
+
+<div id="info-background">
+&nbsp;
+</div><!--info-background-->
+<div id="info">
+<div class="close">
+<a href="#" class="btn"><i class="icon-remove"></i></a>
+</div>
+<span id="info-text">
+</span><!--info-text-->
+</div><!--info-->
+
+<div id="price-popup-background" class="popup-background">
+&nbsp;
+</div><!--price-popup-background-->
+<div id="price-popup" class="popup">
+<div class="popup-inner">
+<div class="popup-heading">
+<div class="pull-right">
+<a href="#" class="btn gray close"><i class="icon-remove"></i></a>
+</div><!--pull-right-->
+<div class="popup-title">
+<h2>Cena</h2>
+</div><!--popup-title-->
+</div><!--popup-heading-->
+
+<div class="popup-body">
+<div class="right-text">
+<div id="price-popup-price-slider">
+</div><!--price-popup-price-slider-->
+(pomerajte klizac da vidite uticaj cene na kvalitet ponude)
+</div><!--right-text-->
+<table>
+<tr>
+<td class="description">Vasa cena:</td>
+<td>
+<input type="text" class="formatted" name="price-popup-price" id="price-popup-price" placeholder="Cena (€)" />
+</td>
+</tr>
+<tr>
+<td class="description">Eauto procena:</td>
+<td id="price-popup-eval">
+<span id="price-popup-eval-amount"></span>
+<span class="moreinfo">
+<span class="moreinfo-desc">
+Opis procene
+</span>
+?
+</span><!--moreinfo-->
+</td>
+</tr>
+<tr class="summary">
+<td class="description">Razlika u ceni:</td>
+<td>
+<span id="price-popup-eval-diff-image">&nbsp;</span>
+<span id="price-popup-eval-diff-amount">&nbsp;</span>
+<span id="price-popup-eval-diff-text">&nbsp;</span>
+<span class="moreinfo">
+<span class="moreinfo-desc">
+Opis razlike
+</span>
+?
+</span><!--moreinfo-->
+</td>
+</tr>
+</table>
+<p><a href="#">Pogledajte ponudu</a> ovog modela.</p>
+</div><!--popup-body-->
+
+<div class="popup-footer">
+<div class="pull-right">
+<a href="#" id="price-popup-next-button" class="btn blue">Dalje</a>
+</div><!--pull-right-->
+</div><!--popup-footer-->
+</div><!--popup-inner-->
+</div><!--popup-->
+
+<div id="images-popup-background" class="popup-background">
+&nbsp;
+</div><!--images-popup-background-->
+<div id="images-popup" class="popup">
+<div class="popup-inner">
+<div class="popup-heading">
+<div class="pull-right">
+<a href="#" class="btn gray close"><i class="icon-remove"></i></a>
+</div><!--pull-right-->
+<div class="popup-title">
+<h2>Slike i video</h2>
+</div><!--popup-title-->
+</div><!--popup-heading-->
+
+<div class="popup-body">
+<div id="images-popup-images">
+</div><!--images-popup-images-->
+
+<p>* Prevucite slike da promenite redosled</p>
+
+<div id="images-popup-progress">
+</div><!--images-popup-progress-->
+</div><!--popup-body-->
+
+<div class="popup-footer">
+<div class="pull-right">
+<a href="#" id="images-popup-next-button" class="btn blue">Dalje</a>
+</div><!--pull-right-->
+</div><!--popup-footer-->
+</div><!--popup-inner-->
+</div><!--popup-->
+
+<div id="props-popup-background" class="popup-background">
+&nbsp;
+</div><!--props-popup-background-->
+<div id="props-popup" class="popup">
+<div class="popup-inner">
+<div class="popup-heading">
+<div class="pull-right">
+<a href="#" class="btn gray close"><i class="icon-remove"></i></a>
+</div><!--pull-right-->
+<div class="popup-title">
+<h2>Karakteristike</h2>
+</div><!--popup-title-->
+</div><!--popup-heading-->
+
+<div class="popup-body">
+<div class="right-text">
+Stanje:
+
+<p>
+<input type="checkbox" name="props-popup-crashed" value="yes" 
+	id="props-popup-crashed" />
+<label for="props-popup-crashed"><span class="checkbox">&nbsp;</span>
+	Havarisan
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="props-popup-service-book" value="yes" 
+	id="props-popup-service-book" />
+<label for="props-popup-service-book"><span class="checkbox">&nbsp;</span>
+	Servisna knjizica
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="props-popup-new" value="yes" 
+	id="props-popup-new" />
+<label for="props-popup-new"><span class="checkbox">&nbsp;</span>
+	Kupljen nov u Srbiji
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="props-popup-right-wheel" value="yes" 
+	id="props-popup-right-wheel" />
+<label for="props-popup-right-wheel"><span class="checkbox">&nbsp;</span>
+	Desni volan
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="props-popup-first-owner" value="yes" 
+	id="props-popup-first-owner" />
+<label for="props-popup-first-owner"><span class="checkbox">&nbsp;</span>
+	Prvi vlasnik
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="props-popup-warranty" value="yes" 
+	id="props-popup-warranty" />
+<label for="props-popup-warranty"><span class="checkbox">&nbsp;</span>
+	Garancija
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="props-popup-disabilities" value="yes" 
+	id="props-popup-disabilities" />
+<label for="props-popup-disabilities"><span class="checkbox">&nbsp;</span>
+	Prilagodjen invalidima
+</label>
+</p>
+
+</div><!--right-text-->
+
+<p>
+<select class="styled-select" name="props-popup-doors" id="props-popup-doors">
+	<option value="" selected="selected">Broj vrata</option>
+</select>
+</p>
+
+<p>
+<select class="styled-select" name="props-popup-seats" id="props-popup-seats">
+	<option value="" selected="selected">Broj sedista</option>
+</select>
+</p>
+
+<p>
+<select class="styled-select" name="props-popup-color" id="props-popup-color">
+	<option value="" selected="selected">Boja</option>
+</select>
+</p>
+
+<p>
+<select class="styled-select" name="props-popup-registration" id="props-popup-registration">
+	<option value="" selected="selected">Registarske tablice</option>
+</select>
+</p>
+
+<p>
+<select class="styled-select" name="props-popup-registration-expires" id="props-popup-registration-expires">
+	<option value="" selected="selected">Registrovan do</option>
+</select>
+</p>
+
+<p>
+<input type="checkbox" name="prop-popup-replacement" value="yes" 
+	id="prop-popup-replacement" />
+<label for="prop-popup-replacement"><span class="checkbox">&nbsp;</span>
+	Moguca zamena
+</label>
+</p>
+</div><!--popup-body-->
+
+<div class="popup-footer">
+<div class="pull-right">
+<a href="#" id="props-popup-next-button" class="btn blue">Dalje</a>
+</div><!--pull-right-->
+</div><!--popup-footer-->
+</div><!--popup-inner-->
+</div><!--popup-->
+
+<div id="equipment-popup-background" class="popup-background">
+&nbsp;
+</div><!--equipment-popup-background-->
+<div id="equipment-popup" class="popup">
+<div class="popup-inner">
+<div class="popup-heading">
+<div class="pull-right">
+<a href="#" class="btn gray close"><i class="icon-remove"></i></a>
+</div><!--pull-right-->
+<div class="popup-title">
+<h2>Oprema</h2>
+</div><!--popup-title-->
+</div><!--popup-heading-->
+
+<div class="popup-body">
+<p style="margin-bottom: 40px">
+Izaberite
+<select class="styled-select inline" name="equipment-popup-package" id="equipment-popup-package">
+	<option value="" selected="selected">Paket opreme</option>
+</select>
+ili unesite rucno:
+<span class="moreinfo">
+<span class="moreinfo-desc">
+Opis rucnog unosenja...
+</span>
+?
+</span><!--moreinfo-->
+</p>
+
+<div class="row-fluid">
+<div class="span2">
+<div class="title">
+Spoljasnjost:
+</div><!--title-->
+
+<p>
+<input type="checkbox" name="equipment-popup-rims" value="yes" 
+	id="equipment-popup-rims" />
+<label for="equipment-popup-rims"><span class="checkbox">&nbsp;</span>
+	Aluminijumske felne
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-roof-support" value="yes" 
+	id="equipment-popup-roof-support" />
+<label for="equipment-popup-roof-support"><span class="checkbox">&nbsp;</span>
+	Krovni nosac
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-trailer-hitch" value="yes" 
+	id="equipment-popup-trailer-hitch" />
+<label for="equipment-popup-trailer-hitch"><span class="checkbox">&nbsp;</span>
+	Vucna kuka
+</label>
+</p>
+</div><!--span-->
+<div class="span4">
+<div class="title">
+Unutrasnjost i komfor:
+</div><!--title-->
+<div class="row-fluid">
+<div class="span6">
+<p>
+<select class="styled-select" name="equipment-popup-air-conditioner" id="equipment-popup-air-conditioner">
+	<option value="" selected="selected">Klima uredjaj</option>
+</select>
+</p>
+
+<p>
+<select class="styled-select" name="equipment-popup-audio" id="equipment-popup-audio">
+	<option value="" selected="selected">Audio uredjaj</option>
+</select>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-remote-lock" value="yes" 
+	id="equipment-popup-remote-lock" />
+<label for="equipment-popup-remote-lock"><span class="checkbox">&nbsp;</span>
+	Daljinsko zakljucavanje
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-tempomat" value="yes" 
+	id="equipment-popup-tempomat" />
+<label for="equipment-popup-tempomat"><span class="checkbox">&nbsp;</span>
+	Tempomat
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-seat-heating" value="yes" 
+	id="equipment-popup-seat-heating" />
+<label for="equipment-popup-seat-heating"><span class="checkbox">&nbsp;</span>
+	Grejanje sedista
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-auxilliary-heating" value="yes" 
+	id="equipment-popup-auxilliary-heating" />
+<label for="equipment-popup-auxilliary-heating"><span class="checkbox">&nbsp;</span>
+	Pomocno grejanje
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-power-windows" value="yes" 
+	id="equipment-popup-power-windows" />
+<label for="equipment-popup-power-windows"><span class="checkbox">&nbsp;</span>
+	El. podizaci stakala
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-parking-sensors" value="yes" 
+	id="equipment-popup-parking-sensors" />
+<label for="equipment-popup-parking-sensors"><span class="checkbox">&nbsp;</span>
+	Parking senzori
+</label>
+</p>
+</div><!--span-->
+<div class="span6">
+<p>
+<input type="checkbox" name="equipment-popup-navigational-system" value="yes" 
+	id="equipment-popup-navigational-system" />
+<label for="equipment-popup-navigational-system"><span class="checkbox">&nbsp;</span>
+	Navigacioni sistem
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-panoramic-roof" value="yes" 
+	id="equipment-popup-panoramic-roof" />
+<label for="equipment-popup-panoramic-roof"><span class="checkbox">&nbsp;</span>
+	Panoramski krov
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-servo-wheel" value="yes" 
+	id="equipment-popup-servo-wheel" />
+<label for="equipment-popup-servo-wheel"><span class="checkbox">&nbsp;</span>
+	Servo volan
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-trip-computer" value="yes" 
+	id="equipment-popup-trip-computer" />
+<label for="equipment-popup-trip-computer"><span class="checkbox">&nbsp;</span>
+	Putni racunar
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-powered-mirrors" value="yes" 
+	id="equipment-popup-powered-mirrors" />
+<label for="equipment-popup-powered-mirrors"><span class="checkbox">&nbsp;</span>
+	El. podes. retrovizora
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-mirror-heaters" value="yes" 
+	id="equipment-popup-mirror-heaters" />
+<label for="equipment-popup-mirror-heaters"><span class="checkbox">&nbsp;</span>
+	Grejaci retrovizora
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-rain-sensors" value="yes" 
+	id="equipment-popup-rain-sensors" />
+<label for="equipment-popup-rain-sensors"><span class="checkbox">&nbsp;</span>
+	Senzori za kisu
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-central-lock" value="yes" 
+	id="equipment-popup-central-lock" />
+<label for="equipment-popup-central-lock"><span class="checkbox">&nbsp;</span>
+	Centralno zakljucavanje
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-seat-adjustment" value="yes" 
+	id="equipment-popup-seat-adjustment" />
+<label for="equipment-popup-seat-adjustment"><span class="checkbox">&nbsp;</span>
+	El. podes. sedista
+</label>
+</p>
+</div><!--span-->
+</div><!--row-->
+</div><!--span-->
+<div class="span3">
+<div class="title">
+Bezbednost voznje:
+</div><!--title-->
+
+<p>
+<select class="styled-select" name="equipment-popup-air-conditioner-2" id="equipment-popup-air-conditioner-2">
+	<option value="" selected="selected">Klima uredjaj</option>
+</select>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-abs" value="yes" 
+	id="equipment-popup-abs" />
+<label for="equipment-popup-abs"><span class="checkbox">&nbsp;</span>
+	ABS
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-esp" value="yes" 
+	id="equipment-popup-esp" />
+<label for="equipment-popup-esp"><span class="checkbox">&nbsp;</span>
+	ESP
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-xenon-lights" value="yes" 
+	id="equipment-popup-xenon-lights" />
+<label for="equipment-popup-xenon-lights"><span class="checkbox">&nbsp;</span>
+	Xenon svetla
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-child-lock" value="yes" 
+	id="equipment-popup-child-lock" />
+<label for="equipment-popup-child-lock"><span class="checkbox">&nbsp;</span>
+	Child lock
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-fog-lights" value="yes" 
+	id="equipment-popup-fog-lights" />
+<label for="equipment-popup-fog-lights"><span class="checkbox">&nbsp;</span>
+	Svetla za maglu
+</label>
+</p>
+</div><!--span-->
+<div class="span3">
+<div class="title">
+Sigurnost:
+</div><!--title-->
+
+<p>
+<input type="checkbox" name="equipment-popup-coded-key" value="yes" 
+	id="equipment-popup-coded-key" />
+<label for="equipment-popup-coded-key"><span class="checkbox">&nbsp;</span>
+	Kodiran kljuc
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-engine-block" value="yes" 
+	id="equipment-popup-engine-block" />
+<label for="equipment-popup-engine-block"><span class="checkbox">&nbsp;</span>
+	Blokada motora
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-alarm-system" value="yes" 
+	id="equipment-popup-alarm-system" />
+<label for="equipment-popup-alarm-system"><span class="checkbox">&nbsp;</span>
+	Alarmni sistem
+</label>
+</p>
+
+<p>
+<input type="checkbox" name="equipment-popup-zeder" value="yes" 
+	id="equipment-popup-zeder" />
+<label for="equipment-popup-zeder"><span class="checkbox">&nbsp;</span>
+	Zeder
+</label>
+</p>
+</div><!--span-->
+</div><!--row-->
+</div><!--popup-body-->
+
+<div class="popup-footer">
+<div class="pull-right">
+<a href="#" id="equipment-popup-next-button" class="btn blue">Dalje</a>
+</div><!--pull-right-->
+</div><!--popup-footer-->
+</div><!--popup-inner-->
+</div><!--popup-->
+
+<div id="comment-popup-background" class="popup-background">
+&nbsp;
+</div><!--comment-popup-background-->
+<div id="comment-popup" class="popup">
+<div class="popup-inner">
+<div class="popup-heading">
+<div class="pull-right">
+<a href="#" class="btn gray close"><i class="icon-remove"></i></a>
+</div><!--pull-right-->
+<div class="popup-title">
+<h2>Komentar</h2>
+</div><!--popup-title-->
+</div><!--popup-heading-->
+
+<div class="popup-body">
+<p>Unesite komentar o vozilu:</p>
+<p id="comment-popup-comment-parent">
+<textarea rows="9" name="comment-popup-comment" id="comment-popup-comment">
+</textarea>
+<div class="pull-right" id="comment-popup-status">
+preostalo je 154 karaktera
+</div><!--comment-popup-status-->
+</p>
+</div><!--popup-body-->
+
+<div class="popup-footer">
+<div class="pull-right">
+<a href="#" id="comment-popup-next-button" class="btn blue">Dalje</a>
+</div><!--pull-right-->
+</div><!--popup-footer-->
+</div><!--popup-inner-->
+</div><!--popup-->
+
+<div id="payment-popup-background" class="popup-background">
+&nbsp;
+</div><!--payment-popup-background-->
+<div id="payment-popup" class="popup">
+<div class="popup-inner">
+<div class="popup-heading">
+<div class="pull-right">
+<a href="#" class="btn gray close"><i class="icon-remove"></i></a>
+</div><!--pull-right-->
+<div class="popup-title">
+<h2>Uplata na racun</h2>
+</div><!--popup-title-->
+</div><!--popup-heading-->
+
+<div class="popup-body">
+<div class="row-fluid">
+<div class="span6">
+<p>Izaberite jednu od opcija promocije:</p>
+<p>
+<input type="radio" name="payment-popup-option" id="payment-popup-option-001"
+	value="payment-popup-option-001">
+<label for="payment-popup-option-001"><span class="radio">&nbsp;</span>
+1000 pregleda - 200 din
+</label>
+</p>
+
+<p>
+<input type="radio" name="payment-popup-option" id="payment-popup-option-002"
+	value="payment-popup-option-002">
+<label for="payment-popup-option-002"><span class="radio">&nbsp;</span>
+2000 pregleda - 400 din
+</label>
+</p>
+
+<p>
+<input type="radio" name="payment-popup-option" id="payment-popup-option-003"
+	value="payment-popup-option-003">
+<label for="payment-popup-option-003"><span class="radio">&nbsp;</span>
+4000 pregleda - 800 din
+</label>
+</p>
+
+<p>
+<input type="radio" name="payment-popup-option" id="payment-popup-option-004"
+	value="payment-popup-option-004">
+<label for="payment-popup-option-004"><span class="radio">&nbsp;</span>
+neograniceno pregleda - 2000 din
+<span class="moreinfo">
+<span class="moreinfo-desc">
+Opis opcije
+</span>
+?
+</span><!--moreinfo-->
+</label>
+</p>
+
+</div><!--span-->
+<div class="span6" style="padding-left: 20px; padding-right: 50px; border-left: 1px solid #ddd">
+<p>Podaci za uplatnicu:</p>
+<p>
+Uplatilac: Vase ime, prezime i adresa<br />
+Svrha uplate: Promocija oglasa<br />
+Primalac: Eauto d.o.o.<br />
+Iznos: <span id="payment-popup-amount">200,00</span><br />
+Racun primaoca: 220-133217-22<br />
+Poziv na broj: 3271042
+</p>
+<p>Mozete <a href="#">odstampati</a> ove podatke, ili
+ih poslati sebi <a href="#">mejlom</a> ili <a href="#">SMS</a>-om.</p>
+</div><!--span-->
+</div><!--row-->
+</div><!--popup-body-->
+
+<div class="popup-footer">
+<div class="pull-right">
+<a href="#" id="payment-popup-next-button" class="btn blue">Dalje</a>
+</div><!--pull-right-->
+NAPOMENA: Promocija ce poceti nakon evidentiranja Vase uplate.
+</div><!--popup-footer-->
+</div><!--popup-inner-->
+</div><!--popup-->
+
+<div class="tabbable">
+<ul class="nav nav-tabs">
+	<li class="active" style="margin-left: -10px">
+	<div class="tabs-line-left">&nbsp;</div>
+	<div class="tabs-line-right">&nbsp;</div>
+	<div class="circle-outer">
+		<div class="circle">
+		<div class="inner">
+		<div class="text">
+		<div class="text-inner">
+		1
+		</div><!--text-inner-->
+		</div><!--text-->
+		</div><!--inner-->
+		</div><!--circle-->
+	</div><!--circle-outer-->
+	<a href="#page-1" data-toggle="tab" id="tab-1">Osnovni podaci</a>
+	<div class="click-area">&nbsp;</div>
+	</li>
+	<li>
+	<div class="tabs-line-left">&nbsp;</div>
+	<div class="tabs-line-right">&nbsp;</div>
+	<div class="circle-outer">
+		<div class="circle">
+		<div class="inner">
+		<div class="text">
+		<div class="text-inner">
+		2
+		</div><!--text-inner-->
+		</div><!--text-->
+		</div><!--inner-->
+		</div><!--circle-->
+	</div><!--circle-outer-->
+	<a href="#page-2" data-toggle="tab" id="tab-2">Detaljni podaci</a>
+	<div class="click-area">&nbsp;</div>
+	</li>
+	<li>
+	<div class="tabs-line-left">&nbsp;</div>
+	<div class="tabs-line-right">&nbsp;</div>
+	<div class="circle-outer">
+		<div class="circle">
+		<div class="inner">
+		<div class="text">
+		<div class="text-inner">
+		3
+		</div><!--text-inner-->
+		</div><!--text-->
+		</div><!--inner-->
+		</div><!--circle-->
+	</div><!--circle-outer-->
+	<a href="#page-3" data-toggle="tab" id="tab-3">Kontakt podaci</a>
+	<div class="click-area">&nbsp;</div>
+	</li>
+	<li>
+	<div class="tabs-line-left">&nbsp;</div>
+	<div class="tabs-line-right">&nbsp;</div>
+	<div class="circle-outer">
+		<div class="circle">
+		<div class="inner">
+		<div class="text">
+		<div class="text-inner">
+		4
+		</div><!--text-inner-->
+		</div><!--text-->
+		</div><!--inner-->
+		</div><!--circle-->
+	</div><!--circle-outer-->
+	<a href="#page-4" data-toggle="tab" id="tab-4">Kraj</a>
+	<div class="click-area">&nbsp;</div>
+	</li>
+</ul><!--nav-tabs-->
+
+<div class="tab-content">
+<div id="page-1" class="tab-pane active">
+
+<p class="spaced-out">
+<select class="styled-select" name="page-1-brand" id="page-1-brand">
+	<option value="" selected="selected">Marka</option>
+</select>
+
+<select class="styled-select" name="page-1-model" id="page-1-model">
+	<option value="" selected="selected">Model</option>
+</select>
+
+<select class="styled-select" name="page-1-year" id="page-1-year">
+	<option value="" selected="selected">Godiste</option>
+</select>
+</p>
+
+<div id="filter-submodel" class="inactive">
+<!--p-->
+<div id="submodel-wrapper">
+<div id="submodel-carousel-prev">
+</div><!--submodel-carousel-prev-->
+<div id="submodel-carousel" class="unselectable">
+<div>
+<div class="name">
+Podmodel
+</div><!--name-->
+<div class="yearrange">
+&nbsp;
+</div><!--yearrange-->
+<div class="divider">
+<div class="divider-inner">
+&nbsp;
+</div><!--divider-inner-->
+</div><!--divider-->
+<div class="image empty">
+<img src="img/pgtvcaritem.png" id="p000" />
+</div><!--image-->
+<div class="index">
+</div><!--index-->
+</div>
+</div><!--submodel-carousel-->
+<div id="submodel-carousel-next">
+</div><!--submodel-carousel-next-->
+</div><!--submodel-wrapper-->
+<!--/p-->
+</div><!--filter-submodel-->
+
+<p class="spaced-out">
+<select class="styled-select" name="page-1-fueltype" id="page-1-fueltype">
+	<option value="" selected="selected">Gorivo</option>
+</select>
+
+<select class="styled-select" name="page-1-engine" id="page-1-engine">
+	<option value="" selected="selected">Motor</option>
+</select>
+
+<select class="styled-select" name="page-1-mileage" id="page-1-mileage">
+	<option value="" selected="selected">Kilometraza</option>
+</select>
+
+<select class="styled-select" name="page-1-gearshift" id="page-1-gearshift">
+	<option value="" selected="selected">Menjac</option>
+</select>
+</p>
+<div class="page-footer">
+<div class="footer-buttons">
+<a href="#" id="btn-next-1" class="btn blue">Dalje</a>
+</div><!--footer-buttons-->
+</div><!--page-footer-->
+</div><!--page-1-->
+<div id="page-2" class="tab-pane">
+<div id="ad-page" class="active">
+<div class="row-fluid">
+<div class="span8" id="right-detail-left">
+<div id="right-detail-picture">
+<div class="row-fluid" id="right-detail-picture-main" style="height: 100%; margin-bottom: -70px">
+<div class="span12">
+	<div class="right-detail-main">
+	<div>
+	<img src="img/car/m-z72-002-sm.png" id="p001"  />
+	<!--img class="empty" src="img/camera.png" id="p001"  /-->
+	</div>
+	<div>
+	<img class="empty" src="img/camera.png" id="p002"  />
+	</div>
+	<div>
+	<img class="empty" src="img/camera.png" id="p003"  />
+	</div>
+	<div>
+	<img class="empty" src="img/camera.png" id="p004"  />
+	</div>
+	<div>
+	<img class="empty" src="img/camera.png" id="p005"  />
+	</div>
+	<!--img src="img/car/m-z72-001-sm.png" id="p001" />
+	<img src="img/car/m-z72-002-sm.png" id="p002"  />
+	<img src="img/car/m-z72-003-sm.png" id="p003"  />
+	<img src="img/car/m-z72-004-sm.png" id="p004"  />
+	<img src="img/car/m-z72-005-sm.png" id="p005"  /-->
+	</div><!--right-detail-main-->
+	<div class="right-detail-main-prev">
+	</div><!--right-detail-main-prev-->
+	<div class="right-detail-main-next">
+	</div><!--right-detail-main-next-->
+	<div class="right-detail-main-button">
+	<a href="#" id="right-detail-main-picture-add-button" class="btn blue">
+	Unesite slike
+	</a>
+	</div><!--right-detail-main-button-->
+</div><!--span-->
+</div><!--row-->
+<div class="row-fluid right-detail-thumbs">
+<div class="span1 right-detail-nav-prev">
+</div><!--right-detail-nav-prev-->
+<div class="span10 right-detail-nav-thumbs">
+	<div>
+	<img src="img/car/m-z72-002-sm.png" id="th001"  />
+	<!--img class="empty" src="img/camera.png" id="th001" /-->
+	</div>
+	<div>
+	<img class="empty" src="img/camera.png" id="th002" />
+	</div>
+	<div>
+	<img class="empty" src="img/camera.png" id="th003" />
+	</div>
+	<div>
+	<img class="empty" src="img/camera.png" id="th004" />
+	</div>
+	<div>
+	<img class="empty" src="img/camera.png" id="th005" />
+	</div>
+	<!--img src="img/car/m-z72-001-sm.png" id="th001" />
+	<img src="img/car/m-z72-002-sm.png" id="th002"  />
+	<img src="img/car/m-z72-003-sm.png" id="th003"  />
+	<img src="img/car/m-z72-004-sm.png" id="th004"  />
+	<img src="img/car/m-z72-005-sm.png" id="th005"  /-->
+</div><!--right-detail-nav-thumbs-->
+<div class="span1 right-detail-nav-next">
+</div><!--right-detail-nav-next-->
+</div><!--row-->
+</div><!--right-detail-picture-->
+
+<div class="right-detail-section">
+<a href="#" id="props-enter-button" class="btn blue">Unesite karakteristike</a>
+</div><!--right-detail-section-->
+<h3>Opsti podaci</h3>
+
+<!-- table-striped-->
+<table class="table" id="right-detail-table-general">
+<tbody>
+<tr>
+<td class="right-detail-table-row-title">Godiste:</td>
+<td class="right-detail-table-row-data" id="right-detail-general-year"></td>
+</tr>
+<tr>
+<td class="right-detail-table-row-title">Kilometraza:</td>
+<td class="right-detail-table-row-data" id="right-detail-general-mileage"></td>
+</tr>
+<tr>
+<td class="right-detail-table-row-title">Gorivo:</td>
+<td class="right-detail-table-row-data" id="right-detail-general-fueltype"></td>
+</tr>
+<tr>
+<td class="right-detail-table-row-title">Menjac:</td>
+<td class="right-detail-table-row-data" id="right-detail-general-gear"></td>
+</tr>
+<tr>
+<td class="right-detail-table-row-title">Oblik karoserije:</td>
+<td class="right-detail-table-row-data" id="right-detail-general-body"></td>
+</tr>
+<tr>
+<td class="right-detail-table-row-title">Broj vrata:</td>
+<td class="right-detail-table-row-data" id="right-detail-general-doors"></td>
+</tr>
+<tr>
+<td class="right-detail-table-row-title">Broj sedista:</td>
+<td class="right-detail-table-row-data" id="right-detail-general-seats"></td>
+</tr>
+<tr>
+<td class="right-detail-table-row-title">Boja:</td>
+<td class="right-detail-table-row-data" id="right-detail-general-color"></td>
+</tr>
+<tr>
+<td class="right-detail-table-row-title">Registarske tablice:</td>
+<td class="right-detail-table-row-data" id="right-detail-general-registration"></td>
+</tr>
+<tr>
+<td class="right-detail-table-row-title">Napomene:</td>
+<td class="right-detail-table-row-data" id="right-detail-general-notes"></td>
+</tr>
+</tbody>
+</table>
+
+<h3>Tehnicke karakteristike</h3>
+<!-- table-striped-->
+<table class="table">
+<tbody>
+<tr>
+<td class="right-detail-table-row-title">Zapremina motora:</td>
+<td class="right-detail-table-row-data" id="right-detail-features-volume"></td>
+</tr>
+<tr>
+<td class="right-detail-table-row-title">Snaga motora:</td>
+<td class="right-detail-table-row-data" id="right-detail-features-power"></td>
+</tr>
+<tr>
+<td class="right-detail-table-row-title">Pogon:</td>
+<td class="right-detail-table-row-data" id="right-detail-features-drive"></td>
+</tr>
+<tr>
+<td class="right-detail-table-row-title">Potrosnja:</td>
+<td class="right-detail-table-row-data" id="right-detail-features-spending"></td>
+</tr>
+<tr>
+<td class="right-detail-table-row-title">Emisiona klasa:</td>
+<td class="right-detail-table-row-data" id="right-detail-features-emission-class"></td>
+</tr>
+</tbody>
+</table>
+
+
+<div class="right-detail-section">
+<a href="#" id="equipment-enter-button" class="btn blue">Unesite opremu</a>
+</div><!--right-detail-section-->
+<h3>Oprema</h3>
+
+<!-- table-striped-->
+<table class="table">
+<tbody>
+<tr id="right-detail-equipment-exterior">
+<td class="right-detail-table-row-title">Spoljasnjost:</td>
+<td class="right-detail-table-row-data" id="right-detail-equipment-exterior-000"></td>
+</tr>
+<tr id="right-detail-equipment-interior">
+<td class="right-detail-table-row-title">Unutrasnjost:</td>
+<td class="right-detail-table-row-data" id="right-detail-equipment-interior-000"></td>
+</tr>
+<tr id="right-detail-equipment-driving-safety">
+<td class="right-detail-table-row-title">Bezbednost voznje:</td>
+<td class="right-detail-table-row-data" id="right-detail-equipment-driving-safety-000"></td>
+</tr>
+<tr id="right-detail-equipment-vehicle-safety">
+<td class="right-detail-table-row-title">Sigurnost vozila:</td>
+<td class="right-detail-table-row-data" id="right-detail-equipment-vehicle-safety-000"></td>
+</tr>
+</tbody>
+</table>
+
+<div class="right-detail-section">
+<a href="#" id="comment-enter-button" class="btn blue">Unesite komentar</a>
+</div><!--right-detail-section-->
+
+<div id="right-detail-social-buttons">
+<a href="#" class="btn gray">
+	<img src="img/icon-excl.png" />
+</a>
+<a href="#" class="btn gray">
+	<img src="img/icon-print.png" />
+</a>
+<a href="#" class="btn gray">
+	<img src="img/icon-fb.png" />
+</a>
+<a href="#" class="btn gray">
+	<img src="img/icon-twitter.png" />
+</a>
+</div><!--right-detail-social-buttons-->
+<!--div id="right-detail-seller">
+<div class="row-fluid">
+<div class="span8" style="white-space: nowrap">
+<p id="right-detail-seller-company"></p>
+<p id="right-detail-seller-address"></p>
+<p id="right-detail-seller-phone"></p>
+</div--><!--span-->
+<!--div class="span4" style="text-align: right">
+<p><a href="#">Chat</a> (online)</p>
+<p><a href="#">Posalji email</a></p>
+</div--><!--span-->
+<!--/div--><!--row-->
+<!--/div--><!--right-detail-seller-->
+</div><!--right-detail-left-->
+
+<div class="span3" id="right-detail-right">
+<!--div id="right-detail-right"-->
+<div id="right-detail-price">
+</div><!--right-detail-price-->
+<div id="right-detail-eval">
+<div id="right-detail-eval-arrow">
+&nbsp;
+</div>
+<!--a href="#" class="btn gray"><i class="icon-share"></i></a-->
+<div id="right-detail-eval-price">
+<span id="right-detail-eval-price-image"></span>
+<span id="right-detail-eval-price-amount"></span>
+</div><!--right-detail-eval-price-->
+<div id="right-detail-eval-desc">
+</div><!--right-detail-eval-desc-->
+</div><!--right-detail-eval-->
+
+<div class="right-detail-section">
+<a href="#" id="price-enter-button" class="btn blue">Unesite cenu</a>
+</div><!--right-detail-section-->
+
+<h3>Prodavac</h3>
+<!-- table-striped-->
+<table class="table">
+<tbody>
+<tr>
+<td class="right-detail-table-row-data" id="right-detail-seller-company"></td>
+</tr>
+<tr>
+<td class="right-detail-table-row-data" id="right-detail-seller-address-street"></td>
+</tr>
+<tr>
+<td class="right-detail-table-row-data" id="right-detail-seller-address-city-distance"></td>
+</tr>
+<tr id="right-detail-seller-phone">
+<td class="right-detail-table-row-data" ></td>
+</tr>
+<tr>
+<td class="right-detail-table-row-data" id="right-detail-seller-chat"><a href="#">Chat <span class="user-online online">(online)</span></a> &gt;</td>
+</tr>
+<tr>
+<td class="right-detail-table-row-data" id="right-detail-seller-email"><a href="#">Email</a> &gt;</td>
+</tr>
+</tbody>
+</table>
+</div><!--right-detail-right-->
+<!--/div--><!--span-->
+</div><!--row-->
+</div><!--ad-page-->
+<div class="page-footer">
+<div class="footer-buttons">
+&lt; <a href="#" id="link-prev-2">Prethodni korak</a>
+<a href="#" id="btn-next-2" class="btn blue">Dalje</a>
+</div><!--footer-buttons-->
+</div><!--page-footer-->
+</div><!--page-2-->
+<div id="page-3" class="tab-pane">
+<p class="spaced-out">
+<select class="styled-select" name="page-3-municipality" id="page-3-municipality">
+	<option value="" selected="selected">Opstina</option>
+</select>
+
+<select class="styled-select" name="page-3-address" id="page-3-address">
+	<option value="" selected="selected">Adresa</option>
+</select>
+<span class="moreinfo">
+<span class="moreinfo-desc">
+Opis adrese
+</span>
+?
+</span><!--moreinfo-->
+</p>
+
+<p class="spaced-out">&nbsp;
+<label for="page-3-phone">Telefon:</label>
+<input type="text" class="inline" name="page-3-phone" id="page-3-phone" placeholder="" />
+
+<label for="page-3-phone-1">Telefon 1:</label>
+<input type="text" class="inline" name="page-3-phone-1" id="page-3-phone-1" placeholder="" />
+
+<label for="page-3-mobile">Mobilni:</label>
+<input type="text" class="inline" name="page-3-mobile" id="page-3-mobile" placeholder="" />
+
+<label for="page-3-mobile-1">Mobilni 1:</label>
+<input type="text" class="inline" name="page-3-mobile-1" id="page-3-mobile-1" placeholder="" />
+</p>
+
+<div class="page-footer">
+<div class="footer-buttons">
+&lt; <a href="#" id="link-prev-3">Prethodni korak</a>
+<a href="#" id="btn-next-3" class="btn blue">Dalje</a>
+</div><!--footer-buttons-->
+</div><!--page-footer-->
+</div><!--page-3-->
+<div id="page-4" class="tab-pane">
+<p>Uspesno ste uneli oglas! U narednih 24h ocekujte poziv za potvrdu oglasa.</p>
+<p>U medjuvremenu, evo sta mozete da uradite da sto pre prodate svoje vozilo:</p>
+<p>1. Podelite oglas na socijalnim mrezama:</p>
+<p><a href="#"><img src="img/button-fb.png" /></a> <a href="#"><img src="img/button-tw.png" /></a>
+<a href="#"><img src="img/button-gp.png" /></a></p>
+<p>2. Iskoristite uslugu sponzorisanih pregleda i ostvarite i do 20 puta brzu prodaju:<br />
+- Uplata na <a href="#" id="page-4-account-link">racun</a> (vec od 200 din)<br />
+- Uplata <a href="#">SMS-om</a> (vec od 300 din)
+</p>
+<p>Saznajte vise o <a href="#">sponzorisanim pregledima</a>.</p>
+
+<div class="page-footer">
+<div class="footer-buttons">
+&lt; <a href="#" id="link-prev-4">Prethodni korak</a>
+<!--a href="#" id="btn-next-4" class="btn blue">Dalje</a-->
+</div><!--footer-buttons-->
+</div><!--page-footer-->
+</div><!--page-4-->
+</div><!--tab-content==>
+
+</div><!-- content -->
+<!--/div--><!-- content-wrapper -->
+</div><!--body-inner-->
+
+<div id="footer-wrapper">
+<div id="footer-border">
+</div><!--footer-border-->
+<div id="footer">
+<div id="footer-body">
+<ul>
+<li>
+	<h3>Kupovina na eauto</h3>
+	<ul>
+	<li>Post buzing requests</li>
+	<li>Browse Categories</li>
+	</ul>
+</li>
+<li>
+	<h3>Prodaja na eauto</h3>
+	<ul>
+	<li>Premium Membership</li>
+	<li>Verified Membership</li>
+	</ul>
+</li>
+<li>
+	<h3>Servis i podesavanja</h3>
+	<ul>
+	<li>My Eauto</li>
+	<li>Trade Manager</li>
+	</ul>
+</li>
+</ul>
+</div><!--footer-body-->
+</div><!--footer-->
+</div><!--footer-wrapper-->
+</body>
+</html>

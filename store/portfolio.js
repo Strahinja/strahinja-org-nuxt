@@ -2,8 +2,8 @@ export const state = () => ({
     list: [],
     apiUrl: '/portfolio?c=12',
     apiReadUrl: '/portfolio',
-    apiAddUrl: '/portfolio/add',
-    apiUpdateUrl: '/portfolio/update',
+    apiSerializeUrl: '/portfolio/serialize',
+    apiRemoveUrl: '/portfolio/delete',
 });
 
 export const mutations = {
@@ -21,11 +21,13 @@ export const mutations = {
 export const getters = {
     count: state => state.list.length,
     list: state => state.list,
-    findIndexByLinkId: state => linkId => state.list.findIndex(item => item.link_id == linkId),
-    findByLinkId: state => linkId => state.list.find(item => item.link_id == linkId),
+    indexByLinkId: state => linkId =>
+        state.list.findIndex(item => item.link_id == linkId),
+    itemByLinkId: state => linkId =>
+        state.list.find(item => item.link_id == linkId),
     apiPath: state => state.apiUrl,
-    apiAddPath: state => state.apiAddUrl,
-    apiUpdatePath: state => state.apiUpdateUrl,
+    apiSerializePath: state => state.apiSerializeUrl,
+    apiRemovePath: state => state.apiRemovePath,
 };
 
 export const actions = {
@@ -51,6 +53,10 @@ export const actions = {
 
             if (res && res.data && res.code === 200)
             {
+                res.data.forEach((item) =>
+                {
+                    item.old_link_id = item.link_id;
+                });
                 commit('setList', res.data);
             }
         }
@@ -80,6 +86,7 @@ export const actions = {
     addItem({ commit, getters }, item)
     {
         let list = getters['list'];
+        item.added = true;
         list.push(item);
         commit('setList', list);
     },
@@ -100,24 +107,82 @@ export const actions = {
         }
     },*/
 
-    updateItem({ commit, getters }, item)
+    async saveItem({ commit, getters }, payload)
     {
-        let index = getters['findIndexByLinkId'](item.link_id);
+        let index = getters['indexByLinkId'](payload.linkId);
+
         if (index != -1)
         {
-            commit('setItem', { index, item });
+            console.log('store/portfolio: saveItem: index = ', index);
+            let item = getters['itemByLinkId'](payload.linkId);
+            console.log('store/portfolio: saveItem: item = ', item);
+
+            try
+            {
+                let result = await this.$axios.$post(
+                    getters['apiSerializePath'], item);
+                if (result && result.code==200)
+                {
+                    item.added = false;
+                    item.old_link_id = item.link_id;
+                    commit('setItem', { index, item });
+                    if (payload.success)
+                    {
+                        payload.success(result);
+                    }
+                }
+                else if (payload.error)
+                {
+                    payload.error(result);
+                }
+            }
+            catch(err)
+            {
+                if (payload.error)
+                {
+                    payload.error({ message: err });
+                }
+            }
         }
     },
 
-    removeItem({ commit, getters }, itemIndex)
+    async removeItem({ commit, getters }, payload)
     {
-        let list = getters['list'];
-        list.splice(itemIndex, 1);
-        commit('setList', list);
+        let index = getters['indexByLinkId'](payload.linkId);
+        let link_id = payload.linkId;
+
+        try
+        {
+            let result = await this.$axios.$post(getters['apiRemovePath'],
+                                                 { link_id });
+            if (result.code == 200)
+            {
+                let list = getters['list'];
+                list.splice(index, 1);
+                commit('setList', list);
+                if (payload.success)
+                {
+                    payload.success(result);
+                }
+            }
+            else if (payload.error)
+            {
+                payload.error(result);
+            }
+        }
+        catch(err)
+        {
+            if (payload.error)
+            {
+                payload.error({ message: err });
+            }
+        }
     },
 
-    moveItemUp({ commit, getters }, itemIndex)
+    moveItemUp({ commit, getters }, linkId)
     {
+        let itemIndex = getters['indexByLinkId'](linkId);
+
         if (itemIndex < 1)
         {
             return;
@@ -128,16 +193,18 @@ export const actions = {
 
         newList.splice(itemIndex-1, 0, item);
 
-        console.log('store/portfolio: moveItemUp: list[before] = ', getters['list']);
+        //console.log('store/portfolio: moveItemUp: list[before] = ', getters['list']);
         commit('setList', newList);
-        console.log('store/portfolio: moveItemUp: list[after] = ', getters['list']);
+        //console.log('store/portfolio: moveItemUp: list[after] = ', getters['list']);
 
         newList = null;
         item = null;
     },
 
-    moveItemDown({ commit, getters }, itemIndex)
+    moveItemDown({ commit, getters }, linkId)
     {
+        let itemIndex = getters['indexByLinkId'](linkId);
+
         if (itemIndex > getters['count']-2)
         {
             return;
@@ -155,5 +222,20 @@ export const actions = {
         newList = null;
         item = null;
     },
+
+    changeLinkId({ commit, getters }, payload)
+    {
+        let item = getters['itemByLinkId'](payload.from);
+        if (item)
+        {
+            let index = getters['indexByLinkId'](payload.from);
+            item.link_id = payload.to;
+            if (!item.old_link_id)
+            {
+                item.old_link_id = payload.from;
+            }
+            commit('setItem', { index, item });
+        }
+    }
 };
 

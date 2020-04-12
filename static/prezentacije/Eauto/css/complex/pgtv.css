@@ -1,0 +1,12 @@
+.pgtv .twocol .left-side
+{
+	border-right: 1px solid #ddd;
+	min-height: 600px !important;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+#intro
+{
+	margin-bottom: 40px;
+}

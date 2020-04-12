@@ -1,0 +1,120 @@
+.reg #content h3
+{
+	font-family: Calibri, Arial, sans-serif;
+	font-size: 15px;
+	line-height: 25px;
+	margin-top: 15px;
+	margin-bottom: 5px;
+}
+
+.reg #content .spaced-out,
+.reg #content .spaced-out input
+{
+	color: #999 !important;
+}
+
+:-moz-placeholder
+{
+	opacity: 1.0;
+	color: #999 !important;
+	/*padding-left: 10px;*/
+}
+
+::-moz-placeholder
+{
+	opacity: 1.0;
+	color: #999 !important;
+	/*padding-left: 10px;*/
+}
+
+:-ms-input-placeholder
+{
+	opacity: 1.0;
+	color: #999 !important;
+	/*padding-left: 10px;*/
+}
+
+::-webkit-input-placeholder
+{
+	opacity: 1.0;
+	color: #999 !important;
+	/*padding-left: 10px;*/
+}
+
+#company-about
+{
+	width: 450px;
+	height: 70px;
+}
+
+#company-gallery
+{
+	display: block;
+	width: 475px;
+	height: 144px;
+}
+
+#company-gallery li
+{
+	display: block;
+	float: left;
+	width: 90px;
+	height: 67px;
+	margin-bottom: 5px;
+	margin-right: 5px;
+}
+
+#company-gallery li.empty
+{
+	background: #f1f0f1;
+	line-height: 67px;
+	vertical-align: middle;
+	text-align: center;
+}
+
+#company-gallery img
+{
+	width: 90px;
+	height: 67px;
+}
+
+#company-gallery .empty img
+{
+	vertical-align: middle;
+	width: 30px;
+	height: 28px;
+}
+
+.time-dropdowns
+{
+	vertical-align: top;
+	line-height: 35px;
+	height: 35px;
+}
+
+.time-dropdowns .dd
+{
+	line-height: 20px;
+	width: 60px;
+	min-width: 60px;
+	max-width: 60px;
+}
+
+.time-dropdowns-title-column
+{
+	/*display: inline-block;*/
+	display: block;
+	float: left;
+	width: 70px;
+}
+
+.company-unit-subtypes
+{
+	display: none;
+	margin-left: 40px;
+}
+
+.company-unit-subtypes.active
+{
+	display: block;
+}
