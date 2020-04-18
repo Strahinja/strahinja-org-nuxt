@@ -14,7 +14,7 @@ export default {
     methods: {
         async serviceBtnClick(serviceName)
         {
-            console.log('Login.serviceBtnClick(', serviceName, ')');
+            //console.log('Login.serviceBtnClick(', serviceName, ')');
             if (serviceName == 'facebook' || serviceName == 'google' ||
                 serviceName == 'github')
             {
@@ -25,13 +25,13 @@ export default {
                         this.$toast.success('Пријављивање успело!', {
                             icon: 'mdi mdi-account-check',
                         });
-                        console.log('this.$auth.loggedIn = ',
+                        /*console.log('this.$auth.loggedIn = ',
                                     this.$auth.loggedIn ? 'true' : 'false');
-                        console.log('thia.$auth.user = ', this.$auth.user);
+                        console.log('thia.$auth.user = ', this.$auth.user);*/
                     })
-                    .catch(e =>
+                    .catch((/*e*/) =>
                     {
-                        console.log('layouts/default.vue.loginSheetServiceBtnClick(await): ', e);
+                        //console.log('layouts/default.vue.loginSheetServiceBtnClick(await): ', e);
                         this.$toast.error('Грешка при пријављивању', {
                             icon: 'mdi mdi-alert',
                         });

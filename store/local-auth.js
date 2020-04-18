@@ -110,11 +110,11 @@ export const actions = {
 
     logout({ commit, getters, rootGetters })
     {
-        console.log('store/local-auth: logout()');
+        //console.log('store/local-auth: logout()');
         this.$axios.$get(getters['apiLogoutPath'])
-            .then((res) =>
+            .then((/*res*/) =>
             {
-                console.log('store/local-auth: logout.then(): res = ', res);
+                //console.log('store/local-auth: logout.then(): res = ', res);
                 commit('setUser', {});
                 if (rootGetters['pages/isPageProtectedById'](rootGetters['pages/pageId']))
                 {

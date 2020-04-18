@@ -185,8 +185,8 @@ export default {
     {
         setLoginSheetActive(newValue)
         {
-            console.log('components/ProfileMenu.vue: setLoginSheetActive(',
-                        newValue, ')');
+            /*console.log('components/ProfileMenu.vue: setLoginSheetActive(',
+                        newValue, ')');*/
             this.loginSheetActive = newValue;
         },
         settingsClick()
@@ -195,7 +195,7 @@ export default {
         },
         logoutClick()
         {
-            console.log('components/ProfileMenu.vue: logoutClick()');
+            //console.log('components/ProfileMenu.vue: logoutClick()');
             this.$store.dispatch('local-auth/logout', { root: true });
 
             /*if (this.$auth && this.loggedIn)
@@ -209,34 +209,35 @@ export default {
         },
         loginSheetActivatorClick()
         {
-            console.log('components/ProfileMenu.vue: loginSheetActivatorClick()');
-            console.log('(before) this.loginSheetActive = ', this.loginSheetActive ? 'true' : 'false');
+            /*console.log('components/ProfileMenu.vue: loginSheetActivatorClick()');
+            console.log('(before) this.loginSheetActive = ',
+            this.loginSheetActive ? 'true' : 'false');*/
             this.loginSheetActive = true;
-            console.log('(after)  this.loginSheetActive = ', this.loginSheetActive ? 'true' : 'false');
+            //console.log('(after)  this.loginSheetActive = ', this.loginSheetActive ? 'true' : 'false');
         },
         async loginSheetServiceBtnClick(serviceName)
         {
-            console.log('ProfileMenu.loginSheetServiceBtnClick(',
-                        serviceName, ')');
+            /*console.log('ProfileMenu.loginSheetServiceBtnClick(',
+                        serviceName, ')');*/
             /*if (serviceName == 'facebook' || serviceName == 'google' ||
                 serviceName == 'github')
             {*/
             await this.$auth.loginWith(serviceName)
-                .then((args) =>
+                .then((/*args*/) =>
                 {
-                    console.log('ProfileMenu.loginSheetServiceBtnClick: Success!');
+                    //console.log('ProfileMenu.loginSheetServiceBtnClick: Success!');
                     this.refreshOnAuthChange = new Date().toISOString();
                     this.$toast.success('Пријављивање успело!', {
                         icon: 'mdi mdi-account-check',
                     });
-                    console.log('args = ', args);
+                    /*console.log('args = ', args);
                     console.log('this.$auth.loggedIn = ',
                                 this.$auth.loggedIn ? 'true' : 'false');
-                    console.log('thia.$auth.user = ', this.$auth.user);
+                    console.log('thia.$auth.user = ', this.$auth.user);*/
                 })
-                .catch(e =>
+                .catch((/*e*/) =>
                 {
-                    console.log('ProfileMenu.loginSheetServiceBtnClick(await): ', e);
+                    //console.log('ProfileMenu.loginSheetServiceBtnClick(await): ', e);
                     this.$toast.error('Грешка при пријављивању', {
                         icon: 'mdi mdi-alert',
                         /*action: {

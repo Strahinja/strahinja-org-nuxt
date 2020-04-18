@@ -159,14 +159,14 @@ export default {
             this.$store.dispatch('local-auth/login', {
                 username: this.username,
                 password: this.password,
-                success: (res) =>
+                success: (/*res*/) =>
                 {
-                    console.log('components/LoginForm.vue: login-success callback, res = ', res);
+                    //console.log('components/LoginForm.vue: login-success callback, res = ', res);
                     this.$emit('login-success');
                 },
-                error: (err) =>
+                error: (/*err*/) =>
                 {
-                    console.log('components/LoginForm.vue: ', err.message);
+                    //console.log('components/LoginForm.vue: ', err.message);
                     this.$emit('login-error');
                 },
             }, { root: true });

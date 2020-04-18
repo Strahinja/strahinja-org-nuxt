@@ -3,6 +3,7 @@ export const state = () => ({
     apiUrl: '/portfolio?c=12',
     apiReadUrl: '/portfolio',
     apiSerializeUrl: '/portfolio/serialize',
+    apiOrderingUrl: '/portfolio/order',
     apiRemoveUrl: '/portfolio/delete',
 });
 
@@ -27,7 +28,9 @@ export const getters = {
         state.list.find(item => item.link_id == linkId),
     apiPath: state => state.apiUrl,
     apiSerializePath: state => state.apiSerializeUrl,
+    apiOrderingPath: state => state.apiOrderingUrl,
     apiRemovePath: state => state.apiRemovePath,
+    itemIdList: state => state.list.map(item => item.id),
 };
 
 export const actions = {
@@ -236,6 +239,37 @@ export const actions = {
             }
             commit('setItem', { index, item });
         }
-    }
+    },
+
+    async saveOrdering({ getters }, payload)
+    {
+        let items = getters['itemIdList'];
+
+        console.log('store/portfolio: saveOrdering: items = ', items);
+
+        try
+        {
+            let result = await this.$axios.$post(
+                getters['apiOrderingPath'], { items });
+            if (result && result.code==200)
+            {
+                if (payload.success)
+                {
+                    payload.success(result);
+                }
+            }
+            else if (payload.error)
+            {
+                payload.error(result);
+            }
+        }
+        catch(err)
+        {
+            if (payload.error)
+            {
+                payload.error({ message: err });
+            }
+        }
+    },
 };
 

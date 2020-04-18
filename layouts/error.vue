@@ -52,7 +52,7 @@ export default {
     },
     mounted()
     {
-        console.log('layouts/error: error = ');
+        //console.log('layouts/error: error = ');
         console.dir(this.error);
     },
 };

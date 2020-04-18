@@ -195,14 +195,14 @@ export default {
     {
         if (this && this.item && this.item.link_id)
         {
-            console.log('EditPortfolioItem.mounted: link_id = ',
-                        this.item.link_id);
+            /*console.log('EditPortfolioItem.mounted: link_id = ',
+                        this.item.link_id);*/
             this.linkId = this.item.link_id;
         }
-        else
+        /*else
         {
             console.log('EditPortfolioItem.mounted: this = null');
-        }
+        }*/
     },
 };
 </script>

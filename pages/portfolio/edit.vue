@@ -133,6 +133,27 @@ export default {
         {
             this.$store.dispatch('portfolio/saveItem', {
                 linkId,
+                success: () =>
+                {
+                    this.$store.dispatch('portfolio/saveOrdering', {
+                        error: (result) =>
+                        {
+                            if (result.message)
+                            {
+                                if (this && typeof this.$toast === 'function')
+                                {
+                                    this.$toast(result.message, {
+                                        icon: 'mdi mdi-alert',
+                                    });
+                                }
+                                else
+                                {
+                                    console.error(result.message);
+                                }
+                            }
+                        }
+                    }, { root: true });
+                },
                 error: (result) =>
                 {
                     if (result.message)
@@ -146,7 +167,6 @@ export default {
                         else
                         {
                             console.error(result.message);
-                            console.log(this);
                         }
                     }
                 }
@@ -170,7 +190,7 @@ export default {
                         else
                         {
                             console.error(result.message);
-                            console.log(this);
+                            //console.log(this);
                         }
                     }
                 }
