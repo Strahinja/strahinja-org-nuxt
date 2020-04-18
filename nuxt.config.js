@@ -34,17 +34,29 @@ var dynamicMarkdownRoutes = getDynamicMarkdownPaths({
 var blogFrontmatter = getMarkdownFrontmatter(dynamicMarkdownRoutes);
 var blogTags = getMarkdownTags(blogFrontmatter);
 var blogGistIds = getMarkdownGistIds(blogFrontmatter);
-console.log('nuxt.config.js: blogTags = ', blogTags);
-console.log('nuxt.config.js: blogGistIds = ', blogGistIds);
+console.log('nuxt.config.js: blogTags = ', JSON.stringify(blogTags));
+console.log('nuxt.config.js: blogGistIds = ', JSON.stringify(blogGistIds));
 fs.writeFileSync('static/blog/blog-frontmatter.json', JSON.stringify(blogFrontmatter));
 fs.writeFileSync('static/blog/blog-tags.json', JSON.stringify(blogTags));
 fs.writeFileSync('static/blog/blog-gist-ids.json', JSON.stringify(blogGistIds));
+
+var lastmod = (new Date()).toISOString();
 
 dynamicMarkdownRoutes = dynamicMarkdownRoutes.concat(blogTags.map(tag =>
 {
     return `/blog/tag/${tag}`;
 }));
-console.log('nuxt.config.js: dynamicMarkdownRoutes = ', dynamicMarkdownRoutes);
+console.log('nuxt.config.js: dynamicMarkdownRoutes = ', JSON.stringify(dynamicMarkdownRoutes));
+
+var generalExclusion = [
+    '/noindex',
+    '/search',
+    '/login',
+    '/login/callback',
+    '/users',
+    '/users/me',
+    '/portfolio/edit',
+];
 
 export default {
     mode: 'universal',
@@ -190,6 +202,7 @@ export default {
      */
     sitemap: {
         hostname: 'https://strahinja.org',
+        lastmod,
         exclude: [
             '/noindex',
             '/search',
@@ -199,7 +212,19 @@ export default {
             '/users/me',
             '/portfolio/edit',
         ],
-        routes: dynamicMarkdownRoutes
+        path: '/sitemap_index.xml',
+        sitemaps: [
+            {
+                path: '/blog/sitemap-2020.xml',
+                routes: dynamicMarkdownRoutes,
+                exclude: generalExclusion,
+            },
+            {
+                path: '/sitemap_main.xml',
+                routes: [],
+                exclude: generalExclusion.concat(dynamicMarkdownRoutes),
+            }
+        ],
     },
     /*
      ** Axios module configuration

@@ -22,4 +22,4 @@ Disallow: /kontakt
 Disallow: /galerija
 Allow: /favicon.ico
 
-Sitemap: http://strahinja.org/sitemap.xml
+Sitemap: http://strahinja.org/sitemap_index.xml
