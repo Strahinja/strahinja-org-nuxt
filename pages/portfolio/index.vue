@@ -5,7 +5,10 @@
         v-progress-linear.my-5(indeterminate=true,
         :active="portfolioLoading")
 
-        v-container.px-0.mx-0(fluid=true)
+        v-container
+            ext-grid(:items="portfolio")
+
+        //-v-container.px-0.mx-0(fluid=true)
             v-row(:class="{'breakout-row': $breakpoint.is.smOnly}")
                 v-col.mb-2(v-for="(item, itemIndex) in portfolio",
                 :key="itemIndex"
@@ -19,10 +22,11 @@
 <script>
 import Subpage from '~/components/Subpage';
 import PortfolioItem from '~/components/PortfolioItem';
+import ExtGrid from '~/components/ExtGrid';
 
 export default {
     name: 'Portfolio',
-    components: { PortfolioItem, Subpage },
+    components: { PortfolioItem, Subpage, ExtGrid },
     computed:
     {
         portfolio()

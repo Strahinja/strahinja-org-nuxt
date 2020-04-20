@@ -18,7 +18,7 @@ import markdownItMdi from 'markdown-it-mdi';
 import markdownItTocDoneRight from 'markdown-it-toc-done-right';
 import authConfig from './auth.config.js';
 
-var appModeStaging = false;
+var appModeStaging = true;
 require('dotenv').config({ path: `.env.${appModeStaging?'staging':'production'}` });
 console.log('dotenv: mode = ', process.env.VUE_APP_MODE);
 console.log('dotenv: path = ', process.env.VUE_APP_API_PATH);

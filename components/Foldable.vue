@@ -22,6 +22,7 @@ export default {
             animationHandle: null,
             animationEnd: () =>
             {},
+            animationDelay: 100,
             secondaryAnimationHandle: null,
             secondaryAnimationEnd: () =>
             {},
@@ -57,7 +58,8 @@ export default {
                     this.$refs.wrapper.style.height = this.foldedHeight;
                     this.animationHandle = null;
                 };
-                this.animationHandle = setTimeout(this.animationEnd, 100);
+                this.animationHandle = setTimeout(this.animationEnd,
+                                                  this.animationDelay);
             }
             else
             {
@@ -78,7 +80,8 @@ export default {
                         setTimeout(this.secondaryAnimationEnd,
                                    this.secondaryAnimationDelay);
                 };
-                this.animationHandle = setTimeout(this.animationEnd, 100);
+                this.animationHandle = setTimeout(this.animationEnd,
+                                                  this.animationDelay);
             }
         }
     },
