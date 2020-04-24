@@ -43,7 +43,7 @@
     "pug-lint": "^2.6.0",
     "serialize-javascript": "2.1.1",
     "vue-clickaway": "^2.2.2",
-    "vuetify-datetime-picker": "darrenfang/vuetify-datetime-picker"
+    "vuetify-datetime-picker": "^2.1.1"
   },
   "devDependencies": {
     "@babel/plugin-syntax-dynamic-import": "^7.2.0",

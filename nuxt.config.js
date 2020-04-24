@@ -18,7 +18,9 @@ import markdownItMdi from 'markdown-it-mdi';
 import markdownItTocDoneRight from 'markdown-it-toc-done-right';
 import authConfig from './auth.config.js';
 
-var appModeStaging = true;
+// Staging (true) or production (false)?
+var appModeStaging = false;
+
 require('dotenv').config({ path: `.env.${appModeStaging?'staging':'production'}` });
 console.log('dotenv: mode = ', process.env.VUE_APP_MODE);
 console.log('dotenv: path = ', process.env.VUE_APP_API_PATH);
@@ -94,11 +96,9 @@ export default {
         { src: '~/plugins/check-login.js', mode: 'client' },
         '~/plugins/cookie-disclaimer.js',
         '~/plugins/datetime-picker.js',
-        //{ src: '~/plugins/four-oh-four.js', mode: 'server' },
         '~/plugins/four-oh-four.js',
         '~/plugins/jsonld.js',
         { src: '~/plugins/theme-settings.js', mode: 'client' },
-        //{ src: '~/plugins/auth.js', mode: 'client' },
     ],
     /*auth: {
         cookie: {
