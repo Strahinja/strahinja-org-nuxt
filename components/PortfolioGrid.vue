@@ -2,7 +2,7 @@
     .portfolio-grid(:class=`{
         mobile: $breakpoint.is.smAndDown,
     }`)
-        v-row(v-for="row in rows()",
+        v-row.ma-0(v-for="row in rows()",
         :key="row",
         :class=`{
                 'row-active': activeRow==row,
@@ -202,13 +202,15 @@ export default {
 </script>
 
 <style lang="sass" scoped>
-.full-height
-    height: 100%
+$animation-speed: .125s
+
+.portfolio-grid
+    margin: 0
 
 .v-card,
 .row,
 .col
-    transition: all .5s ease-in-out
+    transition: all $animation-speed ease-in-out
 
 .col:last-child
     overflow: hidden
@@ -270,7 +272,7 @@ export default {
 .card-underlay
     position: absolute
     opacity: 0.0
-    transition: all .5s ease-in-out
+    transition: all $animation-speed ease-in-out
     width: 100%
     height: 100%
     overflow: hidden
@@ -281,6 +283,7 @@ export default {
 .card-underlay img
     height: 100%
     transform: translate(-50%, -50%)
+    filter: grayscale(1) contrast(.3)
     top: 50%
     left: 50%
     position: absolute

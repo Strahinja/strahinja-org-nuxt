@@ -7,7 +7,8 @@
         md: $breakpoint.is.mdAndUp,
         'md-and-down': $breakpoint.is.mdAndDown,
         lg: $breakpoint.is.lgAndUp,
-        'lg-and-down': $breakpoint.is.xl
+        'lg-and-down': $breakpoint.is.xl,
+        vcentered,
     }`,
     :style="splashComputedStyle")
         slot/
@@ -18,34 +19,40 @@ export default {
     name: 'Splash',
 
     props: {
-        //insideContainer: { type: Boolean, default: false },
-        bgColor: { type: String, default: '#fff' },
-        fgColor: { type: String, default: '#000' },
-        //startingAtTop: { type: Boolean, default: false },
-        //endingAtBottom: { type: Boolean, default: false },
-        height: { type: String, default: '300px' }
+        bgColor: { type: String, default: '#fff', required: false },
+        fgColor: { type: String, default: '#000', reqired: false },
+        height: { type: String, default: '300px', required: false },
+        align: { type: String, default: 'center', reqired: false },
+        paddingLeft: { type: String, default: '0', required: false },
+        paddingRight: { type: String, default: '0', required: false },
+        paddingTop: { type: String, default: '0', required: false },
+        paddingBottom: { type: String, default: '0', required: false },
+        vcentered: { type: Boolean, default: true, required: false },
     },
 
     computed: {
         splashComputedStyle()
         {
-            return 'height: ' + this.height
-                + ';min-height: ' + this.height
-                //+ ';line-height: ' + this.height
-                + ';background-color: ' + this.bgColor
-                + ';color: ' + this.fgColor;
+            return {
+                height: this.height,
+                'min-height': this.height,
+                'background-color': this.bgColor,
+                color: this.fgColor,
+                'text-align': this.align,
+                'padding-left': this.paddingLeft,
+                'padding-right': this.paddingLeft,
+                'padding-top': this.paddingLeft,
+                'padding-bottom': this.paddingLeft,
+            };
         }
     }
 };
 </script>
 
 <style lang="sass" scoped>
-$margin-amount: 24px
-$margin-amount-smanddown: 12px
 
 .splash
     display: block
-    text-align: center
     width: 100%
 
 .splash h1
@@ -54,32 +61,11 @@ $margin-amount-smanddown: 12px
     display: inline-block
     vertical-align: middle
 
-.splash:before
+.splash.vcentered:before
     content: ' '
     display: inline-block
     vertical-align: middle
     height: 100%
 
-/* .splash.inside-container
-    width: calc(100% + #{2 * $margin-amount})
-    margin-left: -1 * $margin-amount
-    margin-right: -1 * $margin-amount
-
-/* .splash.inside-container.sm-and-down
-    width: calc(100% + #{2 * $margin-amount-smanddown})
-    margin-left: -1 * $margin-amount-smanddown
-    margin-right: -1 * $margin-amount-smanddown
-
-/* .splash.inside-container.sm-and-down.starting-at-top
-    margin-top: -1 * $margin-amount-smanddown
-
-/* .splash.inside-container.starting-at-top
-    margin-top: -1 * $margin-amount
-
-/* .splash.inside-container.sm-and-down.ending-at-bottom
-    margin-bottom: -1 * $margin-amount-smanddown
-
-/* .splash.inside-container.ending-at-bottom
-    margin-bottom: -1 * $margin-amount
 </style>
 

@@ -98,7 +98,7 @@
                                                     | {{ isThemeDark ? 'mdi-white-balance-sunny' : 'mdi-weather-night' }}
                                         span Тема: {{ isThemeDark ?  'светла' : 'тамна' }}
                                     profile-menu/
-        v-content
+        v-content(:class="{ sm: $breakpoint.is.smAndDown }")
             nuxt/
         client-only
             cookie-disclaimer(color="primary darken-1 white--text",

@@ -50,7 +50,10 @@ h4
     font-size: 1.5rem
 
 main.v-content
-    padding-bottom: 150px
+    padding-bottom: $app-content-padding-bottom !important
+
+main.v-content.sm
+    padding-bottom: $app-content-padding-bottom-sm !important
 
 .v-application .v-app-bar .error--text .v-messages__message,
 .v-application .v-app-bar .error--text.v-counter
@@ -83,6 +86,12 @@ main.v-content
 
 .v-application.sm-and-down p
     font-size: .9em
+
+.v-application a.anchor-dark
+    color: $contrast-dark-color !important
+
+.v-application a.anchor-light
+    color: $contrast-light-color !important
 
 main h1.display-1
     margin-bottom: .3em
@@ -142,6 +151,12 @@ h1 .svg-icon
 .v-icon.rotated
     transform: rotate(180deg)
     transition: all 0.25s ease
+
+.contrast-dark.v-icon
+    color: $contrast-dark-color !important
+
+.contrast-light.v-icon
+    color: $contrast-light-color !important
 
 .v-btn:not(.v-btn--icon):not(.v-btn--fab) .v-icon
     margin-right: .4rem

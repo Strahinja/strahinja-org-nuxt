@@ -21,11 +21,12 @@
                     span Назад на {{ parentName }}
             v-col.source-url-container-wrapper(:cols="12",
             :sm="10")
+                slot(name="header")/
                 v-container.py-0.source-url-container(v-if="sourceUrl")
                     v-row
-                        v-col.py-0.text-right(:cols="12",
-                        :lg="10")
-                            source-url/
+                        v-col.py-0.text-right(:cols="12")
+                            source-url(:contrastDark="sourceUrlDark"
+                            :contrastLight="sourceUrlLight")/
                 slot/
 </template>
 
@@ -36,6 +37,8 @@ export default {
     props: {
         overrideHead: { type: Boolean, default: false, required: false },
         sourceUrl: { type: Boolean, default: false, required: false },
+        sourceUrlDark: { type: Boolean, default: false, required: false },
+        sourceUrlLight: { type: Boolean, default: false, required: false },
     },
     computed: {
         page()
@@ -119,8 +122,10 @@ export default {
 
 .source-url-container
     position: absolute
+    top: 0
 
 .sm-and-down .source-url-container
     position: static
+    top: initial
 </style>
 

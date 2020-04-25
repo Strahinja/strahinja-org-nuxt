@@ -16,7 +16,7 @@ import markdownItPrism from 'markdown-it-prism';
 import markdownItSamp from 'markdown-it-samp';
 import markdownItMdi from 'markdown-it-mdi';
 import markdownItTocDoneRight from 'markdown-it-toc-done-right';
-import authConfig from './auth.config.js';
+//import authConfig from './auth.config.js';
 
 // Staging (true) or production (false)?
 var appModeStaging = false;

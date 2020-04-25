@@ -1,7 +1,14 @@
 <template lang="pug">
     a.source-url(target="_blank",
+    :class=`{
+        'anchor-dark': contrastDark,
+        'anchor-light': contrastLight,
+    }`,
     :href="url")
-        v-icon mdi-xml
+        v-icon(:class=`{
+            'contrast-dark': contrastDark,
+            'contrast-light': contrastLight,
+        }`) mdi-xml
         | Изворни код
 
 </template>
@@ -9,6 +16,10 @@
 <script>
 export default {
     name: 'SourceUrl',
+    props: {
+        contrastDark: { type: Boolean, default: false, required: false },
+        contrastLight: { type: Boolean, default: false, required: false },
+    },
     computed: {
         url()
         {
