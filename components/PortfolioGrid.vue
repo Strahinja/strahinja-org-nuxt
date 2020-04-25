@@ -233,6 +233,9 @@ $animation-speed: .125s
 .v-card__title
     white-space: nowrap
 
+.row-active .col-active .v-card__title
+    font-size: 2rem
+
 .v-card__text
     padding: 1rem 1rem 5rem 1rem
     height: 21rem
@@ -312,6 +315,9 @@ $animation-speed: .125s
 
 .mobile .card-underlay
     opacity: 0.2
+
+.mobile .row-active .col-active .v-card__title
+    font-size: 1.3rem
 
 .mobile .card-inner
     height: auto
