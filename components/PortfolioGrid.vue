@@ -230,6 +230,9 @@ $animation-speed: .125s
 .card-inner
     height: 25rem
 
+.v-card__title
+    white-space: nowrap
+
 .v-card__text
     padding: 1rem 1rem 5rem 1rem
     height: 21rem
