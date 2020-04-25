@@ -22,7 +22,8 @@
             v-col.source-url-container-wrapper(:cols="12",
             :sm="10")
                 slot(name="header")/
-                v-container.py-0.source-url-container(v-if="sourceUrl")
+                v-container.py-0.source-url-container(v-if="sourceUrl",
+                fluid)
                     v-row
                         v-col.py-0.text-right(:cols="12")
                             source-url(:contrastDark="sourceUrlDark"
