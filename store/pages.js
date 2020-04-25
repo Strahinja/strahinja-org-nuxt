@@ -20,7 +20,7 @@ export const state = () => ({
     },
     theme: 'light',
     showCookieConsent: true,
-    sourceBranch: 'wip-2020-04',
+    sourceBranch: 'master',
     list: [
         {
             id: 'home',
