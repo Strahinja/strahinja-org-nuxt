@@ -47,7 +47,10 @@ export default {
         },
         splashBgColor()
         {
-            if (this && this.$store)
+            if (this && this.$store && this.$vuetify && this.$vuetify.theme
+                && this.$vuetify.theme.themes
+                && this.$vuetify.theme.themes[this.$store.getters['pages/theme']]
+                && this.$vuetify.theme.themes[this.$store.getters['pages/theme'].secondary])
             {
                 return this.$vuetify.theme.themes[this.$store.getters['pages/theme']].secondary.lighten1;
             }
