@@ -5,7 +5,10 @@
             h1.display-1.
                 Код {{ code }}: {{ message }}
             p {{ description }}
-            p Назад на #[nuxt-link(:to="'/'") почетну страницу]
+            p Назад на #[a(href="/") почетну страницу]
+            //- Nuxt + Vuetify bug. Vue instance hangs on error, so nuxt-link
+            //- doesn't work.
+            //-#[nuxt-link(:to="'/'") почетну страницу]
 </template>
 
 <script>

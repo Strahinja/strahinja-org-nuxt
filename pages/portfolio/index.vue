@@ -22,6 +22,7 @@
 </template>
 
 <script>
+var getProp = require('dotprop');
 import Splash from '~/components/Splash';
 import Subpage from '~/components/Subpage';
 import PortfolioGrid from '~/components/PortfolioGrid';
@@ -47,14 +48,9 @@ export default {
         },
         splashBgColor()
         {
-            if (this && this.$store && this.$vuetify && this.$vuetify.theme
-                && this.$vuetify.theme.themes
-                && this.$vuetify.theme.themes[this.$store.getters['pages/theme']]
-                && this.$vuetify.theme.themes[this.$store.getters['pages/theme'].secondary])
-            {
-                return this.$vuetify.theme.themes[this.$store.getters['pages/theme']].secondary.lighten1;
-            }
-            return '#fff';
+            return getProp(this,
+                           '$vuetify.theme.currentTheme.secondary.lighten1',
+                           '#fff');
         }
     },
     fetch({ store })
