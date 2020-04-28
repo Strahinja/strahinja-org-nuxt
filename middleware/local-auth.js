@@ -2,7 +2,7 @@ export default async function({ store, route, app, redirect })
 {
     try
     {
-        await store.dispatch('local-auth/checkLogin', { root: true });
+        await store.dispatch('local-auth/checkLogin', null, { root: true });
         if (store && store.getters['local-auth/loggedIn'])
         {
             //console.log('middleware/local-auth: loggedIn == true');

@@ -10,7 +10,8 @@
                 v-list-item(v-if="$breakpoint.is.xsOnly",
                 :to="homePage.url")
                     v-list-item-action
-                        Strahinjaorg.icon-normal
+                        component.icon-normal(:is="svgComponent(homePage.iconSvg)")
+                        //-Strahinjaorg.icon-normal
                     v-list-item-title.title //strahinja.org
                 v-divider(v-if="$breakpoint.is.xsOnly")
                 v-list-item(v-if="$breakpoint.is.smAndUp",
@@ -22,7 +23,9 @@
                 :key="navigationPageIndex",
                 :to="navigationPage.url")
                     v-list-item-action
-                        v-icon {{ navigationPage.icon }}
+                        component.icon-normal(v-if="navigationPage.iconSvg",
+                        :is="svgComponent(navigationPage.iconSvg)")
+                        v-icon(v-else) {{ navigationPage.icon }}
                     v-list-item-title {{ navigationPage.title }}
         v-app-bar.full-width-toolbar(app,
         :clipped-left="clipped",
@@ -158,13 +161,14 @@
 <script>
 import ProfileMenu from '~/components/ProfileMenu';
 import CookieDisclaimer from '~/components/CookieDisclaimer';
+import Gnu from '~/assets/svg/gnu.svg?inline';
 import Strahinjaorg from '~/assets/svg/strahinjaorg.svg?inline';
 import { mixin as clickaway } from 'vue-clickaway';
 
 export default {
     name: 'App',
     middleware: ['set-page-id', 'cookie-consent'],
-    components: { CookieDisclaimer, Strahinjaorg, ProfileMenu },
+    components: { CookieDisclaimer, Gnu, Strahinjaorg, ProfileMenu },
     mixins: [clickaway],
     data()
     {
@@ -379,6 +383,21 @@ export default {
         };
     },
     methods: {
+        svgComponent(componentId)
+        {
+            let result = '';
+            switch (componentId)
+            {
+            case this.$store.state.pages.iconSvgs.ICON_SVG_GNU:
+                result = 'Gnu';
+                break;
+            case this.$store.state.pages.iconSvgs.ICON_SVG_STRAHINJAORG:
+                result = 'Strahinjaorg';
+                break;
+            default:
+            }
+            return result;
+        },
         setHtmlClass(dark)
         {
             if (document)

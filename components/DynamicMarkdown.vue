@@ -5,7 +5,6 @@
 <script>
 export default {
     name: 'DynamicMarkdown',
-    //eslint-disable-next-line vue/require-prop-types
     props: {
         fileName: { type: String, default: '', required: true },
         standalone: { type: Boolean, default: true, required: false },

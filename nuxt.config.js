@@ -3,19 +3,7 @@ import light from './theme/dunedain-light';
 import dark from './theme/dunedain-dark';
 import FMMode from 'frontmatter-markdown-loader/mode';
 import path from 'path';
-import markdownIt from 'markdown-it';
-import markdownItAbbr from 'markdown-it-abbr';
-import markdownItAnchor from 'markdown-it-anchor';
-import markdownItAttribution from 'markdown-it-attribution';
-import markdownItEmoji from 'markdown-it-emoji';
-import markdownItFootnote from 'markdown-it-footnote';
-import markdownItGithubHeadings from 'markdown-it-github-headings';
-import markdownItKatex from 'markdown-it-katex';
-import markdownItKbd from 'markdown-it-kbd';
-import markdownItPrism from 'markdown-it-prism';
-import markdownItSamp from 'markdown-it-samp';
-import markdownItMdi from 'markdown-it-mdi';
-import markdownItTocDoneRight from 'markdown-it-toc-done-right';
+import markdownIt from './plugins/markdown-it';
 //import authConfig from './auth.config.js';
 
 // Staging (true) or production (false)?
@@ -152,17 +140,45 @@ export default {
     modules: [
         '@nuxtjs/axios',
         '@nuxtjs/auth',
+        //'@nuxtjs/markdownit',
         ['@nuxtjs/toast', {
             iconPack: 'custom-class',
             duration: 7000,
         }],
         '@nuxtjs/svg',
+        'cookie-universal-nuxt',
+        'nuxt-compress',
         //'nuxt-purgecss',
         'nuxt-webfontloader',
-        'nuxt-compress',
-        'cookie-universal-nuxt',
         '@nuxtjs/sitemap' // Must be last
     ],
+    /*
+     *markdownit: {
+     *    preset: 'default',
+     *    html: true,
+     *    linkify: true,
+     *    breaks: false,
+     *    use: [
+     *        'markdown-it-abbr',
+     *        'markdown-it-anchor',
+     *        'markdown-it-attribution',
+     *        'markdown-it-emoji',
+     *        'markdown-it-footnote',
+     *        //{ 'markdown-it-github-headings', {
+     *            //className: 'github-heading',
+     *            //prefixHeadingIds: true,
+     *            //prefix: 'head-',
+     *            //enableHeadingLinkIcons: true,
+     *        //}},
+     *        'markdown-it-katex',
+     *        'markdown-it-kbd',
+     *        'markdown-it-mdi',
+     *        'markdown-it-prism',
+     *        'markdown-it-samp',
+     *        'markdown-it-toc-done-right',
+     *    ],
+     *},
+     */
     /*purgeCSS: {
         content: [
             './components/** /*.vue',
@@ -311,24 +327,7 @@ export default {
                     vue: {
                         root: 'markdown-body'
                     },
-                    markdownIt: markdownIt({html: true})
-                        .use(markdownItAbbr)
-                        .use(markdownItAnchor)
-                        .use(markdownItAttribution)
-                        .use(markdownItEmoji)
-                        .use(markdownItFootnote)
-                        .use(markdownItGithubHeadings, {
-                            className: 'github-heading',
-                            prefixHeadingIds: true,
-                            prefix: 'head-',
-                            enableHeadingLinkIcons: true,
-                        })
-                        .use(markdownItKatex)
-                        .use(markdownItKbd)
-                        .use(markdownItMdi)
-                        .use(markdownItPrism)
-                        .use(markdownItSamp)
-                        .use(markdownItTocDoneRight)
+                    markdownIt,
                 }
             });
         }

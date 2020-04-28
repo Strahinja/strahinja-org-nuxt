@@ -1,5 +1,5 @@
 export default function({ store })
 {
-    return store.dispatch('users/loadUser');
+    return store.dispatch('users/loadUser', null, { root: true });
 }
 

@@ -4,6 +4,31 @@
 .markdown-body .footnote-item
     font-size: 0.8em
 
+.v-application .markdown-body table
+    border-collapse: collapse
+    border: 1px solid #aaa
+    margin: 1.2rem 0
+
+.v-application .markdown-body thead tr,
+.v-application .markdown-body tbody tr:nth-child(odd)
+    background: #eee
+
+.v-application .markdown-body tbody tr:nth-child(even)
+    background: #dfdfdf
+
+.theme--dark .v-application .markdown-body thead tr,
+.theme--dark .v-application .markdown-body tbody tr:nth-child(odd)
+    background: #444
+
+.theme--dark .v-application .markdown-body tbody tr:nth-child(even)
+    background: #333
+
+.v-application .markdown-body td
+    padding: 1rem
+
+.v-application .markdown-body nav
+    margin-bottom: 1.2rem
+
 .v-application .markdown-body kbd
     position: relative
     background: $kbd-background-color
@@ -54,6 +79,7 @@
     padding-top: 0.3rem
     padding-bottom: 0.3rem
     background-color: $blockquote-background-color
+    margin: 1.2rem 0
 
 .theme--dark.v-application .markdown-body blockquote
     background-color: $blockquote-background-color-dark
