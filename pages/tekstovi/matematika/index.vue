@@ -3,7 +3,7 @@
     :source-url="true",
     :source-url-light="true")
         template(#header)
-            h1.display-1 ГНУ
+            h1.display-1 Математика
         template(#outside-content)
             fancy-list(:items="formattedSubpages")
 </template>
@@ -12,7 +12,7 @@
 import FancyList from '~/components/FancyList';
 import Subpage from '~/components/Subpage';
 export default {
-    name: 'SoftverGnu',
+    name: 'Matematika',
     components: { FancyList, Subpage },
     data()
     {
@@ -24,7 +24,7 @@ export default {
     {
         subpages()
         {
-            return this.$store.getters['pages/subpages']('/tekstovi/softver/gnu');
+            return this.$store.getters['pages/subpages']('/tekstovi/matematika');
         },
     },
     mounted()
@@ -35,7 +35,6 @@ export default {
             this.formattedSubpages.push({
                 name: item.title,
                 icon: item.icon,
-                iconSvg: this.svg(item.iconSvg),
                 image: item.image,
                 description: item.text,
                 path: item.url.path,
@@ -44,18 +43,6 @@ export default {
                 modified: '',
             });
         });
-    },
-    methods:
-    {
-        svg(svgId)
-        {
-            if (svgId == this.$store.state.pages.iconSvgs.ICON_SVG_GNU)
-            {
-                return 'Gnu';
-            }
-
-            return null;
-        }
     },
 };
 </script>

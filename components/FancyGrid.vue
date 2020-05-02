@@ -1,5 +1,5 @@
 <template lang="pug">
-    .portfolio-grid(:class=`{
+    .fancy-grid(:class=`{
         mobile: $breakpoint.is.smAndDown,
     }`)
         v-row.ma-0(v-for="row in rows()",
@@ -30,7 +30,8 @@
                                 div.date(v-show="$breakpoint.is.smAndDown||activeCol==col")
                                     v-icon mdi-calendar-range
                                     | Датум:
-                                    | {{ prettyDateRange(cell(row,col).created, cell(row,col).modified) }}
+                                    | {{ prettyDateRange(cell(row,col).created,
+                                    | cell(row,col).modified) }}
                             v-card-actions(v-show="$breakpoint.is.smAndDown||activeCol==col")
                                 v-btn(text, large,
                                 @click="openLink(cell(row,col).image)")
@@ -44,7 +45,7 @@
 
 <script>
 export default {
-    name: 'PortfolioGrid',
+    name: 'FancyGrid',
     props: {
         items: { type: Array, default: () => ([]), required: false },
         rowSizes: { type: Array, default: () => ([3,4]), required: false },
@@ -204,7 +205,7 @@ export default {
 <style lang="sass" scoped>
 $animation-speed: .125s
 
-.portfolio-grid
+.fancy-grid
     margin: 0
 
 .v-card,
@@ -297,7 +298,7 @@ $animation-speed: .125s
 .v-card__text .date
     margin-top: 1rem
 
-.portfolio-grid .v-icon
+.fancy-grid .v-icon
     color: #fff
     margin-right: .5rem
 

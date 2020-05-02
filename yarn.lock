@@ -809,6 +809,13 @@
     postcss "^7.0.14"
     purgecss "^1.4.0"
 
+"@iktakahiro/markdown-it-katex@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@iktakahiro/markdown-it-katex/-/markdown-it-katex-3.1.0.tgz#cd40c1037f038ab00cbfee2464604435848deae9"
+  integrity sha512-Im2hih9ZkUqnUP7FhK0DTkGEVHgKNQ3BNQlbiBreWjSFPxysdylP1Ns5hLvoO+IdI1drhiiip/54VP8Gs3fLvw==
+  dependencies:
+    katex "^0.10.0"
+
 "@mdi/font@^4.5.95":
   version "4.9.95"
   resolved "https://registry.yarnpkg.com/@mdi/font/-/font-4.9.95.tgz#00ed2ffe289c9230f146e74559c07542d3f4475a"
@@ -4150,9 +4157,9 @@ front-matter@^3.0.1:
     js-yaml "^3.13.1"
 
 frontmatter-markdown-loader@^3.1.0:
-  version "3.4.0"
-  resolved "https://registry.yarnpkg.com/frontmatter-markdown-loader/-/frontmatter-markdown-loader-3.4.0.tgz#a60f1f211bab52084ed1189b0df5438c4e919aa3"
-  integrity sha512-iOk0zflVVSO5rsP01RrkWJskcwCRK+btJ6tWOZ5K15onIV6tdQNguiRSBmahhW8q0XW3pPOp7iRV1oHr0C6MMQ==
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/frontmatter-markdown-loader/-/frontmatter-markdown-loader-3.4.1.tgz#e5902adad863c89a71fe4c110e04aec7691daad6"
+  integrity sha512-hJccfbuxCgdbCb1fI4CjpHgOnz9jPt1iWXFXlSBQauuaYS9w+UEmvkEMbK+SwhCR2KpbLdU61HPiOvekqus0tA==
   dependencies:
     front-matter "^3.0.1"
     loader-utils "^2.0.0"
@@ -5195,12 +5202,12 @@ jstransformer@1.0.0:
     is-promise "^2.0.0"
     promise "^7.0.1"
 
-katex@^0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/katex/-/katex-0.6.0.tgz#12418e09121c05c92041b6b3b9fb6bab213cb6f3"
-  integrity sha1-EkGOCRIcBckgQbazuftrqyE8tvM=
+katex@^0.10.0:
+  version "0.10.2"
+  resolved "https://registry.yarnpkg.com/katex/-/katex-0.10.2.tgz#39973edbb65eda5b6f9e7f41648781e557dd4932"
+  integrity sha512-cQOmyIRoMloCoSIOZ1+gEwsksdJZ1EW4SWm3QzxSza/QsnZr6D4U1V9S4q+B/OLm2OQ8TCBecQ8MaIfnScI7cw==
   dependencies:
-    match-at "^0.1.0"
+    commander "^2.19.0"
 
 kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
@@ -5537,6 +5544,10 @@ markdown-it-emoji@^1.4.0:
   resolved "https://registry.yarnpkg.com/markdown-it-emoji/-/markdown-it-emoji-1.4.0.tgz#9bee0e9a990a963ba96df6980c4fddb05dfb4dcc"
   integrity sha1-m+4OmpkKljupbfaYDE/dsF37Tcw=
 
+markdown-it-figure-caption@windmaomao/markdown-it-figure-caption:
+  version "0.1.0"
+  resolved "https://codeload.github.com/windmaomao/markdown-it-figure-caption/tar.gz/63a9933801ea56dbf3dc9c37707b196fca2ae5e0"
+
 markdown-it-footnote@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/markdown-it-footnote/-/markdown-it-footnote-3.0.2.tgz#1575ee7a093648d4e096aa33386b058d92ac8bc1"
@@ -5549,13 +5560,6 @@ markdown-it-github-headings@^1.1.2:
   dependencies:
     github-slugger "^1.1.1"
     innertext "^1.0.1"
-
-markdown-it-katex@^2.0.3:
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/markdown-it-katex/-/markdown-it-katex-2.0.3.tgz#d7b86a1aea0b9d6496fab4e7919a18fdef589c39"
-  integrity sha1-17hqGuoLnWSW+rTnkZoY/e9YnDk=
-  dependencies:
-    katex "^0.6.0"
 
 markdown-it-kbd@^2.0.0:
   version "2.0.0"
@@ -5601,11 +5605,6 @@ markdown-it@^10.0.0:
     linkify-it "^2.0.0"
     mdurl "^1.0.1"
     uc.micro "^1.0.5"
-
-match-at@^0.1.0:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/match-at/-/match-at-0.1.1.tgz#25d040d291777704d5e6556bbb79230ec2de0540"
-  integrity sha512-h4Yd392z9mST+dzc+yjuybOGFNOZjmXIPKWjxBd1Bb23r4SmDOsk2NYCU2BMUBGbSpZqwVsZYNq26QS3xfaT3Q==
 
 md5.js@^1.3.4:
   version "1.3.5"

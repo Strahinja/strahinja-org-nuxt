@@ -1,41 +1,90 @@
 <template lang="pug">
-    v-container(fluid)
-        v-row.mt-3.mb-7(no-gutters)
-            v-col.text-center.hidden-xs-only(v-if="showBackButton",
-            :sm="1",
-            align="center",
-            style="min-width: 60px;")
-                v-tooltip.hidden-xs-only(v-if="showBackButton",
-                bottom)
-                    template(v-slot:activator="{ on }")
-                        v-btn.hidden-xs-only.text-center.align-center.mr-3.mt-1(
-                        v-if="showBackButton",
-                        fab,
-                        depressed,
-                        dark,
-                        small,
-                        :to="parentUrl",
-                        color="secondary",
-                        v-on="on")
-                            v-icon.align-center(dark) mdi-arrow-left
-                    span Назад на {{ parentName }}
-            v-col.source-url-container-wrapper(:cols="12",
-            :sm="10")
-                slot(name="header")/
-                v-container.py-0.source-url-container(v-if="sourceUrl",
-                fluid)
-                    v-row
-                        v-col.py-0.text-right(:cols="12")
-                            source-url(:contrastDark="sourceUrlDark"
-                            :contrastLight="sourceUrlLight")/
-                slot/
+    div
+        splash(v-if="splash",
+        height="8rem",
+        :bg-color="splashBgColor",
+        :fg-color="splashFgColor",
+        align="left",
+        :vcentered="false")
+            v-container(fluid)
+                v-row.mt-3.mb-7(no-gutters)
+                    v-col.text-center.hidden-xs-only(v-if="showBackButton",
+                    :sm="1",
+                    align="center",
+                    style="min-width: 60px;")
+                        v-tooltip.hidden-xs-only(v-if="showBackButton",
+                        bottom)
+                            template(v-slot:activator="{ on }")
+                                v-btn.hidden-xs-only.text-center.align-center.mr-3.mt-1(
+                                v-if="showBackButton",
+                                fab,
+                                depressed,
+                                dark,
+                                small,
+                                :to="parentUrl",
+                                color="secondary",
+                                v-on="on")
+                                    v-icon.align-center(dark) mdi-arrow-left
+                            span Назад на {{ parentName }}
+                    v-col.source-url-container-wrapper(:cols="12",
+                    :sm="10")
+                        slot(name="header")/
+                        v-container.py-0.source-url-container(v-if="sourceUrl",
+                        fluid)
+                            v-row
+                                v-col.py-0.text-right(:cols="12")
+                                    source-url(:contrastDark="sourceUrlDark",
+                                    :contrastLight="sourceUrlLight")/
+                        slot/
+        v-container(v-else,
+        fluid)
+            v-row.mt-3.mb-7(no-gutters)
+                v-col.text-center.hidden-xs-only(v-if="showBackButton",
+                :sm="1",
+                align="center",
+                style="min-width: 60px;")
+                    v-tooltip.hidden-xs-only(v-if="showBackButton",
+                    bottom)
+                        template(v-slot:activator="{ on }")
+                            v-btn.hidden-xs-only.text-center.align-center.mr-3.mt-1(
+                            v-if="showBackButton",
+                            fab,
+                            depressed,
+                            dark,
+                            small,
+                            :to="parentUrl",
+                            color="secondary",
+                            v-on="on")
+                                v-icon.align-center(dark) mdi-arrow-left
+                        span Назад на {{ parentName }}
+                v-col.source-url-container-wrapper(:cols="12",
+                :sm="10")
+                    slot(name="header")/
+                    v-container.py-0.source-url-container(v-if="sourceUrl",
+                    fluid)
+                        v-row
+                            v-col.py-0.text-right(:cols="12")
+                                source-url(:contrastDark="sourceUrlDark",
+                                :contrastLight="sourceUrlLight")/
+                    slot/
+        v-container.py-0.col-12.col-lg-10.splash-content-container(fluid,
+        v-if="splash",
+        :class=`{
+            sm: $breakpoint.is.smAndDown,
+        }`)
+            slot(name="outside-content")/
+        slot(v-else,
+        name="outside-content")/
 </template>
 
 <script>
+var getProp = require('dotprop');
+import Splash from '~/components/Splash';
 import SourceUrl from '~/components/SourceUrl';
 export default {
-    components: { SourceUrl },
+    components: { SourceUrl, Splash },
     props: {
+        splash: { type: Boolean, default: false, required: false },
         overrideHead: { type: Boolean, default: false, required: false },
         sourceUrl: { type: Boolean, default: false, required: false },
         sourceUrlDark: { type: Boolean, default: false, required: false },
@@ -74,6 +123,16 @@ export default {
         {
             return this.$breakpoint.is.smAndUp;
         },
+        splashBgColor()
+        {
+            return getProp(this,
+                           '$vuetify.theme.currentTheme.secondary.lighten1',
+                           '#fff');
+        },
+        splashFgColor()
+        {
+            return '#000';
+        }
     },
     head()
     {
@@ -115,6 +174,13 @@ export default {
 </script>
 
 <style lang="sass" scoped>
+.splash-content-container
+    margin-top: -3rem
+
+.splash-content-container.sm
+    margin-top: 0
+    padding: 0
+
 .source-url-container-wrapper
     position: relative
 

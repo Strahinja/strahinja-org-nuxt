@@ -12,26 +12,38 @@ export default {
     props: {
         linkId: { type: String, required: true },
     },
-    computed:
+    data()
     {
-        markdown()
+        return {
+            markdown: '',
+        };
+    },
+    watch:
+    {
+        linkId()
         {
             if (this && this.$store)
             {
                 let article = this.$store.getters['articles/article'];
-                return article && article.markdown
+                this.markdown = article && article.markdown
                     ? md.render(article.markdown)
-                    : {};
+                    : '';
             }
-
-            return {};
+            else
+            {
+                this.markdown = '';
+            }
         }
     },
-    mounted()
+    async mounted()
     {
         let linkId = this.linkId;
-        this.$store.dispatch('articles/loadArticle', { linkId },
-                             { root: true });
+        await this.$store.dispatch('articles/loadArticle', { linkId },
+                                   { root: true });
+        let article = this.$store.getters['articles/article'];
+        this.markdown = article && article.markdown
+            ? md.render(article.markdown)
+            : '';
     }
 };
 </script>

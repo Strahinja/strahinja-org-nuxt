@@ -6,16 +6,7 @@ Disallow: /*?p
 Disallow: /*?paged
 Disallow: /*?rss
 Disallow: /*?sxtampa
-Disallow: /tekstovi
 Disallow: /prezentacije
-Allow: /tekstovi/razno/gv
-Allow: /tekstovi/razno/tri-hajduka
-Allow: /tekstovi/matematika/*.pdf
-Allow: /tekstovi/softver/*.pdf
-Allow: /tekstovi/softver/ojl*.*
-Allow: /tekstovi/softver/gnu/*.pdf
-Allow: /tekstovi/softver/gnu/*.html
-Allow: /tekstovi/softver/gnu/*.tar.*
 Disallow: /users
 Disallow: /doku
 Disallow: /kontakt

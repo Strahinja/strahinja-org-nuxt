@@ -379,6 +379,10 @@ export default {
             author: 'https://linkedin.com/in/strahinja-radic',
             link: [
                 { rel: 'shortcut icon', href: '/favicon.ico' },
+                //{
+                //rel: 'stylesheet',
+                //href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css'
+                //},
             ]
         };
     },

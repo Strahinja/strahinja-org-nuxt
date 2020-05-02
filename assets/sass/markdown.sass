@@ -4,27 +4,63 @@
 .markdown-body .footnote-item
     font-size: 0.8em
 
+.markdown-body>h1
+    width: 80%
+
+.blog-post .markdown-body>h1
+    width: auto
+
+.v-application .markdown-body figure
+    text-align: center
+
+.v-application .markdown-body figcaption
+    font-size: .8rem
+
 .v-application .markdown-body table
     border-collapse: collapse
-    border: 1px solid #aaa
+    border: 1px solid $table-border-color
     margin: 1.2rem 0
+
+.v-application .blog-post .markdown-body table
+    border-collapse: collapse
+    border: initial
+    margin: initial
 
 .v-application .markdown-body thead tr,
 .v-application .markdown-body tbody tr:nth-child(odd)
-    background: #eee
+    background: $table-row-odd-background-color
+
+.v-application .blog-post .markdown-body thead tr,
+.v-application .blog-post .markdown-body tbody tr:nth-child(odd)
+    background: initial
 
 .v-application .markdown-body tbody tr:nth-child(even)
-    background: #dfdfdf
+    background: $table-row-even-background-color
+
+.v-application .blog-post .markdown-body tbody tr:nth-child(even)
+    background: initial
 
 .theme--dark .v-application .markdown-body thead tr,
 .theme--dark .v-application .markdown-body tbody tr:nth-child(odd)
-    background: #444
+    background: $table-row-odd-background-color-dark
+
+.theme--dark .v-application .blog-post .markdown-body thead tr,
+.theme--dark .v-application .blog-post .markdown-body tbody tr:nth-child(odd)
+    background: initial
 
 .theme--dark .v-application .markdown-body tbody tr:nth-child(even)
-    background: #333
+    background: $table-row-even-background-color-dark
 
+.theme--dark .v-application .blog-post .markdown-body tbody tr:nth-child(even)
+    background: initial
+
+.v-application .markdown-body th,
 .v-application .markdown-body td
     padding: 1rem
+
+.v-application .blog-post .markdown-body th,
+.v-application .blog-post .markdown-body td
+    padding: initial
 
 .v-application .markdown-body nav
     margin-bottom: 1.2rem
@@ -108,8 +144,23 @@
     background: $blockquote-code-background-color-dark
     color: $blockquote-code-color-dark
 
+.v-application .markdown-body table code
+    background: $table-code-background-color
+    color: $table-code-color
+
+.theme--dark.v-application .markdown-body table code
+    background: $table-code-background-color-dark
+    color: $table-code-color-dark
+
 .v-application .markdown-body img
     border: 1px solid rgba(0, 0, 0, 0.5)
     box-shadow: 3px 3px 10px 0px rgba(0,0,0,0.3)
     max-width: 100%
+
+.v-application.sm-and-down .katex-display, 
+.v-application.sm-and-down .katex-display .katex
+    font-size: .8rem
+
+.v-application .katex .accent
+    background: transparent !important
 

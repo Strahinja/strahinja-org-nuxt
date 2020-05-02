@@ -12,6 +12,7 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
+    "@iktakahiro/markdown-it-katex": "^3.1.0",
     "@mdi/font": "^4.5.95",
     "@nuxtjs/auth": "^4.8.4",
     "@nuxtjs/axios": "5.10.1",
@@ -26,9 +27,9 @@
     "markdown-it-anchor": "^5.2.5",
     "markdown-it-attribution": "^0.1.1",
     "markdown-it-emoji": "^1.4.0",
+    "markdown-it-figure-caption": "windmaomao/markdown-it-figure-caption",
     "markdown-it-footnote": "^3.0.2",
     "markdown-it-github-headings": "^1.1.2",
-    "markdown-it-katex": "^2.0.3",
     "markdown-it-kbd": "^2.0.0",
     "markdown-it-mdi": "^0.1.0",
     "markdown-it-samp": "^0.0.4",

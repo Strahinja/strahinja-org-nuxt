@@ -45,6 +45,10 @@
 .v-application blockquote code
     word-break: break-all !important
 
+.v-application pre > code::after,
+.v-application pre > code::before
+    display: none
+
 .v-application pre > code[class*="language-"]::before,
 .v-application pre > code[class*="language-"]::after
     display: none
