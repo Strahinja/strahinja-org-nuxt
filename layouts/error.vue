@@ -19,7 +19,18 @@ export default {
     components: { Subpage },
     props: {
         error: { type: Object, default: () =>
-        {}, required: false },
+            ({
+                code: 200,
+                message: '-',
+            }), required: false },
+    },
+    head()
+    {
+        return {
+            meta: [
+                { name: 'robots', content: 'noindex' },
+            ],
+        };
     },
     data()
     {
@@ -36,7 +47,9 @@ export default {
         },
         message()
         {
-            return (this.error && this.error.message !== '-')
+            return (this.error
+                && this.error.message !== 'This page could not be found'
+                && this.error.message !== '-')
                 ? this.error.message
                 : this.$store.getters['errors/messageByCode'](this.code);
         },

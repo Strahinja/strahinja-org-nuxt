@@ -5,57 +5,43 @@
         template(#header)
             h1.display-1 Софтвер
         template(#outside-content)
-            fancy-list(:items="formattedSubpages")
+            fancy-list(:items="subpages")
 </template>
 
 <script>
 import FancyList from '~/components/FancyList';
 import Subpage from '~/components/Subpage';
+
 export default {
     name: 'Softver',
     components: { FancyList, Subpage },
     data()
     {
         return {
-            formattedSubpages: [],
+            subpages: [],
         };
     },
-    computed:
+    asyncData({ store })
     {
-        subpages()
-        {
-            return this.$store.getters['pages/subpages']('/tekstovi/softver');
-        },
-    },
-    mounted()
-    {
-        this.formattedSubpages = [];
-        this.subpages.forEach((item) =>
-        {
-            this.formattedSubpages.push({
-                name: item.title,
-                icon: item.icon,
-                iconSvg: this.svg(item.iconSvg),
-                image: item.image,
-                description: item.text,
-                path: item.url.path,
-                short_desc: item.text,
-                created: '',
-                modified: '',
-            });
-        });
-    },
-    methods:
-    {
-        svg(svgId)
-        {
-            if (svgId == this.$store.state.pages.iconSvgs.ICON_SVG_GNU)
+        let subpages = [];
+        store.getters['pages/subpages']('/tekstovi/softver')
+            .forEach((item) =>
             {
-                return 'Gnu';
-            }
-
-            return null;
-        }
+                subpages.push({
+                    name: item.title,
+                    icon: item.icon,
+                    iconSvg: store.getters['pages/svgComponentName'](item.iconSvg),
+                    image: item.image,
+                    description: item.text,
+                    path: item.url.path,
+                    short_desc: item.text,
+                    created: '',
+                    modified: '',
+                });
+            });
+        return {
+            subpages
+        };
     },
 };
 </script>

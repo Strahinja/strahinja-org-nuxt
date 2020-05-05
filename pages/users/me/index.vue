@@ -55,6 +55,14 @@ export default {
     name: 'Me',
     components: { Subpage },
     middleware: ['local-auth', 'load-single-user'],
+    head()
+    {
+        return {
+            meta: [
+                { name: 'robots', content: 'noindex' },
+            ],
+        };
+    },
     computed: {
         loggedIn()
         {

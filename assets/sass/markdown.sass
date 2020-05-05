@@ -26,35 +26,38 @@
     border: initial
     margin: initial
 
-.v-application .markdown-body thead tr,
 .v-application .markdown-body tbody tr:nth-child(odd)
     background: $table-row-odd-background-color
 
-.v-application .blog-post .markdown-body thead tr,
 .v-application .blog-post .markdown-body tbody tr:nth-child(odd)
     background: initial
 
+.v-application .markdown-body thead tr,
 .v-application .markdown-body tbody tr:nth-child(even)
     background: $table-row-even-background-color
 
+.v-application .blog-post .markdown-body thead tr,
 .v-application .blog-post .markdown-body tbody tr:nth-child(even)
     background: initial
 
-.theme--dark .v-application .markdown-body thead tr,
 .theme--dark .v-application .markdown-body tbody tr:nth-child(odd)
     background: $table-row-odd-background-color-dark
 
-.theme--dark .v-application .blog-post .markdown-body thead tr,
 .theme--dark .v-application .blog-post .markdown-body tbody tr:nth-child(odd)
     background: initial
 
+.theme--dark .v-application .markdown-body thead tr,
 .theme--dark .v-application .markdown-body tbody tr:nth-child(even)
     background: $table-row-even-background-color-dark
 
+.theme--dark .v-application .blog-post .markdown-body thead tr,
 .theme--dark .v-application .blog-post .markdown-body tbody tr:nth-child(even)
     background: initial
 
-.v-application .markdown-body th,
+.v-application .markdown-body th
+    padding: 0
+
+.v-application .markdown-body th .header-cell,
 .v-application .markdown-body td
     padding: 1rem
 
@@ -151,6 +154,13 @@
 .theme--dark.v-application .markdown-body table code
     background: $table-code-background-color-dark
     color: $table-code-color-dark
+
+.v-application .markdown-body table code::before, 
+.v-application .markdown-body table code::after
+    display: none
+
+.v-application .markdown-body table code
+    padding: 0
 
 .v-application .markdown-body img
     border: 1px solid rgba(0, 0, 0, 0.5)

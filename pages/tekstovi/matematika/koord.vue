@@ -1,5 +1,5 @@
 <template lang="pug">
-    static-markdown(link-id="koord")
+    static-markdown(:markdown="markdown")
 </template>
 
 <script>
@@ -15,6 +15,24 @@ export default {
             },
         ],
     },
+    data()
+    {
+        return {
+            markdown: '',
+        };
+    },
+    async asyncData({ store, app })
+    {
+        let linkId = 'koord';
+        await store.dispatch('articles/loadArticle', { linkId },
+                             { root: true });
+        let article = store.getters['articles/article'];
+        return {
+            markdown: article && article.markdown
+                ? app.$mdRender(article.markdown)
+                : ''
+        };
+    }
 };
 </script>
 

@@ -565,6 +565,18 @@ export const getters = {
     isThemeDark: state => state.theme == state.themeNames.DARK_THEME_NAME,
     DARK_THEME_NAME: state => state.themeNames.DARK_THEME_NAME,
     LIGHT_THEME_NAME: state => state.themeNames.LIGHT_THEME_NAME,
+    svgComponentName: state => svgId =>
+    {
+        switch (svgId)
+        {
+        case state.iconSvgs.ICON_SVG_GNU:
+            return 'Gnu';
+        case state.iconSvgs.ICON_SVG_STRAHINJAORG:
+            return 'Strahinjaorg';
+        default:
+            return null;
+        }
+    },
 };
 
 export const mutations = {

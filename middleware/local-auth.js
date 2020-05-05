@@ -1,4 +1,4 @@
-export default async function({ store, route, app, redirect })
+export default async function({ store, route, app, /*redirect, */error })
 {
     try
     {
@@ -21,7 +21,8 @@ export default async function({ store, route, app, redirect })
                         icon: 'mdi mdi-hand-right',
                     });
                 }
-                redirect('/');
+                error({ statusCode: 401, message: 'Забрањен приступ' });
+                //redirect('/');
             }
         }
         else
@@ -34,7 +35,8 @@ export default async function({ store, route, app, redirect })
                     icon: 'mdi mdi-hand-right',
                 });
             }
-            redirect('/');
+            error({ statusCode: 401, message: 'Забрањен приступ' });
+            //redirect('/');
         }
     }
     catch(err)

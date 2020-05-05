@@ -3,7 +3,7 @@ import light from './theme/dunedain-light';
 import dark from './theme/dunedain-dark';
 import FMMode from 'frontmatter-markdown-loader/mode';
 import path from 'path';
-import markdownIt from './plugins/markdown-it';
+import { md } from './markdown-it';
 //import authConfig from './auth.config.js';
 
 // Staging (true) or production (false)?
@@ -86,6 +86,7 @@ export default {
         '~/plugins/datetime-picker.js',
         '~/plugins/four-oh-four.js',
         '~/plugins/jsonld.js',
+        '~/plugins/markdown-it.js',
         { src: '~/plugins/theme-settings.js', mode: 'client' },
     ],
     /*auth: {
@@ -327,7 +328,7 @@ export default {
                     vue: {
                         root: 'markdown-body'
                     },
-                    markdownIt,
+                    markdownIt: md,
                 }
             });
         }

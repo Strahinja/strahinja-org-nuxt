@@ -27,7 +27,7 @@
     "markdown-it-anchor": "^5.2.5",
     "markdown-it-attribution": "^0.1.1",
     "markdown-it-emoji": "^1.4.0",
-    "markdown-it-figure-caption": "windmaomao/markdown-it-figure-caption",
+    "markdown-it-figure-caption": "https://github.com/windmaomao/markdown-it-figure-caption.git",
     "markdown-it-footnote": "^3.0.2",
     "markdown-it-github-headings": "^1.1.2",
     "markdown-it-kbd": "^2.0.0",

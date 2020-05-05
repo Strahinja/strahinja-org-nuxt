@@ -10,6 +10,14 @@
 
 export default {
     name: 'Users',
+    head()
+    {
+        return {
+            meta: [
+                { name: 'robots', content: 'noindex' },
+            ],
+        };
+    },
     computed: {
         users()
         {
@@ -20,7 +28,7 @@ export default {
             return [];
         }
     },
-    middleware: ['auth', 'auth-admin', 'load-users'],
+    middleware: ['local-auth', 'load-users'],
     fetch({ store })
     {
         store.dispatch('users/loadUsers');
@@ -31,7 +39,4 @@ export default {
     }
 };
 </script>
-
-<style lang="sass">
-</style>
 

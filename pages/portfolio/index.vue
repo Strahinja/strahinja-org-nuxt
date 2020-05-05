@@ -18,16 +18,14 @@ import FancyGrid from '~/components/FancyGrid';
 export default {
     name: 'Portfolio',
     components: { Subpage, FancyGrid },
+    data()
+    {
+        return {
+            portfolio: [],
+        };
+    },
     computed:
     {
-        portfolio()
-        {
-            if (this && this.$store)
-            {
-                return this.$store.getters['portfolio/list'];
-            }
-            return [];
-        },
         portfolioLoading()
         {
             return this && this.$store && this.$store.getters ?
@@ -35,13 +33,12 @@ export default {
                 true;
         },
     },
-    fetch({ store })
+    async asyncData({ store })
     {
-        store.dispatch('portfolio/loadItems');
-    },
-    created()
-    {
-        this.$store.dispatch('portfolio/loadItems');
+        await store.dispatch('portfolio/loadItems');
+        return {
+            portfolio: store.getters['portfolio/list'],
+        };
     },
 };
 </script>
