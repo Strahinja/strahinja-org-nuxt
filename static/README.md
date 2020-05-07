@@ -1,14 +1,15 @@
 # STATIC
 
-| File/directory              | Description                     |
-|:----------------------------|:--------------------------------|
-| \[blog]                     | Blog posts (`.md`)              |
-| \[doku]                     | Documents                       |
-| \[img]                      | Images                          |
-| \[prezentacije]             | Websites I made                 |
-| .htaccess                   | Apache site-wide configuration  |
-| favicon.ico                 | Website icon                    |
-| robots.txt                  | Search engine indexing hints    |
+| File/directory      | Description                    |
+|:--------------------|:-------------------------------|
+| \[blog]             | Blog posts (`.md`)             |
+| \[doku]             | Documents                      |
+| \[img]              | Images                         |
+| \[prezentacije]     | Websites I made                |
+| \[tekstovi/softver] | Articles about software        |
+| .htaccess           | Apache site-wide configuration |
+| favicon.ico         | Website icon                   |
+| robots.txt          | Search engine indexing hints   |
 
 
 This directory contains your static files.
