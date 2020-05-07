@@ -13,6 +13,18 @@ import markdownItPrism from 'markdown-it-prism';
 import markdownItSamp from 'markdown-it-samp';
 import markdownItTocDoneRight from 'markdown-it-toc-done-right';
 
+import 'prismjs/components/prism-bash';
+import 'prismjs/components/prism-c';
+import 'prismjs/components/prism-css';
+import 'prismjs/components/prism-json';
+import 'prismjs/components/prism-latex';
+import 'prismjs/components/prism-lisp';
+import 'prismjs/components/prism-makefile';
+import 'prismjs/components/prism-markdown';
+import 'prismjs/components/prism-markup';
+import 'prismjs/components/prism-pug';
+import 'prismjs/components/prism-sass';
+
 var md = new markdownIt({html: true})
     .use(markdownItAbbr)
     .use(markdownItAnchor)

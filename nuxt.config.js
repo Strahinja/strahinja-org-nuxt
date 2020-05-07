@@ -36,9 +36,11 @@ dynamicMarkdownRoutes = dynamicMarkdownRoutes.concat(blogTags.map(tag =>
 {
     return `/blog/tag/${tag}`;
 }));
+
+dynamicMarkdownRoutes = ['/blog'].concat(dynamicMarkdownRoutes);
 console.log('nuxt.config.js: dynamicMarkdownRoutes = ', JSON.stringify(dynamicMarkdownRoutes));
 
-var generalExclusion = [
+var sitemapGeneralExclusion = [
     '/noindex',
     '/search',
     '/login',
@@ -47,6 +49,24 @@ var generalExclusion = [
     '/users/me',
     '/portfolio/edit',
 ];
+
+var sitemapConfig = {
+    blog: {
+        path: '/blog/sitemap-2020.xml',
+        routes: dynamicMarkdownRoutes,
+        filter({ routes })
+        {
+            return routes.filter(route =>
+                dynamicMarkdownRoutes.indexOf(route.url) != -1);
+        }
+    },
+    main: {
+        path: '/sitemap_main.xml',
+        routes: [],
+        exclude: sitemapGeneralExclusion.concat(dynamicMarkdownRoutes),
+    },
+};
+//console.log('nuxt.config.js: sitemap config = ', JSON.stringify(sitemapConfig));
 
 export default {
     mode: 'universal',
@@ -220,27 +240,11 @@ export default {
     sitemap: {
         hostname: 'https://strahinja.org',
         lastmod,
-        exclude: [
-            '/noindex',
-            '/search',
-            '/login',
-            '/login/callback',
-            '/users',
-            '/users/me',
-            '/portfolio/edit',
-        ],
+        exclude: sitemapGeneralExclusion,
         path: '/sitemap_index.xml',
         sitemaps: [
-            {
-                path: '/blog/sitemap-2020.xml',
-                routes: dynamicMarkdownRoutes,
-                exclude: generalExclusion,
-            },
-            {
-                path: '/sitemap_main.xml',
-                routes: [],
-                exclude: generalExclusion.concat(dynamicMarkdownRoutes),
-            }
+            sitemapConfig['blog'],
+            sitemapConfig['main'],
         ],
     },
     /*
@@ -290,7 +294,8 @@ export default {
             '/profil',
             '/portfolio',
             '/veze',
-            '/blog'
+            '/blog',
+            '/tekstovi'
         ].concat(dynamicMarkdownRoutes),
         exclude: [
             /noindex/,
