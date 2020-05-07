@@ -1,16 +1,19 @@
 # STORE
 
-| File         | Description                 |
-|:-------------|:----------------------------|
-| gists.js     | Gists                       |
-| index.js     | Server init                 |
-| links.js     | Links page                  |
-| loading.js   | Manage loading              |
-| pages.js     | Page info                   |
-| portfolio.js | Portfolio page              |
-| posts.js     | Posts                       |
-| social.js    | Social login providers      |
-| users.js     | User accounts               |
+| File          | Description              |
+|:--------------|:-------------------------|
+| articles.js   | Articles                 |
+| errors.js     | Site-wide error messages |
+| gists.js      | Gists                    |
+| index.js      | Server init              |
+| links.js      | Links page               |
+| loading.js    | Manage loading           |
+| local-auth.js | JWT API authentication   |
+| pages.js      | Page info                |
+| portfolio.js  | Portfolio page           |
+| posts.js      | Posts                    |
+| social.js     | Social login providers   |
+| users.js      | User accounts            |
 
 This directory contains your Vuex Store files.
 Vuex Store option is implemented in the Nuxt.js framework.
