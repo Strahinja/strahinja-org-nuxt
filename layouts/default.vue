@@ -6,7 +6,7 @@
         app,
         :mini-variant="miniVariant",
         :clipped="clipped")
-            v-list
+            v-list(shaped)
                 v-list-item(v-if="$breakpoint.is.xsOnly",
                 :to="homePage.url")
                     v-list-item-action

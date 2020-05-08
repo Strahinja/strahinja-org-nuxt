@@ -37,7 +37,7 @@ dynamicMarkdownRoutes = dynamicMarkdownRoutes.concat(blogTags.map(tag =>
     return `/blog/tag/${tag}`;
 }));
 
-dynamicMarkdownRoutes = ['/blog'].concat(dynamicMarkdownRoutes);
+//dynamicMarkdownRoutes = ['/blog'].concat(dynamicMarkdownRoutes);
 console.log('nuxt.config.js: dynamicMarkdownRoutes = ', JSON.stringify(dynamicMarkdownRoutes));
 
 var sitemapGeneralExclusion = [

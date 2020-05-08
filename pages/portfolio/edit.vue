@@ -1,5 +1,5 @@
 <template lang="pug">
-    subpage
+    subpage(disable-scroll)
         h1.display-1 Уређивање портфолија
         v-list(rounded)
             v-list-item-group(v-model="selectedItem")

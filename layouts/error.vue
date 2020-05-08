@@ -1,7 +1,7 @@
 <template lang="pug">
         //-v-app
 
-        subpage
+        subpage(disable-scroll)
             h1.display-1.
                 Код {{ code }}: {{ message }}
             p {{ description }}

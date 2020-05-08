@@ -1,5 +1,15 @@
 <template lang="pug">
-    div
+    #subpage-container(v-scroll="onScroll")
+        v-fab-transition(v-if="!disableScroll")
+            v-btn(v-show="showTopFab",
+            color="primary lighten-1",
+            dark,
+            fixed,
+            bottom,
+            right,
+            fab,
+            @click="scrollToTop()")
+                v-icon(dark) mdi-arrow-up
         splash(v-if="splash",
         height="8rem",
         :bg-color="splashBgColor",
@@ -85,10 +95,18 @@ export default {
     components: { SourceUrl, Splash },
     props: {
         splash: { type: Boolean, default: false, required: false },
+        disableScroll: { type: Boolean, default: false, required: false },
         overrideHead: { type: Boolean, default: false, required: false },
         sourceUrl: { type: Boolean, default: false, required: false },
         sourceUrlDark: { type: Boolean, default: false, required: false },
         sourceUrlLight: { type: Boolean, default: false, required: false },
+    },
+    data()
+    {
+        return {
+            windowHeight: 0,
+            scrollTop: 0,
+        };
     },
     computed: {
         page()
@@ -119,6 +137,12 @@ export default {
             }
             return 'почетну страницу';
         },
+        showTopFab()
+        {
+            return this && this.windowHeight
+                ? this.scrollTop > this.windowHeight-64
+                : false;
+        },
         showBackButton()
         {
             return this.$breakpoint.is.smAndUp;
@@ -133,6 +157,24 @@ export default {
         {
             return '#000';
         }
+    },
+    mounted()
+    {
+        this.scrollTop = 0;
+        this.windowHeight = window.innerHeight;
+    },
+    methods:
+    {
+        onScroll(event)
+        {
+            this.scrollTop = getProp(event,
+                                     'target.scrollingElement.scrollTop',
+                                     0);
+        },
+        scrollToTop()
+        {
+            this.$vuetify.goTo('#subpage-container', 0);
+        },
     },
     head()
     {
