@@ -1,5 +1,5 @@
 <template lang="pug">
-    subpage(:source-url="true")
+    subpage(source-url)
         section
             h1.display-1 Блог
             BlogPost(v-for="(post, postIndex) in posts",

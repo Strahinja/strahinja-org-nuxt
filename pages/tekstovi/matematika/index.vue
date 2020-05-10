@@ -1,7 +1,7 @@
 <template lang="pug">
-    subpage(:splash="true",
-    :source-url="true",
-    :source-url-light="true")
+    subpage(splash,
+    source-url,
+    source-url-light)
         template(#header)
             h1.display-1 Математика
         template(#outside-content)

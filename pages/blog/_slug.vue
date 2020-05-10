@@ -1,6 +1,6 @@
 <template lang="pug">
-    subpage(:override-head="true",
-    :source-url="true")
+    subpage(override-head,
+    source-url)
         BlogPost(v-if="post",
         :frontmatter="post.frontmatter"
         :extra-component="post.extraComponent"

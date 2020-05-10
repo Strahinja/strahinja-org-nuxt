@@ -1,5 +1,5 @@
 <template lang="pug">
-    subpage(:override-head="true")
+    subpage(override-head)
         section
             h1.display-1.
                 Чланци са ознаком #[span.highlight {{ '\#' + tagId }}]

@@ -336,6 +336,10 @@ export default {
                     markdownIt: md,
                 }
             });
+            config.module.rules.push({
+                test: /\.wasm(\.js)*$/,
+                loaders: ['wasm-loader'],
+            });
         }
     }
 };
