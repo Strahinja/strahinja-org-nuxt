@@ -15,24 +15,27 @@ export default {
         if (process.client)
         {
             require('js-dos');
-            /*const Dos = window.Dos;
+            const Dos = window.Dos;
 
-            Dos(document.getElementById('dos-canvas')).ready((fs, main) =>
+            Dos(document.getElementById('dos-canvas'),
+                { wdosboxUrl: '/js/wdosbox.js' }
+            ).ready((fs, main) =>
             {
                 fs.extract('/programi/paskal/zvez.zip').then(() =>
                 {
                     main(['-c', 'ZVEZ.EXE']);
                 });
-            });*/
+            });
         }
     },
 };
 </script>
 
 <style lang="sass" scoped>
-#canvas
-    width: 800
-    height: 600
+#dos-canvas
+    width: 648px
     background: #000
     border: 1px solid #999
+    padding: 3px;
+    box-shadow: 0 0 10px 0 rgba(0,0,0,.5)
 </style>

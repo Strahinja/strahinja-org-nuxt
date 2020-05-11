@@ -337,7 +337,7 @@ export default {
                 }
             });
             config.module.rules.push({
-                test: /\.wasm(\.js)*$/,
+                test: /\.wasm(|\.js)$/,
                 loaders: ['wasm-loader'],
             });
         }
