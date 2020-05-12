@@ -5,7 +5,7 @@
         template(#header)
             h1.display-1 Портфолио
         v-progress-linear.my-5(v-if="portfolioLoading",
-        indeterminate=true,
+        indeterminate,
         :active="portfolioLoading")
         template(#outside-content)
             fancy-grid(:items="portfolio")
@@ -28,9 +28,9 @@ export default {
     {
         portfolioLoading()
         {
-            return this && this.$store && this.$store.getters ?
-                this.$store.getters['loading/isLoading']('portfolio') :
-                true;
+            return this && this.$store && this.$store.getters
+                ? this.$store.getters['loading/isLoading']('portfolio')
+                : true;
         },
     },
     async asyncData({ store })

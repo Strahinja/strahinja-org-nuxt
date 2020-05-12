@@ -40,7 +40,7 @@
                                 v-btn(text, large,
                                 @click="openLink(cell(row,col).path)")
                                     v-icon mdi-open-in-new
-                                    | Отвори у новом прозору
+                                    | Отвори
 </template>
 
 <script>
@@ -288,7 +288,7 @@ $animation-speed: .125s
     opacity: 0.2
 
 .card-underlay img
-    height: 100%
+    //height: 100%
     transform: translate(-50%, -50%)
     filter: grayscale(1) contrast(.3)
     top: 50%

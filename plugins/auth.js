@@ -1,4 +1,4 @@
-var getProp = require('dotprop');
+const getProp = require('dotprop');
 
 export default async function ({ store, app })
 {

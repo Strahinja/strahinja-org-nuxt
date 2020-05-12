@@ -88,7 +88,7 @@
 </template>
 
 <script>
-var getProp = require('dotprop');
+const getProp = require('dotprop');
 import Splash from '~/components/Splash';
 import SourceUrl from '~/components/SourceUrl';
 export default {

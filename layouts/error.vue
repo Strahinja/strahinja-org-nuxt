@@ -13,7 +13,7 @@
 
 <script>
 import Subpage from '~/components/Subpage';
-var getProp = require('dotprop');
+const getProp = require('dotprop');
 export default {
     layout: 'default',
     components: { Subpage },

@@ -105,25 +105,11 @@ main h1.display-1
 .pointer-hand
     cursor: pointer
 
-.big-slanted-icon
-    font-size: 7em
-    color: rgba(0, 0, 0, .2) !important
-    transform: skewX(-6deg) scale(2) translate(-6px, -15px)
-
-.big-slanted-icon.trans-y-20
-    transform: skewX(-6deg) scale(2) translate(-6px, -20px)
-
-.text--accent
-    color: #64dd17 !important
-
 img.inline-image
     vertical-align: middle
 
 a.button-link
     text-decoration: none
-
-button.accent a.button-link
-    color: #000
 
 .v-btn--icon > .v-btn__content > a
     /* margin-top: 5px
@@ -137,6 +123,9 @@ button.accent a.button-link
 
 .v-btn--floating.v-btn--small .v-icon
     line-height: 40px
+
+.v-btn:not(.v-btn--round).v-size--default
+    padding: 0 8px
 
 .icon-normal
     min-width: 24px
@@ -168,10 +157,14 @@ svg
     transform: rotate(180deg)
     transition: all 0.25s ease
 
-.contrast-dark.v-icon
+.contrast-dark,
+.contrast-dark.v-icon,
+.contrast-dark .v-icon
     color: $contrast-dark-color !important
 
-.contrast-light.v-icon
+.contrast-light,
+.contrast-light.v-icon,
+.contrast-light .v-icon
     color: $contrast-light-color !important
 
 .v-btn:not(.v-btn--icon):not(.v-btn--fab) .v-icon

@@ -38,7 +38,7 @@
 </template>
 
 <script>
-var getProp = require('dotprop');
+const getProp = require('dotprop');
 import LoginSheet from '~/components/LoginSheet';
 export default {
     name: 'ProfileMenu',

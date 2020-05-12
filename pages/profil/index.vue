@@ -9,13 +9,12 @@
                 v-col.text-right(:cols="6")
                     v-tooltip(bottom=true)
                         template(v-slot:activator="{ on }")
-                            v-btn.black--text(color="accent",
-                            v-on="on")
-                                a.button-link(href="/doku/cv-strahinja-radic.pdf",
-                                target="_blank")
-                                    v-icon mdi-file-pdf-box
-                                    span.hidden-xs-only Преузми&nbsp;
-                                    | PDF
+                            v-btn(color="accent",
+                            light,
+                            v-on="on",
+                            @click="openLink('/doku/cv-strahinja-radic.pdf')")
+                                v-icon mdi-file-pdf-box
+                                span.hidden-xs-only Преузми&nbsp;PDF
                         span Преузми PDF фајл
 
         v-card.profile-card
@@ -111,7 +110,8 @@ export default {
             ],
         };
     },
-    computed: {
+    computed:
+    {
         page()
         {
             if (this && this.$store)
@@ -144,6 +144,13 @@ export default {
         {
             return this.$breakpoint.is.smAndUp;
         }
+    },
+    methods:
+    {
+        openLink(url)
+        {
+            window.open(url, '_blank');
+        },
     },
 };
 </script>
