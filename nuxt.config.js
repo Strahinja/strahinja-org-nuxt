@@ -313,7 +313,7 @@ export default {
      ** You can extend webpack config here
      */
         devtools: true,
-        //extractCSS: true,
+        extractCSS: true,
         productionTip: false,
         transpile: [
             /static\/blog/,

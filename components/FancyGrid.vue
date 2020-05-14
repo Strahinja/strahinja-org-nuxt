@@ -251,6 +251,7 @@ $animation-speed: .125s
     white-space: nowrap
 
 .v-card__text,
+.theme--light .fancy-grid .v-card__text,
 .v-card__actions,
 .v-card__actions .v-btn
     color: #fff !important

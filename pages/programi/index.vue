@@ -30,13 +30,12 @@
                                                 v-list-item-subtitle(v-if="item.short_desc")
                                                     | {{ item.short_desc }}
                                         v-divider
-                            v-col.pa-0.canvas-wrapper(:cols="12",
+                            v-col.pa-0.pl-4.canvas-wrapper(:cols="12",
                             :sm="9")
                                 canvas#dos-canvas(ref="dosCanvas",
                                 :style="canvasStyle()")
                                 v-fade-transition
-                                    .canvas-overlay(v-show="showOverlay",
-                                    :style="canvasOverlayStyle()")
+                                    .canvas-overlay(v-show="showOverlay")
                                         v-fade-transition
                                             img(v-if="selectedItem",
                                             :src="selectedItem.image")
@@ -67,9 +66,9 @@
 
 <script>
 import Subpage from '~/components/Subpage';
-const getProp = require('dotprop');
+//const getProp = require('dotprop');
 
-const CANVAS_DEFAULT_HEIGHT = 480;
+//const CANVAS_DEFAULT_HEIGHT = 480;
 
 export default {
     name: 'Programi',
@@ -89,7 +88,7 @@ export default {
             commandInterface: null,
             selectedItem: null,
             resizeCallback: null,
-            canvasHeight: 0,
+            canvasHeight: 'auto',
             showOverlay: true,
             categories: [
                 {
@@ -334,9 +333,7 @@ export default {
         {
             require('js-dos');
             this.Dos = window.Dos;
-            this.canvasHeight = this.$refs.dosCanvas.clientHeight;
             this.selectedItem = null;
-            this.showOverlay = true;
 
             this.cleanupExit();
 
@@ -344,7 +341,7 @@ export default {
             {
                 this.resizeCallback = () =>
                 {
-                    this.canvasHeight = this.$refs.dosCanvas.clientHeight;
+                    this.setCanvasHeight();
                 };
                 window.addEventListener('resize', this.resizeCallback);
             }
@@ -358,35 +355,50 @@ export default {
             {
                 this.commandInterface.exit();
                 this.commandInterface = null;
-                this.showOverlay = true;
-                this.forceCanvasHeight();
             }
+            this.showOverlay = true;
+            this.setCanvasHeight();
         },
         listColStyle()
         {
             return {
                 'max-height': this && this.canvasHeight
-                    ? `${this.canvasHeight}px`
+                    ? this.canvasHeight
                     : 'initial',
                 'overflow-y': 'auto',
             };
         },
+        setCanvasHeight()
+        {
+            console.log('setCanvasHeight: this.$refs.dosCanvas.clientWidth = ',
+                        this && this.$refs && this.$refs.dosCanvas
+                            ? this.$refs.dosCanvas.clientWidth
+                            : 'N/A');
+            this.canvasHeight = this && this.$refs && this.$refs.dosCanvas
+                ? '' + (this.$refs.dosCanvas.clientWidth / 1.3333) + 'px'
+                : 'auto';
+        },
         canvasStyle()
         {
             return {
-                height: this && this.canvasSetHeight
-                    ? `${this.canvasSetHeight}px`
+                height: this && this.canvasHeight
+                    ? this.canvasHeight
                     : 'auto',
-            };
-        },
-        canvasOverlayStyle()
-        {
-            return {
                 'max-height': this && this.canvasHeight
-                    ? `${this.canvasHeight}px`
+                    ? this.canvasHeight
                     : 'initial',
             };
         },
+        /*
+         *canvasOverlayStyle()
+         *{
+         *    return {
+         *        'max-height': this && this.canvasHeight
+         *            ? `${this.canvasHeight}px`
+         *            : 'initial',
+         *    };
+         *},
+         */
         selectItem(item)
         {
             this.cleanupExit();
@@ -400,23 +412,25 @@ export default {
             }
             return '';
         },
-        forceCanvasHeight()
-        {
-            this.canvasSetHeight = CANVAS_DEFAULT_HEIGHT;
-            this.canvasHeight = this.canvasSetHeight;
-        },
-        unforceCanvasHeight()
-        {
-            this.canvasSetHeight = 0;
-            this.canvasHeight = this.$refs.dosCanvas.clientHeight;
-        },
+        /*
+         *forceCanvasHeight()
+         *{
+         *    this.canvasSetHeight = CANVAS_DEFAULT_HEIGHT;
+         *    this.canvasHeight = this.canvasSetHeight;
+         *},
+         *unforceCanvasHeight()
+         *{
+         *    this.canvasSetHeight = 0;
+         *    this.canvasHeight = this.$refs.dosCanvas.clientHeight;
+         *},
+         */
         runProgram()
         {
             if (this.Dos)
             {
                 this.cleanupExit();
                 this.showOverlay = false;
-                this.unforceCanvasHeight();
+                //this.unforceCanvasHeight();
 
                 this.$store.dispatch('loading/startLoading', {
                     id: 'program' }, { root: true });
@@ -455,6 +469,8 @@ export default {
 
 #dos-canvas
     width: 100%
+    min-width: 320px
+    max-width: 1024px
     background: #000
     //border: 1px solid #999
     padding: 3px
@@ -472,10 +488,12 @@ export default {
     position: absolute
     top: 0
     bottom: 0
-    left: 0
+    left: 16px
     right: 0
     background: #000
     overflow: hidden
+    min-width: 320px
+    max-width: 1024px
 
 .canvas-overlay > img
     opacity: .5
@@ -484,6 +502,9 @@ export default {
 
 .canvas-overlay > .v-btn
     align-self: center
+
+.dosbox-container
+    align-items: start !important
 
 .v-card__text
     color: map-get($material-dark, 'text-color') !important
