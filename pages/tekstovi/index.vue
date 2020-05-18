@@ -5,7 +5,7 @@
         template(#header)
             h1.display-1 Текстови
         template(#outside-content)
-            fancy-list(:items="subpages")
+            fancy-list(:items="items")
 </template>
 
 <script>
@@ -18,12 +18,14 @@ export default {
     data()
     {
         return {
-            subpages: [],
+            items: [],
         };
     },
     asyncData({ store })
     {
+        let items = [];
         let subpages = [];
+
         store.getters['pages/subpages']('/tekstovi')
             .forEach((item) =>
             {
@@ -38,8 +40,20 @@ export default {
                     modified: '',
                 });
             });
+        items.push({
+            title: 'Странице',
+            list: subpages,
+        });
+
+        /*
+         *items.push({
+         *    title: 'Фајлови',
+         *    list: files,
+         *});
+         */
+
         return {
-            subpages
+            items
         };
     },
 };

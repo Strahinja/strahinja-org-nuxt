@@ -1,18 +1,21 @@
 <template lang="pug">
     .fancy-list
         v-list(elevation="1")
-            v-list-item(v-for="(item, itemIndex) in items",
-            :key="itemIndex",
-            link,
-            :to="item.path")
-                v-list-item-avatar
-                    v-avatar(:color="avatarColor")
-                        v-icon(v-if="!item.iconSvg") {{ item.icon }}
-                        component(v-else,
-                        :is="item.iconSvg")
-                v-list-item-content
-                    v-list-item-title {{ item.name }}
-                    v-list-item-subtitle {{ item.description }}
+            div(v-for="(group, groupIndex) in items")
+                v-subheader {{ group.title }}
+                v-list-item(v-for="(item, itemIndex) in group.list",
+                :key="itemIndex",
+                link,
+                :to="item.path")
+                    v-list-item-avatar
+                        v-avatar(:color="avatarColor")
+                            v-icon(v-if="!item.iconSvg") {{ item.icon }}
+                            component(v-else,
+                            :is="item.iconSvg")
+                    v-list-item-content
+                        v-list-item-title {{ item.name }}
+                        v-list-item-subtitle {{ item.description }}
+                v-delimiter
 </template>
 
 <script>

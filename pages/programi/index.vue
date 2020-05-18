@@ -19,7 +19,8 @@
                                     div(v-for="(category, catIndex) in categories",
                                     :key="catIndex")
                                         v-subheader {{ category.title }}
-                                        v-list-item(v-for="(item, itemIndex) in category.items",
+                                        v-list-item(v-for=`(item, itemIndex)
+                                            in category.items`,
                                         :key="itemIndex",
                                         @click="selectItem(item)")
                                             v-list-item-avatar
@@ -30,9 +31,25 @@
                                                 v-list-item-subtitle(v-if="item.short_desc")
                                                     | {{ item.short_desc }}
                                         v-divider
-                            v-col.pa-0.pl-4.canvas-wrapper(:cols="12",
+                            v-col.pa-0.text-center.align-self-center.canvas-wrapper(:cols="12",
+                            :class="{ active: !showOverlay }",
                             :sm="9")
+                                //-.canvas-controls
+                                    //-v-btn(fab,
+                                    //-small,
+                                    //-text,
+                                    //-@click="onKeyboardShow()")
+                                        //-v-icon mdi-keyboard
+                                    //-v-btn(fab,
+                                    //-small,
+                                    //-text,
+                                    //-@click="onFullscreenClick()")
+                                        //-v-icon
+                                            //-| {{ fullscreen
+                                            //-| ? 'mdi-fullscreen-exit'
+                                            //-| : 'mdi-fullscreen' }}
                                 canvas#dos-canvas(ref="dosCanvas",
+                                :class="{ active: !showOverlay }",
                                 :style="canvasStyle()")
                                 v-fade-transition
                                     .canvas-overlay(v-show="showOverlay")
@@ -66,9 +83,6 @@
 
 <script>
 import Subpage from '~/components/Subpage';
-//const getProp = require('dotprop');
-
-//const CANVAS_DEFAULT_HEIGHT = 480;
 
 export default {
     name: 'Programi',
@@ -85,11 +99,13 @@ export default {
     {
         return {
             Dos: null,
+            DosController: null,
             commandInterface: null,
             selectedItem: null,
             resizeCallback: null,
             canvasHeight: 'auto',
             showOverlay: true,
+            fullscreen: false,
             categories: [
                 {
                     title: 'Паскал',
@@ -119,24 +135,19 @@ export default {
                         },
                         {
                             zip: '/programi/paskal/frakt.zip',
-                            conf: {
-                                name: 'dosbox.conf',
-                                content: `
-                                [autoexec]
-                                config -set "cpu cycles=5000"
-                                `
+                            options: {
+                                cycles: 5000,
                             },
                             image: '/img/programi/paskal/frakt-01.png',
                             args: [
-                                '-conf', 'dosbox.conf',
                                 '-c', 'FRK.EXE',
                             ],
                             icon: 'mdi-console',
-                            title: 'Frakt/Frk',
+                            title: 'Frakt',
                             short_desc: 'Цртање фрактала',
-                            description: 'Програми за цртање фрактала:'
-                                + ' `FRAKT.EXE` = Паскал + _BGI_ графика,'
-                                + ' `FRK.EXE` = Паскал + Асемблер.\n\n'
+                            description: 'Програм за цртање фрактала:\n\n'
+                                + '- `FRAKT.EXE` = Паскал + _BGI_ графика,\n'
+                                + '- `FRK.EXE` = Паскал + Асемблер.\n\n'
                                 + ' **Број итерација:** око **20** даје детаљне'
                                 + ' фрактале.'
                                 + ' [[+]]/[[-]] ='
@@ -146,16 +157,11 @@ export default {
                         },
                         {
                             zip: '/programi/paskal/Hangman.zip',
-                            conf: {
-                                name: 'dosbox.conf',
-                                content: `
-                                [autoexec]
-                                config -set "cpu cycles=5000"
-                                `
+                            options: {
+                                cycles: 5000,
                             },
                             image: '/img/programi/paskal/hangman-01.png',
                             args: [
-                                '-conf', 'dosbox.conf',
                                 '-c', 'HANGMAN.EXE',
                             ],
                             icon: 'mdi-console',
@@ -165,39 +171,33 @@ export default {
                         },
                         {
                             zip: '/programi/paskal/lavirint.zip',
-                            conf: {
-                                name: 'dosbox.conf',
-                                content: `
-                                [autoexec]
-                                config -set "cpu cycles=5000"
-                                `
+                            options: {
+                                cycles: 5000,
                             },
                             image: '/img/programi/paskal/lavirin3.png',
                             args: [
-                                '-conf', 'dosbox.conf',
                                 '-c', 'LAVIRIN3.EXE',
                             ],
                             icon: 'mdi-console',
                             title: 'Лавиринт',
                             short_desc: 'Излазак из лавиринта',
                             description: 'Програм за тражење изласка из'
-                                + ' лавиринта.\n\nЗа **име фајла** и'
+                                + ' лавиринта.\n\n'
+                                + '- `LAVIRINT.EXE` = _ASCII_ верзија\n'
+                                + '- `LAVIRIN2.EXE` = текстуални интерфејс\n'
+                                + '- `LAVIRIN3.EXE` = _BGI_ графика\n\n'
+                                + 'За **име фајла** и'
                                 + ' **_BGI_ драјвер**'
                                 + ' може се притиснути [[Enter]].'
                                 + ' Предложена **пауза у msec:** **5**.',
                         },
                         {
                             zip: '/programi/paskal/rot3d.zip',
-                            conf: {
-                                name: 'dosbox.conf',
-                                content: `
-                                [autoexec]
-                                config -set "cpu cycles=5000"
-                                `
+                            options: {
+                                cycles: 5000,
                             },
                             image: '/img/programi/paskal/rot3d3.png',
                             args: [
-                                '-conf', 'dosbox.conf',
                                 '-c', 'ROT3D3.EXE',
                             ],
                             icon: 'mdi-console',
@@ -208,16 +208,11 @@ export default {
                         },
                         {
                             zip: '/programi/paskal/simhit.zip',
-                            conf: {
-                                name: 'dosbox.conf',
-                                content: `
-                                [autoexec]
-                                config -set "cpu cycles=5000"
-                                `
+                            options: {
+                                cycles: 5000,
                             },
                             image: '/img/programi/paskal/simhit-01.png',
                             args: [
-                                '-conf', 'dosbox.conf',
                                 '-c', 'SIMHIT.EXE',
                             ],
                             icon: 'mdi-console',
@@ -230,16 +225,11 @@ export default {
                         },
                         {
                             zip: '/programi/paskal/zvez.zip',
-                            conf: {
-                                name: 'dosbox.conf',
-                                content: `
-                                [autoexec]
-                                config -set "cpu cycles=5000"
-                                `
+                            options: {
+                                cycles: 5000,
                             },
                             image: '/img/programi/paskal/zvez.png',
                             args: [
-                                '-conf', 'dosbox.conf',
                                 '-c', 'ZVEZ.EXE',
                             ],
                             icon: 'mdi-console',
@@ -256,16 +246,11 @@ export default {
                     items: [
                         {
                             zip: '/programi/c/pahulje.zip',
-                            conf: {
-                                name: 'dosbox.conf',
-                                content: `
-                                [autoexec]
-                                config -set "cpu cycles=15000"
-                                `
+                            options: {
+                                cycles: 15000,
                             },
                             image: '/img/programi/c/pahulje-02.png',
                             args: [
-                                '-conf', 'dosbox.conf',
                                 '-c', 'GAMETEST.EXE',
                             ],
                             icon: 'mdi-language-cpp',
@@ -291,16 +276,11 @@ export default {
                         },
                         {
                             zip: '/programi/c/turing.zip',
-                            conf: {
-                                name: 'dosbox.conf',
-                                content: `
-                                [autoexec]
-                                config -set "cpu cycles=5000"
-                                `
+                            options: {
+                                cycles: 5000,
                             },
                             image: '/img/programi/c/turing1.png',
                             args: [
-                                '-conf', 'dosbox.conf',
                                 '-c', 'cd turing',
                                 '-c', 'TURING1.EXE',
                             ],
@@ -333,6 +313,7 @@ export default {
         {
             require('js-dos');
             this.Dos = window.Dos;
+            this.DosController = window.DosController;
             this.selectedItem = null;
 
             this.cleanupExit();
@@ -349,6 +330,32 @@ export default {
     },
     methods:
     {
+        onKeyboardShow()
+        {
+            if (this.commandInterface)
+            {
+                //this.commandInterface.ke
+            }
+        },
+        onFullscreenClick()
+        {
+            if (this.fullscreen)
+            {
+                this.fullscreen = false;
+                if (this.commandInterface)
+                {
+                    this.commandInterface.exitFullscreen();
+                }
+            }
+            else
+            {
+                this.fullscreen = true;
+                if (this.commandInterface)
+                {
+                    this.commandInterface.fullscreen();
+                }
+            }
+        },
         cleanupExit()
         {
             if (this.commandInterface)
@@ -389,16 +396,6 @@ export default {
                     : 'initial',
             };
         },
-        /*
-         *canvasOverlayStyle()
-         *{
-         *    return {
-         *        'max-height': this && this.canvasHeight
-         *            ? `${this.canvasHeight}px`
-         *            : 'initial',
-         *    };
-         *},
-         */
         selectItem(item)
         {
             this.cleanupExit();
@@ -412,32 +409,25 @@ export default {
             }
             return '';
         },
-        /*
-         *forceCanvasHeight()
-         *{
-         *    this.canvasSetHeight = CANVAS_DEFAULT_HEIGHT;
-         *    this.canvasHeight = this.canvasSetHeight;
-         *},
-         *unforceCanvasHeight()
-         *{
-         *    this.canvasSetHeight = 0;
-         *    this.canvasHeight = this.$refs.dosCanvas.clientHeight;
-         *},
-         */
         runProgram()
         {
             if (this.Dos)
             {
                 this.cleanupExit();
                 this.showOverlay = false;
-                //this.unforceCanvasHeight();
 
                 this.$store.dispatch('loading/startLoading', {
                     id: 'program' }, { root: true });
 
+                let options = { wdosboxUrl: '/js/wdosbox.js' };
+
+                if (this.selectedItem.options)
+                {
+                    options = { ...options, ...this.selectedItem.options };
+                }
+
                 this.Dos(document.getElementById('dos-canvas'),
-                         { wdosboxUrl: '/js/wdosbox.js' }
-                ).ready((fs, main) =>
+                         options).ready((fs, main) =>
                 {
                     if (this.selectedItem.conf)
                     {
@@ -452,6 +442,11 @@ export default {
                         this.canvasHeight = this.$refs.dosCanvas.clientHeight;
                         main(this.selectedItem.args).then((ci) =>
                         {
+                            /*
+                             *this.DosController.Qwerty(ci.getParentDiv(),
+                             *                          ci.getKeyEventConsumer());
+                             */
+
                             this.commandInterface = ci;
                         });
                     });
@@ -470,11 +465,15 @@ export default {
 #dos-canvas
     width: 100%
     min-width: 320px
-    max-width: 1024px
+    max-width: 800px
     background: #000
     //border: 1px solid #999
     padding: 3px
     //box-shadow: 0 0 10px 0 rgba(0,0,0,.5)
+    opacity: 0
+
+#dos-canvas.active
+    opacity: 1
 
 .v-card .v-btn:not(.v-btn--round).v-size--x-large
     padding: 0 23.1111111111px !important
@@ -482,33 +481,73 @@ export default {
 .canvas-wrapper
     position: relative
 
+.canvas-controls
+    position: absolute
+    z-index: 1
+    top: 0
+    width: 100%
+    height: 40px
+    justify-content: flex-end
+    display: flex
+    top: 60px !important
+    max-width: 800px
+    left: 50%
+    transform: translateX(calc(-50% - 20px))
+
 .canvas-overlay
     display: flex
     justify-content: center
+    align-self: center
     position: absolute
     top: 0
-    bottom: 0
-    left: 16px
-    right: 0
-    background: #000
+    background: map-get($material-light, 'background-color')
     overflow: hidden
     min-width: 320px
-    max-width: 1024px
+    max-width: 800px
+    width: 100%
+    height: calc(100% - 8px)
+    left: 50%
+    transform: translateX(-50%)
+
+.theme--dark .canvas-overlay
+    background: map-get($material-dark, 'background-color')
 
 .canvas-overlay > img
-    opacity: .5
     position: absolute
     width: 100%
+    top: 50%
+    transform: translateY(-50%)
+    filter: brightness(.4)
 
 .canvas-overlay > .v-btn
     align-self: center
-
-.dosbox-container
-    align-items: start !important
 
 .v-card__text
     color: map-get($material-dark, 'text-color') !important
 
 .theme--light .v-card__text
     color: map-get($material-light, 'text-color') !important
+
+.dosbox-container
+    min-width: 320px
+    max-width: 800px
+    width: 100%
+    margin-left: auto
+    margin-right: auto
+
+.qwerty-key
+    top: 20px
+    right: 20px
+    left: auto !important
+    border: none !important
+    background: none !important
+    display: none !important
+
+.canvas-wrapper.active .qwerty-key
+    display: flex !important
+
+.qwerty-key::before
+    content: "\F030C"
+    color: #fff
+    font: normal normal normal 24px/1 "Material Design Icons"
 </style>
