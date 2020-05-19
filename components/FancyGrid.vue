@@ -151,15 +151,24 @@ export default {
         },
         cardColor(row, col)
         {
-            let result = (row%2==0) ? 'primary' : 'secondary';
+            let result = '';
 
-            result += ' ' + ((col%2==0) ? 'darken-1' : 'darken-2');
+            if (row==this.activeRow && col==this.activeCol)
+            {
+                result = 'primary darken-1';
+            }
+            else
+            {
+                result = (row%2==0) ? 'primary' : 'secondary';
+                result += ' ' + ((col%2==0) ? 'darken-1' : 'darken-2');
+            }
 
             return result;
         },
         rowHover(row)
         {
             let cols = this.cols(row);
+
             this.activeRow = row;
             if (this.activeCol==-1 || this.activeCol>cols.length-1)
             {
@@ -208,10 +217,16 @@ $animation-speed: .125s
 .fancy-grid
     margin: 0
 
+.fancy-grid .col
+    filter: opacity(0.4) contrast(2.3)
+
+.fancy-grid .row-active .col.col-active
+    filter: none
+
 .v-card,
 .row,
 .col
-    transition: all $animation-speed ease-in-out
+    transition: all $animation-speed cubic-bezier(0.42, 0, 0.43, 0.07)
 
 .col:last-child
     overflow: hidden
@@ -229,7 +244,7 @@ $animation-speed: .125s
     cursor: zoom-in
 
 .card-inner
-    height: 25rem
+    height: 20rem
 
 .v-card__title
     white-space: nowrap
@@ -239,7 +254,7 @@ $animation-speed: .125s
 
 .v-card__text
     padding: 1rem 1rem 5rem 1rem
-    height: 21rem
+    height: 16rem
 
 .v-card__actions
     justify-content: flex-end

@@ -2,11 +2,11 @@
     .fancy-list
         v-list(elevation="1")
             div(v-for="(group, groupIndex) in items")
-                v-subheader {{ group.title }}
+                //-v-subheader {{ group.title }}
                 v-list-item(v-for="(item, itemIndex) in group.list",
                 :key="itemIndex",
                 link,
-                :to="item.path")
+                @click="openItem(item)")
                     v-list-item-avatar
                         v-avatar(:color="avatarColor")
                             v-icon(v-if="!item.iconSvg") {{ item.icon }}
@@ -15,7 +15,7 @@
                     v-list-item-content
                         v-list-item-title {{ item.name }}
                         v-list-item-subtitle {{ item.description }}
-                v-delimiter
+                v-divider(v-if="notLast(groupIndex, items)")
 </template>
 
 <script>
@@ -43,9 +43,24 @@ export default {
         },
     },
     methods: {
+        notLast(index, list)
+        {
+            return index < list.length-1;
+        },
         openLink(url)
         {
             window.open(url, '_blank');
+        },
+        openItem(item)
+        {
+            if (item.is_file)
+            {
+                this.openLink(item.path);
+            }
+            else
+            {
+                this.$router.push({ path: item.path });
+            }
         },
         rowSize(row)
         {

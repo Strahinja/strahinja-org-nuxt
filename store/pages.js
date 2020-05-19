@@ -315,8 +315,8 @@ export const state = () => ({
         },
         {
             id: routeIds.PAGE_TEXTS_MATH_BRELRED,
-            title: 'Број елемената одређеног реда',
-            text: 'Рачунање броја елемената одређеног реда у коначној Абеловој групи',
+            title: 'Рачунање броја елемената одређеног реда у коначној Абеловој групи',
+            text: 'Опште решење проблема из Алгебре 1',
             colorClass: '',
             theme: '',
             icon: 'mdi-sigma',
@@ -360,7 +360,7 @@ export const state = () => ({
         {
             id: routeIds.PAGE_TEXTS_MATH_KOORD,
             title: 'Матрице преласка и хомогене координате',
-            text: 'Матрице преласка и хомогене координате',
+            text: 'Кратко расписивање матрица преласка из Нацртне геометрије',
             colorClass: '',
             theme: '',
             icon: 'mdi-sigma',
@@ -403,8 +403,8 @@ export const state = () => ({
         },
         {
             id: routeIds.PAGE_TEXTS_SOFTWARE_EMAKS_CIR,
-            title: 'Подешавање Емакса за српски',
-            text: 'КАКОДА подесим и користим ГНУ-ов Емакс за унос текста на српском',
+            title: 'КАКОДА подесим и користим ГНУ-ов Емакс за унос текста на српском',
+            text: 'Подешавање Емакса за српски',
             colorClass: '',
             theme: '',
             icon: 'mdi-console',
@@ -425,8 +425,8 @@ export const state = () => ({
         },
         {
             id: routeIds.PAGE_TEXTS_SOFTWARE_GNU_SZI,
-            title: 'ГНУ-ов систем за изградњу',
-            text: 'КАКОДА употребљавам ГНУ-ов систем за изградњу',
+            title: 'КАКОДА употребљавам ГНУ-ов систем за изградњу',
+            text: 'ГНУ-ов систем за изградњу',
             colorClass: '',
             theme: '',
             icon: 'mdi-console',
@@ -448,7 +448,7 @@ export const state = () => ({
         {
             id: routeIds.PAGE_TEXTS_SOFTWARE_OJL,
             title: 'ГНУ-ова ОЈЛ',
-            text: 'Превод ГНУ-ове опште јавне лиценце на српски',
+            text: 'Незванични превод ГНУ-ове опште јавне лиценце на српски',
             colorClass: '',
             theme: '',
             icon: 'mdi-scale-balance',

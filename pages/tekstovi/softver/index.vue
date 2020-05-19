@@ -21,7 +21,7 @@ export default {
             items: [],
         };
     },
-    asyncData({ store })
+    async asyncData({ store })
     {
         let items = [];
         let subpages = [];
@@ -46,12 +46,17 @@ export default {
             list: subpages,
         });
 
-        /*
-         *items.push({
-         *    title: 'Фајлови',
-         *    list: files,
-         *});
-         */
+        await store.dispatch('items/loadItems', {
+            catId: store.state.items.categoryIds.ITEM_ARTICLE_SOFTWARE
+        }, { root: true });
+
+        if (store.getters['items/fileCount'] > 0)
+        {
+            items.push({
+                title: 'Фајлови',
+                list: store.getters['items/fileList'],
+            });
+        }
 
         return {
             items

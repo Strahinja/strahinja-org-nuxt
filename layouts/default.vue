@@ -35,8 +35,12 @@
             client-only
                 v-tooltip(bottom)
                     template(v-slot:activator="{ on }")
-                        v-app-bar-nav-icon(v-on="on",
-                        @click="showNav = !showNav")
+                        v-btn(v-on="on",
+                        ref="hamburgerBtn",
+                        icon,
+                        text,
+                        @click="hamburgerBtnClick()")
+                            hamburger(:open="showNav")
                     span Главни мени
             v-toolbar-title.mr-4
                 nuxt-link.hidden-xs-only(:to="'/'") //strahinja.org
@@ -159,6 +163,7 @@
 </template>
 
 <script>
+import Hamburger from '~/components/Hamburger';
 import ProfileMenu from '~/components/ProfileMenu';
 import CookieDisclaimer from '~/components/CookieDisclaimer';
 import Gnu from '~/assets/svg/gnu.svg?inline';
@@ -168,7 +173,7 @@ import { mixin as clickaway } from 'vue-clickaway';
 export default {
     name: 'App',
     middleware: ['set-page-id', 'cookie-consent'],
-    components: { CookieDisclaimer, Gnu, Strahinjaorg, ProfileMenu },
+    components: { CookieDisclaimer, Gnu, Hamburger, Strahinjaorg, ProfileMenu },
     mixins: [clickaway],
     data()
     {
@@ -387,6 +392,11 @@ export default {
         };
     },
     methods: {
+        hamburgerBtnClick()
+        {
+            this.showNav=!this.showNav;
+            this.$refs.hamburgerBtn.$el.blur();
+        },
         svgComponent(componentId)
         {
             let result = '';

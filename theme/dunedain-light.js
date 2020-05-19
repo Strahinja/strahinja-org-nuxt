@@ -9,6 +9,7 @@ export default {
         base: '#4caf50',
         lighten1: '#80e27e',
         darken1: '#087f23',
+        darken2: '#006206',
     },
     anchor: '#2e7d32', //'#41cb4a',
     contrastdark: '#fff',

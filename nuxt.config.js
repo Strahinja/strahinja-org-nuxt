@@ -7,7 +7,7 @@ import { md } from './markdown-it';
 //import authConfig from './auth.config.js';
 
 // Staging (true) or production (false)?
-var appModeStaging = true;
+const appModeStaging = false;
 
 require('dotenv').config({ path: `.env.${appModeStaging?'staging':'production'}` });
 console.log('dotenv: mode = ', process.env.VUE_APP_MODE);

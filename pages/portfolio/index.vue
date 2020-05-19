@@ -35,7 +35,8 @@ export default {
     },
     async asyncData({ store })
     {
-        await store.dispatch('portfolio/loadItems');
+        await store.dispatch('portfolio/loadItems',
+                             null, { root: true });
         return {
             portfolio: store.getters['portfolio/list'],
         };

@@ -170,7 +170,7 @@ $filler-margin-top: 5em
     cursor: pointer
 
 .main-toolbar
-    margin-top: -28px !important
+    transform: translateY(-50%)
     background-color: transparent !important
 
 .filler
