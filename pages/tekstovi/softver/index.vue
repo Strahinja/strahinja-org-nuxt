@@ -19,6 +19,7 @@ export default {
     {
         return {
             items: [],
+            subpages: [],
         };
     },
     async asyncData({ store })
@@ -59,7 +60,7 @@ export default {
         }
 
         return {
-            items
+            items, subpages
         };
     },
 };

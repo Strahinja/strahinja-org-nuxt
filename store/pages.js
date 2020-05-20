@@ -426,7 +426,7 @@ export const state = () => ({
         {
             id: routeIds.PAGE_TEXTS_SOFTWARE_GNU_SZI,
             title: 'КАКОДА употребљавам ГНУ-ов систем за изградњу',
-            text: 'ГНУ-ов систем за изградњу',
+            text: 'Упутство за прављење инсталационог програма у ГНУ-овом систему за изградњу',
             colorClass: '',
             theme: '',
             icon: 'mdi-console',

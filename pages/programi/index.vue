@@ -30,7 +30,8 @@
                                                 v-list-item-title {{ item.title }}
                                                 v-list-item-subtitle(v-if="item.short_desc")
                                                     | {{ item.short_desc }}
-                                        v-divider
+                                        v-divider(v-if=`notLast(catIndex,
+                                        categories)`)
                             v-col.pa-0.text-center.align-self-center.canvas-wrapper(:cols="12",
                             :class="{ active: !showOverlay }",
                             :sm="9")
@@ -330,6 +331,10 @@ export default {
     },
     methods:
     {
+        notLast(index, list)
+        {
+            return index < list.length-1;
+        },
         onKeyboardShow()
         {
             if (this.commandInterface)
