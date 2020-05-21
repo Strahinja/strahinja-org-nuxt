@@ -118,10 +118,7 @@
         height="auto")
             v-card.flex.text-center(text,
             tile)
-                v-card-text.primary.text-center.justify-center(:class=`{
-                    'd-flex': $breakpoint.is.xsOnly
-                }`)
-                    v-spacer/
+                v-card-text.primary.d-flex.text-center.justify-center
                     client-only
                         v-tooltip(v-for="(footerLink, footerLinkIndex) in footerLinks",
                         :key="footerLinkIndex",
