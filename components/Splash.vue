@@ -34,7 +34,6 @@ export default {
         splashComputedStyle()
         {
             return {
-                height: this.height,
                 'min-height': this.height,
                 'background-color': this.bgColor,
                 color: this.fgColor,
@@ -52,8 +51,10 @@ export default {
 <style lang="sass" scoped>
 
 .splash
-    display: block
+    display: flex
     width: 100%
+    justify-content: center
+    align-items: center
 
 .splash h1
     font-size: 30pt
@@ -61,11 +62,11 @@ export default {
     display: inline-block
     vertical-align: middle
 
-.splash.vcentered:before
-    content: ' '
-    display: inline-block
-    vertical-align: middle
-    height: 100%
+//.splash.vcentered:before
+    //content: ' '
+    //display: inline-block
+    //vertical-align: middle
+    //height: 100%
 
 </style>
 

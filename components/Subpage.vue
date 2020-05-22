@@ -12,8 +12,8 @@
                 v-icon(dark) mdi-arrow-up
         splash(v-if="splash",
         height="8rem",
-        :bg-color="splashBgColor",
-        :fg-color="splashFgColor",
+        :bg-color="pageTheme().splashBackgroundColor",
+        :fg-color="pageTheme().splashForegroundColor",
         align="left",
         :vcentered="false")
             v-container(fluid)
@@ -43,8 +43,8 @@
                         fluid)
                             v-row
                                 v-col.py-0.text-right(:cols="12")
-                                    source-url(:contrastDark="sourceUrlDark",
-                                    :contrastLight="sourceUrlLight")/
+                                    source-url(:contrastDark="themeDark()",
+                                    :contrastLight="!themeDark()")/
                         slot/
         v-container(v-else,
         fluid)
@@ -74,8 +74,8 @@
                     fluid)
                         v-row
                             v-col.py-0.text-right(:cols="12")
-                                source-url(:contrastDark="sourceUrlDark",
-                                :contrastLight="sourceUrlLight")/
+                                source-url(:contrastDark="themeDark()",
+                                :contrastLight="!themeDark()")/
                     slot/
         v-container.py-0.col-12.col-lg-10.splash-content-container(fluid,
         v-if="splash",
@@ -91,6 +91,20 @@
 const getProp = require('dotprop');
 import Splash from '~/components/Splash';
 import SourceUrl from '~/components/SourceUrl';
+import dark from '~/theme/dunedain-dark';
+import light from '~/theme/dunedain-light';
+
+const pageThemes = {
+    dark: {
+        splashForegroundColor: '#fff',
+        splashBackgroundColor: dark.secondary.darken1,
+    },
+    light: {
+        splashForegroundColor: '#000',
+        splashBackgroundColor: light.secondary.lighten1,
+    },
+};
+
 export default {
     components: { SourceUrl, Splash },
     props: {
@@ -98,14 +112,16 @@ export default {
         disableScroll: { type: Boolean, default: false, required: false },
         overrideHead: { type: Boolean, default: false, required: false },
         sourceUrl: { type: Boolean, default: false, required: false },
-        sourceUrlDark: { type: Boolean, default: false, required: false },
-        sourceUrlLight: { type: Boolean, default: false, required: false },
     },
     data()
     {
         return {
             windowHeight: 0,
             scrollTop: 0,
+            themeName: 'light',
+            themeDark: () => (false),
+            pageThemes,
+            pageTheme: () => (pageThemes.light),
         };
     },
     computed: {
@@ -147,19 +163,12 @@ export default {
         {
             return this.$breakpoint.is.smAndUp;
         },
-        splashBgColor()
-        {
-            return getProp(this,
-                           '$vuetify.theme.currentTheme.secondary.lighten1',
-                           '#fff');
-        },
-        splashFgColor()
-        {
-            return '#000';
-        }
     },
     mounted()
     {
+        this.pageTheme = () =>
+            (this.themeDark() ? this.pageThemes.dark : this.pageThemes.light),
+        this.themeDark = () => (this.$store.getters['pages/isThemeDark']);
         this.scrollTop = 0;
         this.windowHeight = window.innerHeight;
     },

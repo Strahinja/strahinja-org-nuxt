@@ -22,6 +22,7 @@ export const mutations = {
 export const getters = {
     count: state => state.list.length,
     list: state => state.list,
+    firstN: state => n => state.list.slice(0, n),
     indexByLinkId: state => linkId =>
         state.list.findIndex(item => item.link_id == linkId),
     itemByLinkId: state => linkId =>

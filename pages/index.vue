@@ -2,32 +2,31 @@
     v-container.ma-0.pa-0(fluid,
     no-gutters)
         splash(height="200px",
-        :bg-color="secondaryBaseColor")
+        :bg-color="pageTheme().firstSplashBackgroundColor",
+        :fg-color="pageTheme().firstSplashForegroundColor")
             h1 Лична страница Страхиње Радића
-        v-toolbar.main-toolbar(flat)
-            v-spacer/
+        v-toolbar.main-toolbar.d-flex.justify-center(flat)
             v-tooltip(v-for=`(mainToolbarPage, mainToolbarPageIndex) in
             mainToolbarPages`,
             :key="mainToolbarPageIndex",
             bottom)
                 template(v-slot:activator="{ on }")
-                    v-btn.black--text(:to="mainToolbarPage.url.path",
+                    v-btn(:to="mainToolbarPage.url.path",
                     :x-large="$breakpoint.is.smAndUp",
                     :large="$breakpoint.is.xsOnly",
                     :rounded="$breakpoint.is.smAndUp",
                     :fab="$breakpoint.is.xsOnly",
                     :class=`{
-                    'mx-4': $breakpoint.is.smAndUp,
-                    'mx-2': $breakpoint.is.xsOnly
+                        'mx-4': $breakpoint.is.smAndUp,
+                        'mx-2': $breakpoint.is.xsOnly
                     }`,
-                    color="accent",
+                    :color="pageTheme().mainToolbarBtnBg",
                     v-on="on")
                         v-icon {{ mainToolbarPage.icon }}
                         span(v-if="$breakpoint.is.smAndUp").
                             {{ mainToolbarPage.title }}
                 span {{ mainToolbarPage.text }}
-            v-spacer/
-        v-col.filler.text-center.mt-10
+        v-col.text-center.my-8
             v-container.pa-0
                 v-row.ma-0
                     v-col.offset-1.offset-lg-2(:cols="10",
@@ -39,6 +38,54 @@
                             изградњи, па неке могућности још нису додате или нису функционалне.
                             Молим за стрпљење, јер је време које могу да посветим изради овог
                             сајта веома ограничено.
+        splash(height="250px",
+        :bg-color="pageTheme().secondSplashBackgroundColor",
+        :fg-color="pageTheme().secondSplashForegroundColor")
+            v-container
+                v-row
+                    v-col(cols=10,
+                    sm=4,
+                    offset=1,
+                    offset-sm=2)
+                        v-carousel.elevation-5(cycle,
+                        height=200,
+                        interval=6000,
+                        :style="{ 'max-width': '355px' }",
+                        show-arrows-on-hover)
+                            v-carousel-item(v-for=`(portfolioItem,
+                            portfolioItemIndex) in portfolioItems`,
+                            :key="portfolioItemIndex")
+                                img.splash-picture(:src="portfolioItem.image_thumb")
+                    v-col.text-left.align-self-center(cols=10,
+                    sm=4,
+                    offset=1,
+                    offset-sm=0,
+                    :class=`{
+                        'text-left': $breakpoint.is.smAndUp,
+                        'text-center': $breakpoint.is.xsOnly,
+                    }`,
+                    :style=`{
+                        'padding-left': $breakpoint.is.smAndUp
+                            ? '2rem'
+                            : '0'
+                    }`)
+                        h2 Портфолио
+                        p Пројекти на којима сам радио
+                        v-tooltip(bottom)
+                            template(v-slot:activator="{ on }")
+                                v-btn.black--text(:to="portfolioPage.url.path",
+                                x-large,
+                                rounded,
+                                color="accent",
+                                v-on="on")
+                                    v-icon {{ portfolioPage.icon }}
+                                    | {{ portfolioPage.title }}
+                            span {{ portfolioPage.text }}
+        v-col.text-center.my-8
+            v-container.pa-0
+                v-row.ma-0
+                    v-col.offset-1.offset-lg-2(:cols="10",
+                    :lg="8")
                         h2.mt-10 Коришћене технологије
                         ul.tech-list.my-10(:class=`{
                         'xs-only': $breakpoint.is.xsOnly
@@ -79,17 +126,29 @@ import MadeWith from '~/components/MadeWith.vue';
 import LogoVue from '~/assets/svg/logo-vue.svg?inline';
 import LogoVuetify from '~/assets/svg/logo-vuetify.svg?inline';
 import LogoNuxt from '~/assets/svg/logo-nuxt.svg?inline';
+import darkTheme from '~/theme/dunedain-dark';
+import lightTheme from '~/theme/dunedain-light';
 
-/*function randomString(len)
-{
-    let s = '';
-    for (let i = 0; i < len; i++)
-    {
-        s += String.fromCharCode('A'.charCodeAt(0) +
-            Math.round(Math.random() * 26));
-    }
-    return s;
-}*/
+const pageThemes = {
+    dark: {
+        mainToolbarBtnBg: 'secondary darken-1',
+        firstSplashForegroundColor: '#fff',
+        firstSplashBackgroundColor:
+                        darkTheme.primary.darken1,
+        secondSplashForegroundColor: '#fff',
+        secondSplashBackgroundColor:
+                        darkTheme.secondary.darken1,
+    },
+    light: {
+        mainToolbarBtnBg: 'secondary lighten-1',
+        firstSplashForegroundColor: '#000',
+        firstSplashBackgroundColor:
+                        lightTheme.primary.lighten1,
+        secondSplashForegroundColor: '#000',
+        secondSplashBackgroundColor:
+                        lightTheme.secondary.lighten1,
+    },
+};
 
 export default {
     name: 'Home',
@@ -108,15 +167,14 @@ export default {
             madewithHeight: 75,
             loading: false,
             parentUrl: '/',
+            portfolioItems: [],
+            themeName: 'light',
+            themeDark: () => (false),
+            pageThemes,
+            pageTheme: () => (pageThemes.light),
         };
     },
     computed: {
-        secondaryBaseColor()
-        {
-            return this.$vuetify.theme.dark
-                ? this.$vuetify.theme.themes.dark.secondary.base
-                : this.$vuetify.theme.themes.light.secondary.base;
-        },
         page()
         {
             if (this && this.$store)
@@ -151,9 +209,36 @@ export default {
                 return [];
             }
         },
+        portfolioPage()
+        {
+            if (this && this.$store)
+            {
+                return this.$store.getters['pages/pageById'](
+                    this.$store.state.pages.routeIds.PAGE_PORTFOLIO);
+            }
+            else
+            {
+                return {};
+            }
+        }
+    },
+    async asyncData({ store })
+    {
+        let portfolioItems = [];
+
+        await store.dispatch('portfolio/loadItems', null, { root: true });
+
+        portfolioItems = store.getters['portfolio/firstN'](3);
+
+        return {
+            portfolioItems,
+        };
     },
     mounted()
     {
+        this.pageTheme = () =>
+            (this.themeDark() ? this.pageThemes.dark : this.pageThemes.light),
+        this.themeDark = () => (this.$store.getters['pages/isThemeDark']);
         this.$nextTick(() =>
         {
             this.$forceUpdate();
@@ -182,13 +267,13 @@ $filler-margin-top: 5em
     list-style-type: none
     margin: 0 40px
 
-.tech-list.xs-only
-    margin-bottom: 80px !important
-
 .tech-list > li
     display: inline-block
 
 .tech-list > li.xs-only
     display: block
     width: 100%
+
+.splash-picture
+    width: 355px
 </style>
