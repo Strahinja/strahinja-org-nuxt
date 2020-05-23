@@ -110,7 +110,7 @@ export default {
             categories: [
                 {
                     title: 'Паскал',
-                    avatarColor: 'blue lighten-3 contrast-light',
+                    avatarColor: 'blue lighten-3 black--text',
                     items: [
                         {
                             zip: '/programi/paskal/Bibliote.zip',
@@ -243,7 +243,7 @@ export default {
                 },
                 {
                     title: 'C/C++',
-                    avatarColor: 'red lighten-4 contrast-light',
+                    avatarColor: 'red lighten-4  black--text',
                     items: [
                         {
                             zip: '/programi/c/pahulje.zip',

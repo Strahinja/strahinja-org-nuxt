@@ -20,8 +20,8 @@
         v-card.profile-card
             v-toolbar(flat=true,
             :elevation="0",
-            color="secondary lighten-1")
-                h2.title Страхиња Радић
+            :color="pageTheme().cardTitleBackgroundColor")
+                h2 Страхиња Радић
                 v-avatar(v-if="$breakpoint.is.mdAndUp",
                 size="96",
                 :class=`{
@@ -83,6 +83,17 @@
 <script>
 import Subpage from '~/components/Subpage';
 import SkillsCategory from '~/components/SkillsCategory';
+import darkTheme from '~/theme/dunedain-dark';
+import lightTheme from '~/theme/dunedain-light';
+
+const pageThemes = {
+    dark: {
+        cardTitleBackgroundColor: darkTheme.secondary.darken1,
+    },
+    light: {
+        cardTitleBackgroundColor: lightTheme.secondary.lighten1,
+    },
+};
 
 export default {
     name: 'Profile',
@@ -108,6 +119,10 @@ export default {
                 { name: 'Руски', color: 'blue', percent: 80 },
                 { name: 'Шпански', color: 'green', percent: 60 }
             ],
+            themeName: 'light',
+            themeDark: () => (false),
+            pageThemes,
+            pageTheme: () => (pageThemes.light),
         };
     },
     computed:
@@ -144,6 +159,16 @@ export default {
         {
             return this.$breakpoint.is.smAndUp;
         }
+    },
+    mounted()
+    {
+        this.pageTheme = () =>
+            (this.themeDark() ? this.pageThemes.dark : this.pageThemes.light),
+        this.themeDark = () => (this.$store.getters['pages/isThemeDark']);
+        this.$nextTick(() =>
+        {
+            this.$forceUpdate();
+        });
     },
     methods:
     {

@@ -12,8 +12,6 @@ export default {
         darken2: '#006206',
     },
     anchor: '#2e7d32', //'#41cb4a',
-    contrastdark: '#fff',
-    contrastlight: '#000',
     accent: '#cddc39', //'#FFEE58', // "#64dd17",
     error: '#FF5252',
     info: '#2196F3',

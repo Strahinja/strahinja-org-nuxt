@@ -43,8 +43,7 @@
                         fluid)
                             v-row
                                 v-col.py-0.text-right(:cols="12")
-                                    source-url(:contrastDark="themeDark()",
-                                    :contrastLight="!themeDark()")/
+                                    source-url/
                         slot/
         v-container(v-else,
         fluid)
@@ -74,8 +73,7 @@
                     fluid)
                         v-row
                             v-col.py-0.text-right(:cols="12")
-                                source-url(:contrastDark="themeDark()",
-                                :contrastLight="!themeDark()")/
+                                source-url/
                     slot/
         v-container.py-0.col-12.col-lg-10.splash-content-container(fluid,
         v-if="splash",

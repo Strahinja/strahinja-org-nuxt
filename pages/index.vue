@@ -38,7 +38,7 @@
                             изградњи, па неке могућности још нису додате или нису функционалне.
                             Молим за стрпљење, јер је време које могу да посветим изради овог
                             сајта веома ограничено.
-        splash(height="250px",
+        splash(height="300px",
         :bg-color="pageTheme().secondSplashBackgroundColor",
         :fg-color="pageTheme().secondSplashForegroundColor")
             v-container
@@ -137,7 +137,7 @@ const pageThemes = {
                         darkTheme.primary.darken1,
         secondSplashForegroundColor: '#fff',
         secondSplashBackgroundColor:
-                        darkTheme.secondary.darken1,
+                        darkTheme.secondary.darken2,
     },
     light: {
         mainToolbarBtnBg: 'secondary lighten-1',
@@ -273,6 +273,10 @@ $filler-margin-top: 5em
 .tech-list > li.xs-only
     display: block
     width: 100%
+
+.v-carousel
+    margin-left: auto
+    margin-right: auto
 
 .splash-picture
     width: 355px
