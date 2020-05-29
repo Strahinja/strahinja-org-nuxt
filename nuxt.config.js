@@ -160,7 +160,8 @@ export default {
      */
     modules: [
         '@nuxtjs/axios',
-        '@nuxtjs/auth',
+        //'@nuxtjs/auth',
+        '@nuxt/content',
         //'@nuxtjs/markdownit',
         ['@nuxtjs/toast', {
             iconPack: 'custom-class',
@@ -174,32 +175,10 @@ export default {
         '@nuxtjs/sitemap' // Must be last
     ],
     /*
-     *markdownit: {
-     *    preset: 'default',
-     *    html: true,
-     *    linkify: true,
-     *    breaks: false,
-     *    use: [
-     *        'markdown-it-abbr',
-     *        'markdown-it-anchor',
-     *        'markdown-it-attribution',
-     *        'markdown-it-emoji',
-     *        'markdown-it-footnote',
-     *        //{ 'markdown-it-github-headings', {
-     *            //className: 'github-heading',
-     *            //prefixHeadingIds: true,
-     *            //prefix: 'head-',
-     *            //enableHeadingLinkIcons: true,
-     *        //}},
-     *        'markdown-it-katex',
-     *        'markdown-it-kbd',
-     *        'markdown-it-mdi',
-     *        'markdown-it-prism',
-     *        'markdown-it-samp',
-     *        'markdown-it-toc-done-right',
-     *    ],
-     *},
+     * @nuxt/content
      */
+    content: {
+    },
     /*purgeCSS: {
         content: [
             './components/** /*.vue',
@@ -215,6 +194,7 @@ export default {
         },
         brotli: {
             threshold: 10240,
+            //deleteOriginalAssets: true,
         },
     },
     webfontloader: {
@@ -287,6 +267,7 @@ export default {
      ** Generate configuration
      */
     generate: {
+        devtools: appModeStaging,
         fallback: true,
         //interval: 2000,
         routes: [
@@ -295,7 +276,8 @@ export default {
             '/portfolio',
             '/veze',
             '/blog',
-            '/tekstovi'
+            '/tekstovi',
+            '/cont/content-test',
         ].concat(dynamicMarkdownRoutes),
         exclude: [
             /noindex/,
@@ -312,9 +294,18 @@ export default {
     /*
      ** You can extend webpack config here
      */
-        devtools: true,
-        extractCSS: true,
-        productionTip: false,
+        devtools: appModeStaging,
+        extractCSS: !appModeStaging,
+        html: {
+            minify: {
+                minifyCSS: !appModeStaging,
+                minifyJS: !appModeStaging,
+            },
+        },
+        optimization: {
+            minimize:   !appModeStaging
+        },
+        productionTip: !appModeStaging,
         transpile: [
             /static\/blog/,
             /vuetify-datetime-picker/

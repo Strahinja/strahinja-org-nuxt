@@ -16,6 +16,8 @@
     hyphens: none
     border-radius: .5em
     box-shadow: none
+    text-shadow: none !important
+    vertical-align: middle
 
 .theme--dark.v-application code,
 .theme--dark.v-application code[class*="language-"]
@@ -24,8 +26,13 @@
 
 .v-application pre[class*="language-"]
     width: 100%
+    padding: 0 !important
+    margin: 0
+    overflow: auto
+    background: transparent !important
 
 /* Code blocks */
+.v-application pre[class*="language-"] > code,
 .v-application pre > code[class*="language-"],
 .v-application pre > code
     width: 45em
@@ -254,4 +261,10 @@
     color: inherit
     text-decoration: none
 
+.language-css .token.string, .style .token.string, .token.entity, .token.operator, .token.url
+    background: transparent !important
+
+.token.bold,
+.token.important
+    font-weight: normal !important
 

@@ -38,6 +38,7 @@
                             изградњи, па неке могућности још нису додате или нису функционалне.
                             Молим за стрпљење, јер је време које могу да посветим изради овог
                             сајта веома ограничено.
+                            #[nuxt-link(to="/cont/content-test") content-test]
         splash(height="300px",
         :bg-color="pageTheme().secondSplashBackgroundColor",
         :fg-color="pageTheme().secondSplashForegroundColor")

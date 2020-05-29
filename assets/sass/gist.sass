@@ -8,11 +8,14 @@
 .gist .gist-meta,
 .gist .blob-num
     font-family: $code-font-family
-    font-size: $code-font-size
+    font-size: inherit
     font-weight: $code-font-weight
     background-color: $code-background-color
     color: $code-color
     line-height: 1em
+
+.gist
+    font-size: $code-font-size !important
 
 .theme--dark .gist .blob-code,
 .theme--dark .gist .blob-code-inner,
@@ -104,4 +107,7 @@
     float: none !important
     padding-bottom: 0.5em
     text-align: right
+
+.gist .highlight
+    font-size: inherit
 
