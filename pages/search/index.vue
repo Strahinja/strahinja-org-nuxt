@@ -39,13 +39,13 @@
 </template>
 
 <script>
-import Subpage from '~/components/Subpage';
-import BlogPost from '~/components/BlogPost.vue';
-import NoResults from '~/components/NoResults.vue';
+//import Subpage from '~/components/Subpage';
+//import BlogPost from '~/components/BlogPost.vue';
+//import NoResults from '~/components/NoResults.vue';
 
 export default {
     name: 'SearchIndex',
-    components: { BlogPost, NoResults, Subpage },
+    //components: { BlogPost, NoResults, Subpage },
     watchQuery: true,
     middleware: ['load-posts'],
     data()

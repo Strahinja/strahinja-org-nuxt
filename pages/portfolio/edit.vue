@@ -56,11 +56,11 @@
 </template>
 
 <script>
-import Subpage from '~/components/Subpage';
-import EditPortfolioItem from '~/components/EditPortfolioItem';
+//import Subpage from '~/components/Subpage';
+//import EditPortfolioItem from '~/components/EditPortfolioItem';
 export default {
     name: 'PortfolioEdit',
-    components: { EditPortfolioItem, Subpage },
+    //components: { EditPortfolioItem, Subpage },
     middleware: ['local-auth'],
     data()
     {

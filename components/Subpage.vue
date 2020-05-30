@@ -87,8 +87,8 @@
 
 <script>
 const getProp = require('dotprop');
-import Splash from '~/components/Splash';
-import SourceUrl from '~/components/SourceUrl';
+//import Splash from '~/components/Splash';
+//import SourceUrl from '~/components/SourceUrl';
 import dark from '~/theme/dunedain-dark';
 import light from '~/theme/dunedain-light';
 
@@ -104,7 +104,8 @@ const pageThemes = {
 };
 
 export default {
-    components: { SourceUrl, Splash },
+    name: 'Subpage',
+    //components: { SourceUrl, Splash },
     props: {
         splash: { type: Boolean, default: false, required: false },
         disableScroll: { type: Boolean, default: false, required: false },

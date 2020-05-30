@@ -83,11 +83,11 @@
 </template>
 
 <script>
-import Subpage from '~/components/Subpage';
+//import Subpage from '~/components/Subpage';
 
 export default {
     name: 'Programi',
-    components: { Subpage },
+    //components: { Subpage },
     head: {
         link: [
             {

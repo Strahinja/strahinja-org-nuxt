@@ -14,12 +14,12 @@
 </template>
 
 <script>
-import Subpage from '~/components/Subpage';
-import BlogPost from '~/components/BlogPost';
+//import Subpage from '~/components/Subpage';
+//import BlogPost from '~/components/BlogPost';
 
 export default {
     name: 'BlogByTag',
-    components: { BlogPost, Subpage },
+    //components: { BlogPost, Subpage },
     watchQuery: true,
     middleware: ['load-posts'],
     computed:

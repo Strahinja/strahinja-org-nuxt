@@ -12,12 +12,12 @@
 </template>
 
 <script>
-import Subpage from '~/components/Subpage';
-import FancyGrid from '~/components/FancyGrid';
+//import Subpage from '~/components/Subpage';
+//import FancyGrid from '~/components/FancyGrid';
 
 export default {
     name: 'Portfolio',
-    components: { Subpage, FancyGrid },
+    //components: { Subpage, FancyGrid },
     data()
     {
         return {

@@ -85,12 +85,12 @@
 </template>
 
 <script>
-import Subpage from '~/components/Subpage';
-import LinkItem from '~/components/LinkItem';
+//import Subpage from '~/components/Subpage';
+//import LinkItem from '~/components/LinkItem';
 
 export default {
     name: 'Links',
-    components: { LinkItem, Subpage },
+    //components: { LinkItem, Subpage },
     data()
     {
         return {

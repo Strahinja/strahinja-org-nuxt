@@ -9,12 +9,12 @@
 </template>
 
 <script>
-import FancyList from '~/components/FancyList';
-import Subpage from '~/components/Subpage';
+//import FancyList from '~/components/FancyList';
+//import Subpage from '~/components/Subpage';
 
 export default {
     name: 'Tekstovi',
-    components: { FancyList, Subpage },
+    //components: { FancyList, Subpage },
     data()
     {
         return {

@@ -72,11 +72,11 @@
 </template>
 
 <script>
-import Foldable from '~/components/Foldable.vue';
+//import Foldable from '~/components/Foldable.vue';
 
 export default {
     name: 'PortfolioItem',
-    components: { Foldable },
+    //components: { Foldable },
     props: {
         item: { type: Object, default: () => ({}) },
         itemIndex: { type: Number, default: -1 }

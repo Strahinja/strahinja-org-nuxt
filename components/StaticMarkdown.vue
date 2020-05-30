@@ -4,10 +4,10 @@
 </template>
 
 <script>
-import Subpage from '~/components/Subpage';
+//import Subpage from '~/components/Subpage';
 export default {
     name: 'StaticMarkdown',
-    components: { Subpage },
+    //components: { Subpage },
     props: {
         markdown: { type: String, default: '', required: false },
     },

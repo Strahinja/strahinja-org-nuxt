@@ -20,10 +20,10 @@
 </template>
 
 <script>
-import ThreeDListItem from '~/components/ThreeDListItem';
+//import ThreeDListItem from '~/components/ThreeDListItem';
 export default {
     name: 'ThreeDList',
-    components: { ThreeDListItem },
+    //components: { ThreeDListItem },
     computed: {
         primary()
         {

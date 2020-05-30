@@ -28,11 +28,11 @@
 </template>
 
 <script>
-import SlicerItem from './SlicerItem.vue';
+//import SlicerItem from './SlicerItem.vue';
 
 export default {
     name: 'Slicer',
-    components: { SlicerItem },
+    //components: { SlicerItem },
     props: {
         insideContainer: Boolean,
         startingAtTop: Boolean,

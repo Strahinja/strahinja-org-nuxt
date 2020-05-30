@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import StaticMarkdown from '~/components/StaticMarkdown';
+//import StaticMarkdown from '~/components/StaticMarkdown';
 export default {
     name: 'Ojl',
-    components: { StaticMarkdown },
+    //components: { StaticMarkdown },
     data()
     {
         return {

@@ -65,11 +65,11 @@
 </template>
 
 <script>
-import CardButton from '~/components/CardButton';
+//import CardButton from '~/components/CardButton';
 
 export default {
     name: 'LoginForm',
-    components: { CardButton },
+    //components: { CardButton },
     props: {
         standalone: { type: Boolean, default: true, required: false },
     },

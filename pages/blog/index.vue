@@ -12,12 +12,12 @@
 </template>
 
 <script lang="js">
-import Subpage from '~/components/Subpage';
-import BlogPost from '~/components/BlogPost';
+//import Subpage from '~/components/Subpage';
+//import BlogPost from '~/components/BlogPost';
 
 export default {
     name: 'Blog',
-    components: { BlogPost, Subpage },
+    //components: { BlogPost, Subpage },
     middleware: ['load-posts'],
     computed: {
         sourceURL()

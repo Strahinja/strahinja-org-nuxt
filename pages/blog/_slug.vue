@@ -8,12 +8,12 @@
 </template>
 
 <script lang="js">
-import Subpage from '~/components/Subpage';
-import BlogPost from '~/components/BlogPost';
+//import Subpage from '~/components/Subpage';
+//import BlogPost from '~/components/BlogPost';
 
 export default {
     name: 'BlogSlug',
-    components: { BlogPost, Subpage },
+    //components: { BlogPost, Subpage },
     middleware: ['load-posts'],
     computed: {
         page()

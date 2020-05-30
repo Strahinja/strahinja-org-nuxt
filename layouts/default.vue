@@ -114,23 +114,21 @@
         v-footer(app,
         absolute,
         padless,
-        dark,
-        height="auto")
+        dark)
             v-card.flex.text-center(text,
             tile)
                 v-card-text.primary.d-flex.text-center.justify-center
-                    client-only
-                        v-tooltip(v-for="(footerLink, footerLinkIndex) in footerLinks",
-                        :key="footerLinkIndex",
-                        bottom)
-                            template(v-slot:activator="{ on }")
-                                v-btn.mx-2(text,
-                                icon,
-                                v-on="on")
-                                    a(:href="footerLink.url.path",
-                                    target="_blank")
-                                        v-icon.white--text {{footerLink.iconName }}
-                            span {{ footerLink.text }}
+                    v-tooltip(v-for="(footerLink, footerLinkIndex) in footerLinks",
+                    :key="footerLinkIndex",
+                    bottom)
+                        template(v-slot:activator="{ on }")
+                            v-btn.mx-2(text,
+                            icon,
+                            v-on="on")
+                                a(:href="footerLink.url.path",
+                                target="_blank")
+                                    v-icon.white--text {{footerLink.iconName }}
+                        span {{ footerLink.text }}
                 v-card-actions.primary.darken-1.d-block.text-left(:class=`{
                     'text-center': $breakpoint.is.xsOnly
                 }`)
@@ -162,9 +160,9 @@
 </template>
 
 <script>
-import Hamburger from '~/components/Hamburger';
-import ProfileMenu from '~/components/ProfileMenu';
-import CookieDisclaimer from '~/components/CookieDisclaimer';
+//import Hamburger from '~/components/Hamburger';
+//import ProfileMenu from '~/components/ProfileMenu';
+//import CookieDisclaimer from '~/components/CookieDisclaimer';
 import Gnu from '~/assets/svg/gnu.svg?inline';
 import Strahinjaorg from '~/assets/svg/strahinjaorg.svg?inline';
 import { mixin as clickaway } from 'vue-clickaway';
@@ -172,7 +170,8 @@ import { mixin as clickaway } from 'vue-clickaway';
 export default {
     name: 'App',
     middleware: ['set-page-id', 'cookie-consent'],
-    components: { CookieDisclaimer, Gnu, Hamburger, Strahinjaorg, ProfileMenu },
+    //components: { CookieDisclaimer, Gnu, Hamburger, Strahinjaorg, ProfileMenu },
+    components: { Gnu, Strahinjaorg },
     mixins: [clickaway],
     data()
     {

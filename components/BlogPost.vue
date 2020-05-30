@@ -69,14 +69,11 @@
 </template>
 
 <script>
-//eslint-disable-next-line
-//import VFoldYTransition from '~/components/VFoldYTransition.vue';
-import Foldable from '~/components/Foldable.vue';
-import DynamicMarkdown from '~/components/DynamicMarkdown.vue';
+//import Foldable from '~/components/Foldable.vue';
+//import DynamicMarkdown from '~/components/DynamicMarkdown.vue';
 export default {
     name: 'BlogPost',
-    //components: { DynamicMarkdown },
-    components: { DynamicMarkdown, Foldable },
+    //components: { DynamicMarkdown, Foldable },
     props: {
         folded: { type: Boolean, default: false, required: false },
         frontmatter: { type: Object, default: () => ({}), required: true },

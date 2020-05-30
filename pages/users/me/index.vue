@@ -50,10 +50,10 @@
 </template>
 
 <script>
-import Subpage from '~/components/Subpage';
+//import Subpage from '~/components/Subpage';
 export default {
     name: 'Me',
-    components: { Subpage },
+    //components: { Subpage },
     middleware: ['local-auth', 'load-single-user'],
     head()
     {

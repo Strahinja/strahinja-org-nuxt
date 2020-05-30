@@ -12,11 +12,11 @@
 </template>
 
 <script>
-import LoginForm from '~/components/LoginForm';
+//import LoginForm from '~/components/LoginForm';
 
 export default {
     name: 'LoginSheet',
-    components: { LoginForm },
+    //components: { LoginForm },
     props: {
         width: { type: Number, default: 500, required: false },
         active: { type: Boolean, default: false, required: false },

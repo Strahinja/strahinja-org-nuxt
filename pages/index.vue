@@ -122,8 +122,8 @@
 </template>
 
 <script>
-import Splash from '~/components/Splash.vue';
-import MadeWith from '~/components/MadeWith.vue';
+//import Splash from '~/components/Splash.vue';
+//import MadeWith from '~/components/MadeWith.vue';
 import LogoVue from '~/assets/svg/logo-vue.svg?inline';
 import LogoVuetify from '~/assets/svg/logo-vuetify.svg?inline';
 import LogoNuxt from '~/assets/svg/logo-nuxt.svg?inline';
@@ -153,7 +153,8 @@ const pageThemes = {
 
 export default {
     name: 'Home',
-    components: { Splash, LogoVue, LogoVuetify, LogoNuxt, MadeWith },
+    //components: { Splash, LogoVue, LogoVuetify, LogoNuxt, MadeWith },
+    components: { LogoVue, LogoVuetify, LogoNuxt },
     head ()
     {
         return {
@@ -231,6 +232,8 @@ export default {
 
         portfolioItems = store.getters['portfolio/firstN'](3);
 
+        console.log('asyncData: items = ', portfolioItems);
+
         return {
             portfolioItems,
         };
@@ -240,10 +243,12 @@ export default {
         this.pageTheme = () =>
             (this.themeDark() ? this.pageThemes.dark : this.pageThemes.light),
         this.themeDark = () => (this.$store.getters['pages/isThemeDark']);
-        this.$nextTick(() =>
-        {
-            this.$forceUpdate();
-        });
+        /*
+         *this.$nextTick(() =>
+         *{
+         *    this.$forceUpdate();
+         *});
+         */
     }
 };
 </script>

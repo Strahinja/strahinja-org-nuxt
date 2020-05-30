@@ -81,8 +81,8 @@
 </template>
 
 <script>
-import Subpage from '~/components/Subpage';
-import SkillsCategory from '~/components/SkillsCategory';
+//import Subpage from '~/components/Subpage';
+//import SkillsCategory from '~/components/SkillsCategory';
 import darkTheme from '~/theme/dunedain-dark';
 import lightTheme from '~/theme/dunedain-light';
 
@@ -97,7 +97,7 @@ const pageThemes = {
 
 export default {
     name: 'Profile',
-    components: { SkillsCategory, Subpage },
+    //components: { SkillsCategory, Subpage },
     data()
     {
         return {

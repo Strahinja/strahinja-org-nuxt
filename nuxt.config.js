@@ -4,7 +4,6 @@ import dark from './theme/dunedain-dark';
 import FMMode from 'frontmatter-markdown-loader/mode';
 import path from 'path';
 import { md } from './markdown-it';
-//import authConfig from './auth.config.js';
 
 // Staging (true) or production (false)?
 const appModeStaging = true;
@@ -13,9 +12,6 @@ require('dotenv').config({ path: `.env.${appModeStaging?'staging':'production'}`
 console.log('dotenv: mode = ', process.env.VUE_APP_MODE);
 console.log('dotenv: path = ', process.env.VUE_APP_API_PATH);
 console.log('dotenv: browser path = ', process.env.VUE_APP_BROWSER_API_PATH);
-
-//console.log('authConfig:');
-//console.dir(authConfig);
 
 const fs = require('fs');
 var dynamicMarkdownRoutes = getDynamicMarkdownPaths({
@@ -88,7 +84,7 @@ export default {
     /*
      ** Customize the progress-bar
      */
-    loading: '~/components/loading.vue',
+    loading: '~/components/Loading.vue',
     /*
      ** Page transition
      */
@@ -109,47 +105,12 @@ export default {
         '~/plugins/markdown-it.js',
         { src: '~/plugins/theme-settings.js', mode: 'client' },
     ],
-    /*auth: {
-        cookie: {
-            options: {
-                expires: 7, // days
-                //secure: true,
-            },
-        },
-        localStorage: false,
-        plugins: [ { src: '~/plugins/auth.js', mode: 'client' } ],
-        strategies: {
-            local: false,
-            google: {
-                client_id: authConfig.google.client_id,
-                //redirect_uri: authConfig.google.redirect_uri,
-            },
-            facebook: {
-                client_id: authConfig.facebook.client_id,
-                scope: authConfig.facebook.scope,
-                userinfo_endpoint: authConfig.facebook.userinfo_endpoint,
-                /*redirect_uri: authConfig.facebook.redirect_uri,* /
-            },
-            github: {
-                client_id: authConfig.github.client_id,
-                client_secret: authConfig.github.client_secret,
-            },
-            twitter: {
-                client_id: authConfig.twitter.client_id,
-                client_secret: authConfig.twitter.client_secret,
-            },
-        },
-        redirect: {
-            login: '/login',
-            logout: '/',
-            callback: '/login/callback',
-        }
-    },*/
     /*
      ** Nuxt.js dev-modules
      */
     buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
+        '@nuxt/components',
         '@nuxtjs/vuetify',
         ['@nuxtjs/dotenv', {
             filename: '.env.production'
@@ -160,7 +121,6 @@ export default {
      */
     modules: [
         '@nuxtjs/axios',
-        //'@nuxtjs/auth',
         '@nuxt/content',
         //'@nuxtjs/markdownit',
         ['@nuxtjs/toast', {
@@ -173,6 +133,12 @@ export default {
         //'nuxt-purgecss',
         'nuxt-webfontloader',
         '@nuxtjs/sitemap' // Must be last
+    ],
+    /*
+     * @nuxt/components
+     */
+    components: [
+        '~/components/',
     ],
     /*
      * @nuxt/content

@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import Subpage from '~/components/Subpage';
+//import Subpage from '~/components/Subpage';
 const getProp = require('dotprop');
 export default {
     layout: 'default',
-    components: { Subpage },
+    //components: { Subpage },
     props: {
         error: { type: Object, default: () =>
             ({

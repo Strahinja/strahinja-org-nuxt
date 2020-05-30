@@ -25,10 +25,10 @@
 </template>
 
 <script>
-import Foldable from '~/components/Foldable.vue';
+//import Foldable from '~/components/Foldable.vue';
 export default {
     name: 'LinkItem',
-    components: { Foldable },
+    //components: { Foldable },
     props: {
         expanded: { type: Boolean, default: false },
         item: { type: Object, default: null},
