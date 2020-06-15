@@ -5,24 +5,24 @@
     }`)
         header
             h1.display-1.article-title(v-if="standalone",
-            :id="frontmatter.id")
-                nuxt-link(:to="`/blog/${frontmatter.name}`") {{ frontmatter.title }}
+            :id="document.id")
+                nuxt-link(:to="`/blog/${document.slug}`") {{ document.title }}
             h2.article-title(v-else,
-            :id="frontmatter.id",
+            :id="document.id",
             ref="title")
-                nuxt-link(:to="`/blog/${frontmatter.name}`") {{ frontmatter.title }}
-            a(:name="frontmatter.name")
+                nuxt-link(:to="`/blog/${document.slug}`") {{ document.title }}
+            a(:name="document.slug")
             h2.date(v-if="standalone")
-                nuxt-link(:to="`/blog/${frontmatter.name}`")
-                    time(:datetime="frontmatter.date").
-                        {{ formatDate(frontmatter.date) }}
+                nuxt-link(:to="`/blog/${document.slug}`")
+                    time(:datetime="document.date").
+                        {{ formatDate(document.date) }}
             h3.date(v-else)
-                nuxt-link(:to="`/blog/${frontmatter.name}`")
-                    time(:datetime="frontmatter.date").
-                        {{ formatDate(frontmatter.date) }}
+                nuxt-link(:to="`/blog/${document.slug}`")
+                    time(:datetime="document.date").
+                        {{ formatDate(document.date) }}
             .categories-container Категорије:
                 ul.categories
-                    li(v-for="(category, categoryIndex) in frontmatter.categories",
+                    li(v-for="(category, categoryIndex) in document.categories",
                     :key="categoryIndex") {{ category }}
         v-container.py-0.pb-5.ml-0
             v-row(ref="articleRow")
@@ -30,31 +30,27 @@
                 folded-height="15em")
                     v-col.py-0.folded(:cols="12",
                     :lg="10")
-                        dynamic-markdown(:file-name="frontmatter.name",
-                        :standalone="standalone",
-                        :highlight="highlight",
-                        :extra-component="extraComponent",
-                        :extra-component-params="extraComponentParams")
+                        nuxt-content(:document="document")/
+                        //-dynamic-markdown(:file-name="frontmatter.name",
+                        //-:standalone="standalone",
+                        //-:highlight="highlight",
+                        //-:extra-component="extraComponent",
+                        //-:extra-component-params="extraComponentParams")
 
             .folded-overlay.col-lg-10.col-12(v-ripple,
             @click="toggleFolded")
                 .folded-overlay-inner
-                    //-v-btn.black--text(color="accent",
-                        hovered,
-                        elevation="2")
-                            v-icon {{ postFolded ? 'mdi-chevron-down' : 'mdi-chevron-up' }}
-                            span(v-if="postFolded") Прикажи чланак
-                            span(v-else) Сакриј чланак
         footer
             .tags-container(v-if="hasTags") Ознаке:
                 ul.tags
-                    li(v-for="(tag, tagIndex) in frontmatter.tags",
+                    li(v-for="(tag, tagIndex) in document.tags",
                     :key="tagIndex",
                     :class=`{
                         'highlight': tag==highlight
                     }`)
                         nuxt-link(:to="tagUrl(tag)") {{ '#' + tag }}
-            v-container.py-0(fluid)
+            v-container.py-0(v-if="!standalone",
+            fluid)
                 v-row
                     v-col.text-center(:cols="12",
                     :lg="10")
@@ -69,16 +65,13 @@
 </template>
 
 <script>
-//import Foldable from '~/components/Foldable.vue';
-//import DynamicMarkdown from '~/components/DynamicMarkdown.vue';
+import BlogGist from '~/components/blog/Gist';
 export default {
     name: 'BlogPost',
-    //components: { DynamicMarkdown, Foldable },
+    components: { BlogGist },
     props: {
+        document: { type: Object, default: () => ({}), required: true },
         folded: { type: Boolean, default: false, required: false },
-        frontmatter: { type: Object, default: () => ({}), required: true },
-        extraComponent: { type: String, default: null, required: false },
-        extraComponentParams: { type: Object, default: null, required: false },
         highlight: { type: String, default: '', required: false },
         standalone: { type: Boolean, default: true, required: false },
     },
@@ -92,7 +85,7 @@ export default {
     computed: {
         hasTags()
         {
-            return this.frontmatter.tags && this.frontmatter.tags.length>0;
+            return this.document.tags && this.document.tags.length>0;
         },
         rowHeight()
         {
@@ -113,8 +106,16 @@ export default {
     methods: {
         formatDate(str)
         {
+            if (!str || str.length==0)
+            {
+                return '';
+            }
             //eslint-disable-next-line no-unused-vars
             let [date, time] = str.split('T');
+            if (!date || date.length==0)
+            {
+                return '';
+            }
             let [year, month, day] = date.split('-');
 
             month = parseInt(month); // for "01", etc.
@@ -136,15 +137,10 @@ export default {
         },
         toggleFolded()
         {
-            /*console.log('vuetify.goTo(#',
-                        this.frontmatter.id,
-                        ')');
-            this.$vuetify.goTo(`#${this.frontmatter.id}`, {*/
             this.postFolded = !this.postFolded;
             this.$nextTick(() =>
             {
                 let gbcr = this.$refs.title.getBoundingClientRect();
-                //console.log('gbcr = ', gbcr);
                 let navbarHeight = 0;
                 if (document)
                 {

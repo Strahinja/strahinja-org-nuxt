@@ -1,4 +1,4 @@
-import gistIds from '../static/blog/blog-gist-ids.json';
+import gistIds from '../content/blog/blog-gist-ids.json';
 
 export const state = () => ({
     list: [],
@@ -51,7 +51,7 @@ export const actions = {
                 if (res.data && res.code === 200)
                 {
                     commit('addGist', {
-                        gistId: res.gistId,
+                        gistId,
                         data: res.data,
                     });
                 }

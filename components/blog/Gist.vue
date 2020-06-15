@@ -20,11 +20,18 @@
 
 <script>
 export default {
-    name: 'Gist',
+    name: 'BlogGist',
     props: {
-        gist: { type: Object, default: () => ({}), required: true },
+        //gist: { type: Object, default: () => ({}), required: true },
+        gistId: { type: String, required: true },
         filename: { type: String, default: '', required: true },
         highlightedLine: { type: Number, default: 0, required: false },
+    },
+    data()
+    {
+        return {
+            gist: {}
+        };
     },
     computed: {
         gistRawUrl()
@@ -54,6 +61,12 @@ export default {
         },
     },
     methods: {
+        created()
+        {
+            this.gist = this.$store.getters['gists/gistById'](this.gistId);
+            console.log('components/blog/Gist.vue: this.gist = ',
+                        this.gist);
+        },
         escapeHtml(html)
         {
             return html

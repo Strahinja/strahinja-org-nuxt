@@ -6,7 +6,6 @@ should be supported:
 ```js
 function hello()
 {
-    console.log('Hello, world!')
+    console.log('Hello, World!');
 }
 ```
-

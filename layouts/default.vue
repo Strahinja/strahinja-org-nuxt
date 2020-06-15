@@ -179,6 +179,7 @@ export default {
             clipped: true,
             miniVariant: false,
             extraProps: {},
+            currentYear: process.env.currentYear,
             showNav: false,
             appbarSearchText: '',
             showSearch: false,
@@ -291,10 +292,6 @@ export default {
                 this.$store.getters['pages/showCookieConsent'] :
                 true;
         },
-        currentYear()
-        {
-            return (new Date()).getFullYear();
-        }
     },
     watch: {
         dark(newValue)

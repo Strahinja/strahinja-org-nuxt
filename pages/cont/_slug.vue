@@ -1,19 +1,56 @@
 <template lang="pug">
-    //-subpage
-        //-article
-    nuxt-content(:document="document")
+    subpage(source-url)
+        blog-post(v-if="document"
+        :document="document")
 </template>
 
 <script>
-import Subpage from '~/components/Subpage';
-import SourceUrl from '~/components/SourceUrl';
 export default {
     name: 'Cont',
-    components: { Subpage, SourceUrl },
-    async asyncData({ $content, params })
+    data()
     {
-        const document = await $content(params.slug).fetch();
+        return {
+            document: {},
+        };
+    },
+    computed: {
+        slug()
+        {
+            return this && this.document && this.document.slug
+                ? this.document.slug
+                : '';
+        }
+    },
+    async asyncData({ $content, params, error, store })
+    {
+        let document;
+        try
+        {
+            document = await $content(`blog/${params.slug}`).fetch();
+            //console.log('asyncData: document = ', document);
+            if (!document)
+            {
+                error({ statusCode: 404, message: 'Чланак није пронађен' });
+            }
 
+            if (document.gistId)
+            {
+                try
+                {
+                    await store.dispatch('gists/loadGist', { gistId: document.gistId });
+                }
+                catch(err)
+                {
+                    error({ statusCode: 500,
+                        message: `Гист ${document.gistId} не може да се учита` });
+                }
+            }
+        }
+        catch(err)
+        {
+            error({ statusCode: 500, message: err });
+            //console.error('pages/cont/slug: ', err);
+        }
         return {
             document,
         };

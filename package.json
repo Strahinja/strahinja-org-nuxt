@@ -40,9 +40,15 @@
     "nuxt-compress": "^1.0.2",
     "nuxt-jsonld": "^1.4.4",
     "nuxt-purgecss": "^0.2.1",
-    "nuxt-svgicon": "^1.2.7",
     "nuxt-webfontloader": "^1.1.0",
     "pug-lint": "^2.6.0",
+    "remark-abbr": "^1.4.0",
+    "remark-emoji": "^2.1.0",
+    "remark-frontmatter": "^2.0.0",
+    "remark-heading-id": "^1.0.0",
+    "remark-kbd": "^1.0.21",
+    "remark-math": "^2.0.1",
+    "remark-toc": "^7.0.0",
     "serialize-javascript": "2.1.1",
     "vue-clickaway": "^2.2.2",
     "vuetify-datetime-picker": "^2.1.1",
@@ -61,6 +67,9 @@
     "frontmatter-markdown-loader": "^3.1.0",
     "markdown-it-prism": "^2.0.3",
     "pug": "^2.0.4",
-    "pug-plain-loader": "^1.0.0"
+    "pug-plain-loader": "^1.0.0",
+    "remark-twemoji": "^0.1.1",
+    "remark-unwrap-images": "^2.0.0",
+    "twemoji": "^13.0.0"
   }
 }

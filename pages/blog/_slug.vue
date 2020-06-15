@@ -15,37 +15,6 @@ export default {
     name: 'BlogSlug',
     //components: { BlogPost, Subpage },
     middleware: ['load-posts'],
-    computed: {
-        page()
-        {
-            if (this && this.$store)
-            {
-                return this.$store.getters['pages/pageById'](
-                    this.$store.state.pages.pageId);
-            }
-            else
-            {
-                return null;
-            }
-        },
-        slug()
-        {
-            if (this && this.$route)
-            {
-                return this.$route.params.slug;
-            }
-            return '';
-        },
-        post()
-        {
-            if (this && this.$store)
-            {
-                return this.$store.getters['posts/postBySlug'](
-                    this.$route.params.slug);
-            }
-            return {};
-        },
-    },
     async asyncData({ store, route, error })
     {
         await store.dispatch('posts/loadPosts');

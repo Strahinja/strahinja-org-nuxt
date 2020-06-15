@@ -17,16 +17,16 @@ const fs = require('fs');
 var dynamicMarkdownRoutes = getDynamicMarkdownPaths({
     '/blog': '*.md'
 });
-var blogFrontmatter = getMarkdownFrontmatter(dynamicMarkdownRoutes);
-var blogTags = getMarkdownTags(blogFrontmatter);
-var blogGistIds = getMarkdownGistIds(blogFrontmatter);
+const blogFrontmatter = getMarkdownFrontmatter(dynamicMarkdownRoutes);
+const blogTags = getMarkdownTags(blogFrontmatter);
+const blogGistIds = getMarkdownGistIds(blogFrontmatter);
 console.log('nuxt.config.js: blogTags = ', JSON.stringify(blogTags));
 console.log('nuxt.config.js: blogGistIds = ', JSON.stringify(blogGistIds));
-fs.writeFileSync('static/blog/blog-frontmatter.json', JSON.stringify(blogFrontmatter));
-fs.writeFileSync('static/blog/blog-tags.json', JSON.stringify(blogTags));
-fs.writeFileSync('static/blog/blog-gist-ids.json', JSON.stringify(blogGistIds));
+//fs.writeFileSync('static/blog/blog-frontmatter.json', JSON.stringify(blogFrontmatter));
+fs.writeFileSync('content/blog/blog-tags.json', JSON.stringify(blogTags));
+fs.writeFileSync('content/blog/blog-gist-ids.json', JSON.stringify(blogGistIds));
 
-var lastmod = (new Date()).toISOString();
+const lastmod = (new Date()).toISOString();
 
 dynamicMarkdownRoutes = dynamicMarkdownRoutes.concat(blogTags.map(tag =>
 {
@@ -36,7 +36,7 @@ dynamicMarkdownRoutes = dynamicMarkdownRoutes.concat(blogTags.map(tag =>
 //dynamicMarkdownRoutes = ['/blog'].concat(dynamicMarkdownRoutes);
 console.log('nuxt.config.js: dynamicMarkdownRoutes = ', JSON.stringify(dynamicMarkdownRoutes));
 
-var sitemapGeneralExclusion = [
+const sitemapGeneralExclusion = [
     '/noindex',
     '/search',
     '/login',
@@ -46,7 +46,7 @@ var sitemapGeneralExclusion = [
     '/portfolio/edit',
 ];
 
-var sitemapConfig = {
+const sitemapConfig = {
     blog: {
         path: '/blog/sitemap-2020.xml',
         routes: dynamicMarkdownRoutes,
@@ -139,11 +139,30 @@ export default {
      */
     components: [
         '~/components/',
+        {
+            path: '~/components/blog/',
+            prefix: 'blog',
+        },
     ],
     /*
      * @nuxt/content
      */
     content: {
+        markdown: {
+            plugins: [
+                'remark-abbr',
+                'remark-emoji',
+                'remark-twemoji',
+                'remark-heading-id',
+                'remark-math',
+                'remark-kbd',
+                'remark-toc',
+                'remark-unwrap-images',
+            ],
+        },
+    },
+    env: {
+        currentYear: (new Date()).getFullYear(),
     },
     /*purgeCSS: {
         content: [
@@ -241,10 +260,18 @@ export default {
             '/profil',
             '/portfolio',
             '/veze',
-            '/blog',
+            //'/blog',
             '/tekstovi',
             '/cont/content-test',
-        ].concat(dynamicMarkdownRoutes),
+            '/cont/20191026',
+            '/cont/20191111',
+            '/cont/20191119',
+            '/cont/20191202',
+            '/cont/20200117',
+            '/cont/20200303',
+            '/cont/20200410',
+            '/cont/20200505',
+        ],//.concat(dynamicMarkdownRoutes),
         exclude: [
             /noindex/,
             /search/,

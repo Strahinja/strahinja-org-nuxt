@@ -38,7 +38,14 @@
                             изградњи, па неке могућности још нису додате или нису функционалне.
                             Молим за стрпљење, јер је време које могу да посветим изради овог
                             сајта веома ограничено.
-                            #[nuxt-link(to="/cont/content-test") content-test]
+                            #[nuxt-link(to="/cont/20191026") 20191026]
+                            #[nuxt-link(to="/cont/20191111") 20191111]
+                            #[nuxt-link(to="/cont/20191119") 20191119]
+                            #[nuxt-link(to="/cont/20191202") 20191202]
+                            #[nuxt-link(to="/cont/20200117") 20200117]
+                            #[nuxt-link(to="/cont/20200303") 20200303]
+                            #[nuxt-link(to="/cont/20200410") 20200410]
+                            #[nuxt-link(to="/cont/20200505") 20200505]
         splash(height="300px",
         :bg-color="pageTheme().secondSplashBackgroundColor",
         :fg-color="pageTheme().secondSplashForegroundColor")
@@ -232,7 +239,7 @@ export default {
 
         portfolioItems = store.getters['portfolio/firstN'](3);
 
-        console.log('asyncData: items = ', portfolioItems);
+        //console.log('asyncData: items = ', portfolioItems);
 
         return {
             portfolioItems,

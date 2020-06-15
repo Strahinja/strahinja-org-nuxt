@@ -1,16 +1,21 @@
-.markdown-body hr.footnotes-sep
+.markdown-body hr.footnotes-sep,
+.nuxt-content .footnotes
     margin-top: 1.5em
 
-.markdown-body .footnote-item
+.markdown-body .footnote-item,
+.nuxt-content .footnotes
     font-size: 0.8em
 
-.footnote-item
+.footnote-item,
+.footnotes ol li
     overflow-wrap: anywhere
 
-.markdown-body>h1
+.markdown-body>h1,
+.nuxt-content>h1
     width: 80%
 
-.blog-post .markdown-body>h1
+.blog-post .markdown-body>h1,
+.blog-post .nuxt-content>h1
     width: auto
 
 .v-application .markdown-body figure
@@ -71,7 +76,8 @@
 .v-application .markdown-body nav
     margin-bottom: 1.2rem
 
-.v-application .markdown-body kbd
+.v-application .markdown-body kbd,
+.v-application .nuxt-content kbd
     position: relative
     background: $kbd-background-color
     color: $kbd-color
@@ -90,7 +96,9 @@
     padding: 0 0.7em 1.8em 0.7em
 
 .v-application .markdown-body kbd::before,
-.v-application .markdown-body kbd::after
+.v-application .markdown-body kbd::after,
+.v-application .nuxt-content kbd::before,
+.v-application .nuxt-content kbd::after
     content: none
 
 .v-application .github-heading
@@ -115,7 +123,8 @@
     font-size: 0.7rem
 
 
-.v-application .markdown-body blockquote
+.v-application .markdown-body blockquote,
+.v-application .nuxt-content blockquote
     padding-left: 1.2rem
     position: relative
     padding-top: 0.3rem
@@ -123,10 +132,12 @@
     background-color: $blockquote-background-color
     margin: 1.2rem 0
 
-.theme--dark.v-application .markdown-body blockquote
+.theme--dark.v-application .markdown-body blockquote,
+.theme--dark.v-application .nuxt-content blockquote
     background-color: $blockquote-background-color-dark
 
-.v-application .markdown-body blockquote::before
+.v-application .markdown-body blockquote::before,
+.v-application .nuxt-content blockquote::before
     content: ' '
     display: table
     height: 100%
@@ -136,36 +147,46 @@
     left: 0
     top: 0
 
-.theme--dark.v-application .markdown-body blockquote::before
+.theme--dark.v-application .markdown-body blockquote::before,
+.theme--dark.v-application .nuxt-content blockquote::before
     background-color: $blockquote-bar-color-dark
 
-.v-application .markdown-body blockquote > p
+.v-application .markdown-body blockquote > p,
+.v-application .nuxt-content blockquote > p
     margin-bottom: 0
 
-.v-application .markdown-body blockquote code
+.v-application .markdown-body blockquote code,
+.v-application .nuxt-content blockquote code
     background: $blockquote-code-background-color
     color: $blockquote-code-color
 
-.theme--dark.v-application .markdown-body blockquote code
+.theme--dark.v-application .markdown-body blockquote code,
+.theme--dark.v-application .nuxt-content blockquote code
     background: $blockquote-code-background-color-dark
     color: $blockquote-code-color-dark
 
-.v-application .markdown-body table code
+.v-application .markdown-body table code,
+.v-application .nuxt-content table code
     background: $table-code-background-color
     color: $table-code-color
 
-.theme--dark.v-application .markdown-body table code
+.theme--dark.v-application .markdown-body table code,
+.theme--dark.v-application .nuxt-content table code
     background: $table-code-background-color-dark
     color: $table-code-color-dark
 
 .v-application .markdown-body table code::before, 
-.v-application .markdown-body table code::after
+.v-application .markdown-body table code::after,
+.v-application .nuxt-content table code::before, 
+.v-application .nuxt-content table code::after
     display: none
 
-.v-application .markdown-body table code
+.v-application .markdown-body table code,
+.v-application .nuxt-content table code
     padding: 0
 
-.v-application .markdown-body img
+.v-application .markdown-body img,
+.v-application .nuxt-content img
     border: 1px solid rgba(0, 0, 0, 0.5)
     box-shadow: 3px 3px 10px 0px rgba(0,0,0,0.3)
     background: #fff
@@ -180,4 +201,11 @@
 
 .v-application .katex .accent
     background: transparent !important
+
+.nuxt-content img.emoji
+    border: none
+    box-shadow: none
+    vertical-align: middle
+    max-height: 1rem
+    background: transparent
 
