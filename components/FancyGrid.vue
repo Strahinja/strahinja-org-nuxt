@@ -216,6 +216,8 @@ $animation-speed: .125s
 
 .fancy-grid
     margin: 0
+    border-radius: 28px
+    overflow: hidden
 
 .fancy-grid .col
     filter: opacity(0.4) contrast(2.3)

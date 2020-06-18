@@ -38,6 +38,16 @@ export default {
                 try
                 {
                     await store.dispatch('gists/loadGist', { gistId: document.gistId });
+                    const gist = store.getters['gists/gistById'](document.gistId);
+                    if (!gist)
+                    {
+                        throw 'Неуспешно учитавање';
+                    }
+                    document.gist = gist.data;
+                    /*
+                     *console.log('pages/cont/_slug.vue: loaded gist: ',
+                     *            document.gist);
+                     */
                 }
                 catch(err)
                 {

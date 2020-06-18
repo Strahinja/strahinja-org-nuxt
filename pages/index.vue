@@ -52,28 +52,27 @@
             v-container
                 v-row
                     v-col(cols=10,
-                    sm=4,
+                    md=4,
                     offset=1,
-                    offset-sm=2)
-                        v-carousel.elevation-5(cycle,
+                    offset-md=2)
+                        v-carousel.elevation-5.showcase-carousel(cycle,
                         height=200,
                         interval=6000,
-                        :style="{ 'max-width': '355px' }",
                         show-arrows-on-hover)
                             v-carousel-item(v-for=`(portfolioItem,
                             portfolioItemIndex) in portfolioItems`,
                             :key="portfolioItemIndex")
                                 img.splash-picture(:src="portfolioItem.image_thumb")
                     v-col.text-left.align-self-center(cols=10,
-                    sm=4,
+                    md=4,
                     offset=1,
-                    offset-sm=0,
+                    offset-md=0,
                     :class=`{
-                        'text-left': $breakpoint.is.smAndUp,
+                        'text-left': $breakpoint.is.mdAndUp,
                         'text-center': $breakpoint.is.xsOnly,
                     }`,
                     :style=`{
-                        'padding-left': $breakpoint.is.smAndUp
+                        'padding-left': $breakpoint.is.mdAndUp
                             ? '2rem'
                             : '0'
                     }`)
@@ -290,6 +289,10 @@ $filler-margin-top: 5em
 .v-carousel
     margin-left: auto
     margin-right: auto
+
+.showcase-carousel
+    max-width: 355px
+    border-radius: 28px
 
 .splash-picture
     width: 355px

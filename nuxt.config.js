@@ -159,6 +159,15 @@ export default {
                 'remark-toc',
                 'remark-unwrap-images',
             ],
+            externalLinks: {
+                content: {
+                    type: 'element',
+                    tagName: 'span',
+                },
+                contentProperties: {
+                    className: ['external-link-icon','mdi','mdi-open-in-new'],
+                },
+            },
         },
     },
     env: {
