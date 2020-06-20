@@ -61,10 +61,18 @@ export default {
         },
     },
     methods: {
-        created()
+        /*
+         *created()
+         *{
+         *    this.gist = this.$store.getters['gists/gistById'](this.gistId);
+         *    console.log('components/blog/Gist.vue: this.gist = ',
+         *                this.gist);
+         *},
+         */
+        mounted()
         {
             this.gist = this.$store.getters['gists/gistById'](this.gistId);
-            console.log('components/blog/Gist.vue: this.gist = ',
+            console.log('components/blog/Gist.vue: mounted: this.gist = ',
                         this.gist);
         },
         escapeHtml(html)
