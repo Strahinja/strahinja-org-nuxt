@@ -7,11 +7,14 @@ import { md } from './markdown-it';
 
 // Staging (true) or production (false)?
 const appModeStaging = true;
-
-require('dotenv').config({ path: `.env.${appModeStaging?'staging':'production'}` });
-console.log('dotenv: mode = ', process.env.VUE_APP_MODE);
-console.log('dotenv: path = ', process.env.VUE_APP_API_PATH);
-console.log('dotenv: browser path = ', process.env.VUE_APP_BROWSER_API_PATH);
+const publicRuntimeConfig = {
+    currentYear          :  (new Date()).getFullYear(),
+    vueAppMode           :  appModeStaging ? 'staging' : 'production',
+    vueAppApiPath        :  'http://strahinja-org/api',
+    vueAppBrowserApiPath :  appModeStaging ? 'http://strahinja-org/api' : 'https://strahinja.org/api',
+    vueAppApiHost        :  'http://strahinja-org',
+    vueAppBrowserApiHost :  appModeStaging ? 'http://strahinja-org' : 'https://strahinja.org',
+};
 
 const fs = require('fs');
 var dynamicMarkdownRoutes = getDynamicMarkdownPaths({
@@ -170,9 +173,7 @@ export default {
             },
         },
     },
-    env: {
-        currentYear: (new Date()).getFullYear(),
-    },
+    publicRuntimeConfig,
     /*purgeCSS: {
         content: [
             './components/** /*.vue',
@@ -226,8 +227,8 @@ export default {
      ** See https://axios.nuxtjs.org/options
      */
     axios: {
-        baseURL: process.env.VUE_APP_API_PATH,
-        browserBaseURL: process.env.VUE_APP_BROWSER_API_PATH,
+        baseURL: publicRuntimeConfig.vueAppApiPath,
+        browserBaseURL: publicRuntimeConfig.vueAppBrowserApiPath,
         proxy: true,
         proxyHeaders: true,
         credentials: false,

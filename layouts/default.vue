@@ -179,7 +179,7 @@ export default {
             clipped: true,
             miniVariant: false,
             extraProps: {},
-            currentYear: process.env.currentYear,
+            currentYear: '',
             showNav: false,
             appbarSearchText: '',
             showSearch: false,
@@ -298,6 +298,12 @@ export default {
         {
             this.setHtmlClass(newValue);
         }
+    },
+    asyncData({ $config: { currentYear } })
+    {
+        return {
+            currentYear,
+        };
     },
     mounted()
     {
