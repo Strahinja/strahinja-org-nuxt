@@ -38,42 +38,33 @@
                             изградњи, па неке могућности још нису додате или нису функционалне.
                             Молим за стрпљење, јер је време које могу да посветим изради овог
                             сајта веома ограничено.
-                            #[nuxt-link(to="/cont/20191026") 20191026]
-                            #[nuxt-link(to="/cont/20191111") 20191111]
-                            #[nuxt-link(to="/cont/20191119") 20191119]
-                            #[nuxt-link(to="/cont/20191202") 20191202]
-                            #[nuxt-link(to="/cont/20200117") 20200117]
-                            #[nuxt-link(to="/cont/20200303") 20200303]
-                            #[nuxt-link(to="/cont/20200410") 20200410]
-                            #[nuxt-link(to="/cont/20200505") 20200505]
         splash(height="300px",
         :bg-color="pageTheme().secondSplashBackgroundColor",
         :fg-color="pageTheme().secondSplashForegroundColor")
             v-container
                 v-row
                     v-col(cols=10,
-                    sm=4,
+                    md=4,
                     offset=1,
-                    offset-sm=2)
-                        v-carousel.elevation-5(cycle,
+                    offset-md=2)
+                        v-carousel.elevation-5.showcase-carousel(cycle,
                         height=200,
                         interval=6000,
-                        :style="{ 'max-width': '355px' }",
                         show-arrows-on-hover)
                             v-carousel-item(v-for=`(portfolioItem,
                             portfolioItemIndex) in portfolioItems`,
                             :key="portfolioItemIndex")
                                 img.splash-picture(:src="portfolioItem.image_thumb")
                     v-col.text-left.align-self-center(cols=10,
-                    sm=4,
+                    md=4,
                     offset=1,
-                    offset-sm=0,
+                    offset-md=0,
                     :class=`{
-                        'text-left': $breakpoint.is.smAndUp,
-                        'text-center': $breakpoint.is.xsOnly,
+                        'text-left': $breakpoint.is.mdAndUp,
+                        'text-center': $breakpoint.is.smAndDown,
                     }`,
                     :style=`{
-                        'padding-left': $breakpoint.is.smAndUp
+                        'padding-left': $breakpoint.is.mdAndUp
                             ? '2rem'
                             : '0'
                     }`)
@@ -234,28 +225,23 @@ export default {
     async asyncData({ store })
     {
         let portfolioItems = [];
-
         await store.dispatch('portfolio/loadItems', null, { root: true });
-
         portfolioItems = store.getters['portfolio/firstN'](3);
-
-        //console.log('asyncData: items = ', portfolioItems);
 
         return {
             portfolioItems,
         };
     },
-    mounted()
+    async mounted()
     {
         this.pageTheme = () =>
             (this.themeDark() ? this.pageThemes.dark : this.pageThemes.light),
         this.themeDark = () => (this.$store.getters['pages/isThemeDark']);
-        /*
-         *this.$nextTick(() =>
-         *{
-         *    this.$forceUpdate();
-         *});
-         */
+
+        let portfolioItems = [];
+        await this.$store.dispatch('portfolio/loadItems', null, { root: true });
+        portfolioItems = this.$store.getters['portfolio/firstN'](3);
+        this.portfolioItems = portfolioItems;
     }
 };
 </script>
@@ -290,6 +276,10 @@ $filler-margin-top: 5em
 .v-carousel
     margin-left: auto
     margin-right: auto
+
+.showcase-carousel
+    max-width: 355px
+    border-radius: 28px
 
 .splash-picture
     width: 355px

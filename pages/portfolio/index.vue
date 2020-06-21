@@ -12,12 +12,8 @@
 </template>
 
 <script>
-//import Subpage from '~/components/Subpage';
-//import FancyGrid from '~/components/FancyGrid';
-
 export default {
     name: 'Portfolio',
-    //components: { Subpage, FancyGrid },
     data()
     {
         return {
@@ -40,6 +36,12 @@ export default {
         return {
             portfolio: store.getters['portfolio/list'],
         };
+    },
+    async mounted()
+    {
+        await this.$store.dispatch('portfolio/loadItems',
+                                   null, { root: true });
+        this.portfolio = this.$store.getters['portfolio/list'];
     },
 };
 </script>

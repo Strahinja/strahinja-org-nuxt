@@ -2,48 +2,138 @@
     subpage(source-url)
         section
             h1.display-1 Блог
-            BlogPost(v-for="(post, postIndex) in posts",
-            :key="postIndex",
-            :folded="postIndex>0",
-            :frontmatter="post.frontmatter",
-            :extra-component="post.extraComponent",
-            :extra-component-params="post.extraComponentParams",
+            blog-post(v-for="(post, postIndex) in posts"
+            :key="postIndex"
+            :folded="postIndex>0"
+            :document="post"
             :standalone="false")
 </template>
 
 <script lang="js">
-//import Subpage from '~/components/Subpage';
-//import BlogPost from '~/components/BlogPost';
 
 export default {
     name: 'Blog',
-    //components: { BlogPost, Subpage },
-    middleware: ['load-posts'],
-    computed: {
-        sourceURL()
-        {
-            return this && this.$store
-                ? this.$store.getters['pages/pageById'](
-                    this.$store.getters['pages/pageId']).sourceURL
-                : null;
-        },
-        posts()
+    data()
+    {
+        return {
+            posts: [],
+        };
+    },
+    computed:
+    {
+        page()
         {
             if (this && this.$store)
             {
-                return this.$store.getters['posts/firstNPosts'](5);
+                return this.$store.getters['pages/pageById'](
+                    this.$store.state.pages.pageId);
             }
-            return [];
+            else
+            {
+                return null;
+            }
         },
     },
-    fetch({ store })
+    async asyncData({ $content, error, store })
     {
-        return store.dispatch('posts/loadPosts');
+        let posts = [];
+        try
+        {
+            posts = await $content('blog')
+                .where({ visible: { $eq: true } })
+                .sortBy('date', 'desc')
+                .limit(5)
+                .fetch();
+            if (!posts)
+            {
+                error({ statusCode: 404, message: 'Чланци се не могу учитати' });
+            }
+            posts.forEach(async (post) =>
+            {
+                if (post.gistId)
+                {
+                    try
+                    {
+                        await store.dispatch('gists/loadGist', {
+                            gistId: post.gistId
+                        });
+                        const gist = store.getters['gists/gistById'](
+                            post.gistId
+                        );
+                        if (gist)
+                        {
+                            post.gist = gist.data;
+                        }
+                    }
+                    catch (err)
+                    {
+                        error({ statusCode: 500,
+                            message: `Гист ${post.gistId} не може да се учита`
+                        });
+                    }
+                }
+
+            });
+        }
+        catch(err)
+        {
+            error({ statusCode: 500,
+                message: 'Чланци не могу да се учитају' });
+        }
+        return {
+            posts,
+        };
     },
-    async created()
+    async mounted()
     {
-        await this.$store.dispatch('posts/loadPosts');
-    },
+        let posts = [];
+        try
+        {
+            posts = await this.$content('blog')
+                .where({ visible: { $eq: true } })
+                .sortBy('date', 'desc')
+                .limit(5)
+                .fetch();
+
+            if (!posts)
+            {
+                this.$nuxt.error({ statusCode: 404,
+                    message: 'Чланци се не могу учитати'});
+            }
+            posts.forEach(async (post) =>
+            {
+                if (post.gistId)
+                {
+                    try
+                    {
+                        await this.$store.dispatch('gists/loadGist', {
+                            gistId: post.gistId
+                        });
+                        const gist = this.$store.getters['gists/gistById'](
+                            post.gistId
+                        );
+                        if (gist)
+                        {
+                            post.gist = gist.data;
+                        }
+                    }
+                    catch (err)
+                    {
+                        this.$nuxt.error({ statusCode: 500,
+                            message: `Гист ${post.gistId} не може да се учита`
+                        });
+                    }
+                }
+            });
+        }
+        catch(err)
+        {
+            this.$nuxt.error({ statusCode: 500,
+                message: 'Чланци не могу да се учитају' });
+        }
+
+        this.posts = posts;
+    }
 };
 </script>
 

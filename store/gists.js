@@ -15,7 +15,7 @@ export const mutations = {
 export const getters = {
     loadedGistsCount: state => state.list.length,
     gistById: state => gistId => state.list.find(
-        gist => gist.data.id == gistId),
+        gist => gist.data.id === gistId),
     apiPath: state => state.apiUrl,
 };
 
@@ -39,7 +39,7 @@ export const actions = {
 
     async loadGist({ commit, dispatch, getters }, { gistId })
     {
-        if (!getters['count'])
+        if (!getters['gistById'](gistId))
         {
             try
             {
@@ -61,7 +61,7 @@ export const actions = {
                 dispatch('loading/stopLoading', {
                     id: 'gists'
                 }, { root: true });
-                console.error(`store/gists.js[${gistId}]: `, error);
+                console.error(`store/gists[${gistId}]: `, error);
             }
         }
     },

@@ -1,48 +1,53 @@
 <template lang="pug">
-    subpage(override-head,
+    subpage(override-head
     source-url)
-        BlogPost(v-if="post",
-        :frontmatter="post.frontmatter"
-        :extra-component="post.extraComponent"
-        :extra-component-params="post.extraComponentParams")
+        blog-post(v-if="document"
+        :document="document")
 </template>
 
-<script lang="js">
-//import Subpage from '~/components/Subpage';
-//import BlogPost from '~/components/BlogPost';
-
+<script>
 export default {
     name: 'BlogSlug',
-    //components: { BlogPost, Subpage },
-    middleware: ['load-posts'],
-    async asyncData({ store, route, error })
+    data()
     {
-        await store.dispatch('posts/loadPosts');
-        if (!store.getters['posts/postBySlug'](route.params.slug))
+        return {
+            document: {},
+        };
+    },
+    computed: {
+        page()
         {
-            error({ statusCode: 404, message: 'Чланак није пронађен'});
+            if (this && this.$store)
+            {
+                return this.$store.getters['pages/pageById'](
+                    this.$store.state.pages.pageId);
+            }
+            else
+            {
+                return null;
+            }
+        },
+        slug()
+        {
+            return this && this.document && this.document.slug
+                ? this.document.slug
+                : '';
         }
     },
-
-    fetch({ store })
-    {
-        return store.dispatch('posts/loadPosts');
-    },
-
     head()
     {
-        const fm = this.post ? this.post.frontmatter : null;
+        const doc = this ? this.document : null;
         let globals = {
-            title: fm && fm.title ? fm.title : 'Ненасловљени чланак',
-            description: fm && fm.description ? fm.description : 'Чланак без описа',
+            title: doc && doc.title ? doc.title : 'Ненасловљени чланак',
+            description: doc && doc.description ? doc.description : 'Чланак без описа',
             parentUrl: 'https://strahinja.org/blog',
-            url: fm && fm.name ?
-                `https://strahinja.org/blog/${fm.name}` :
+            url: doc && doc.name ?
+                `https://strahinja.org/blog/${doc.name}` :
                 'https://strahinja.org/blog',
-            date: fm && fm.date ? fm.date : new Date().toISOString(),
-            image: fm && fm.image ? fm.image :
+            date: doc && doc.date ? doc.date : new Date().toISOString(),
+            image: doc && doc.image ? doc.image :
                 this.page.image,
-            imageAlt: fm && fm.imageAlt ? fm.imageAlt :
+            imageAlt: doc && doc.imageAlt ? doc.imageAlt :
                 this.page.imageAlt,
         };
         return {
@@ -73,35 +78,37 @@ export default {
                     globals.image},
             ],
             link: [
-                {
-                    rel: 'stylesheet',
-                    href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css'
-                },
+                /*
+                 *{
+                 *    rel: 'stylesheet',
+                 *    href: 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css'
+                 *},
+                 */
                 { hid: 'canonical', rel: 'canonical', href: globals.url },
                 { hid: 'directory', rel: 'directory', href: globals.parentUrl }
-            ],//.concat(tagsMeta),
+            ],
             title: globals.title,
             description: globals.description,
         };
     },
     jsonld()
     {
-        if (!this || !this.post || !this.post.frontmatter)
+        if (!this || !this.document)
         {
             return {};
         }
 
-        const fm = this.post.frontmatter;
+        const doc = this.document;
         let globals = {
-            title: fm && fm.title ? fm.title : 'Ненасловљени чланак',
-            description: fm && fm.description ? fm.description :
+            title: doc && doc.title ? doc.title : 'Ненасловљени чланак',
+            description: doc && doc.description ? doc.description :
                 'Чланак без описа',
             parentUrl: 'https://strahinja.org/blog',
-            url: fm && fm.name ?
-                `https://strahinja.org/blog/${fm.name}` :
+            url: doc && doc.name ?
+                `https://strahinja.org/blog/${doc.name}` :
                 'https://strahinja.org/blog',
-            date: fm && fm.date ? fm.date : new Date().toISOString(),
-            image: fm && fm.image ? fm.image :
+            date: doc && doc.date ? doc.date : new Date().toISOString(),
+            image: doc && doc.image ? doc.image :
                 'https://strahinja.org/img/preview-blog-strahinja-org.png',
             imageAlt: 'Цртеж врха пенкала са умањеним логом са иницијалима'
                 + ' СР и текстом //strahinja.org',
@@ -118,9 +125,55 @@ export default {
             'url': globals.url
         };
     },
+    async asyncData({ $content, params, error, store })
+    {
+        let document;
+        try
+        {
+            document = await $content(`blog/${params.slug}`).fetch();
+            //console.log('asyncData: document = ', document);
+            if (!document)
+            {
+                error({ statusCode: 404, message: 'Чланак није пронађен' });
+            }
+
+            if (document.gistId)
+            {
+                try
+                {
+                    await store.dispatch('gists/loadGist', { gistId: document.gistId });
+                    const gist = store.getters['gists/gistById'](document.gistId);
+                    if (!gist)
+                    {
+                        throw 'Неуспешно учитавање';
+                    }
+                    document.gist = gist.data;
+                    /*
+                     *console.log('pages/cont/_slug.vue: loaded gist: ',
+                     *            document.gist);
+                     */
+                }
+                catch(err)
+                {
+                    error({ statusCode: 500,
+                        message: `Гист ${document.gistId} не може да се учита` });
+                }
+            }
+        }
+        catch(err)
+        {
+            error({ statusCode: 500, message: err });
+            //console.error('pages/cont/slug: ', err);
+        }
+        return {
+            document,
+        };
+    }
 };
 </script>
 
 <style lang="sass" scoped>
+@import '~vuetify/src/styles/styles.sass'
+@import '~/assets/sass/code.sass'
+@import '~/assets/sass/markdown.sass'
 </style>
-

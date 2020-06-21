@@ -7,11 +7,14 @@ import { md } from './markdown-it';
 
 // Staging (true) or production (false)?
 const appModeStaging = true;
-
-require('dotenv').config({ path: `.env.${appModeStaging?'staging':'production'}` });
-console.log('dotenv: mode = ', process.env.VUE_APP_MODE);
-console.log('dotenv: path = ', process.env.VUE_APP_API_PATH);
-console.log('dotenv: browser path = ', process.env.VUE_APP_BROWSER_API_PATH);
+const publicRuntimeConfig = {
+    currentYear          :  (new Date()).getFullYear(),
+    vueAppMode           :  appModeStaging ? 'staging' : 'production',
+    vueAppApiPath        :  'http://strahinja-org/api',
+    vueAppBrowserApiPath :  appModeStaging ? 'http://strahinja-org/api' : 'https://strahinja.org/api',
+    vueAppApiHost        :  'http://strahinja-org',
+    vueAppBrowserApiHost :  appModeStaging ? 'http://strahinja-org' : 'https://strahinja.org',
+};
 
 const fs = require('fs');
 var dynamicMarkdownRoutes = getDynamicMarkdownPaths({
@@ -66,6 +69,8 @@ const sitemapConfig = {
 
 export default {
     mode: 'universal',
+    target: 'server',
+    //target: 'static',
     /*
      ** Headers of the page
      */
@@ -159,11 +164,18 @@ export default {
                 'remark-toc',
                 'remark-unwrap-images',
             ],
+            externalLinks: {
+                content: {
+                    type: 'element',
+                    tagName: 'span',
+                },
+                contentProperties: {
+                    className: ['external-link-icon','mdi','mdi-open-in-new'],
+                },
+            },
         },
     },
-    env: {
-        currentYear: (new Date()).getFullYear(),
-    },
+    publicRuntimeConfig,
     /*purgeCSS: {
         content: [
             './components/** /*.vue',
@@ -217,8 +229,8 @@ export default {
      ** See https://axios.nuxtjs.org/options
      */
     axios: {
-        baseURL: process.env.VUE_APP_API_PATH,
-        browserBaseURL: process.env.VUE_APP_BROWSER_API_PATH,
+        baseURL: publicRuntimeConfig.vueAppApiPath,
+        browserBaseURL: publicRuntimeConfig.vueAppBrowserApiPath,
         proxy: true,
         proxyHeaders: true,
         credentials: false,
@@ -262,16 +274,7 @@ export default {
             '/veze',
             //'/blog',
             '/tekstovi',
-            '/cont/content-test',
-            '/cont/20191026',
-            '/cont/20191111',
-            '/cont/20191119',
-            '/cont/20191202',
-            '/cont/20200117',
-            '/cont/20200303',
-            '/cont/20200410',
-            '/cont/20200505',
-        ],//.concat(dynamicMarkdownRoutes),
+        ].concat(dynamicMarkdownRoutes),
         exclude: [
             /noindex/,
             /search/,

@@ -22,16 +22,10 @@
 export default {
     name: 'BlogGist',
     props: {
-        //gist: { type: Object, default: () => ({}), required: true },
-        gistId: { type: String, required: true },
+        gist: { type: Object, default: () => ({}), required: true },
+        //gistId: { type: String, required: true },
         filename: { type: String, default: '', required: true },
         highlightedLine: { type: Number, default: 0, required: false },
-    },
-    data()
-    {
-        return {
-            gist: {}
-        };
     },
     computed: {
         gistRawUrl()

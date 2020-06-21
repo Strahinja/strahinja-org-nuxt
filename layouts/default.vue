@@ -105,7 +105,7 @@
                                                     | {{ isThemeDark ? 'mdi-white-balance-sunny' : 'mdi-weather-night' }}
                                         span Тема: {{ isThemeDark ?  'светла' : 'тамна' }}
                                     profile-menu/
-        v-content(:class="{ sm: $breakpoint.is.smAndDown }")
+        v-main(:class="{ sm: $breakpoint.is.smAndDown }")
             nuxt/
         client-only
             cookie-disclaimer(color="primary darken-1 white--text",
@@ -179,7 +179,7 @@ export default {
             clipped: true,
             miniVariant: false,
             extraProps: {},
-            currentYear: process.env.currentYear,
+            currentYear: '',
             showNav: false,
             appbarSearchText: '',
             showSearch: false,
@@ -298,6 +298,12 @@ export default {
         {
             this.setHtmlClass(newValue);
         }
+    },
+    asyncData({ $config: { currentYear } })
+    {
+        return {
+            currentYear,
+        };
     },
     mounted()
     {

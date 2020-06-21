@@ -3,25 +3,24 @@
         section
             h1.display-1.
                 Чланци са ознаком #[span.highlight {{ '\#' + tagId }}]
-            BlogPost(v-for="(post, postIndex) in posts",
-            :key="postIndex",
-            :folded="true",
-            :frontmatter="post.frontmatter",
-            :extra-component="post.extraComponent",
-            :extra-component-params="post.extraComponentParams",
-            :highlight="tagId",
+            blog-post(v-for="(post, postIndex) in posts"
+            :key="postIndex"
+            :folded="true"
+            :document="post"
+            :highlight="tagId"
             :standalone="false")
 </template>
 
 <script>
-//import Subpage from '~/components/Subpage';
-//import BlogPost from '~/components/BlogPost';
-
 export default {
-    name: 'BlogByTag',
-    //components: { BlogPost, Subpage },
+    name: 'BlogTag',
     watchQuery: true,
-    middleware: ['load-posts'],
+    data()
+    {
+        return {
+            posts: [],
+        };
+    },
     computed:
     {
         page()
@@ -36,14 +35,6 @@ export default {
                 return null;
             }
         },
-        posts()
-        {
-            if (this && this.$store)
-            {
-                return this.$store.getters['posts/postsByTag'](this.$route.params.id);
-            }
-            return [];
-        },
         tagId()
         {
             if (this && this.$route)
@@ -52,14 +43,6 @@ export default {
             }
             return '';
         },
-    },
-    fetch({ store })
-    {
-        return store.dispatch('posts/loadPosts');
-    },
-    async created()
-    {
-        await this.$store.dispatch('posts/loadPosts');
     },
     head()
     {
@@ -98,6 +81,105 @@ export default {
             title: globals.title,
             description: globals.description,
         };
+    },
+    async asyncData({ $content, error, store, route })
+    {
+        let posts = [];
+        try
+        {
+            posts = await $content('blog')
+                .where({ $and: [
+                    { visible: { $eq: true } },
+                    { tags: { $contains: route.params.id } },
+                ] })
+                .sortBy('date', 'desc')
+                .limit(5)
+                .fetch();
+            posts.forEach(async (post) =>
+            {
+                if (post.gistId)
+                {
+                    try
+                    {
+                        console.log(`pages/blog/tag[${post.gistId}]: calling loadGist`);
+                        await store.dispatch('gists/loadGist', {
+                            gistId: post.gistId
+                        });
+                        const gist = store.getters['gists/gistById'](
+                            post.gistId
+                        );
+                        console.log(`pages/blog/tag[${post.gistId}]: gist = `,
+                                    gist);
+                        if (gist)
+                        {
+                            post.gist = gist.data;
+                        }
+                    }
+                    catch(err)
+                    {
+                        error({ statusCode: 500,
+                            message: `Гист ${post.gistId} не може да се учита`
+                        });
+                    }
+                }
+            });
+        }
+        catch(err)
+        {
+            console.error('pages/blog/tag: error= ', err);
+            error({ statusCode: 500,
+                message: 'Чланци не могу да се учитају' });
+        }
+        return {
+            posts
+        };
+    },
+    async mounted()
+    {
+        let posts = [];
+        try
+        {
+            posts = await this.$content('blog')
+                .where({ $and: [
+                    { visible: { $eq: true } },
+                    { tags: { $contains: this.tagId } },
+                ] })
+                .sortBy('date', 'desc')
+                .limit(5)
+                .fetch();
+            posts.forEach(async (post) =>
+            {
+                if (post.gistId)
+                {
+                    try
+                    {
+                        await this.$store.dispatch('gists/loadGist', {
+                            gistId: post.gistId
+                        });
+                        const gist = this.$store.getters['gists/gistById'](
+                            post.gistId
+                        );
+                        if (gist)
+                        {
+                            post.gist = gist.data;
+                        }
+                    }
+                    catch(err)
+                    {
+                        this.$nuxt.error({ statusCode: 500,
+                            message: `Гист ${post.gistId} не може да се учита`
+                        });
+                    }
+                }
+            });
+        }
+        catch(err)
+        {
+            console.error('pages/blog/tag: error= ', err);
+            this.$nuxt.error({ statusCode: 500,
+                message: 'Чланци не могу да се учитају' });
+        }
+        this.posts = posts;
     },
 };
 </script>

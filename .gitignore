@@ -11,6 +11,8 @@ yarn-error.log*
 static/api
 auth.config.js
 *-todo.md
+*-todo.json
+.yarn/*
 
 # Tags
 tags
