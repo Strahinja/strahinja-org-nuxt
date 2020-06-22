@@ -87,19 +87,7 @@
 
 <script>
 const getProp = require('dotprop');
-import dark from '~/theme/dunedain-dark';
-import light from '~/theme/dunedain-light';
-
-const pageThemes = {
-    dark: {
-        splashForegroundColor: '#fff',
-        splashBackgroundColor: dark.primary.darken1,
-    },
-    light: {
-        splashForegroundColor: '#000',
-        splashBackgroundColor: light.secondary.lighten1,
-    },
-};
+import { routeIds } from '~/store/pages';
 
 export default {
     name: 'Subpage',
@@ -115,10 +103,6 @@ export default {
         return {
             windowHeight: 0,
             scrollTop: 0,
-            themeName: 'light',
-            themeDark: () => (false),
-            pageThemes,
-            pageTheme: () => (pageThemes.light),
         };
     },
     computed: {
@@ -163,14 +147,20 @@ export default {
     },
     mounted()
     {
-        this.pageTheme = () =>
-            (this.themeDark() ? this.pageThemes.dark : this.pageThemes.light),
-        this.themeDark = () => (this.$store.getters['pages/isThemeDark']);
         this.scrollTop = 0;
         this.windowHeight = window.innerHeight;
     },
     methods:
     {
+        pageTheme()
+        {
+            return this && this.$store
+                ? this.$store.getters['themes/element'](
+                    this.$store.getters['themes/theme'],
+                    routeIds.COMPONENT_SUBPAGE
+                )
+                : {};
+        },
         onScroll(event)
         {
             this.scrollTop = getProp(event,

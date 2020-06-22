@@ -72,7 +72,7 @@
                                 @submit.prevent="onAppbarSearchFormSubmit($event)")
                                     v-text-field(ref="appbarSearchText",
                                     v-model="appbarSearchText",
-                                    v-on-clickaway="searchClickaway",
+                                    v-click-outside="searchClickOutside",
                                     name="q",
                                     label="Претрага",
                                     color="black--text",
@@ -174,29 +174,13 @@
 //import CookieDisclaimer from '~/components/CookieDisclaimer';
 import Gnu from '~/assets/svg/gnu.svg?inline';
 import Strahinjaorg from '~/assets/svg/strahinjaorg.svg?inline';
-import { mixin as clickaway } from 'vue-clickaway';
-import darkTheme from '~/theme/dunedain-dark';
-import lightTheme from '~/theme/dunedain-light';
-
-const pageThemes = {
-    dark: {
-        appbarBackgroundColor: darkTheme.primary.darken2,
-        footerFirstLineBackgroundColor: darkTheme.primary.darken1,
-        footerSecondLineBackgroundColor: darkTheme.primary.darken2,
-    },
-    light: {
-        appbarBackgroundColor: lightTheme.primary.base,
-        footerFirstLineBackgroundColor: lightTheme.primary.base,
-        footerSecondLineBackgroundColor: lightTheme.primary.darken1,
-    },
-};
+import { routeIds, iconSvgs } from '~/store/pages';
 
 export default {
     name: 'App',
     middleware: ['set-page-id', 'cookie-consent'],
     //components: { CookieDisclaimer, Gnu, Hamburger, Strahinjaorg, ProfileMenu },
     components: { Gnu, Strahinjaorg },
-    mixins: [clickaway],
     data()
     {
         return {
@@ -214,10 +198,6 @@ export default {
                 v => v.length<this.maxSearchTextLength ||
                     `Текст мора бити мањи од ${this.maxSearchTextLength} знакова`,
             ],
-            themeName: 'light',
-            themeDark: () => (false),
-            pageThemes,
-            pageTheme: () => (pageThemes.light),
         };
     },
     computed: {
@@ -242,7 +222,7 @@ export default {
             if (this && this.$store)
             {
                 return this.$store.getters['pages/pageById'](
-                    this.$store.state.pages.routeIds.PAGE_HOME);
+                    routeIds.PAGE_HOME);
             }
             else
             {
@@ -311,7 +291,7 @@ export default {
         isThemeDark()
         {
             return this && this.$store && this.$store.getters ?
-                this.$store.getters['pages/isThemeDark'] :
+                this.$store.getters['themes/isThemeDark'] :
                 false;
         },
         showCookieConsent()
@@ -336,9 +316,6 @@ export default {
     mounted()
     {
         this.setHtmlClass(this.dark);
-        this.pageTheme = () =>
-            (this.themeDark() ? this.pageThemes.dark : this.pageThemes.light),
-        this.themeDark = () => (this.$store.getters['pages/isThemeDark']);
     },
     head()
     {
@@ -424,6 +401,15 @@ export default {
         };
     },
     methods: {
+        pageTheme()
+        {
+            return this && this.$store
+                ? this.$store.getters['themes/element'](
+                    this.$store.getters['themes/theme'],
+                    routeIds.LAYOUT_DEFAULT
+                )
+                : {};
+        },
         hamburgerBtnClick()
         {
             this.showNav=!this.showNav;
@@ -434,10 +420,10 @@ export default {
             let result = '';
             switch (componentId)
             {
-            case this.$store.state.pages.iconSvgs.ICON_SVG_GNU:
+            case iconSvgs.ICON_SVG_GNU:
                 result = 'Gnu';
                 break;
-            case this.$store.state.pages.iconSvgs.ICON_SVG_STRAHINJAORG:
+            case iconSvgs.ICON_SVG_STRAHINJAORG:
                 result = 'Strahinjaorg';
                 break;
             default:
@@ -508,7 +494,7 @@ export default {
             }
             return found ? i : -1;
         },
-        searchClickaway(event)
+        searchClickOutside(event)
         {
             let t = event && event.target ? event.target : null;
             let isAChild =

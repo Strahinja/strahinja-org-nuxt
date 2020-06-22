@@ -11,8 +11,8 @@ export const state = () => ({
     theme: themeIds.THEME_LIGHT,
     themes: [
         {
-            id: themeIds.THEME_LIGHT,
-            theme: light,
+            id: themeIds.THEME_DARK,
+            theme: dark,
             elements: [
                 {
                     id: routeIds.PAGE_HOME,
@@ -23,6 +23,16 @@ export const state = () => ({
                     secondSplashBackgroundColor: '#1e231e',
                 },
                 {
+                    id: routeIds.PAGE_PROFILE,
+                    cardTitleBackgroundColor: dark.secondary.darken1,
+                },
+                {
+                    id: routeIds.LAYOUT_DEFAULT,
+                    appbarBackgroundColor: dark.primary.darken2,
+                    footerFirstLineBackgroundColor: dark.primary.darken1,
+                    footerSecondLineBackgroundColor: dark.primary.darken2,
+                },
+                {
                     id: routeIds.COMPONENT_SUBPAGE,
                     splashForegroundColor: '#fff',
                     splashBackgroundColor: dark.primary.darken1,
@@ -30,8 +40,8 @@ export const state = () => ({
             ],
         },
         {
-            id: themeIds.THEME_DARK,
-            theme: dark,
+            id: themeIds.THEME_LIGHT,
+            theme: light,
             elements: [
                 {
                     id: routeIds.PAGE_HOME,
@@ -42,7 +52,22 @@ export const state = () => ({
                     secondSplashForegroundColor: '#000',
                     secondSplashBackgroundColor:
                         light.secondary.lighten1,
-                } ,
+                },
+                {
+                    id: routeIds.PAGE_PROFILE,
+                    cardTitleBackgroundColor: light.secondary.lighten1,
+                },
+                {
+                    id: routeIds.LAYOUT_DEFAULT,
+                    appbarBackgroundColor: light.primary.base,
+                    footerFirstLineBackgroundColor: light.primary.base,
+                    footerSecondLineBackgroundColor: light.primary.darken1,
+                },
+                {
+                    id: routeIds.COMPONENT_SUBPAGE,
+                    splashForegroundColor: '#000',
+                    splashBackgroundColor: light.secondary.lighten1,
+                },
             ],
         }],
 });
@@ -58,8 +83,10 @@ export const getters = {
     themeById: state => themeId =>
         state.themes.find((theme) => theme.id === themeId),
     element: (state, getters) => (themeId, routeId) =>
-        getters['themeById'](themeId).elements.find(element =>
-            element.id === routeId),
+    {
+        return getters['themeById'](themeId).elements.find(element =>
+            element.id === routeId);
+    },
     theme: state => state.theme,
     isThemeDark: state => state.theme == themeIds.THEME_DARK,
 };

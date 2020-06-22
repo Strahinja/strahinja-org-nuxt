@@ -27,13 +27,11 @@
                             clearable=true,
                             required=true,
                             @input="onSearchTextInput()")
-            BlogPost(v-for="post in posts",
-            :key="post.name + q",
-            :folded="true",
-            :frontmatter="post.frontmatter",
-            :extra-component="post.extraComponent",
-            :extra-component-params="post.extraComponentParams",
-            :highlight="q",
+            blog-post(v-for="post in posts"
+            :key="post.name + q"
+            :document="post"
+            :folded="true"
+            :highlight="q"
             :standalone="false")
             no-results(v-if="posts.length==0")
 </template>

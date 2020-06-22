@@ -81,23 +81,9 @@
 </template>
 
 <script>
-//import Subpage from '~/components/Subpage';
-//import SkillsCategory from '~/components/SkillsCategory';
-import darkTheme from '~/theme/dunedain-dark';
-import lightTheme from '~/theme/dunedain-light';
-
-const pageThemes = {
-    dark: {
-        cardTitleBackgroundColor: darkTheme.secondary.darken1,
-    },
-    light: {
-        cardTitleBackgroundColor: lightTheme.secondary.lighten1,
-    },
-};
-
+import { routeIds } from '~/store/pages';
 export default {
     name: 'Profile',
-    //components: { SkillsCategory, Subpage },
     data()
     {
         return {
@@ -119,10 +105,6 @@ export default {
                 { name: 'Руски', color: 'blue', percent: 80 },
                 { name: 'Шпански', color: 'green', percent: 60 }
             ],
-            themeName: 'light',
-            themeDark: () => (false),
-            pageThemes,
-            pageTheme: () => (pageThemes.light),
         };
     },
     computed:
@@ -162,9 +144,6 @@ export default {
     },
     mounted()
     {
-        this.pageTheme = () =>
-            (this.themeDark() ? this.pageThemes.dark : this.pageThemes.light),
-        this.themeDark = () => (this.$store.getters['pages/isThemeDark']);
         this.$nextTick(() =>
         {
             this.$forceUpdate();
@@ -175,6 +154,15 @@ export default {
         openLink(url)
         {
             window.open(url, '_blank');
+        },
+        pageTheme()
+        {
+            return this && this.$store
+                ? this.$store.getters['themes/element'](
+                    this.$store.getters['themes/theme'],
+                    routeIds.PAGE_PROFILE
+                )
+                : {};
         },
     },
 };

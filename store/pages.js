@@ -30,6 +30,8 @@ export const routeIds = {
     PAGE_PROGRAMS_INDEX           : 'programi-index',
 
     COMPONENT_SUBPAGE             : '@/subpage',
+
+    LAYOUT_DEFAULT                : '#/default',
 };
 
 export const state = () => ({
@@ -573,9 +575,9 @@ export const getters = {
     {
         switch (svgId)
         {
-        case state.iconSvgs.ICON_SVG_GNU:
+        case iconSvgs.ICON_SVG_GNU:
             return 'Gnu';
-        case state.iconSvgs.ICON_SVG_STRAHINJAORG:
+        case iconSvgs.ICON_SVG_STRAHINJAORG:
             return 'Strahinjaorg';
         default:
             return null;

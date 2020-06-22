@@ -120,36 +120,13 @@
 </template>
 
 <script>
-//import Splash from '~/components/Splash.vue';
-//import MadeWith from '~/components/MadeWith.vue';
 import LogoVue from '~/assets/svg/logo-vue.svg?inline';
 import LogoVuetify from '~/assets/svg/logo-vuetify.svg?inline';
 import LogoNuxt from '~/assets/svg/logo-nuxt.svg?inline';
-import darkTheme from '~/theme/dunedain-dark';
-import lightTheme from '~/theme/dunedain-light';
-
-const pageThemes = {
-    dark: {
-        mainToolbarBtnBg: 'secondary darken-1',
-        firstSplashForegroundColor: '#fff',
-        firstSplashBackgroundColor: '#1d221d',
-        secondSplashForegroundColor: '#fff',
-        secondSplashBackgroundColor: '#1e231e',
-    },
-    light: {
-        mainToolbarBtnBg: 'secondary lighten-1',
-        firstSplashForegroundColor: '#000',
-        firstSplashBackgroundColor:
-                        lightTheme.primary.lighten1,
-        secondSplashForegroundColor: '#000',
-        secondSplashBackgroundColor:
-                        lightTheme.secondary.lighten1,
-    },
-};
+import { routeIds } from '~/store/pages';
 
 export default {
     name: 'Home',
-    //components: { Splash, LogoVue, LogoVuetify, LogoNuxt, MadeWith },
     components: { LogoVue, LogoVuetify, LogoNuxt },
     head ()
     {
@@ -166,10 +143,6 @@ export default {
             loading: false,
             parentUrl: '/',
             portfolioItems: [],
-            themeName: 'light',
-            themeDark: () => (false),
-            pageThemes,
-            pageTheme: () => (pageThemes.light),
         };
     },
     computed: {
@@ -212,7 +185,7 @@ export default {
             if (this && this.$store)
             {
                 return this.$store.getters['pages/pageById'](
-                    this.$store.state.pages.routeIds.PAGE_PORTFOLIO);
+                    routeIds.PAGE_PORTFOLIO);
             }
             else
             {
@@ -232,14 +205,21 @@ export default {
     },
     async mounted()
     {
-        this.pageTheme = () =>
-            (this.themeDark() ? this.pageThemes.dark : this.pageThemes.light),
-        this.themeDark = () => (this.$store.getters['pages/isThemeDark']);
-
         let portfolioItems = [];
         await this.$store.dispatch('portfolio/loadItems', null, { root: true });
         portfolioItems = this.$store.getters['portfolio/firstN'](3);
         this.portfolioItems = portfolioItems;
+    },
+    methods: {
+        pageTheme()
+        {
+            return this && this.$store
+                ? this.$store.getters['themes/element'](
+                    this.$store.getters['themes/theme'],
+                    routeIds.PAGE_HOME
+                )
+                : {};
+        }
     }
 };
 </script>
