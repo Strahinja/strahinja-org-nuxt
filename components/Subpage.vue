@@ -87,15 +87,13 @@
 
 <script>
 const getProp = require('dotprop');
-//import Splash from '~/components/Splash';
-//import SourceUrl from '~/components/SourceUrl';
 import dark from '~/theme/dunedain-dark';
 import light from '~/theme/dunedain-light';
 
 const pageThemes = {
     dark: {
         splashForegroundColor: '#fff',
-        splashBackgroundColor: dark.secondary.darken1,
+        splashBackgroundColor: dark.primary.darken1,
     },
     light: {
         splashForegroundColor: '#000',

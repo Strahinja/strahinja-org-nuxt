@@ -132,11 +132,9 @@ const pageThemes = {
     dark: {
         mainToolbarBtnBg: 'secondary darken-1',
         firstSplashForegroundColor: '#fff',
-        firstSplashBackgroundColor:
-                        darkTheme.primary.darken1,
+        firstSplashBackgroundColor: '#1d221d',
         secondSplashForegroundColor: '#fff',
-        secondSplashBackgroundColor:
-                        darkTheme.secondary.darken2,
+        secondSplashBackgroundColor: '#1e231e',
     },
     light: {
         mainToolbarBtnBg: 'secondary lighten-1',

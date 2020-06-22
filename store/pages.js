@@ -1,9 +1,10 @@
-const iconSvgs = {
+export const iconSvgs = {
     ICON_SVG_NONE         : 0,
     ICON_SVG_STRAHINJAORG : 1,
     ICON_SVG_GNU          : 2,
 };
-const routeIds = {
+
+export const routeIds = {
     PAGE_NOTSET                   : 'home',
     PAGE_NOINDEX                  : 'home',
     PAGE_HOME                     : 'home',
@@ -28,17 +29,10 @@ const routeIds = {
     PAGE_TEXTS_SOFTWARE_OJL       : 'tekstovi-softver-ojl',
     PAGE_PROGRAMS_INDEX           : 'programi-index',
 
-};
-const themeNames = {
-    DARK_THEME_NAME: 'dark',
-    LIGHT_THEME_NAME: 'light',
+    COMPONENT_SUBPAGE             : '@/subpage',
 };
 
 export const state = () => ({
-    iconSvgs,
-    routeIds,
-    themeNames,
-    theme: themeNames.LIGHT_THEME_NAME,
     showCookieConsent: true,
     sourceBranch: 'master',
     list: [
@@ -47,7 +41,6 @@ export const state = () => ({
             title: 'Почетна',
             text: '',
             colorClass: 'md-primary',
-            theme: '',
             icon: 'mdi-home',
             iconSvg: iconSvgs.ICON_SVG_STRAHINJAORG,
             image: 'https://strahinja.org/img/preview-home-strahinja-org.png',
@@ -69,7 +62,6 @@ export const state = () => ({
             title: 'Профил',
             text: 'Сажетак онога чим сам се до сада бавио',
             colorClass: 'light-green lighten-3',
-            theme: 'green-card',
             icon: 'mdi-clipboard-account',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: 'https://strahinja.org/img/preview-profile-strahinja-org.png',
@@ -92,7 +84,6 @@ export const state = () => ({
             title: 'Портфолио',
             text: 'Колекција мојих радова',
             colorClass: 'orange lighten-3',
-            theme: '',
             icon: 'mdi-palette',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: 'https://strahinja.org/img/preview-portfolio-strahinja-org.png',
@@ -114,7 +105,6 @@ export const state = () => ({
             id: routeIds.PAGE_PORTFOLIO_EDIT,
             title: 'Уреди портфолио',
             colorClass: '',
-            theme: '',
             icon: 'mdi-pencil-box-multiple',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: 'https://strahinja.org/img/preview-portfolio-strahinja-org.png',
@@ -136,7 +126,6 @@ export const state = () => ({
             title: 'Блог',
             text: 'Мој веб дневник',
             colorClass: '',
-            theme: '',
             icon: 'mdi-fountain-pen-tip',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: 'https://strahinja.org/img/preview-blog-strahinja-org.png',
@@ -159,7 +148,6 @@ export const state = () => ({
             title: 'Чланак блога',
             text: 'Страница чланка блога',
             colorClass: '',
-            theme: '',
             icon: 'mdi-fountain-pen-tip',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: 'https://strahinja.org/img/preview-blog-strahinja-org.png',
@@ -182,7 +170,6 @@ export const state = () => ({
             title: 'Чланци са ознаком',
             text: 'Чланци са задатом ознаком',
             colorClass: '',
-            theme: '',
             icon: 'mdi-fountain-pen-tip',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: 'https://strahinja.org/img/preview-blog-strahinja-org.png',
@@ -205,7 +192,6 @@ export const state = () => ({
             title: 'Претрага',
             text: 'Резултати претраге са задатим текстом',
             colorClass: '',
-            theme: '',
             icon: 'mdi-fountain-pen-tip',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: 'https://strahinja.org/img/preview-search-strahinja-org.png',
@@ -228,7 +214,6 @@ export const state = () => ({
             title: 'Корисници',
             text: 'Списак корисника',
             colorClass: '',
-            theme: '',
             icon: 'mdi-account-multiple',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: 'https://strahinja.org/img/preview-users-strahinja-org.png',
@@ -251,7 +236,6 @@ export const state = () => ({
             title: 'Кориснички профил',
             text: 'Профил корисника улогованог преко друштвене мреже',
             colorClass: '',
-            theme: '',
             icon: 'mdi-account',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: 'https://strahinja.org/img/preview-users-strahinja-org.png',
@@ -274,7 +258,6 @@ export const state = () => ({
             title: 'Текстови',
             text: 'Списак текстова',
             colorClass: '',
-            theme: '',
             icon: 'mdi-text-box-multiple',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: '',
@@ -296,7 +279,6 @@ export const state = () => ({
             title: 'Математика',
             text: 'Текстови у вези са математиком',
             colorClass: '',
-            theme: '',
             icon: 'mdi-sigma',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: '',
@@ -318,7 +300,6 @@ export const state = () => ({
             title: 'Рачунање броја елемената одређеног реда у коначној Абеловој групи',
             text: 'Опште решење проблема из Алгебре 1',
             colorClass: '',
-            theme: '',
             icon: 'mdi-sigma',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: '',
@@ -340,7 +321,6 @@ export const state = () => ({
             title: 'Диференцијални рачун за неупућене',
             text: 'Поступан увод у диференцијални рачун са примерима',
             colorClass: '',
-            theme: '',
             icon: 'mdi-sigma',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: '',
@@ -362,7 +342,6 @@ export const state = () => ({
             title: 'Матрице преласка и хомогене координате',
             text: 'Кратко расписивање матрица преласка из Нацртне геометрије',
             colorClass: '',
-            theme: '',
             icon: 'mdi-sigma',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: '',
@@ -384,7 +363,6 @@ export const state = () => ({
             title: 'Софтвер',
             text: 'Текстови у вези са софтвером',
             colorClass: '',
-            theme: '',
             icon: 'mdi-console',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: '',
@@ -406,7 +384,6 @@ export const state = () => ({
             title: 'КАКОДА подесим и користим ГНУ-ов Емакс за унос текста на српском',
             text: 'Подешавање Емакса за српски',
             colorClass: '',
-            theme: '',
             icon: 'mdi-console',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: '',
@@ -428,7 +405,6 @@ export const state = () => ({
             title: 'КАКОДА употребљавам ГНУ-ов систем за изградњу',
             text: 'Упутство за прављење инсталационог програма у ГНУ-овом систему за изградњу',
             colorClass: '',
-            theme: '',
             icon: 'mdi-console',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: '',
@@ -450,7 +426,6 @@ export const state = () => ({
             title: 'ГНУ-ова ОЈЛ',
             text: 'Незванични превод ГНУ-ове опште јавне лиценце на српски',
             colorClass: '',
-            theme: '',
             icon: 'mdi-scale-balance',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: '',
@@ -472,7 +447,6 @@ export const state = () => ({
             title: 'Програми',
             text: 'Списак програма које сам писао',
             colorClass: '',
-            theme: '',
             icon: 'mdi-console',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: '',
@@ -494,7 +468,6 @@ export const state = () => ({
             title: 'Везе',
             text: 'Мени интересантни сајтови',
             colorClass: 'light-blue lighten-4',
-            theme: '',
             icon: 'mdi-bookmark-multiple',
             iconSvg: iconSvgs.ICON_SVG_NONE,
             image: 'https://strahinja.org/img/preview-links-strahinja-org.png',
@@ -596,10 +569,6 @@ export const getters = {
     mainToolbarPages: state => state.list.filter(
         page => page.includedInMainToolbar),
     showCookieConsent: state => state.showCookieConsent,
-    theme: state => state.theme,
-    isThemeDark: state => state.theme == state.themeNames.DARK_THEME_NAME,
-    DARK_THEME_NAME: state => state.themeNames.DARK_THEME_NAME,
-    LIGHT_THEME_NAME: state => state.themeNames.LIGHT_THEME_NAME,
     svgComponentName: state => svgId =>
     {
         switch (svgId)
@@ -619,10 +588,6 @@ export const mutations = {
     {
         state.showCookieConsent = payload;
     },
-    setTheme(state, payload)
-    {
-        state.theme = payload;
-    },
     setPageId(state, payload)
     {
         state.pageId = payload.newId;
@@ -638,41 +603,6 @@ export const actions = {
             sameSite: 'Strict',
         });
         commit('setShowCookieConsent', !payload);
-    },
-    setTheme({ commit, getters }, payload)
-    {
-        if (payload && payload.theme == getters['DARK_THEME_NAME']
-            && payload.vuetify)
-        {
-            payload.vuetify.theme.dark = true;
-        }
-        else if (payload && payload.vuetify)
-        {
-            payload.vuetify.theme.dark = false;
-        }
-        this.$cookies.set('strahinja-org-theme', payload.theme, {
-            maxAge: 15 * 365 * 24 * 60 * 60,
-            path: '/',
-            sameSite: 'Strict',
-        });
-        commit('setTheme', payload.theme);
-    },
-    cycleTheme({ dispatch, getters }, payload)
-    {
-        if (getters['theme'] == getters['DARK_THEME_NAME'])
-        {
-            dispatch('setTheme', {
-                vuetify: payload.vuetify,
-                theme: getters['LIGHT_THEME_NAME']
-            });
-        }
-        else
-        {
-            dispatch('setTheme', {
-                vuetify: payload.vuetify,
-                theme: getters['DARK_THEME_NAME']
-            });
-        }
     },
     setCurrentPageFromRouteName({ commit, getters }, payload)
     {

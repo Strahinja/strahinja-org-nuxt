@@ -1,6 +1,6 @@
 <template lang="pug">
-    subpage(splash,
-    source-url,
+    subpage(splash
+    source-url
     source-url-light)
         template(#header)
             h1.display-1 Текстови
@@ -9,12 +9,8 @@
 </template>
 
 <script>
-//import FancyList from '~/components/FancyList';
-//import Subpage from '~/components/Subpage';
-
 export default {
     name: 'Tekstovi',
-    //components: { FancyList, Subpage },
     data()
     {
         return {

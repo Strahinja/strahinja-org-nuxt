@@ -101,15 +101,12 @@ export default {
                 {
                     try
                     {
-                        console.log(`pages/blog/tag[${post.gistId}]: calling loadGist`);
                         await store.dispatch('gists/loadGist', {
                             gistId: post.gistId
                         });
                         const gist = store.getters['gists/gistById'](
                             post.gistId
                         );
-                        console.log(`pages/blog/tag[${post.gistId}]: gist = `,
-                                    gist);
                         if (gist)
                         {
                             post.gist = gist.data;
@@ -126,7 +123,6 @@ export default {
         }
         catch(err)
         {
-            console.error('pages/blog/tag: error= ', err);
             error({ statusCode: 500,
                 message: 'Чланци не могу да се учитају' });
         }

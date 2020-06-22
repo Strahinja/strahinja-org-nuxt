@@ -27,10 +27,12 @@
                         :is="svgComponent(navigationPage.iconSvg)")
                         v-icon(v-else) {{ navigationPage.icon }}
                     v-list-item-title {{ navigationPage.title }}
-        v-app-bar.full-width-toolbar(app,
-        :clipped-left="clipped",
-        dark,
-        color="primary",
+        v-app-bar.full-width-toolbar(app
+        :clipped-left="clipped"
+        dark
+        :style=`{
+            'background-color': pageTheme().appbarBackgroundColor
+        }`
         :class="{ loading: pageLoading }")
             client-only
                 v-tooltip(bottom)
@@ -117,7 +119,10 @@
         dark)
             v-card.flex.text-center(text,
             tile)
-                v-card-text.primary.d-flex.text-center.justify-center
+                v-card-text.d-flex.text-center.justify-center(:style=`{
+                    'background-color':
+                        pageTheme().footerFirstLineBackgroundColor
+                }`)
                     v-tooltip(v-for="(footerLink, footerLinkIndex) in footerLinks",
                     :key="footerLinkIndex",
                     bottom)
@@ -129,8 +134,12 @@
                                 target="_blank")
                                     v-icon.white--text {{footerLink.iconName }}
                         span {{ footerLink.text }}
-                v-card-actions.primary.darken-1.d-block.text-left(:class=`{
+                v-card-actions.d-block.text-left(:class=`{
                     'text-center': $breakpoint.is.xsOnly
+                }`
+                :style=`{
+                    'background-color':
+                        pageTheme().footerSecondLineBackgroundColor
                 }`)
                     v-container.ma-0.pa-0(v-if="$breakpoint.is.xsOnly",
                     fluid,
@@ -166,6 +175,21 @@
 import Gnu from '~/assets/svg/gnu.svg?inline';
 import Strahinjaorg from '~/assets/svg/strahinjaorg.svg?inline';
 import { mixin as clickaway } from 'vue-clickaway';
+import darkTheme from '~/theme/dunedain-dark';
+import lightTheme from '~/theme/dunedain-light';
+
+const pageThemes = {
+    dark: {
+        appbarBackgroundColor: darkTheme.primary.darken2,
+        footerFirstLineBackgroundColor: darkTheme.primary.darken1,
+        footerSecondLineBackgroundColor: darkTheme.primary.darken2,
+    },
+    light: {
+        appbarBackgroundColor: lightTheme.primary.base,
+        footerFirstLineBackgroundColor: lightTheme.primary.base,
+        footerSecondLineBackgroundColor: lightTheme.primary.darken1,
+    },
+};
 
 export default {
     name: 'App',
@@ -190,6 +214,10 @@ export default {
                 v => v.length<this.maxSearchTextLength ||
                     `Текст мора бити мањи од ${this.maxSearchTextLength} знакова`,
             ],
+            themeName: 'light',
+            themeDark: () => (false),
+            pageThemes,
+            pageTheme: () => (pageThemes.light),
         };
     },
     computed: {
@@ -308,6 +336,9 @@ export default {
     mounted()
     {
         this.setHtmlClass(this.dark);
+        this.pageTheme = () =>
+            (this.themeDark() ? this.pageThemes.dark : this.pageThemes.light),
+        this.themeDark = () => (this.$store.getters['pages/isThemeDark']);
     },
     head()
     {
@@ -497,7 +528,7 @@ export default {
         },
         themeModeBtnClick()
         {
-            this.$store.dispatch('pages/cycleTheme', {
+            this.$store.dispatch('themes/cycleTheme', {
                 vuetify: this.$vuetify,
             });
         }
