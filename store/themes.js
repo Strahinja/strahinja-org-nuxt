@@ -18,9 +18,9 @@ export const state = () => ({
                     id: routeIds.PAGE_HOME,
                     mainToolbarBtnBg: 'secondary darken-1',
                     firstSplashForegroundColor: '#fff',
-                    firstSplashBackgroundColor: '#1d221d',
+                    firstSplashBackgroundColor: '#1d201d',
                     secondSplashForegroundColor: '#fff',
-                    secondSplashBackgroundColor: '#1e231e',
+                    secondSplashBackgroundColor: dark.primary.darken2,
                 },
                 {
                     id: routeIds.PAGE_PROFILE,
@@ -47,11 +47,9 @@ export const state = () => ({
                     id: routeIds.PAGE_HOME,
                     mainToolbarBtnBg: 'secondary lighten-1',
                     firstSplashForegroundColor: '#000',
-                    firstSplashBackgroundColor:
-                        light.primary.lighten1,
+                    firstSplashBackgroundColor: light.primary.lighten1,
                     secondSplashForegroundColor: '#000',
-                    secondSplashBackgroundColor:
-                        light.secondary.lighten1,
+                    secondSplashBackgroundColor: light.secondary.lighten1,
                 },
                 {
                     id: routeIds.PAGE_PROFILE,
@@ -84,8 +82,11 @@ export const getters = {
         state.themes.find((theme) => theme.id === themeId),
     element: (state, getters) => (themeId, routeId) =>
     {
-        return getters['themeById'](themeId).elements.find(element =>
-            element.id === routeId);
+        const theme = getters['themeById'](themeId);
+        return theme
+            ? theme.elements.find(element =>
+                element.id === routeId)
+            : {};
     },
     theme: state => state.theme,
     isThemeDark: state => state.theme == themeIds.THEME_DARK,
