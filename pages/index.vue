@@ -203,13 +203,6 @@ export default {
             portfolioItems,
         };
     },
-    async mounted()
-    {
-        let portfolioItems = [];
-        await this.$store.dispatch('portfolio/loadItems', null, { root: true });
-        portfolioItems = this.$store.getters['portfolio/firstN'](3);
-        this.portfolioItems = portfolioItems;
-    },
     methods: {
         pageTheme()
         {
