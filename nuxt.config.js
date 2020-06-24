@@ -6,7 +6,7 @@ import path from 'path';
 import { md } from './markdown-it';
 
 // Staging (true) or production (false)?
-const appModeStaging = false;
+const appModeStaging = true;
 const publicRuntimeConfig = {
     currentYear          :  (new Date()).getFullYear(),
     vueAppMode           :  appModeStaging ? 'staging' : 'production',
