@@ -382,10 +382,12 @@ export default {
         },
         setCanvasHeight()
         {
-            console.log('setCanvasHeight: this.$refs.dosCanvas.clientWidth = ',
-                        this && this.$refs && this.$refs.dosCanvas
-                            ? this.$refs.dosCanvas.clientWidth
-                            : 'N/A');
+            /*
+             *console.log('setCanvasHeight: this.$refs.dosCanvas.clientWidth = ',
+             *            this && this.$refs && this.$refs.dosCanvas
+             *                ? this.$refs.dosCanvas.clientWidth
+             *                : 'N/A');
+             */
             this.canvasHeight = this && this.$refs && this.$refs.dosCanvas
                 ? '' + (this.$refs.dosCanvas.clientWidth / 1.3333) + 'px'
                 : 'auto';

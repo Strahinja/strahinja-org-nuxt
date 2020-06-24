@@ -87,7 +87,7 @@ export const actions = {
             })
             .catch(function(error)
             {
-                console.log('store/links.js: ', error);
+                console.error('store/links.js: ', error);
                 if (options.callbackCatch) options.callbackCatch();
             });
     },
@@ -163,7 +163,7 @@ export const actions = {
             })
             .catch(function(error)
             {
-                console.log('store/links.js: ', error);
+                console.error('store/links.js: ', error);
                 if (options.callbackCatch) options.callbackCatch();
             });
     },

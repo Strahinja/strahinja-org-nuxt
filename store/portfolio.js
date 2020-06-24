@@ -117,9 +117,9 @@ export const actions = {
 
         if (index != -1)
         {
-            console.log('store/portfolio: saveItem: index = ', index);
+            //console.log('store/portfolio: saveItem: index = ', index);
             let item = getters['itemByLinkId'](payload.linkId);
-            console.log('store/portfolio: saveItem: item = ', item);
+            //console.log('store/portfolio: saveItem: item = ', item);
 
             try
             {
@@ -219,9 +219,9 @@ export const actions = {
 
         newList.splice(itemIndex+1, 0, item);
 
-        console.log('store/portfolio: moveItemDown: list[before] = ', getters['list']);
+        //console.log('store/portfolio: moveItemDown: list[before] = ', getters['list']);
         commit('setList', newList);
-        console.log('store/portfolio: moveItemDown: list[after] = ', getters['list']);
+        //console.log('store/portfolio: moveItemDown: list[after] = ', getters['list']);
 
         newList = null;
         item = null;
@@ -246,7 +246,7 @@ export const actions = {
     {
         let items = getters['itemIdList'];
 
-        console.log('store/portfolio: saveOrdering: items = ', items);
+        //console.log('store/portfolio: saveOrdering: items = ', items);
 
         try
         {

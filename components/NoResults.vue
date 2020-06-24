@@ -13,20 +13,19 @@ export default {
     name: 'NoResults',
     props: {
         message: { type: String, default: 'Ништа није пронађено', required: false },
-        image: { type: String, default: '~static/img/no-results-generic.svg', required: false },
+        image: { type: String, default: '/img/no-results-generic.svg', required: false },
     },
 };
 </script>
 
-<style type="sass">
+<style lang="sass">
 .no-results .v-image .v-image__image
-{
-    opacity: .1;
-}
+    opacity: .1
+
+.theme--dark .no-results .v-image .v-image__image
+    filter: invert(1)
 
 .no-results .v-image .v-responsive__content
-{
-    align-self: center;
-}
+    align-self: center
 </style>
 

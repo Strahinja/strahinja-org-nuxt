@@ -71,7 +71,7 @@ export const actions = {
                     }
                 }
 
-                console.log('store/local-auth: res = ', res);
+                //console.log('store/local-auth: res = ', res);
                 commit('setProcessingLogin', false);
                 commit('setUser', res.data || {});
                 if (!getters['loggedIn'])
@@ -92,7 +92,7 @@ export const actions = {
         try
         {
             let res = await this.$axios.$get(getters['apiCheckLoginPath']);
-            console.log('store/local-auth: checkLogin: res = ', res);
+            //console.log('store/local-auth: checkLogin: res = ', res);
             commit('setUser', res.data || {});
             if (res.code != 200 && res.message != 'Недоступан кључ')
             {

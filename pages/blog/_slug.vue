@@ -130,8 +130,9 @@ export default {
         let document;
         try
         {
-            document = await $content(`blog/${params.slug}`).fetch();
+            document = await $content(`blog/${params.slug}`, { text: true }).fetch();
             //console.log('asyncData: document = ', document);
+            //console.log('asyncData: document.text = ', document.text);
             if (!document)
             {
                 error({ statusCode: 404, message: 'Чланак није пронађен' });
@@ -145,7 +146,7 @@ export default {
                     const gist = store.getters['gists/gistById'](document.gistId);
                     if (!gist)
                     {
-                        throw 'Неуспешно учитавање';
+                        throw 'Неуспешно учитавање гиста';
                     }
                     document.gist = gist.data;
                     /*

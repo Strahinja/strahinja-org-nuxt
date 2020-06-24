@@ -63,12 +63,14 @@ export default {
          *                this.gist);
          *},
          */
-        mounted()
-        {
-            this.gist = this.$store.getters['gists/gistById'](this.gistId);
-            console.log('components/blog/Gist.vue: mounted: this.gist = ',
-                        this.gist);
-        },
+        /*
+         *mounted()
+         *{
+         *    this.gist = this.$store.getters['gists/gistById'](this.gistId);
+         *    //console.log('components/blog/Gist.vue: mounted: this.gist = ',
+         *    //this.gist);
+         *},
+         */
         escapeHtml(html)
         {
             return html

@@ -200,14 +200,14 @@ export const actions = {
     },
     loadSingleUser({ commit, dispatch, getters }, payload)
     {
-        console.log('store/users: loadSingleUser: payload = ', payload);
+        //console.log('store/users: loadSingleUser: payload = ', payload);
         dispatch('loading/startLoading', {
             id: 'single-user'
         }, { root: true });
         this.$axios.$get(getters['apiSingleUserPath'](payload.userId))
             .then(res =>
             {
-                console.log('store/users: loadSingleUser.then: res = ', res);
+                //console.log('store/users: loadSingleUser.then: res = ', res);
                 dispatch('loading/stopLoading', {
                     id: 'single-user'
                 }, { root: true });

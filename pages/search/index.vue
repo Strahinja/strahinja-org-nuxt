@@ -1,6 +1,6 @@
 <template lang="pug">
     subpage(:override-head="true")
-        section
+        section(:key="q")
             h1.display-1(v-if="q && q.length>0").
                 Претрага: #[span.highlight {{ q }}]
             h1.display-1(v-else=true) Претрага
@@ -27,8 +27,8 @@
                             clearable=true,
                             required=true,
                             @input="onSearchTextInput()")
-            blog-post(v-for="post in posts"
-            :key="post.name + q"
+            blog-post(v-for="post,postIndex in posts"
+            :key="postIndex"
             :document="post"
             :folded="true"
             :highlight="q"
@@ -59,6 +59,7 @@ export default {
                 v => !!v && v.length<this.maxSearchTextLength ||
                     `Текст мора бити мањи од ${this.maxSearchTextLength} знакова`,
             ],
+            posts: [],
         };
     },
     computed:
@@ -75,14 +76,16 @@ export default {
                 return null;
             }
         },
-        posts()
-        {
-            if (this && this.$store)
-            {
-                return this.$store.getters['posts/postsBySearchTerm'](this.q);
-            }
-            return [];
-        },
+        /*
+         *posts()
+         *{
+         *    if (this && this.$content)
+         *    {
+         *        return this.$store.getters['posts/postsBySearchTerm'](this.q);
+         *    }
+         *    return [];
+         *},
+         */
         q()
         {
             if (this && this.$route && this.$route.query.q)
@@ -92,17 +95,44 @@ export default {
             return '';
         },
     },
-    async fetch({ store })
+    /*
+     *async fetch({ store })
+     *{
+     *    await store.dispatch('posts/loadPosts');
+     *},
+     */
+    async asyncData({ $content, store, route })
     {
-        await store.dispatch('posts/loadPosts');
-    },
-    created()
-    {
-        this.searchText = this.q;
+        let posts = await $content('blog', { text: true }).search(route.query.q).fetch();
+        posts.forEach(async (post) =>
+        {
+            if (post.gistId)
+            {
+                try
+                {
+                    await store.dispatch('gists/loadGist',
+                                         { gistId: post.gistId });
+                    const gist = store.getters['gists/gistById'](post.gistId);
+                    if (!gist)
+                    {
+                        throw 'Неуспешно учитавање гиста';
+                    }
+                    post.gist = gist.data;
+                }
+                catch(err)
+                {
+                    console.error('pages/search/index.vue: ', err);
+                }
+            }
+        });
+        return {
+            posts,
+        };
     },
     mounted()
     {
         this.$refs.searchFormSearchTextField.$el.focus();
+        this.searchText = this.q;
     },
     methods: {
         clearSubmitTimeout()

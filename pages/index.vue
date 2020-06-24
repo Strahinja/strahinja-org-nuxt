@@ -98,7 +98,7 @@
                                 made-with(title="Nuxt.js",
                                 :height="madewithHeight",
                                 url="https://nuxtjs.org")
-                                    LogoNuxt.madewith-icon
+                                    logo-nuxt.madewith-icon
                             li(:class=`{
                             'sm-and-up': $breakpoint.is.smAndUp,
                             'xs-only': $breakpoint.is.xsOnly,
@@ -108,7 +108,7 @@
                                 made-with(title="Vue.js",
                                 :height="madewithHeight",
                                 url="https://vuejs.org")
-                                    LogoVue.madewith-icon
+                                    logo-vue.madewith-icon
                             li(:class=`{
                             'sm-and-up': $breakpoint.is.smAndUp,
                             'xs-only': $breakpoint.is.xsOnly
@@ -116,7 +116,7 @@
                                 made-with(title="Vuetify",
                                 :height="madewithHeight",
                                 url="https://vuetifyjs.com")
-                                    LogoVuetify.madewith-icon
+                                    logo-vuetify.madewith-icon
 </template>
 
 <script>

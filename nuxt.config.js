@@ -6,7 +6,7 @@ import path from 'path';
 import { md } from './markdown-it';
 
 // Staging (true) or production (false)?
-const appModeStaging = true;
+const appModeStaging = false;
 const publicRuntimeConfig = {
     currentYear          :  (new Date()).getFullYear(),
     vueAppMode           :  appModeStaging ? 'staging' : 'production',
@@ -303,6 +303,7 @@ export default {
         },
         productionTip: !appModeStaging,
         transpile: [
+            /content\/blog/,
             /static\/blog/,
             /vuetify-datetime-picker/
         ],
@@ -314,7 +315,10 @@ export default {
             config.module.rules.push({
                 test: /\.md$/,
                 loader: 'frontmatter-markdown-loader',
-                include: path.resolve(__dirname, 'static/blog'),
+                include: [
+                    path.resolve(__dirname, 'content/blog'),
+                    path.resolve(__dirname, 'static/blog'),
+                ],
                 options: {
                     mode: [FMMode.VUE_COMPONENT, FMMode.HTML],
                     vue: {
@@ -339,7 +343,7 @@ function getDynamicMarkdownPaths(urlFilepathTable)
         {
             var filepathGlob = urlFilepathTable[url];
             return glob
-                .sync(filepathGlob, { cwd: 'static/blog' })
+                .sync(filepathGlob, { cwd: 'content/blog' })
                 .map(filepath => `${url}/${path.basename(filepath, '.md')}`);
         })
     );
@@ -353,7 +357,7 @@ function getMarkdownFrontmatter(fileList)
 
     fileList.forEach(file =>
     {
-        const data = fs.readFileSync(`./static${file}.md`, 'utf8');
+        const data = fs.readFileSync(`./content${file}.md`, 'utf8');
         var content = fm(data);
         if (content && content.attributes)
         {

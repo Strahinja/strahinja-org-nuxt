@@ -307,15 +307,10 @@ export default {
             this.setHtmlClass(newValue);
         }
     },
-    asyncData({ $config: { currentYear } })
-    {
-        return {
-            currentYear,
-        };
-    },
     mounted()
     {
         this.setHtmlClass(this.dark);
+        this.currentYear = this.$config.currentYear;
     },
     head()
     {
