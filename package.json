@@ -7,6 +7,7 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
+    "test": "jest",
     "start": "nuxt start",
     "generate": "nuxt generate",
     "export": "nuxt export",
@@ -24,6 +25,7 @@
     "@nuxtjs/toast": "^3.3.0",
     "cookie-universal-nuxt": "^2.0.19",
     "dotprop": "^1.2.0",
+    "jest": "^26.1.0",
     "js-dos": "^6.22.59",
     "markdown-it-abbr": "^1.0.4",
     "markdown-it-anchor": "^5.2.5",
@@ -61,7 +63,9 @@
     "@nuxtjs/eslint-config": "^1.0.1",
     "@nuxtjs/eslint-module": "^1.0.0",
     "@nuxtjs/vuetify": "^1.11.2",
+    "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^26.1.0",
     "eslint": "^6.6.0",
     "eslint-plugin-nuxt": ">=0.5.0",
     "frontmatter-markdown-loader": "^3.1.0",
@@ -70,6 +74,7 @@
     "pug-plain-loader": "^1.0.0",
     "remark-twemoji": "^0.1.1",
     "remark-unwrap-images": "^2.0.0",
-    "twemoji": "^13.0.0"
+    "twemoji": "^13.0.0",
+    "vue-jest": "^3.0.5"
   }
 }
