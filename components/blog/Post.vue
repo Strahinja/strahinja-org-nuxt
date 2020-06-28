@@ -4,11 +4,11 @@
         'standalone': standalone
     }`)
         header
-            h1.display-1.article-title(v-if="standalone",
+            h1.display-1.article-title(v-if="standalone"
             :id="document.id")
                 nuxt-link(:to="`/blog/${document.slug}`") {{ document.title }}
-            h2.article-title(v-else,
-            :id="document.id",
+            h2.article-title(v-else
+            :id="document.id"
             ref="title")
                 nuxt-link(:to="`/blog/${document.slug}`") {{ document.title }}
             a(:name="document.slug")
@@ -22,42 +22,42 @@
                         {{ formatDate(document.date) }}
             .categories-container Категорије:
                 ul.categories
-                    li(v-for="(category, categoryIndex) in document.categories",
+                    li(v-for="(category, categoryIndex) in document.categories"
                     :key="categoryIndex") {{ category }}
         v-container.py-0.pb-5.ml-0
             v-row(ref="articleRow")
-                foldable(:folded="postFolded",
+                foldable(:folded="postFolded"
                 folded-height="15em")
-                    v-col.py-0.folded(:cols="12",
-                    :lg="10")
-                        nuxt-content(:document="document")/
-                        //-dynamic-markdown(:file-name="frontmatter.name",
-                        //-:standalone="standalone",
-                        //-:highlight="highlight",
-                        //-:extra-component="extraComponent",
-                        //-:extra-component-params="extraComponentParams")
+                    v-col.py-0.folded(cols=12
+                    lg=10)
+                        nuxt-content-highlight(
+                           :document="document"
+                           :highlight-text="highlight"
+                           highlight-class-name="highlight"
+                           :standalone="standalone"
+                        )/
 
-            .folded-overlay.col-lg-10.col-12(v-ripple,
+            .folded-overlay.col-lg-10.col-12(v-ripple
             @click="toggleFolded")
                 .folded-overlay-inner
         footer
             .tags-container(v-if="hasTags") Ознаке:
                 ul.tags
-                    li(v-for="(tag, tagIndex) in document.tags",
-                    :key="tagIndex",
+                    li(v-for="(tag, tagIndex) in document.tags"
+                    :key="tagIndex"
                     :class=`{
                         'highlight': tag==highlight
                     }`)
                         nuxt-link(:to="tagUrl(tag)") {{ '#' + tag }}
-            v-container.py-0(v-if="!standalone",
+            v-container.py-0(v-if="!standalone"
             fluid)
                 v-row
-                    v-col.text-center(:cols="12",
-                    :lg="10")
-                        v-btn.black--text(color="accent",
-                        hovered,
-                        rounded,
-                        elevation="2",
+                    v-col.text-center(cols=12
+                    lg=10)
+                        v-btn.black--text(color="accent"
+                        hovered
+                        rounded
+                        elevation=2
                         @click="toggleFolded")
                             v-icon {{ postFolded ? 'mdi-chevron-down' : 'mdi-chevron-up' }}
                             span(v-if="postFolded") Прикажи чланак

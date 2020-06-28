@@ -10,7 +10,7 @@
                 v-container.ml-0
                     v-row
                         v-col.pa-0
-                            v-text-field(ref="searchFormSearchTextField",
+                            v-text-field.search-field(ref="searchFormSearchTextField",
                             v-model="searchText",
                             name="q",
                             :value="q",
@@ -212,6 +212,8 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
+.search-field input
+    font-size: 1.2rem
 </style>
 

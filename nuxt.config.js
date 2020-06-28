@@ -4,6 +4,7 @@ import dark from './theme/dunedain-dark';
 import FMMode from 'frontmatter-markdown-loader/mode';
 import path from 'path';
 import { md } from './markdown-it';
+const consola = require ('consola');
 
 // Staging (true) or production (false)?
 const appModeStaging = false;
@@ -23,8 +24,10 @@ var dynamicMarkdownRoutes = getDynamicMarkdownPaths({
 const blogFrontmatter = getMarkdownFrontmatter(dynamicMarkdownRoutes);
 const blogTags = getMarkdownTags(blogFrontmatter);
 const blogGistIds = getMarkdownGistIds(blogFrontmatter);
-console.log('nuxt.config.js: blogTags = ', JSON.stringify(blogTags));
-console.log('nuxt.config.js: blogGistIds = ', JSON.stringify(blogGistIds));
+consola.info('blogTags = ', JSON.stringify(blogTags));
+consola.info('blogGistIds = ', JSON.stringify(blogGistIds));
+//consola.info('nuxt.config.js: blogTags = ', JSON.stringify(blogTags));
+//consola.info('nuxt.config.js: blogGistIds = ', JSON.stringify(blogGistIds));
 //fs.writeFileSync('static/blog/blog-frontmatter.json', JSON.stringify(blogFrontmatter));
 fs.writeFileSync('content/blog/blog-tags.json', JSON.stringify(blogTags));
 fs.writeFileSync('content/blog/blog-gist-ids.json', JSON.stringify(blogGistIds));
@@ -37,7 +40,7 @@ dynamicMarkdownRoutes = dynamicMarkdownRoutes.concat(blogTags.map(tag =>
 }));
 
 //dynamicMarkdownRoutes = ['/blog'].concat(dynamicMarkdownRoutes);
-console.log('nuxt.config.js: dynamicMarkdownRoutes = ', JSON.stringify(dynamicMarkdownRoutes));
+consola.info('dynamicMarkdownRoutes = ', JSON.stringify(dynamicMarkdownRoutes));
 
 const sitemapGeneralExclusion = [
     '/noindex',
@@ -175,6 +178,18 @@ export default {
             },
         },
     },
+    /*
+     * hooks
+     */
+    /*
+     *hooks: {
+     *    'content:file:beforeInsert': (document) =>
+     *    {
+     *        if (document.extension === '.md') {
+     *        }
+     *    }
+     *},
+     */
     publicRuntimeConfig,
     /*purgeCSS: {
         content: [
@@ -305,7 +320,8 @@ export default {
         transpile: [
             /content\/blog/,
             /static\/blog/,
-            /vuetify-datetime-picker/
+            /vuetify-datetime-picker/,
+            /templates\/nuxt-content/
         ],
         extend (config)
         {
