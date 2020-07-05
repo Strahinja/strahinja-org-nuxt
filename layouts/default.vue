@@ -121,18 +121,25 @@
             tile)
                 v-card-text.d-flex.text-center.justify-center(:style=`{
                     'background-color':
-                        pageTheme().footerFirstLineBackgroundColor
+                        pageTheme().footerFirstLineBackgroundColor,
+                    'flex-wrap': $breakpoint.is.xsOnly ? 'wrap' : 'initial'
                 }`)
                     v-tooltip(v-for="(footerLink, footerLinkIndex) in footerLinks",
                     :key="footerLinkIndex",
                     bottom)
                         template(v-slot:activator="{ on }")
-                            v-btn.mx-2(text,
-                            icon,
+                            v-btn.mx-2(v-if="footerLink.popup"
+                            text icon
+                            v-on="on"
+                            @click="openTextPopup(footerLink.popup)")
+                                v-icon.white--text {{ footerLink.iconName }}
+                            v-btn.mx-2(v-else
+                            text icon
                             v-on="on")
-                                a(:href="footerLink.url.path",
+                                a(v-if="footerLink.url.path"
+                                :href="footerLink.url.path"
                                 target="_blank")
-                                    v-icon.white--text {{footerLink.iconName }}
+                                    v-icon.white--text {{ footerLink.iconName }}
                         span {{ footerLink.text }}
                 v-card-actions.d-block.text-left(:class=`{
                     'text-center': $breakpoint.is.xsOnly
@@ -166,20 +173,35 @@
                                         src="/img/80x15.png")
                                 .d-inline.mr-1 Copyright © 1999-{{ currentYear }}
                                 .d-inline Страхиња Радић (Strahinya Radich)
+        v-bottom-sheet(v-model="showTextPopup"
+        inset
+        :max-width="500")
+            v-card
+                v-card-title
+                    .popup-text(v-if="popupText")
+                        span.mr-5(v-if="popupText.description.icon")
+                            v-icon {{ popupText.description.icon }}
+                        span.mr-5(v-else) {{ popupText.description.text }}
+                        span(v-for="value,index in popupText.value"
+                        :key="index"
+                        :style="value.style") {{ value.text }}
+                    v-tooltip(top)
+                        template(v-slot:activator="{ on }")
+                            v-btn(icon
+                            v-on="on"
+                            @click="showTextPopup=false")
+                                v-icon mdi-close
+                        span Затвори панел
 </template>
 
 <script>
-//import Hamburger from '~/components/Hamburger';
-//import ProfileMenu from '~/components/ProfileMenu';
-//import CookieDisclaimer from '~/components/CookieDisclaimer';
 import Gnu from '~/assets/svg/gnu.svg?inline';
 import Strahinjaorg from '~/assets/svg/strahinjaorg.svg?inline';
 import { routeIds, iconSvgs } from '~/store/pages';
 
 export default {
     name: 'App',
-    middleware: ['set-page-id', 'cookie-consent'],
-    //components: { CookieDisclaimer, Gnu, Hamburger, Strahinjaorg, ProfileMenu },
+    middleware: [ 'set-page-id', 'cookie-consent' ],
     components: { Gnu, Strahinjaorg },
     data()
     {
@@ -189,6 +211,8 @@ export default {
             extraProps: {},
             currentYear: '',
             showNav: false,
+            showTextPopup: false,
+            popupText: null,
             appbarSearchText: '',
             showSearch: false,
             maxSearchTextLength: 255,
@@ -512,7 +536,12 @@ export default {
             this.$store.dispatch('themes/cycleTheme', {
                 vuetify: this.$vuetify,
             });
-        }
+        },
+        openTextPopup(popupText)
+        {
+            this.popupText = popupText;
+            this.showTextPopup = true;
+        },
     }
 };
 </script>
@@ -582,4 +611,9 @@ export default {
 .v-navigation-drawer--clipped:not(.v-navigation-drawer--temporary):not(.v-navigation-drawer--is-mobile)
     z-index: 40 !important
 
+.popup-text
+    display: flex
+    margin-left: auto
+    margin-right: auto
+    font-size: 1.2rem
 </style>

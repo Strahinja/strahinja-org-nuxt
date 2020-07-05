@@ -496,19 +496,25 @@ export const state = () => ({
             },
             iconType: 'v-icon',
             iconName: 'mdi-linkedin',
-            text: 'LinkedIn'
+            text: 'LinkedIn',
         },
         {
             url: { path: 'https://github.com/Strahinja' },
             iconType: 'v-icon',
             iconName: 'mdi-github',
-            text: 'GitHub'
+            text: 'GitHub',
         },
         {
             url: { path: 'https://codepen.io/Strahinja/' },
             iconType: 'v-icon',
             iconName: 'mdi-codepen',
-            text: 'CodePen'
+            text: 'CodePen',
+        },
+        {
+            url: { path: 'https://www.npmjs.com/~strahinja' },
+            iconType: 'v-icon',
+            iconName: 'mdi-npm',
+            text: 'npm',
         },
         {
             url: {
@@ -516,13 +522,36 @@ export const state = () => ({
             },
             iconType: 'v-icon',
             iconName: 'mdi-jsfiddle',
-            text: 'JSFiddle'
+            text: 'JSFiddle',
+        },
+        {
+            url: {},
+            popup: {
+                description: {
+                    icon: 'mdi-discord',
+                },
+                value: [
+                    {
+                        text: 'Strahinja',
+                        style: {},
+                    },
+                    {
+                        text: '#7329',
+                        style: {
+                            opacity: '.75'
+                        }
+                    },
+                ]
+            },
+            iconType: 'v-icon',
+            iconName: 'mdi-discord',
+            text: 'Discord',
         },
         {
             url: { path: 'https://twitter.com/strahinja_radic' },
             iconType: 'v-icon',
             iconName: 'mdi-twitter',
-            text: 'Twitter'
+            text: 'Twitter',
         },
         {
             url: {
@@ -530,7 +559,7 @@ export const state = () => ({
             },
             iconType: 'v-icon',
             iconName: 'mdi-facebook',
-            text: 'Facebook'
+            text: 'Facebook',
         }
     ],
 });

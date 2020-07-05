@@ -130,6 +130,7 @@ export default {
     modules: [
         '@nuxtjs/axios',
         '@nuxt/content',
+        'nuxt-content-highlight',
         //'@nuxtjs/markdownit',
         ['@nuxtjs/toast', {
             iconPack: 'custom-class',
@@ -321,7 +322,9 @@ export default {
             /content\/blog/,
             /static\/blog/,
             /vuetify-datetime-picker/,
-            /templates\/nuxt-content/
+            /templates\/nuxt-content/,
+            /nuxt-content-highlight/,
+            /@nuxt\/content/,
         ],
         extend (config)
         {
