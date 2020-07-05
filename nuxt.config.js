@@ -158,7 +158,7 @@ export default {
      */
     content: {
         markdown: {
-            plugins: [
+            remarkPlugins: [
                 'remark-abbr',
                 'remark-emoji',
                 'remark-twemoji',
