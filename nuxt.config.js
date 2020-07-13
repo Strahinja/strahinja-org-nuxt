@@ -29,6 +29,8 @@ consola.info('blogGistIds = ', JSON.stringify(blogGistIds));
 //consola.info('nuxt.config.js: blogTags = ', JSON.stringify(blogTags));
 //consola.info('nuxt.config.js: blogGistIds = ', JSON.stringify(blogGistIds));
 //fs.writeFileSync('static/blog/blog-frontmatter.json', JSON.stringify(blogFrontmatter));
+fs.writeFileSync('static/blog/blog-tags.json', JSON.stringify(blogTags));
+fs.writeFileSync('static/blog/blog-gist-ids.json', JSON.stringify(blogGistIds));
 fs.writeFileSync('content/blog/blog-tags.json', JSON.stringify(blogTags));
 fs.writeFileSync('content/blog/blog-gist-ids.json', JSON.stringify(blogGistIds));
 
@@ -391,12 +393,11 @@ function getMarkdownGistIds(frontmatterList)
     let gistIds = [];
     frontmatterList.forEach(fm =>
     {
-        if (fm.extraComponentParams &&
-            fm.extraComponentParams.gistId)
+        if (fm.gistId)
         {
-            if (gistIds.indexOf(fm.extraComponentParams.gistId) == -1)
+            if (gistIds.indexOf(fm.gistId) == -1)
             {
-                gistIds.push(fm.extraComponentParams.gistId);
+                gistIds.push(fm.gistId);
             }
         }
     });

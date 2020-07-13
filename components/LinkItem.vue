@@ -1,27 +1,22 @@
 <template lang="pug">
-    v-card.link-item(:color="getItemColor(itemIndex)",
-    raised="10")
-        v-container.pa-0(fluid=true,
-        no-gutters=true)
-            v-row.ma-0
-                v-col.pa-0(:cols="12")
-                    v-card-title
-                        a(:href="item.url",
-                        target="_blank")
-                            v-icon mdi-bookmark
-                            | {{ prettyUrl(item.url) }}
-                    v-card-subtitle
-                        v-icon mdi-cursor-default-click
-                        | Посећено: {{ prettyDate(item.visited) }}
-                    v-card-actions
-                        v-spacer/
-                        v-btn(icon=true,
-                        @click="expanded = !expanded")
-                            v-icon.
-                                {{ expanded ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
-                    foldable(:folded="!expanded")
-                        v-card-text
-                            p(v-html="item.description")
+    v-scale-transition(appear hide-on-leave)
+        v-skeleton-loader(v-if="thumbnailLoading"
+        type="article")
+        v-card.link-item.full-height(v-else
+        :color="getItemColor(itemIndex)"
+        raised="10")
+            v-img(width=355
+            :src="thumbnail")
+                v-card-title
+                    a(:href="item.url"
+                    target="_blank")
+                        v-icon mdi-bookmark
+                        | {{ prettyUrl(item.url) }}
+                v-card-text
+                    v-icon mdi-cursor-default-click
+                    | Посећено: {{ prettyDate(item.visited) }}
+                    br
+                    | {{ item.description }}
 </template>
 
 <script>
@@ -34,14 +29,47 @@ export default {
         item: { type: Object, default: null},
         itemIndex: { type: Number, default: 0 },
     },
+    data()
+    {
+        return {
+            thumbnailLoading: true,
+            thumbnail: '',
+        };
+    },
+    mounted()
+    {
+        if (this.item)
+        {
+            this.loadThumbnail(this.item.id, this.item.url);
+        }
+    },
     methods: {
         cardNavigate(url)
         {
             window.open(url, '_blank');
         },
-        getImagePath(img)
+        async loadThumbnail(id, url)
         {
-            return '/static/' + img;
+            if (this && this.$store)
+            {
+                setTimeout(() =>
+                {
+                    this.thumbnailLoading = false;
+                }, 2000);
+                //try
+                //{
+                //let thumbnail = await this.$store.dispatch('links/loadThumbnail',
+                //{ id, url }, { root: true });
+                //this.thumbnailLoading = false;
+                //this.thumbnail = thumbnail;
+                //}
+                //catch(err)
+                //{
+                //this.thumbnailLoading = false;
+                //this.thumbnail = '';
+                //console.error('loadThumbnail: ', err);
+                //}
+            }
         },
         getItemColor(itemIndex)
         {
@@ -146,6 +174,18 @@ export default {
     position: absolute
     margin-left: -1.3928rem
 
+//-.link-item .v-card__text
+    position: relative
+
+//-.link-item .loading-overlay
+    display: flex
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    transition: all .5s ease
+
 //-.link-item .v-card__title:hover a,
    .link-item .v-card__title:hover a i
    color: #fff
@@ -154,5 +194,4 @@ export default {
 //-.theme--dark.v-application .v-card__title,
     .theme--dark.v-application .v-card__text
     color: map-get($material-light, 'text-color')
-
 </style>

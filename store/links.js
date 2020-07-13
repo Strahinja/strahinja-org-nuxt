@@ -4,6 +4,9 @@ export const state = () => ({
     categories: [],
     apiUrl: '/favorites',
     apiCategoriesUrl: '/categories?ct=favorite',
+    apiThumbnailsUrl: '/thumbnail/{0}',
+    apiThumbnailCacheUrl: '/img/thumbnails/{0}.jpg',
+    thumbnailLoadingQueue: [],
     numPages: 0,
     itemsPerPage: 12,
     count: 0,
@@ -44,14 +47,32 @@ export const mutations = {
     {
         state.loadedInitially = payload;
     },
+    setThumbnail(state, { id, image })
+    {
+        state.list.find(item => item.id===id).thumbnail = image;
+    },
+    addToThumbnailLoadingQueue(state, { url })
+    {
+        state.thumbnailLoadingQueue.push(url);
+    },
+    removeFromThumbnailLoadingQueue(state, { url })
+    {
+        state.thumbnailLoadingQueue.splice(
+            state.thumbnailLoadingQueue.indexOf(url), 1);
+    },
 };
 
 export const getters = {
     apiPath: state => state.apiUrl,
     apiCategoriesPath: state => state.apiCategoriesUrl,
+    apiThumbnailsPath: state => url => state.apiThumbnailsUrl
+        .replace('{0}', encodeURIComponent(url.replace('/', '#'))),
+    apiThumbnailsCachePath: state => md5 =>
+        md5 ? state.apiThumbnailsCacheUrl.replace('{0}', md5) : '',
     count: state => state.count,
     numPages: state => state.numPages,
     itemsPerPage: state => state.itemsPerPage,
+    itemById: state => itemId => state.list.find(item => item.id === itemId),
     pageNumber: state => state.pageNumber,
     offset: (state, getters) =>
         (getters['pageNumber'] - 1) * getters['itemsPerPage'],
@@ -192,6 +213,39 @@ export const actions = {
                     }, { root: true })
                 });
             });
-    }
+    },
+    async loadThumbnail({ dispatch, commit, getters }, { id, url })
+    {
+        let item = getters['itemById'](id);
+        if (item)
+        {
+            if (item.thumbnail)
+            {
+                return item.thumbnail;
+            }
+
+            dispatch('loading/startLoading', {
+                id: 'thumbnail'+id
+            }, { root: true });
+            try
+            {
+                let md5 = await this.$axios.get(getters['apiThumbnailsPath'](url));
+                let imagePath = getters['apiThumbnailsCachePath'](md5);
+                dispatch('loading/stopLoading', {
+                    id: 'thumbnail'+id
+                }, { root: true });
+                commit('setThumbnail', { id, image: imagePath });
+                return imagePath;
+            }
+            catch(err)
+            {
+                dispatch('loading/stopLoading', {
+                    id: 'thumbnail'+id
+                }, { root: true });
+                console.error('store/links: ', err);
+            }
+        }
+        return null;
+    },
 };
 
