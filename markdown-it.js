@@ -3,7 +3,7 @@ import markdownItAbbr from 'markdown-it-abbr';
 import markdownItAnchor from 'markdown-it-anchor';
 import markdownItAttribution from 'markdown-it-attribution';
 import markdownItEmoji from 'markdown-it-emoji';
-import markdownItFigureCaption from 'markdown-it-figure-caption';
+//import markdownItFigureCaption from 'markdown-it-figure-caption';
 import markdownItFootnote from 'markdown-it-footnote';
 import markdownItGithubHeadings from 'markdown-it-github-headings';
 import markdownItKatex from '@iktakahiro/markdown-it-katex';
@@ -30,7 +30,7 @@ var md = new markdownIt({html: true})
     .use(markdownItAnchor)
     .use(markdownItAttribution)
     .use(markdownItEmoji)
-    .use(markdownItFigureCaption)
+    //.use(markdownItFigureCaption)
     .use(markdownItFootnote)
     .use(markdownItGithubHeadings, {
         className: 'github-heading',

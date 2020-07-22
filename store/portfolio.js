@@ -1,7 +1,7 @@
 export const state = () => ({
     list: [],
     apiUrl: '/portfolio?c=12',
-    apiReadUrl: '/portfolio',
+    apiReadUrl: '/portfolio/{0}',
     apiSerializeUrl: '/portfolio/serialize',
     apiOrderingUrl: '/portfolio/order',
     apiRemoveUrl: '/portfolio/delete',
@@ -28,6 +28,8 @@ export const getters = {
     itemByLinkId: state => linkId =>
         state.list.find(item => item.link_id == linkId),
     apiPath: state => state.apiUrl,
+    apiReadPath: state => itemId =>
+        state.apiReadUrl.replace('{0)', itemId),
     apiSerializePath: state => state.apiSerializeUrl,
     apiOrderingPath: state => state.apiOrderingUrl,
     apiRemovePath: state => state.apiRemovePath,
@@ -39,36 +41,37 @@ export const actions = {
     {
         if (!getters['count'])
         {
-            let res = null;
-            dispatch('loading/startLoading', { id: 'portfolio', },
-                     { root: true });
+            //console.log('store/portfolio: calling startLoading');
+            //await dispatch('loading/startLoading', { id: 'portfolio', },
+            //{ root: true });
             try
             {
-                res = await this.$axios.$get(getters['apiPath']);
-            }
-            catch(error)
-            {
-                dispatch('loading/stopLoading', { id: 'portfolio' },
-                         { root: true });
-                console.error('store/portfolio.js: ', error);
-            }
-            dispatch('loading/stopLoading', { id: 'portfolio' },
-                     { root: true });
-
-            if (res && res.data && res.code === 200)
-            {
-                res.data.forEach((item) =>
+                const res = await this.$axios.$get(getters['apiPath']);
+                //console.log('store/portfolio: calling stopLoading');
+                //await dispatch('loading/stopLoading', { id: 'portfolio' },
+                //{ root: true });
+                if (res && res.data && res.code === 200)
                 {
-                    item.old_link_id = item.link_id;
-                });
-                commit('setList', res.data);
+                    res.data.forEach((item) =>
+                    {
+                        item.old_link_id = item.link_id;
+                    });
+                    commit('setList', res.data);
+                }
+            }
+            catch(err)
+            {
+                //console.log('store/portfolio: calling stopLoading');
+                //await dispatch('loading/stopLoading', { id: 'portfolio' },
+                //{ root: true });
+                console.error('store/portfolio.js: ', err);
             }
         }
     },
 
-    loadItem({ getters }, itemId)
+    async loadItem({ getters }, itemId)
     {
-        return this.$axios.$get(`${getters['apiReadPath']}/${itemId}`);
+        return await this.$axios.$get(getters['apiReadPath'](itemId));
     },
 
     /*async addItem({ dispatch, getters })

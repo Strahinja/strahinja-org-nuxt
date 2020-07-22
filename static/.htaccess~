@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
   ErrorDocument 404 /404.html
-  #Options +FollowSymLinks
+  Options +FollowSymLinks
   RewriteEngine On
 
   #RewriteCond %{SERVER_PORT} 80

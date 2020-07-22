@@ -1599,11 +1599,11 @@
     vue-svg-loader "^0.16.0"
 
 "@nuxtjs/toast@^3.3.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/toast/-/toast-3.3.0.tgz#fe762dc8a19d81b2a9b5b9e6daac61e5d31821b7"
-  integrity sha512-HZAhWMQqgQ8m2XtQS4CpvoJtiZw2kmdqFg0GJv8upNEXoP7/nATW2CPIFemMtiparevLZwpCAAcMIVqcSW9l1g==
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/toast/-/toast-3.3.1.tgz#ae489f4990b5da9f7ab90ea2dbfcf47900cb3ca2"
+  integrity sha512-b9JpyjSw5ZOyjskBvNc4NEebe0qxB6LivBlO84gHOnsaF23rLkJoBfVNDcXwGNDl7vm09yM4WqBGTkm/OQ0ZCQ==
   dependencies:
-    vue-toasted "^1.1.27"
+    vue-toasted "^1.1.28"
 
 "@nuxtjs/vuetify@^1.11.2":
   version "1.11.2"
@@ -7694,10 +7694,6 @@ markdown-it-emoji@^1.4.0:
   resolved "https://registry.yarnpkg.com/markdown-it-emoji/-/markdown-it-emoji-1.4.0.tgz#9bee0e9a990a963ba96df6980c4fddb05dfb4dcc"
   integrity sha1-m+4OmpkKljupbfaYDE/dsF37Tcw=
 
-"markdown-it-figure-caption@https://github.com/windmaomao/markdown-it-figure-caption.git":
-  version "0.1.0"
-  resolved "https://github.com/windmaomao/markdown-it-figure-caption.git#63a9933801ea56dbf3dc9c37707b196fca2ae5e0"
-
 markdown-it-footnote@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/markdown-it-footnote/-/markdown-it-footnote-3.0.2.tgz#1575ee7a093648d4e096aa33386b058d92ac8bc1"
@@ -7712,9 +7708,9 @@ markdown-it-github-headings@^1.1.2:
     innertext "^1.0.1"
 
 markdown-it-kbd@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/markdown-it-kbd/-/markdown-it-kbd-2.0.0.tgz#adfbd1feddf2f22e2b1636107af748ebbfb9c4f8"
-  integrity sha512-wMEFAF6WIcitSLt2uGuqXjOB6EfmpML7FN6KI8WdhI2A5l1SsgtmaFPR1ss7BjIqUrtjSk4tNhSl0azt3quwEA==
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/markdown-it-kbd/-/markdown-it-kbd-2.2.0.tgz#5ab0e9f285f61d27c46b482f215dc4641873c3a2"
+  integrity sha512-2pihaZc7D+q78VQucDg3uTy3QOMCChRBJ3IT/wFrrWCJ2HQ3tVX8xURL18WmULBbhkZ0dQM33sVRlNQ6oU3UNg==
 
 markdown-it-mdi@^0.1.0:
   version "0.1.0"
@@ -7724,11 +7720,11 @@ markdown-it-mdi@^0.1.0:
     markdown-it-regexp "^0.4.0"
 
 markdown-it-prism@^2.0.3:
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/markdown-it-prism/-/markdown-it-prism-2.0.5.tgz#4bbf46be47878f227678dd83ed97f6c9b07a4094"
-  integrity sha512-u2jErcoLCnENIOUnEbS9w9RWUGiId8fjQovD0Gbo4iT8tZU0/Un4v72E8g8sj/NAzieSCvFVG6KtMwlurSBMnw==
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/markdown-it-prism/-/markdown-it-prism-2.1.0.tgz#10ef59d19598a9b6725615005cf2601aba011500"
+  integrity sha512-e6KlAV+tD/zW8HgEOkmkFGxLpyxIXB1vNk5bRLq1AEXNVWvNE4+DlqQghugRL4Cc9bxL9Q3hnHSYTIejtUCGvA==
   dependencies:
-    prismjs "1.19.0"
+    prismjs "1.20.0"
 
 markdown-it-regexp@^0.4.0:
   version "0.4.0"
@@ -9685,14 +9681,7 @@ pretty@^2.0.0:
     extend-shallow "^2.0.1"
     js-beautify "^1.6.12"
 
-prismjs@1.19.0:
-  version "1.19.0"
-  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.19.0.tgz#713afbd45c3baca4b321569f2df39e17e729d4dc"
-  integrity sha512-IVFtbW9mCWm9eOIaEkNyo2Vl4NnEifis2GQ7/MLRG5TQe6t+4Sj9J5QWI9i3v+SS43uZBlCAOn+zYTVYQcPXJw==
-  optionalDependencies:
-    clipboard "^2.0.0"
-
-prismjs@^1.20.0:
+prismjs@1.20.0, prismjs@^1.20.0:
   version "1.20.0"
   resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.20.0.tgz#9b685fc480a3514ee7198eac6a3bf5024319ff03"
   integrity sha512-AEDjSrVNkynnw6A+B1DsFkd6AVdTnp+/WoUixFRULlCLZVRZlVQMVWio/16jv7G1FscUxQxOQhWwApgbnxr6kQ==
@@ -11793,9 +11782,9 @@ twemoji-parser@13.0.0:
   integrity sha512-zMaGdskpH8yKjT2RSE/HwE340R4Fm+fbie4AaqjDa4H/l07YUmAvxkSfNl6awVWNRRQ0zdzLQ8SAJZuY5MgstQ==
 
 twemoji@^13.0.0:
-  version "13.0.0"
-  resolved "https://registry.yarnpkg.com/twemoji/-/twemoji-13.0.0.tgz#bdda95c0a76553bb57a355459955feb79eeebcfb"
-  integrity sha512-JIkoLy0lL7ZlsiUKAOdXTp0o8C15O3CzDzAmnWdeDHpjeifmKDDKX4CyViUj+9g33pIqMr8Uhcy1WLwETr8oNg==
+  version "13.0.1"
+  resolved "https://registry.yarnpkg.com/twemoji/-/twemoji-13.0.1.tgz#57ddc8bd86c8175c11376f5f9ab322a02e739c2d"
+  integrity sha512-mrTBq+XpCLM4zm76NJOjLHoQNV9mHdBt3Cba/T5lS1rxn8ArwpqE47mqTocupNlkvcLxoeZJjYSUW0DU5ZwqZg==
   dependencies:
     fs-extra "^8.0.1"
     jsonfile "^5.0.0"
@@ -12406,7 +12395,7 @@ vue-template-es2015-compiler@^1.6.0, vue-template-es2015-compiler@^1.9.0:
   resolved "https://registry.yarnpkg.com/vue-template-es2015-compiler/-/vue-template-es2015-compiler-1.9.1.tgz#1ee3bc9a16ecbf5118be334bb15f9c46f82f5825"
   integrity sha512-4gDntzrifFnCEvyoO8PqyJDmguXgVPxKiIxrBKjIowvL9l+N66196+72XVYR8BBf1Uv1Fgt3bGevJ+sEmxfZzw==
 
-vue-toasted@^1.1.27:
+vue-toasted@^1.1.28:
   version "1.1.28"
   resolved "https://registry.yarnpkg.com/vue-toasted/-/vue-toasted-1.1.28.tgz#dbabb83acc89f7a9e8765815e491d79f0dc65c26"
   integrity sha512-UUzr5LX51UbbiROSGZ49GOgSzFxaMHK6L00JV8fir/CYNJCpIIvNZ5YmS4Qc8Y2+Z/4VVYRpeQL2UO0G800Raw==

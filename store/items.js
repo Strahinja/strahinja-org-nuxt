@@ -57,20 +57,20 @@ export const actions = {
         if (payload && payload.catId)
         {
             let res = null;
-            dispatch('loading/startLoading', { id: 'items', },
-                     { root: true });
+            //await dispatch('loading/startLoading', { id: 'items', },
+            //{ root: true });
             try
             {
                 res = await this.$axios.$get(getters['apiPath'](payload.catId));
             }
             catch(error)
             {
-                dispatch('loading/stopLoading', { id: 'items' },
-                         { root: true });
+                //await dispatch('loading/stopLoading', { id: 'items' },
+                //{ root: true });
                 console.error('store/items.js: ', error);
             }
-            dispatch('loading/stopLoading', { id: 'items' },
-                     { root: true });
+            //await dispatch('loading/stopLoading', { id: 'items' },
+            //{ root: true });
 
             if (res && res.data && res.code === 200)
             {

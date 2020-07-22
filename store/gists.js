@@ -22,9 +22,9 @@ export const getters = {
 export const actions = {
     async loadItems({ dispatch, getters })
     {
-        dispatch('loading/startLoading', {
-            id: 'gists',
-        }, { root: true });
+        //await dispatch('loading/startLoading', {
+        //id: 'gists',
+        //}, { root: true });
         for (let gistId of gistIds)
         {
             if (!getters['gistById'](gistId))
@@ -32,9 +32,9 @@ export const actions = {
                 await dispatch('loadGist', { gistId });
             }
         }
-        dispatch('loading/stopLoading', {
-            id: 'gists'
-        }, { root: true });
+        //await dispatch('loading/stopLoading', {
+        //id: 'gists'
+        //}, { root: true });
     },
 
     async loadGist({ commit, dispatch, getters }, { gistId })

@@ -198,11 +198,14 @@
 import Gnu from '~/assets/svg/gnu.svg?inline';
 import Strahinjaorg from '~/assets/svg/strahinjaorg.svg?inline';
 import { routeIds, iconSvgs } from '~/store/pages';
+import { cookieNames } from '~/store/cookies';
 
 export default {
     name: 'App',
-    middleware: [ 'set-page-id', 'cookie-consent' ],
+    middleware: [ 'set-page-id' ],
+    plugins: ['~/plugins/preview.client.js'],
     components: { Gnu, Strahinjaorg },
+    mixins: ['~/mixins/breakpoint.js'],
     data()
     {
         return {
@@ -320,9 +323,10 @@ export default {
         },
         showCookieConsent()
         {
-            return this && this.$store && this.$store.getters ?
-                this.$store.getters['pages/showCookieConsent'] :
-                true;
+            return this && this.$store && this.$store.getters
+                ? this.$store.getters['cookies/getCookie'](
+                    cookieNames.STRAHINJA_ORG_COOKIE_CONSENT)=='1'
+                : true;
         },
     },
     watch: {
@@ -331,10 +335,15 @@ export default {
             this.setHtmlClass(newValue);
         }
     },
-    mounted()
+    async mounted()
     {
         this.setHtmlClass(this.dark);
         this.currentYear = this.$config.currentYear;
+        await this.$store.dispatch('cookies/initKnownCookies', { root: true });
+        await this.$store.dispatch('themes/initTheme', this.$vuetify,
+                                   { root: true });
+        console.log('layout.mounted: process.client = ',
+                    process.client);
     },
     head()
     {
@@ -531,11 +540,11 @@ export default {
                 this.showSearch = false;
             }
         },
-        themeModeBtnClick()
+        async themeModeBtnClick()
         {
-            this.$store.dispatch('themes/cycleTheme', {
+            await this.$store.dispatch('themes/cycleTheme', {
                 vuetify: this.$vuetify,
-            });
+            }, { root: true });
         },
         openTextPopup(popupText)
         {

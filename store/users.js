@@ -66,129 +66,131 @@ export const getters = {
 };
 
 export const actions = {
-    addUser({ commit, dispatch, getters }, payload)
+    async addUser({ commit, dispatch, getters }, payload)
     {
         if (payload.data && payload.data.email && !getters['userByEmail'](payload.data.email))
         {
-            dispatch('loading/startLoading', {
+            await dispatch('loading/startLoading', {
                 id: 'users'
             }, { root: true });
-            this.$axios.post(getters['apiAddPath'], {
-                provider: payload.provider,
-                token: payload.data.token,
-                name: payload.data.name,
-                surname: payload.data.surname,
-                email: payload.data.email,
-            })
-                .then(res =>
-                {
-                    dispatch('loading/stopLoading', {
-                        id: 'users'
-                    }, { root: true });
-                    if (res.data && res.code == 200)
-                    {
-                        commit('addUser', res.data);
-                    }
-                })
-                .catch(error =>
-                {
-                    dispatch('loading/stopLoading', {
-                        id: 'users'
-                    }, { root: true });
-                    console.error('store/users.js: ', error);
+            try
+            {
+                const res = await this.$axios.post(getters['apiAddPath'], {
+                    provider: payload.provider,
+                    token: payload.data.token,
+                    name: payload.data.name,
+                    surname: payload.data.surname,
+                    email: payload.data.email,
                 });
+                await dispatch('loading/stopLoading', {
+                    id: 'users'
+                }, { root: true });
+                if (res.data && res.code == 200)
+                {
+                    commit('addUser', res.data);
+                }
+            }
+            catch(err)
+            {
+                await dispatch('loading/stopLoading', {
+                    id: 'users'
+                }, { root: true });
+                console.error('store/users.js: ', err);
+            }
         }
     },
-    updateUser({ commit, dispatch, getters }, payload)
+    async updateUser({ commit, dispatch, getters }, payload)
     {
         if (payload.data && payload.data.email && getters['userByEmail'](payload.data.email))
         {
-            dispatch('loading/startLoading', {
+            await dispatch('loading/startLoading', {
                 id: 'users'
             }, { root: true });
 
-            this.$axios.post(getters['apiUpdatePath'], {
-                provider: payload.provider,
-                token: payload.data.token,
-                name: payload.data.name,
-                surname: payload.data.surname,
-                email: payload.data.email,
-            })
-                .then(res =>
-                {
-                    dispatch('loading/stopLoading', {
-                        id: 'users'
-                    }, { root: true });
-                    if (res.data && res.code == 200)
-                    {
-                        commit('updateUser', res.data);
-                    }
-                })
-                .catch(error =>
-                {
-                    dispatch('loading/stopLoading', {
-                        id: 'users'
-                    }, { root: true });
-                    console.error('store/users.js: ', error);
+            try
+            {
+                const res = await this.$axios.post(getters['apiUpdatePath'], {
+                    provider: payload.provider,
+                    token: payload.data.token,
+                    name: payload.data.name,
+                    surname: payload.data.surname,
+                    email: payload.data.email,
                 });
+                await dispatch('loading/stopLoading', {
+                    id: 'users'
+                }, { root: true });
+                if (res.data && res.code == 200)
+                {
+                    commit('updateUser', res.data);
+                }
+            }
+            catch(err)
+            {
+                await dispatch('loading/stopLoading', {
+                    id: 'users'
+                }, { root: true });
+                console.error('store/users.js: ', err);
+            }
         }
     },
-    deleteUser({ commit, dispatch, getters }, payload)
+    async deleteUser({ commit, dispatch, getters }, payload)
     {
         if (payload.email && getters['userByEmail'](payload.email))
         {
-            dispatch('loading/startLoading', {
+            await dispatch('loading/startLoading', {
                 id: 'users'
             }, { root: true });
-            this.$axios.$delete(getters['apiPath'], payload.email)
-                .then(res =>
+            try
+            {
+                const res = await this.$axios.$delete(
+                    getters['apiPath'], payload.email);
+                await dispatch('loading/stopLoading', {
+                    id: 'users'
+                }, { root: true });
+                if (res.data && res.data.email && res.code == 200)
                 {
-                    dispatch('loading/stopLoading', {
-                        id: 'users'
-                    }, { root: true });
-                    if (res.data && res.data.email && res.code == 200)
-                    {
-                        commit('deleteUser', res.data.email);
-                    }
-                })
-                .catch(error =>
-                {
-                    dispatch('loading/stopLoading', {
-                        id: 'users'
-                    }, { root: true });
-                    console.error('store/users.js: ', error);
-                });
+                    commit('deleteUser', res.data.email);
+                }
+            }
+            catch(err)
+            {
+                await dispatch('loading/stopLoading', {
+                    id: 'users'
+                }, { root: true });
+                console.error('store/users.js: ', err);
+            }
         }
     },
-    loadUsers({ commit, dispatch, getters }, payload)
+    async loadUsers({ commit, dispatch, getters }, payload)
     {
         if (!getters['count'])
         {
-            dispatch('loading/startLoading', {
+            await dispatch('loading/startLoading', {
                 id: 'users'
             }, { root: true });
-            this.$axios.$get(getters['apiPath'])
-                .then(res =>
+
+            try
+            {
+                let res = await this.$axios.$get(getters['apiPath']);
+                await dispatch('loading/stopLoading', {
+                    id: 'users'
+                }, { root: true });
+                if (res.data && res.code == 200)
                 {
-                    dispatch('loading/stopLoading', {
-                        id: 'users'
-                    }, { root: true });
-                    if (res.data && res.code == 200)
-                    {
-                        commit('setList', res.data);
-                    }
-                    if (payload && payload.thenCallback)
-                    {
-                        payload.thenCallback();
-                    }
-                })
-                .catch(error =>
+                    commit('setList', res.data);
+                }
+                if (payload && payload.thenCallback)
                 {
-                    dispatch('loading/stopLoading', {
-                        id: 'users'
-                    }, { root: true });
-                    console.error('store/users.js: ', error);
-                });
+                    payload.thenCallback();
+                }
+            }
+            catch(error)
+            {
+                await dispatch('loading/stopLoading', {
+                    id: 'users'
+                }, { root: true });
+                console.error('store/users.js: ', error);
+            }
         }
         else
         {
@@ -198,45 +200,45 @@ export const actions = {
             }
         }
     },
-    loadSingleUser({ commit, dispatch, getters }, payload)
+    async loadSingleUser({ commit, dispatch, getters }, payload)
     {
         //console.log('store/users: loadSingleUser: payload = ', payload);
-        dispatch('loading/startLoading', {
+        await dispatch('loading/startLoading', {
             id: 'single-user'
         }, { root: true });
-        this.$axios.$get(getters['apiSingleUserPath'](payload.userId))
-            .then(res =>
+        try
+        {
+            let res = await this.$axios.$get(getters['apiSingleUserPath'](
+                payload.userId));
+            await dispatch('loading/stopLoading', {
+                id: 'single-user'
+            }, { root: true });
+            if (res.data && res.code == 200)
             {
-                //console.log('store/users: loadSingleUser.then: res = ', res);
-                dispatch('loading/stopLoading', {
-                    id: 'single-user'
-                }, { root: true });
-                if (res.data && res.code == 200)
-                {
-                    let index = getters['indexById'](payload.userId);
-                    let data = res.data;
+                let index = getters['indexById'](payload.userId);
+                let data = res.data;
 
-                    if (index != -1)
-                    {
-                        commit('setListAtIndex', { data, index });
-                    }
-                    else
-                    {
-                        commit('addUser', data);
-                    }
-                }
-                if (payload && payload.thenCallback)
+                if (index != -1)
                 {
-                    payload.thenCallback();
+                    commit('setListAtIndex', { data, index });
                 }
-            })
-            .catch(error =>
+                else
+                {
+                    commit('addUser', data);
+                }
+            }
+            if (payload && payload.thenCallback)
             {
-                dispatch('loading/stopLoading', {
-                    id: 'single-user'
-                }, { root: true });
-                console.error('store/users.js: ', error);
-            });
+                payload.thenCallback();
+            }
+        }
+        catch(err)
+        {
+            await dispatch('loading/stopLoading', {
+                id: 'single-user'
+            }, { root: true });
+            console.error('store/users.js: ', err);
+        }
     }
 };
 

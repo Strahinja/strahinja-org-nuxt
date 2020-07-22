@@ -7,7 +7,7 @@ import { md } from './markdown-it';
 const consola = require ('consola');
 
 // Staging (true) or production (false)?
-const appModeStaging = true;
+const appModeStaging = false;
 const publicRuntimeConfig = {
     currentYear          :  (new Date()).getFullYear(),
     vueAppMode           :  appModeStaging ? 'staging' : 'production',
@@ -74,8 +74,8 @@ const sitemapConfig = {
 
 export default {
     mode: 'universal',
-    //target: 'server',
-    target: 'static',
+    target: 'server',
+    //target: 'static',
     /*
      ** Headers of the page
      */
@@ -108,11 +108,11 @@ export default {
     plugins: [
         '~/plugins/breakpoint.js',
         { src: '~/plugins/check-login.js', mode: 'client' },
+        '~/plugins/cookie-disclaimer.js',
         '~/plugins/datetime-picker.js',
         '~/plugins/four-oh-four.js',
         '~/plugins/jsonld.js',
         '~/plugins/markdown-it.js',
-        '~/plugins/preview.client.js',
     ],
     /*
      ** Nuxt.js dev-modules

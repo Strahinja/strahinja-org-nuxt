@@ -204,17 +204,17 @@ describe('store/pages', () => {
             })
         })
 
-        describe('showCookieConsent', () => {
-            let showCookieConsent
+        //describe('showCookieConsent', () => {
+            //let showCookieConsent
 
-            beforeEach(async () => {
-                showCookieConsent = store.getters['pages/showCookieConsent']
-            })
+            //beforeEach(async () => {
+                //showCookieConsent = store.getters['pages/showCookieConsent']
+            //})
                 
-            test('showCookieConsent is a boolean', () => {
-                expect(_.isBoolean(showCookieConsent)).toBe(true)
-            })
-        })
+            //test('showCookieConsent is a boolean', () => {
+                //expect(_.isBoolean(showCookieConsent)).toBe(true)
+            //})
+        //})
 
         describe('svgComponentName', () => {
             let svgComponentName

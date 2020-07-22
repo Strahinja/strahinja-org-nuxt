@@ -24,15 +24,15 @@ export const actions = {
     {
         if (payload && payload.linkId)
         {
-            dispatch('loading/startLoading', { id: 'article', },
-                     { root: true });
+            //await dispatch('loading/startLoading', { id: 'article', },
+            //{ root: true });
 
             try
             {
                 let res = await this.$axios.$get(getters['apiPath'](payload.linkId));
 
-                dispatch('loading/stopLoading', { id: 'article', },
-                         { root: true });
+                //await dispatch('loading/stopLoading', { id: 'article', },
+                //{ root: true });
 
                 if (res && res.code == 200)
                 {
@@ -52,8 +52,8 @@ export const actions = {
             catch(err)
             {
                 commit('setArticle', {});
-                dispatch('loading/stopLoading', { id: 'article', },
-                         { root: true });
+                //await dispatch('loading/stopLoading', { id: 'article', },
+                //{ root: true });
                 this.$toast.error(err, { icon: 'mdi mdi-alert' });
 
             }

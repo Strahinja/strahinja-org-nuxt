@@ -33,6 +33,7 @@ export const actions = {
         {
             commit('addItem', payload);
         }
+        //console.trace('store/loading: startLoading: id = ', payload.id);
     },
     stopLoading({ commit, getters }, payload)
     {

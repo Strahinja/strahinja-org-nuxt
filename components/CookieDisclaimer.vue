@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { cookieNames } from '~/store/cookies';
+
 export default {
     name: 'CookieDisclaimer',
     props: {
@@ -36,7 +38,10 @@ export default {
     methods: {
         acceptClick()
         {
-            this.$store.dispatch('pages/setCookieConsent', true);
+            this.$store.dispatch('cookies/setCookie', {
+                name: cookieNames.STRAHINJA_ORG_COOKIE_CONSENT,
+                value: '1',
+            }, { root: true });
         },
     },
 };

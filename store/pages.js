@@ -35,7 +35,6 @@ export const routeIds = {
 };
 
 export const state = () => ({
-    showCookieConsent: true,
     sourceBranch: 'master',
     list: [
         {
@@ -599,7 +598,6 @@ export const getters = {
     },
     mainToolbarPages: state => state.list.filter(
         page => page.includedInMainToolbar),
-    showCookieConsent: state => state.showCookieConsent,
     svgComponentName: state => svgId =>
     {
         switch (svgId)
@@ -615,10 +613,6 @@ export const getters = {
 };
 
 export const mutations = {
-    setShowCookieConsent(state, payload)
-    {
-        state.showCookieConsent = payload;
-    },
     setPageId(state, payload)
     {
         state.pageId = payload.newId;
@@ -626,15 +620,6 @@ export const mutations = {
 };
 
 export const actions = {
-    setCookieConsent({ commit }, payload)
-    {
-        this.$cookies.set('strahinja-org-cookie-consent', payload ? '1' : '0', {
-            maxAge: 15 * 365 * 24 * 60 * 60,
-            path: '/',
-            sameSite: 'Strict',
-        });
-        commit('setShowCookieConsent', !payload);
-    },
     setCurrentPageFromRouteName({ commit, getters }, payload)
     {
         const page = getters['pageByRouteName'](payload);

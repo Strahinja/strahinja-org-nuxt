@@ -6,6 +6,7 @@ export const themeIds = {
 import light from '~/theme/dunedain-light';
 import dark from '~/theme/dunedain-dark';
 import { routeIds } from './pages';
+import { cookieNames } from './cookies';
 
 export const state = () => ({
     theme: themeIds.THEME_LIGHT,
@@ -93,37 +94,66 @@ export const getters = {
 };
 
 export const actions = {
-    setTheme({ commit }, payload)
+    initTheme({ commit, rootGetters }, vuetify)
     {
-        if (payload && payload.theme == themeIds.THEME_DARK
-            && payload.vuetify)
+        let theme = rootGetters['cookies/getCookie'](
+            cookieNames.STRAHINJA_ORG_THEME);
+        if (theme)
         {
-            payload.vuetify.theme.dark = true;
+            theme = theme.value;
         }
-        else if (payload && payload.vuetify)
+        else
         {
-            payload.vuetify.theme.dark = false;
+            theme = themeIds.THEME_LIGHT;
         }
-        this.$cookies.set('strahinja-org-theme', payload.theme, {
-            maxAge: 15 * 365 * 24 * 60 * 60,
-            path: '/',
-            sameSite: 'Strict',
-        });
-        commit('setTheme', payload.theme);
+        commit('setTheme', theme);
+
+        if (vuetify && vuetify.theme)
+        {
+            if (theme == themeIds.THEME_DARK)
+            {
+                vuetify.theme.dark = true;
+            }
+            else
+            {
+                vuetify.theme.dark = false;
+
+            }
+        }
     },
-    cycleTheme({ dispatch, getters }, payload)
+    async setTheme({ commit, dispatch }, { vuetify, theme })
+    {
+        commit('setTheme', theme);
+        if (vuetify && vuetify.theme)
+        {
+            if (theme == themeIds.THEME_DARK)
+            {
+                vuetify.theme.dark = true;
+            }
+            else
+            {
+                vuetify.theme.dark = false;
+            }
+        }
+
+        await dispatch('cookies/setCookie', {
+            name: cookieNames.STRAHINJA_ORG_THEME,
+            value: theme,
+        }, { root: true });
+    },
+    async cycleTheme({ dispatch, getters }, { vuetify })
     {
         if (getters['theme'] == themeIds.THEME_DARK)
         {
-            dispatch('setTheme', {
-                vuetify: payload.vuetify,
+            await dispatch('setTheme', {
+                vuetify,
                 theme: themeIds.THEME_LIGHT
             });
         }
         else
         {
-            dispatch('setTheme', {
-                vuetify: payload.vuetify,
+            await dispatch('setTheme', {
+                vuetify,
                 theme: themeIds.THEME_DARK
             });
         }

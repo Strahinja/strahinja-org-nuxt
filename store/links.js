@@ -188,31 +188,28 @@ export const actions = {
                 if (options.callbackCatch) options.callbackCatch();
             });
     },
-    load({ dispatch, commit })
+    async load({ dispatch, commit })
     {
         commit('setNumPages', 0);
         commit('setItemCount', 0);
-        dispatch('loading/startLoading', {
-            id: 'links'
-        }, { root: true });
-        dispatch('loadCategories')
-            .then(() =>
+        //await dispatch('loading/startLoading', {
+        //id: 'links'
+        //}, { root: true });
+        await dispatch('loadCategories');
+        await dispatch('loadItems');
+        await dispatch('loadItems', {
+            byCat: true,
+            callbackThen: async () =>
             {
-                dispatch('loadItems');
-                dispatch('loadItems', {
-                    byCat: true,
-                    callbackThen: () =>
-                    {
-                        commit('setLoadedInitially', true);
-                        dispatch('loading/stopLoading', {
-                            id: 'links'
-                        }, { root: true });
-                    },
-                    callbackCatch: () => dispatch('loading/stopLoading', {
-                        id: 'links'
-                    }, { root: true })
-                });
-            });
+                commit('setLoadedInitially', true);
+                //await dispatch('loading/stopLoading', {
+                //id: 'links'
+                //}, { root: true });
+            },
+            callbackCatch: async () => await dispatch('loading/stopLoading', {
+                id: 'links'
+            }, { root: true })
+        });
     },
     async loadThumbnail({ dispatch, commit, getters }, { id, url })
     {
@@ -224,24 +221,24 @@ export const actions = {
                 return item.thumbnail;
             }
 
-            dispatch('loading/startLoading', {
-                id: 'thumbnail'+id
-            }, { root: true });
+            //await dispatch('loading/startLoading', {
+            //id: 'thumbnail'+id
+            //}, { root: true });
             try
             {
                 let md5 = await this.$axios.get(getters['apiThumbnailsPath'](url));
                 let imagePath = getters['apiThumbnailsCachePath'](md5);
-                dispatch('loading/stopLoading', {
-                    id: 'thumbnail'+id
-                }, { root: true });
+                //await dispatch('loading/stopLoading', {
+                //id: 'thumbnail'+id
+                //}, { root: true });
                 commit('setThumbnail', { id, image: imagePath });
                 return imagePath;
             }
             catch(err)
             {
-                dispatch('loading/stopLoading', {
-                    id: 'thumbnail'+id
-                }, { root: true });
+                //await dispatch('loading/stopLoading', {
+                //id: 'thumbnail'+id
+                //}, { root: true });
                 console.error('store/links: ', err);
             }
         }
