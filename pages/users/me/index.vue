@@ -113,7 +113,7 @@ export default {
         {
             if (this.loggedIn)
             {
-                this.$store.dispatch('local-auth/logout', { root: true });
+                this.$store.dispatch('local-auth/logout', null, { root: true });
             }
         }
     },

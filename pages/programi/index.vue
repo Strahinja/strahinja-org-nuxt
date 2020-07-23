@@ -308,8 +308,9 @@ export default {
                 : true;
         },
     },
-    mounted()
+    async mounted()
     {
+        await this.$store.dispatch('loading/clearLoading');
         if (process.client)
         {
             require('js-dos');

@@ -31,11 +31,16 @@ export default {
     },
     async asyncData({ store })
     {
+        await store.dispatch('loading/clearLoading', null, { root: true });
         await store.dispatch('portfolio/loadItems',
                              null, { root: true });
         return {
             portfolio: store.getters['portfolio/list'],
         };
+    },
+    async mounted()
+    {
+        await this.$store.dispatch('loading/clearLoading', null, { root: true });
     },
 };
 </script>

@@ -48,14 +48,14 @@ export default {
         {
             window.open(url, '_blank');
         },
-        async loadThumbnail(id, url)
+        async loadThumbnail(/*id, url*/)
         {
             if (this && this.$store)
             {
-                setTimeout(() =>
-                {
-                    this.thumbnailLoading = false;
-                }, 2000);
+                //setTimeout(() =>
+                //{
+                this.thumbnailLoading = false;
+                //}, 2000);
                 //try
                 //{
                 //let thumbnail = await this.$store.dispatch('links/loadThumbnail',

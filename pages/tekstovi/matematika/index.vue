@@ -33,7 +33,7 @@ export default {
                 subpages.push({
                     name: item.title,
                     icon: item.icon,
-                    iconSvg: store.getters['pages/svgComponentName'](item.iconSvg),
+                    iconSvg: item.iconSvg,
                     image: item.image,
                     description: item.text,
                     path: item.url.path,
@@ -62,6 +62,10 @@ export default {
         return {
             items, subpages
         };
+    },
+    async mounted()
+    {
+        this.$store.dispatch('loading/clearLoading', null, { root: true });
     },
 };
 </script>

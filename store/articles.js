@@ -46,7 +46,14 @@ export const actions = {
                         msg += res.code;
                     }
                     commit('setArticle', {});
-                    this.$toast.error(`Грешка ${msg}`, { icon: 'mdi mdi-alert' });
+                    if (this && this.$toast)
+                    {
+                        this.$toast.error(`Грешка ${msg}`, { icon: 'mdi mdi-alert' });
+                    }
+                    else
+                    {
+                        console.error(`Грешка ${msg}`);
+                    }
                 }
             }
             catch(err)
@@ -54,7 +61,14 @@ export const actions = {
                 commit('setArticle', {});
                 dispatch('loading/stopLoading', { id: 'article', },
                          { root: true });
-                this.$toast.error(err, { icon: 'mdi mdi-alert' });
+                if (this && this.$toast)
+                {
+                    this.$toast.error(err, { icon: 'mdi mdi-alert' });
+                }
+                else
+                {
+                    console.error(err);
+                }
 
             }
         }

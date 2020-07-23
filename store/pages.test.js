@@ -203,30 +203,6 @@ describe('store/pages', () => {
                 expect(_.isArray(mainToolbarPages)).toBe(true)
             })
         })
-
-        describe('showCookieConsent', () => {
-            let showCookieConsent
-
-            beforeEach(async () => {
-                showCookieConsent = store.getters['pages/showCookieConsent']
-            })
-                
-            test('showCookieConsent is a boolean', () => {
-                expect(_.isBoolean(showCookieConsent)).toBe(true)
-            })
-        })
-
-        describe('svgComponentName', () => {
-            let svgComponentName
-
-            beforeEach(async () => {
-                svgComponentName = store.getters['pages/svgComponentName']
-            })
-                
-            test('svgComponentName is a function', () => {
-                expect(_.isFunction(svgComponentName)).toBe(true)
-            })
-        })
     })
 })
 

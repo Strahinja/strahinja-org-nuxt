@@ -158,30 +158,34 @@ export default {
             return true;
         },
     },
-    fetch({ store })
+    async fetch({ store })
     {
+        await store.dispatch('loading/clearLoading', null, { root: true });
         if (!store.getters['links/loadedInitially'])
         {
             store.commit('links/setItemsPerPage', 12);
             store.commit('links/setPageNumber', 1);
-            store.dispatch('links/load');
+            await store.dispatch('links/load', null, { root: true });
         }
     },
-    created()
+    async mounted()
     {
+        await this.$store.dispatch('loading/clearLoading', null, { root: true });
         if (!this.$store.getters['links/loadedInitially'])
         {
             this.$store.commit('links/setItemsPerPage', 12);
             this.$store.commit('links/setPageNumber', 1);
-            this.$store.dispatch('links/load');
+            await this.$store.dispatch('links/load', null, { root: true });
         }
     },
     methods: {
-        paginationChange()
+        async paginationChange()
         {
+            await this.$store.dispatch('loading/clearLoading',
+                                       null, { root: true });
             this.$store.commit('links/setItemsPerPage', this.itemsPerPage);
             this.$store.commit('links/setPageNumber', this.pageNumber);
-            this.$store.dispatch('links/load');
+            await this.$store.dispatch('links/load', null, { root: true });
         },
     },
 };

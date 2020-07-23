@@ -1,7 +1,7 @@
 export const iconSvgs = {
-    ICON_SVG_NONE         : 0,
-    ICON_SVG_STRAHINJAORG : 1,
-    ICON_SVG_GNU          : 2,
+    ICON_SVG_NONE         : '',
+    ICON_SVG_STRAHINJAORG : 'Strahinjaorg',
+    ICON_SVG_GNU          : 'Gnu',
 };
 
 export const routeIds = {
@@ -35,7 +35,6 @@ export const routeIds = {
 };
 
 export const state = () => ({
-    showCookieConsent: true,
     sourceBranch: 'master',
     list: [
         {
@@ -599,26 +598,9 @@ export const getters = {
     },
     mainToolbarPages: state => state.list.filter(
         page => page.includedInMainToolbar),
-    showCookieConsent: state => state.showCookieConsent,
-    svgComponentName: state => svgId =>
-    {
-        switch (svgId)
-        {
-        case iconSvgs.ICON_SVG_GNU:
-            return 'Gnu';
-        case iconSvgs.ICON_SVG_STRAHINJAORG:
-            return 'Strahinjaorg';
-        default:
-            return null;
-        }
-    },
 };
 
 export const mutations = {
-    setShowCookieConsent(state, payload)
-    {
-        state.showCookieConsent = payload;
-    },
     setPageId(state, payload)
     {
         state.pageId = payload.newId;
@@ -626,15 +608,6 @@ export const mutations = {
 };
 
 export const actions = {
-    setCookieConsent({ commit }, payload)
-    {
-        this.$cookies.set('strahinja-org-cookie-consent', payload ? '1' : '0', {
-            maxAge: 15 * 365 * 24 * 60 * 60,
-            path: '/',
-            sameSite: 'Strict',
-        });
-        commit('setShowCookieConsent', !payload);
-    },
     setCurrentPageFromRouteName({ commit, getters }, payload)
     {
         const page = getters['pageByRouteName'](payload);

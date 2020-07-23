@@ -23,6 +23,7 @@ export default {
         let items = [];
         let subpages = [];
 
+        await store.dispatch('loading/clearLoading', null, { root: true });
         store.getters['pages/subpages']('/tekstovi')
             .forEach((item) =>
             {
@@ -57,6 +58,10 @@ export default {
         return {
             items, subpages
         };
+    },
+    async mounted()
+    {
+        this.$store.dispatch('loading/clearLoading', null, { root: true });
     },
 };
 </script>

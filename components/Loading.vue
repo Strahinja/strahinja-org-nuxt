@@ -16,18 +16,18 @@ export default {
         {
             if (this.$store)
             {
-                this.$store.dispatch('loading/startLoading', {
-                    id: 'app'
-                });
+                //this.$store.dispatch('loading/startLoading', {
+                //id: 'app'
+                //});
             }
         },
         finish()
         {
             if (this.$store)
             {
-                this.$store.dispatch('loading/stopLoading', {
-                    id: 'app'
-                });
+                //this.$store.dispatch('loading/stopLoading', {
+                //id: 'app'
+                //});
             }
         }
     }

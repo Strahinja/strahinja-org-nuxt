@@ -198,10 +198,11 @@
 import Gnu from '~/assets/svg/gnu.svg?inline';
 import Strahinjaorg from '~/assets/svg/strahinjaorg.svg?inline';
 import { routeIds, iconSvgs } from '~/store/pages';
+import { cookieNames } from '~/store/cookies';
 
 export default {
     name: 'App',
-    middleware: [ 'set-page-id', 'cookie-consent' ],
+    middleware: [ 'set-page-id' ],
     components: { Gnu, Strahinjaorg },
     data()
     {
@@ -312,17 +313,20 @@ export default {
         {
             return this.$breakpoint.is.xsOnly && this.$route.path != '/';
         },
+        showCookieConsent()
+        {
+            return this && this.$store && this.$store.getters
+                ? !this.$store.getters['cookies/cookieValueById'](
+                    cookieNames.COOKIE_STRAHINJA_ORG_COOKIE_CONSENT,
+                    false
+                )
+                : true;
+        },
         isThemeDark()
         {
             return this && this.$store && this.$store.getters ?
                 this.$store.getters['themes/isThemeDark'] :
                 false;
-        },
-        showCookieConsent()
-        {
-            return this && this.$store && this.$store.getters ?
-                this.$store.getters['pages/showCookieConsent'] :
-                true;
         },
     },
     watch: {
@@ -331,10 +335,16 @@ export default {
             this.setHtmlClass(newValue);
         }
     },
-    mounted()
+    async mounted()
     {
-        this.setHtmlClass(this.dark);
         this.currentYear = this.$config.currentYear;
+        await this.$store.dispatch('loading/clearLoading',
+                                   null, { root: true });
+        await this.$store.dispatch('cookies/loadCookies');
+        await this.$store.dispatch('themes/initTheme', {
+            vuetify: this.$vuetify,
+        }, { root: true });
+        this.setHtmlClass(this.dark);
     },
     head()
     {
@@ -531,11 +541,11 @@ export default {
                 this.showSearch = false;
             }
         },
-        themeModeBtnClick()
+        async themeModeBtnClick()
         {
-            this.$store.dispatch('themes/cycleTheme', {
+            await this.$store.dispatch('themes/cycleTheme', {
                 vuetify: this.$vuetify,
-            });
+            }, { root: true });
         },
         openTextPopup(popupText)
         {

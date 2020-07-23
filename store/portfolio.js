@@ -40,20 +40,20 @@ export const actions = {
         if (!getters['count'])
         {
             let res = null;
-            dispatch('loading/startLoading', { id: 'portfolio', },
-                     { root: true });
+            //dispatch('loading/startLoading', { id: 'portfolio', },
+            //{ root: true });
             try
             {
                 res = await this.$axios.$get(getters['apiPath']);
             }
             catch(error)
             {
-                dispatch('loading/stopLoading', { id: 'portfolio' },
-                         { root: true });
+                //dispatch('loading/stopLoading', { id: 'portfolio' },
+                //{ root: true });
                 console.error('store/portfolio.js: ', error);
             }
-            dispatch('loading/stopLoading', { id: 'portfolio' },
-                     { root: true });
+            //dispatch('loading/stopLoading', { id: 'portfolio' },
+            //{ root: true });
 
             if (res && res.data && res.code === 200)
             {

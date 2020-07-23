@@ -1,48 +1,55 @@
 export const state = () => ({
-    itemList: []
+    list: []
 });
 
 export const mutations = {
     addItem(state, payload)
     {
-        state.itemList.push(payload);
+        state.list.push(payload);
     },
     removeItem(state, payload)
     {
-        state.itemList.splice(payload, 1);
-    }
+        state.list.splice(payload, 1);
+    },
+    setList(state, payload)
+    {
+        state.list = payload;
+    },
 };
 
 export const getters = {
-    isLoading: state => itemId => state.itemList.findIndex(item =>
+    isLoading: state => itemId => state.list.findIndex(item =>
         item.id == itemId) != -1,
-    isStoreLoading: state => state.itemList.length>0,
-    itemList: state => state.itemList,
-    count: state => state.itemList.length,
+    isStoreLoading: state => state.list.length>0,
+    findItem: state => id => state.list.find(item => item.id == id),
+    findItemIndex: state => id => state.list.findIndex(item => item.id == id),
+    count: state => state.list.length,
 };
 
 export const actions = {
+    clearLoading({ commit })
+    {
+        commit('setList', []);
+    },
     startLoading({ commit, getters }, payload)
     {
         /*if (!getters['isStoreLoading'])
         {
             this.$nuxt.$loading.start();
         }*/
-        if (!getters['itemList'].find(item =>
-            item.id == payload.id))
+        if (!getters['findItem'](payload.id))
         {
             commit('addItem', payload);
         }
     },
-    stopLoading({ commit, getters }, payload)
+    stopLoading({ commit, state, getters }, { id })
     {
-        let payloadIndex = getters['itemList'].findIndex(item =>
-            item.id == payload.id);
+        let payloadIndex = getters['findItemIndex'](id);
         if (payloadIndex != -1)
         {
-            if (getters['itemList'][payloadIndex].callback)
+            if (state.list[payloadIndex].callback)
             {
-                getters['itemList'][payloadIndex].callback();
+                state.list[payloadIndex].callback();
             }
             commit('removeItem', payloadIndex);
         }

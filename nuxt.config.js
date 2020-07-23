@@ -74,8 +74,8 @@ const sitemapConfig = {
 
 export default {
     mode: 'universal',
-    target: 'server',
-    //target: 'static',
+    //target: 'server',
+    target: 'static',
     /*
      ** Headers of the page
      */
@@ -108,12 +108,10 @@ export default {
     plugins: [
         '~/plugins/breakpoint.js',
         { src: '~/plugins/check-login.js', mode: 'client' },
-        '~/plugins/cookie-disclaimer.js',
         '~/plugins/datetime-picker.js',
         '~/plugins/four-oh-four.js',
         '~/plugins/jsonld.js',
         '~/plugins/markdown-it.js',
-        { src: '~/plugins/theme-settings.js', mode: 'client' },
     ],
     /*
      ** Nuxt.js dev-modules
