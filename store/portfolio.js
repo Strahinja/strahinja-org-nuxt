@@ -35,7 +35,7 @@ export const getters = {
 };
 
 export const actions = {
-    async loadItems({ commit, dispatch, getters })
+    async loadItems({ commit, /*dispatch,*/ getters })
     {
         if (!getters['count'])
         {

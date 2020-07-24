@@ -417,14 +417,14 @@ export default {
             }
             return '';
         },
-        runProgram()
+        async runProgram()
         {
             if (this.Dos)
             {
                 this.cleanupExit();
                 this.showOverlay = false;
 
-                this.$store.dispatch('loading/startLoading', {
+                await this.$store.dispatch('loading/startLoading', {
                     id: 'program' }, { root: true });
 
                 let options = { wdosboxUrl: '/js/wdosbox.js' };

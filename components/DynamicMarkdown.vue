@@ -14,21 +14,28 @@ export default {
     },
     created()
     {
-        this.dynamicComponent = () => import(`~/static/blog/${this.fileName}.md`).then((loaded) => {
+        // ESlint BUG: yarn lint gives
+        //
+        //    TypeError: Cannot read property 'range' of null
+        //
+        //this.dynamicComponent = () => import(`~/static/blog/${this.fileName}.md`).then((loaded) => {
+        this.dynamicComponent = () => import('~/static/blog/${this.fileName}.md').then((loaded) =>
+        {
             const fileName = this.fileName;
             const standalone = this.standalone;
             const highlight = this.highlight;
             const extraComponent = this.extraComponent;
             const extraComponentParams = this.extraComponentParams;
             return {
-                data () {
+                data ()
+                {
                     return {
                         fileName,
                         standalone,
                         highlight,
                         extraComponent,
                         extraComponentParams
-                    }
+                    };
                 },
                 extends: loaded.vue.component,
                 render (createElement)
@@ -46,9 +53,9 @@ export default {
                             && resultNode.tag && resultNode.tag.toLowerCase() == 'h2')
                         {
                             let newNode = h('h3',
-                               resultNode.data ? resultNode.data
-                                : undefined,
-                                resultNode.children);
+                                            resultNode.data ? resultNode.data
+                                                : undefined,
+                                            resultNode.children);
                             newNode.parent = resultNode.parent;
                             resultNode = newNode;
                         }
