@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html {{ HTML_ATTRS }}>
+  <head {{ HEAD_ATTRS }}>
+    {{ HEAD }}
+    <style>
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes hide {
+            0% {
+                display: flex;
+                padding-top: 0;
+                opacity: 1;
+                z-index: 20000;
+            }
+            90% {
+                display: flex;
+                padding-top: 3rem;
+                opacity: 0.1;
+                z-index: 20000;
+            }
+            91% {
+                display: none;
+                opacity: 0;
+                z-index: -1;
+            }
+            100% {
+                display: none;
+                opacity: 0;
+                z-index: -1;
+            }
+        }
+
+        html {
+            overflow: hidden;
+            height: 100%;
+            position: absolute;
+            width: 100%;
+        }
+
+        html.loader-hidden {
+            overflow: hidden scroll;
+            height: initial;
+            position: static;
+            width: initial;
+        }
+
+        .loader-wrapper
+        {
+            background-color: #2e7d32;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 20000;
+        }
+
+        .loader-wrapper.hide
+        {
+            animation: hide 2s forwards;
+        }
+
+        .loader
+        {
+            display: inline-flex;
+            transition: all .25s ease;
+            font-size: 36pt;
+            align-self: center;
+            width: 8rem;
+            height: 8rem;
+            border-radius: 50%;
+            border: 1rem solid #cddc39;
+            border-left: 1rem solid #fff;
+            animation: rotate 2s linear 0s infinite normal;
+        }
+        
+        .loader-text
+        {
+            display: inline-flex;
+            height: fit-content;
+            align-self: center;
+            color: #fff;
+            font-weight: bold;
+            padding: 1rem;
+            font-size: 22pt;
+            font-family: Roboto, Arial, sans-serif;
+        }
+    </style>
+  </head>
+  <body {{ BODY_ATTRS }}>
+      <div class="loader-wrapper">
+          <div class="loader">
+          </div>
+          <div class="loader-text">Учитавам...</div>
+      </div>
+    {{ APP }}
+  </body>
+</html>

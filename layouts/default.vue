@@ -345,6 +345,7 @@ export default {
             vuetify: this.$vuetify,
         }, { root: true });
         this.setHtmlClass(this.dark);
+        this.hideLoader();
     },
     head()
     {
@@ -475,6 +476,16 @@ export default {
                         html[0].classList.remove('theme--dark');
                     }
                 }
+            }
+        },
+        hideLoader()
+        {
+            if (document)
+            {
+                document.getElementsByClassName('loader-wrapper')[0]
+                    .classList.add('hide');
+                document
+                    .getElementsByTagName('html')[0].classList.add('loader-hidden');
             }
         },
         searchBtnClick()
