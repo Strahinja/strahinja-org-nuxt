@@ -35,12 +35,9 @@ export default {
         show: { type: Boolean, default: true, required: false },
     },
     methods: {
-        async acceptClick()
+        acceptClick()
         {
-            await this.$store.dispatch('cookies/setCookie', {
-                id: cookieNames.COOKIE_STRAHINJA_ORG_COOKIE_CONSENT,
-                value: true
-            }, { root: true });
+            this.$emit('accept-click', true);
         },
     },
 };

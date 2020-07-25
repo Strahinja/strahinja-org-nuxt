@@ -110,8 +110,9 @@
         v-main(:class="{ sm: $breakpoint.is.smAndDown }")
             nuxt/
         client-only
-            cookie-disclaimer(color="primary darken-1 white--text",
-            :show="showCookieConsent")/
+            cookie-disclaimer(color="primary darken-1 white--text"
+            :show="showCookieConsent"
+            @accept-click="cookieConsentAcceptClick($event)")/
 
         v-footer(app,
         absolute,
@@ -224,6 +225,7 @@ export default {
                 v => v.length<this.maxSearchTextLength ||
                     `Текст мора бити мањи од ${this.maxSearchTextLength} знакова`,
             ],
+            showCookieConsent: false,
         };
     },
     computed: {
@@ -314,15 +316,6 @@ export default {
         {
             return this.$breakpoint.is.xsOnly && this.$route.path != '/';
         },
-        showCookieConsent()
-        {
-            return this && this.$store && this.$store.getters
-                ? !this.$store.getters['cookies/cookieValueById'](
-                    cookieNames.COOKIE_STRAHINJA_ORG_COOKIE_CONSENT,
-                    false
-                )
-                : false;
-        },
         isThemeDark()
         {
             return this && this.$store && this.$store.getters ?
@@ -347,6 +340,10 @@ export default {
         }, { root: true });
         this.setHtmlClass(this.dark);
         window.scrollTo(0,0);
+        this.showCookieConsent = !this.$store.getters['cookies/cookieValueById'](
+            cookieNames.COOKIE_STRAHINJA_ORG_COOKIE_CONSENT,
+            false
+        );
         //this.hideLoader();
     },
     head()
@@ -567,6 +564,14 @@ export default {
             this.popupText = popupText;
             this.showTextPopup = true;
         },
+        async cookieConsentAcceptClick()
+        {
+            await this.$store.dispatch('cookies/setCookie', {
+                id: cookieNames.COOKIE_STRAHINJA_ORG_COOKIE_CONSENT,
+                value: true
+            }, { root: true });
+            this.showCookieConsent = false;
+        }
     }
 };
 </script>
