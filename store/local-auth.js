@@ -5,7 +5,7 @@ export const state = () => ({
     apiUrl: '/login',
     apiCheckLoginUrl: '/check_login',
     apiLogoutUrl: '/logout',
-    avatarUrl: '/img/user/{0}/avatar.jpg',
+    avatarUrl: '/img/user/{0}/avatar.webp',
 });
 
 export const mutations = {

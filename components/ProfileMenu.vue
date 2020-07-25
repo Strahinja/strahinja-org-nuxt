@@ -36,7 +36,7 @@
 </template>
 
 <script>
-const getProp = require('dotprop');
+//const getProp = require('dotprop');
 //import LoginSheet from '~/components/LoginSheet';
 export default {
     name: 'ProfileMenu',
@@ -85,7 +85,7 @@ export default {
         },
         logoutClick()
         {
-            this.$store.dispatch('local-auth/logout', { root: true });
+            this.$store.dispatch('local-auth/logout', null, { root: true });
         },
         loginSheetActivatorClick()
         {

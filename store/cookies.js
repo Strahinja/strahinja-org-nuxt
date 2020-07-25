@@ -1,6 +1,6 @@
 export const cookieNames = {
-    STRAHINJA_ORG_COOKIE_CONSENT :  'strahinja-org-cookie-consent',
-    STRAHINJA_ORG_THEME          :  'strahinja-org-theme',
+    COOKIE_STRAHINJA_ORG_COOKIE_CONSENT :  'strahinja-org-cookie-consent',
+    COOKIE_STRAHINJA_ORG_THEME          :  'strahinja-org-theme',
 };
 
 export const state = () => ({
@@ -9,75 +9,61 @@ export const state = () => ({
 
 export const getters = {
     list: state => state.list,
-    getCookie: state => cookieName =>
-        state.list.find(cookie => cookie.name == cookieName),
-    getCookieIndex: state => cookieName =>
-        state.list.findIndex(cookie => cookie.name == cookieName),
+    findIndexById: state => cookieId =>
+        state.list.findIndex(cookie => cookie.id == cookieId),
+    cookieById: state => cookieId =>
+        state.list.find(cookie => cookie.id == cookieId),
+    cookieValueById: state => (cookieId, valueIfNull) =>
+    {
+        const cookie = state.list.find(cookie => cookie.id == cookieId);
+        return cookie ? cookie.value : valueIfNull;
+    },
 };
 
 export const mutations = {
+    addCookie(state, { id, value })
+    {
+        state.list.push({ id, value });
+    },
     setCookie(state, { index, value })
     {
         state.list[index].value = value;
     },
-    addCookie(state, { name, value })
-    {
-        state.list.push({
-            name,
-            value,
-        });
-    },
-    removeCookie(state, { cookieIndex })
-    {
-        state.list.splice(cookieIndex, 1);
-    },
 };
 
 export const actions = {
-    initCookie({ commit, getters }, {
-        name,
-        value,
-    })
+    loadCookies({ commit, getters })
     {
-        let index = getters['getCookieIndex'](name);
-        if (index != -1)
+        Object.values(cookieNames).forEach(id =>
         {
-            commit('setCookie', {
-                index,
-                value,
-            });
+            const value = this.$cookies.get(id);
+            const index = getters['findIndexById'](id);
+            if (index == -1)
+            {
+                commit('addCookie', { id, value });
+            }
+            else
+            {
+                commit('setCookie', { index, value });
+            }
+        });
+    },
+    setCookie({ commit, getters }, { id, value })
+    {
+        const index = getters['findIndexById'](id);
+        this.$cookies.set(id, value, {
+            maxAge: 15 * 365 * 24 * 60 * 60,
+            path: '/',
+            sameSite: 'Strict',
+        });
+        if (index == -1)
+        {
+            commit('addCookie', { id, value });
         }
         else
         {
-            commit('addCookie', {
-                name,
-                value,
-            });
+            commit('setCookie', { index, value });
         }
-    },
-    async setCookie({ dispatch }, {
-        name,
-        value,
-    })
-    {
-        await dispatch('initCookie', {
-            name,
-            value,
-        });
-        this.$cookies.set(name, value, {
-            maxAge: 15 * 365 * 24 * 60 * 60,
-            sameSite: 'Strict',
-        });
-    },
-    initKnownCookies({ dispatch })
-    {
-        Object.keys(cookieNames).forEach(async name =>
-        {
-            await dispatch('initCookie', {
-                name: cookieNames[name],
-                value: this.$cookies.get(cookieNames[name]),
-            });
-        });
     },
 };
 

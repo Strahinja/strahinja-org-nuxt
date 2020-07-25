@@ -1,7 +1,7 @@
 export const iconSvgs = {
-    ICON_SVG_NONE         : 0,
-    ICON_SVG_STRAHINJAORG : 1,
-    ICON_SVG_GNU          : 2,
+    ICON_SVG_NONE         : '',
+    ICON_SVG_STRAHINJAORG : 'Strahinjaorg',
+    ICON_SVG_GNU          : 'Gnu',
 };
 
 export const routeIds = {
@@ -44,7 +44,7 @@ export const state = () => ({
             colorClass: 'md-primary',
             icon: 'mdi-home',
             iconSvg: iconSvgs.ICON_SVG_STRAHINJAORG,
-            image: 'https://strahinja.org/img/preview-home-strahinja-org.png',
+            image: 'https://strahinja.org/img/preview-home-strahinja-org.webp',
             imageAlt: 'Стилизовани иницијали СР са текстом //strahinja.org',
             url: {
                 path: '/',
@@ -65,7 +65,7 @@ export const state = () => ({
             colorClass: 'light-green lighten-3',
             icon: 'mdi-clipboard-account',
             iconSvg: iconSvgs.ICON_SVG_NONE,
-            image: 'https://strahinja.org/img/preview-profile-strahinja-org.png',
+            image: 'https://strahinja.org/img/preview-profile-strahinja-org.webp',
             imageAlt: 'Стилизована ознака профила са умањеним логом са'
                 + ' иницијалима СР и текстом //strahinja.org',
             url: {
@@ -87,7 +87,7 @@ export const state = () => ({
             colorClass: 'orange lighten-3',
             icon: 'mdi-palette',
             iconSvg: iconSvgs.ICON_SVG_NONE,
-            image: 'https://strahinja.org/img/preview-portfolio-strahinja-org.png',
+            image: 'https://strahinja.org/img/preview-portfolio-strahinja-org.webp',
             imageAlt: 'Стилизована ознака сликарске палете са умањеним логом са'
                 + ' иницијалима СР и текстом //strahinja.org',
             url: {
@@ -108,7 +108,7 @@ export const state = () => ({
             colorClass: '',
             icon: 'mdi-pencil-box-multiple',
             iconSvg: iconSvgs.ICON_SVG_NONE,
-            image: 'https://strahinja.org/img/preview-portfolio-strahinja-org.png',
+            image: 'https://strahinja.org/img/preview-portfolio-strahinja-org.webp',
             imageAlt: 'Стилизована ознака сликарске палете са умањеним логом са'
                 + ' иницијалима СР и текстом //strahinja.org',
             url: {
@@ -129,7 +129,7 @@ export const state = () => ({
             colorClass: '',
             icon: 'mdi-fountain-pen-tip',
             iconSvg: iconSvgs.ICON_SVG_NONE,
-            image: 'https://strahinja.org/img/preview-blog-strahinja-org.png',
+            image: 'https://strahinja.org/img/preview-blog-strahinja-org.webp',
             imageAlt: 'Цртеж врха пенкала са умањеним логом са иницијалима'
                 + ' СР и текстом //strahinja.org',
             url: {
@@ -151,7 +151,7 @@ export const state = () => ({
             colorClass: '',
             icon: 'mdi-fountain-pen-tip',
             iconSvg: iconSvgs.ICON_SVG_NONE,
-            image: 'https://strahinja.org/img/preview-blog-strahinja-org.png',
+            image: 'https://strahinja.org/img/preview-blog-strahinja-org.webp',
             imageAlt: 'Цртеж врха пенкала са умањеним логом са иницијалима'
                 + ' СР и текстом //strahinja.org',
             url: {
@@ -173,7 +173,7 @@ export const state = () => ({
             colorClass: '',
             icon: 'mdi-fountain-pen-tip',
             iconSvg: iconSvgs.ICON_SVG_NONE,
-            image: 'https://strahinja.org/img/preview-blog-strahinja-org.png',
+            image: 'https://strahinja.org/img/preview-blog-strahinja-org.webp',
             imageAlt: 'Цртеж врха пенкала са умањеним логом са иницијалима'
                 + ' СР и текстом //strahinja.org',
             url: {
@@ -195,7 +195,7 @@ export const state = () => ({
             colorClass: '',
             icon: 'mdi-fountain-pen-tip',
             iconSvg: iconSvgs.ICON_SVG_NONE,
-            image: 'https://strahinja.org/img/preview-search-strahinja-org.png',
+            image: 'https://strahinja.org/img/preview-search-strahinja-org.webp',
             imageAlt: 'Цртеж лупе са умањеним логом са иницијалима'
                 + ' СР и текстом //strahinja.org',
             url: {
@@ -217,7 +217,7 @@ export const state = () => ({
             colorClass: '',
             icon: 'mdi-account-multiple',
             iconSvg: iconSvgs.ICON_SVG_NONE,
-            image: 'https://strahinja.org/img/preview-users-strahinja-org.png',
+            image: 'https://strahinja.org/img/preview-users-strahinja-org.webp',
             imageAlt: 'Симбол више корисника са умањеним логом са иницијалима'
                 + ' СР и текстом //strahinja.org',
             url: {
@@ -239,7 +239,7 @@ export const state = () => ({
             colorClass: '',
             icon: 'mdi-account',
             iconSvg: iconSvgs.ICON_SVG_NONE,
-            image: 'https://strahinja.org/img/preview-users-strahinja-org.png',
+            image: 'https://strahinja.org/img/preview-users-strahinja-org.webp',
             imageAlt: 'Симбол корисника са умањеним логом са иницијалима'
                 + ' СР и текстом //strahinja.org',
             url: {
@@ -471,7 +471,7 @@ export const state = () => ({
             colorClass: 'light-blue lighten-4',
             icon: 'mdi-bookmark-multiple',
             iconSvg: iconSvgs.ICON_SVG_NONE,
-            image: 'https://strahinja.org/img/preview-links-strahinja-org.png',
+            image: 'https://strahinja.org/img/preview-links-strahinja-org.webp',
             imageAlt: 'Стилизована ознака обележивача са умањеним логом са'
                 + ' иницијалима СР и текстом //strahinja.org',
             url: {
@@ -598,18 +598,6 @@ export const getters = {
     },
     mainToolbarPages: state => state.list.filter(
         page => page.includedInMainToolbar),
-    svgComponentName: state => svgId =>
-    {
-        switch (svgId)
-        {
-        case iconSvgs.ICON_SVG_GNU:
-            return 'Gnu';
-        case iconSvgs.ICON_SVG_STRAHINJAORG:
-            return 'Strahinjaorg';
-        default:
-            return null;
-        }
-    },
 };
 
 export const mutations = {

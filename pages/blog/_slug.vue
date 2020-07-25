@@ -109,7 +109,7 @@ export default {
                 'https://strahinja.org/blog',
             date: doc && doc.date ? doc.date : new Date().toISOString(),
             image: doc && doc.image ? doc.image :
-                'https://strahinja.org/img/preview-blog-strahinja-org.png',
+                'https://strahinja.org/img/preview-blog-strahinja-org.webp',
             imageAlt: 'Цртеж врха пенкала са умањеним логом са иницијалима'
                 + ' СР и текстом //strahinja.org',
         };

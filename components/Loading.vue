@@ -12,24 +12,22 @@ export default {
         }
     },
     methods: {
-        async start()
+        start()
         {
-            console.log('loading: LOADING START');
             if (this.$store)
             {
-                await this.$store.dispatch('loading/startLoading', {
-                    id: 'app'
-                }, { root: true });
+                //this.$store.dispatch('loading/startLoading', {
+                //id: 'app'
+                //});
             }
         },
-        async finish()
+        finish()
         {
-            console.log('loading: LOADING FINISH');
             if (this.$store)
             {
-                await this.$store.dispatch('loading/stopLoading', {
-                    id: 'app'
-                }, { root: true });
+                //this.$store.dispatch('loading/stopLoading', {
+                //id: 'app'
+                //});
             }
         }
     }

@@ -156,7 +156,7 @@
                                 a(href="https://creativecommons.org/licenses/by/4.0/",
                                 rel="license")
                                     img.inline-image(alt="Creative Commons License",
-                                    src="/img/80x15.png")
+                                    src="/img/80x15.webp")
                         v-row.ma-0
                             v-col.pa-0(:cols="12") Copyright © 1999-{{ currentYear }}
                         v-row.ma-0
@@ -170,7 +170,7 @@
                                     a(href="https://creativecommons.org/licenses/by/4.0/",
                                     rel="license")
                                         img.inline-image(alt="Creative Commons License",
-                                        src="/img/80x15.png")
+                                        src="/img/80x15.webp")
                                 .d-inline.mr-1 Copyright © 1999-{{ currentYear }}
                                 .d-inline Страхиња Радић (Strahinya Radich)
         v-bottom-sheet(v-model="showTextPopup"
@@ -203,7 +203,6 @@ import { cookieNames } from '~/store/cookies';
 export default {
     name: 'App',
     middleware: [ 'set-page-id' ],
-    plugins: ['~/plugins/preview.client.js'],
     components: { Gnu, Strahinjaorg },
     mixins: ['~/mixins/breakpoint.js'],
     data()
@@ -315,18 +314,20 @@ export default {
         {
             return this.$breakpoint.is.xsOnly && this.$route.path != '/';
         },
+        showCookieConsent()
+        {
+            return this && this.$store && this.$store.getters
+                ? !this.$store.getters['cookies/cookieValueById'](
+                    cookieNames.COOKIE_STRAHINJA_ORG_COOKIE_CONSENT,
+                    false
+                )
+                : true;
+        },
         isThemeDark()
         {
             return this && this.$store && this.$store.getters ?
                 this.$store.getters['themes/isThemeDark'] :
                 false;
-        },
-        showCookieConsent()
-        {
-            return this && this.$store && this.$store.getters
-                ? this.$store.getters['cookies/getCookie'](
-                    cookieNames.STRAHINJA_ORG_COOKIE_CONSENT)=='1'
-                : true;
         },
     },
     watch: {
@@ -337,13 +338,15 @@ export default {
     },
     async mounted()
     {
-        this.setHtmlClass(this.dark);
         this.currentYear = this.$config.currentYear;
-        await this.$store.dispatch('cookies/initKnownCookies', { root: true });
-        await this.$store.dispatch('themes/initTheme', this.$vuetify,
-                                   { root: true });
-        console.log('layout.mounted: process.client = ',
-                    process.client);
+        await this.$store.dispatch('loading/clearLoading',
+                                   null, { root: true });
+        await this.$store.dispatch('cookies/loadCookies');
+        await this.$store.dispatch('themes/initTheme', {
+            vuetify: this.$vuetify,
+        }, { root: true });
+        this.setHtmlClass(this.dark);
+        //this.hideLoader();
     },
     head()
     {
@@ -352,7 +355,7 @@ export default {
             title: null,
             description: 'Лична веб страна Страхиње Радића',
             url: url,
-            image: `${url}/static/img/preview-home-strahinja-org.png`,
+            image: `${url}/static/img/preview-home-strahinja-org.webp`,
             imageAlt: 'Лого са иницијалима СР и текст //strahinja.org',
             imageWidth: 1127,
             imageHeight: 492,
@@ -476,6 +479,18 @@ export default {
                 }
             }
         },
+        /*
+         *hideLoader()
+         *{
+         *    if (document)
+         *    {
+         *        document.getElementsByClassName('loader-wrapper')[0]
+         *            .classList.add('hide');
+         *        document
+         *            .getElementsByTagName('html')[0].classList.add('loader-hidden');
+         *    }
+         *},
+         */
         searchBtnClick()
         {
             if (!this.showSearch)

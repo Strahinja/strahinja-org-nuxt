@@ -1,4 +1,4 @@
-export default function ({ app, store })
+export default function ({ app/*, store*/ })
 {
     //console.log('plugins/four-oh-four: app = ', app);
     app.router.beforeEach((to, from, next) =>

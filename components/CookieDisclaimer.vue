@@ -28,7 +28,6 @@
 
 <script>
 import { cookieNames } from '~/store/cookies';
-
 export default {
     name: 'CookieDisclaimer',
     props: {
@@ -36,11 +35,11 @@ export default {
         show: { type: Boolean, default: true, required: false },
     },
     methods: {
-        acceptClick()
+        async acceptClick()
         {
-            this.$store.dispatch('cookies/setCookie', {
-                name: cookieNames.STRAHINJA_ORG_COOKIE_CONSENT,
-                value: '1',
+            await this.$store.dispatch('cookies/setCookie', {
+                id: cookieNames.COOKIE_STRAHINJA_ORG_COOKIE_CONSENT,
+                value: true
             }, { root: true });
         },
     },

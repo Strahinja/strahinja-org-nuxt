@@ -89,17 +89,15 @@ export default {
             return 0;
         },
     },
-    fetch({ store })
+    async fetch({ store })
     {
-        store.dispatch('portfolio/loadItems', { root: true });
+        await store.dispatch('loading/clearLoading', null, { root: true });
+        await store.dispatch('portfolio/loadItems', null, { root: true });
     },
-    created()
+    async mounted()
     {
-        this.$store.dispatch('portfolio/loadItems', { root: true });
-    },
-    mounted()
-    {
-        this.$store.dispatch('portfolio/loadItems', { root: true });
+        await this.$store.dispatch('loading/clearLoading', null, { root: true });
+        await this.$store.dispatch('portfolio/loadItems', null, { root: true });
         this.showFab = true;
     },
     methods:
@@ -124,8 +122,8 @@ export default {
                 path: '/',
                 description: 'Item description',
                 short_desc: 'Short description',
-                image: 'untitled.png',
-                image_thumb: 'untitled_thumb.png',
+                image: 'untitled.webp',
+                image_thumb: 'untitled_thumb.webp',
             }, { root: true });
         },
 

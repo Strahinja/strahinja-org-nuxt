@@ -35,7 +35,7 @@ export default {
     data()
     {
         return {
-            image: 'http://strahinja.org/img/preview-home-strahinja-org.png',
+            image: 'http://strahinja.org/img/preview-home-strahinja-org.webp',
             imageAlt: 'Иницијали СР и текст //strahinja.org',
             parentUrl: '/',
         };

@@ -122,7 +122,7 @@ export default {
                                 keyb yu
                                 `,
                             },
-                            image: '/img/programi/paskal/bibliote-02.png',
+                            image: '/img/programi/paskal/bibliote-02.webp',
                             args: [
                                 '-conf', 'dosbox.conf',
                                 '-c', 'cd FINAL',
@@ -139,7 +139,7 @@ export default {
                             options: {
                                 cycles: 5000,
                             },
-                            image: '/img/programi/paskal/frakt-01.png',
+                            image: '/img/programi/paskal/frakt-01.webp',
                             args: [
                                 '-c', 'FRK.EXE',
                             ],
@@ -161,7 +161,7 @@ export default {
                             options: {
                                 cycles: 5000,
                             },
-                            image: '/img/programi/paskal/hangman-01.png',
+                            image: '/img/programi/paskal/hangman-01.webp',
                             args: [
                                 '-c', 'HANGMAN.EXE',
                             ],
@@ -175,7 +175,7 @@ export default {
                             options: {
                                 cycles: 5000,
                             },
-                            image: '/img/programi/paskal/lavirin3.png',
+                            image: '/img/programi/paskal/lavirin3.webp',
                             args: [
                                 '-c', 'LAVIRIN3.EXE',
                             ],
@@ -197,7 +197,7 @@ export default {
                             options: {
                                 cycles: 5000,
                             },
-                            image: '/img/programi/paskal/rot3d3.png',
+                            image: '/img/programi/paskal/rot3d3.webp',
                             args: [
                                 '-c', 'ROT3D3.EXE',
                             ],
@@ -212,7 +212,7 @@ export default {
                             options: {
                                 cycles: 5000,
                             },
-                            image: '/img/programi/paskal/simhit-01.png',
+                            image: '/img/programi/paskal/simhit-01.webp',
                             args: [
                                 '-c', 'SIMHIT.EXE',
                             ],
@@ -229,7 +229,7 @@ export default {
                             options: {
                                 cycles: 5000,
                             },
-                            image: '/img/programi/paskal/zvez.png',
+                            image: '/img/programi/paskal/zvez.webp',
                             args: [
                                 '-c', 'ZVEZ.EXE',
                             ],
@@ -250,7 +250,7 @@ export default {
                             options: {
                                 cycles: 15000,
                             },
-                            image: '/img/programi/c/pahulje-02.png',
+                            image: '/img/programi/c/pahulje-02.webp',
                             args: [
                                 '-c', 'GAMETEST.EXE',
                             ],
@@ -280,7 +280,7 @@ export default {
                             options: {
                                 cycles: 5000,
                             },
-                            image: '/img/programi/c/turing1.png',
+                            image: '/img/programi/c/turing1.webp',
                             args: [
                                 '-c', 'cd turing',
                                 '-c', 'TURING1.EXE',
@@ -308,8 +308,9 @@ export default {
                 : true;
         },
     },
-    mounted()
+    async mounted()
     {
+        await this.$store.dispatch('loading/clearLoading');
         if (process.client)
         {
             require('js-dos');

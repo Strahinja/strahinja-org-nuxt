@@ -2,7 +2,7 @@ export const state = () => ({
     list: [],
     listByCategories: [],
     categories: [],
-    apiUrl: '/favorites',
+    apiUrl: '/favorites?c={0}&o={1}{2}',
     apiCategoriesUrl: '/categories?ct=favorite',
     apiThumbnailsUrl: '/thumbnail/{0}',
     apiThumbnailCacheUrl: '/img/thumbnails/{0}.jpg',
@@ -63,7 +63,11 @@ export const mutations = {
 };
 
 export const getters = {
-    apiPath: state => state.apiUrl,
+    apiPath: state => (count, offset, byCat) =>
+        state.apiUrl
+            .replace('{0}', count)
+            .replace('{1}', offset)
+            .replace('{2}', byCat ? '&sb=cat_id' : ''),
     apiCategoriesPath: state => state.apiCategoriesUrl,
     apiThumbnailsPath: state => url => state.apiThumbnailsUrl
         .replace('{0}', encodeURIComponent(url.replace('/', '#'))),
@@ -87,131 +91,98 @@ export const getters = {
 };
 
 export const actions = {
-    loadCategories({ commit, getters }, options =
-    { callbackThen: () =>
-    {}, callbackCatch: () =>
-    {} })
+    async loadCategories({ commit, getters })
     {
-        this.$axios
-            .$get(getters['apiCategoriesPath'])
-            .then(res =>
+        try
+        {
+            const res = await this.$axios.$get(getters['apiCategoriesPath']);
+            if (res.data && res.code === 200)
             {
-                if (res.data)
-                {
-
-                    if (res.code === 200)
-                    {
-                        commit('setCategories', res.data);
-                        if (options.callbackThen) options.callbackThen();
-                    }
-                }
-            })
-            .catch(function(error)
-            {
-                console.error('store/links.js: ', error);
-                if (options.callbackCatch) options.callbackCatch();
-            });
+                commit('setCategories', res.data);
+            }
+        }
+        catch(err)
+        {
+            console.error('store/links.js: ', err);
+        }
     },
 
-    arrangeAndSetListByCategories({ commit, getters }, options = {
-        list: [],
-        callbackThen: () =>
-        {}
-    })
+    arrangeAndSetListByCategories({ commit, getters }, { list })
     {
         let listByCat = [];
-        for (let catIndex in getters['categories'])
+        const categories = getters['categories'];
+        categories.forEach(({ id, name }) =>
         {
             listByCat.push({
-                id: getters['categories'][catIndex].id,
-                name: getters['categories'][catIndex].name,
-                list: options.list.filter(lnk =>
-                    lnk.idcategory === getters['categories'][catIndex].id
-                )
+                id,
+                name,
+                list: list.filter(lnk => lnk.idcategory === id)
             });
-        }
+        });
         commit('setListByCategories',
                listByCat.filter(
                    cat => cat.list.length > 0
                ));
-        if (options.callbackThen) options.callbackThen();
     },
 
-    loadItems({ commit, dispatch, getters }, options =
+    async loadItems({ commit, dispatch, getters }, byCat)
     {
-        byCat: false,
-        callbackThen: () =>
-        {},
-        callbackCatch: () =>
-        {}
-    })
-    {
-        let itemsPerPage = getters['itemsPerPage'];
-        let offset = getters['offset'];
-        this.$axios
-            .$get(
-                getters['apiPath'] +
-                    '?c=' +
-                    itemsPerPage +
-                    '&o=' +
-                    offset +
-                    (options.byCat ? '&sb=cat_id' : '')
-            )
-            .then(res =>
+        const itemsPerPage = getters['itemsPerPage'];
+        const offset = getters['offset'];
+        try
+        {
+            const res = await this.$axios.$get(
+                getters['apiPath'](itemsPerPage, offset, byCat)
+            );
+            if (res.data && res.code === 200)
             {
-                if (options.callbackThen) options.callbackThen();
-                if (res.data)
+                const resultItemCount = parseInt(res.num_rows);
+                commit('setNumPages', Math.ceil(
+                    resultItemCount / itemsPerPage
+                ));
+                commit('setCount', resultItemCount);
+                if (byCat)
                 {
-                    if (res.code === 200)
-                    {
-                        let resultItemCount = parseInt(res.num_rows);
-                        commit('setNumPages', Math.ceil(
-                            resultItemCount / itemsPerPage
-                        ));
-                        commit('setCount', resultItemCount);
-                        if (options.byCat)
-                        {
-                            dispatch('arrangeAndSetListByCategories',
-                                     { list: res.data }
-                            );
-                        }
-                        else
-                        {
-                            commit('setList', res.data);
-                        }
-                    }
+                    await dispatch('arrangeAndSetListByCategories',
+                                   { list: res.data }
+                    );
                 }
-            })
-            .catch(function(error)
-            {
-                console.error('store/links.js: ', error);
-                if (options.callbackCatch) options.callbackCatch();
-            });
+                else
+                {
+                    commit('setList', res.data);
+                }
+            }
+        }
+        catch(err)
+        {
+            console.error('store/links.js: ', err);
+        }
     },
     async load({ dispatch, commit })
     {
         commit('setNumPages', 0);
         commit('setItemCount', 0);
-        //await dispatch('loading/startLoading', {
-        //id: 'links'
-        //}, { root: true });
+        await dispatch('loading/startLoading', {
+            id: 'links'
+        }, { root: true });
         await dispatch('loadCategories');
         await dispatch('loadItems');
-        await dispatch('loadItems', {
-            byCat: true,
-            callbackThen: async () =>
-            {
-                commit('setLoadedInitially', true);
-                //await dispatch('loading/stopLoading', {
-                //id: 'links'
-                //}, { root: true });
-            },
-            callbackCatch: async () => await dispatch('loading/stopLoading', {
-                id: 'links'
-            }, { root: true })
-        });
+        try
+        {
+            await dispatch('loadItems', {
+                byCat: true,
+            });
+            commit('setLoadedInitially', true);
+        }
+        catch(err)
+        {
+            console.error('store/links.js: ', err);
+        }
+        await dispatch('loading/stopLoading', {
+            id: 'links'
+        }, { root: true });
     },
-    async loadThumbnail({ dispatch, commit, getters }, { id, url })
+    async loadThumbnail({ /*dispatch,*/ commit, getters }, { id, url })
     {
         let item = getters['itemById'](id);
         if (item)

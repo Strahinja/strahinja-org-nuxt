@@ -37,34 +37,33 @@ export const getters = {
 };
 
 export const actions = {
-    async loadItems({ commit, dispatch, getters })
+    async loadItems({ commit, /*dispatch,*/ getters })
     {
         if (!getters['count'])
         {
-            //console.log('store/portfolio: calling startLoading');
-            //await dispatch('loading/startLoading', { id: 'portfolio', },
+            let res = null;
+            //dispatch('loading/startLoading', { id: 'portfolio', },
             //{ root: true });
             try
             {
-                const res = await this.$axios.$get(getters['apiPath']);
-                //console.log('store/portfolio: calling stopLoading');
-                //await dispatch('loading/stopLoading', { id: 'portfolio' },
-                //{ root: true });
-                if (res && res.data && res.code === 200)
-                {
-                    res.data.forEach((item) =>
-                    {
-                        item.old_link_id = item.link_id;
-                    });
-                    commit('setList', res.data);
-                }
+                res = await this.$axios.$get(getters['apiPath']);
             }
-            catch(err)
+            catch(error)
             {
-                //console.log('store/portfolio: calling stopLoading');
-                //await dispatch('loading/stopLoading', { id: 'portfolio' },
+                //dispatch('loading/stopLoading', { id: 'portfolio' },
                 //{ root: true });
-                console.error('store/portfolio.js: ', err);
+                console.error('store/portfolio.js: ', error);
+            }
+            //dispatch('loading/stopLoading', { id: 'portfolio' },
+            //{ root: true });
+
+            if (res && res.data && res.code === 200)
+            {
+                res.data.forEach((item) =>
+                {
+                    item.old_link_id = item.link_id;
+                });
+                commit('setList', res.data);
             }
         }
     },

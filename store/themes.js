@@ -94,19 +94,16 @@ export const getters = {
 };
 
 export const actions = {
-    initTheme({ commit, rootGetters }, vuetify)
+    async initTheme({ commit, rootGetters }, { vuetify })
     {
-        let theme = rootGetters['cookies/getCookie'](
-            cookieNames.STRAHINJA_ORG_THEME);
-        if (theme)
-        {
-            theme = theme.value;
-        }
-        else
+        const theme = rootGetters['cookies/cookieValueById'](
+            cookieNames.COOKIE_STRAHINJA_ORG_THEME,
+            themeIds.THEME_LIGHT
+        );
+        if (!theme)
         {
             theme = themeIds.THEME_LIGHT;
         }
-        commit('setTheme', theme);
 
         if (vuetify && vuetify.theme)
         {
@@ -114,16 +111,15 @@ export const actions = {
             {
                 vuetify.theme.dark = true;
             }
-            else
+            else if (vuetify)
             {
                 vuetify.theme.dark = false;
-
             }
         }
+        commit('setTheme', theme);
     },
-    async setTheme({ commit, dispatch }, { vuetify, theme })
+    async setTheme({ commit, dispatch }, { theme, vuetify })
     {
-        commit('setTheme', theme);
         if (vuetify && vuetify.theme)
         {
             if (theme == themeIds.THEME_DARK)
@@ -135,11 +131,11 @@ export const actions = {
                 vuetify.theme.dark = false;
             }
         }
-
         await dispatch('cookies/setCookie', {
-            name: cookieNames.STRAHINJA_ORG_THEME,
-            value: theme,
+            id: cookieNames.COOKIE_STRAHINJA_ORG_THEME,
+            value: theme
         }, { root: true });
+        commit('setTheme', theme);
     },
     async cycleTheme({ dispatch, getters }, { vuetify })
     {

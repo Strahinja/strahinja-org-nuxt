@@ -24,6 +24,7 @@ export default {
     async asyncData({ store, app })
     {
         let linkId = 'koord';
+        await store.dispatch('loading/clearLoading', null, { root: true });
         await store.dispatch('articles/loadArticle', { linkId },
                              { root: true });
         let article = store.getters['articles/article'];
@@ -32,7 +33,12 @@ export default {
                 ? app.$mdRender(article.markdown)
                 : ''
         };
-    }
+    },
+    async mounted()
+    {
+        await this.$store.dispatch('loading/clearLoading',
+                                   null, { root: true });
+    },
 };
 </script>
 

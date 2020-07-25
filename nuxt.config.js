@@ -7,7 +7,7 @@ import { md } from './markdown-it';
 const consola = require ('consola');
 
 // Staging (true) or production (false)?
-const appModeStaging = true;
+const appModeStaging = false;
 const publicRuntimeConfig = {
     currentYear          :  (new Date()).getFullYear(),
     vueAppMode           :  appModeStaging ? 'staging' : 'production',
@@ -89,7 +89,7 @@ export default {
         ],
         link: [
             { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' },
-        ]
+        ],
     },
     /*
      ** Customize the progress-bar
@@ -112,7 +112,6 @@ export default {
         '~/plugins/four-oh-four.js',
         '~/plugins/jsonld.js',
         '~/plugins/markdown-it.js',
-        '~/plugins/preview.client.js',
     ],
     /*
      ** Nuxt.js dev-modules
