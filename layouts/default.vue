@@ -321,7 +321,7 @@ export default {
                     cookieNames.COOKIE_STRAHINJA_ORG_COOKIE_CONSENT,
                     false
                 )
-                : true;
+                : false;
         },
         isThemeDark()
         {
@@ -347,7 +347,6 @@ export default {
         }, { root: true });
         this.setHtmlClass(this.dark);
         window.scrollTo(0,0);
-        //this.$vuetify.goTo('#subpage-container', 0);
         //this.hideLoader();
     },
     head()

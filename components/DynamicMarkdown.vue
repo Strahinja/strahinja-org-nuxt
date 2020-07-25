@@ -14,11 +14,6 @@ export default {
     },
     created()
     {
-        // ESlint BUG: yarn lint gives
-        //
-        //    TypeError: Cannot read property 'range' of null
-        //
-        //this.dynamicComponent = () => import(`~/static/blog/${this.fileName}.md`).then((loaded) => {
         this.dynamicComponent = () => import('~/static/blog/${this.fileName}.md').then((loaded) =>
         {
             const fileName = this.fileName;
