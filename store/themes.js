@@ -96,7 +96,7 @@ export const getters = {
 export const actions = {
     async initTheme({ commit, rootGetters }, { vuetify })
     {
-        const theme = rootGetters['cookies/cookieValueById'](
+        let theme = rootGetters['cookies/cookieValueById'](
             cookieNames.COOKIE_STRAHINJA_ORG_THEME,
             themeIds.THEME_LIGHT
         );

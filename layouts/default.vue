@@ -346,6 +346,8 @@ export default {
             vuetify: this.$vuetify,
         }, { root: true });
         this.setHtmlClass(this.dark);
+        window.scrollTo(0,0);
+        //this.$vuetify.goTo('#subpage-container', 0);
         //this.hideLoader();
     },
     head()
