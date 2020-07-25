@@ -32,7 +32,7 @@ export default {
     name: 'CookieDisclaimer',
     props: {
         color: { type: String, default: null, required: false },
-        show: { type: Boolean, default: true, required: false },
+        show: { type: Boolean, default: false, required: false },
     },
     methods: {
         acceptClick()
