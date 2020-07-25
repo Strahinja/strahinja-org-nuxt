@@ -27,7 +27,7 @@
                 :class=`{
                     'center-avatar-100': true
                 }`)
-                    v-img(src="/img/avatar-2017.jpg",
+                    v-img(src="/img/avatar-2017.webp",
                     alt="Аватар")
                 v-avatar(v-else=true,
                 size="60",
@@ -35,7 +35,7 @@
                     'center-avatar-64': true,
                     'right-avatar-64': $breakpoint.is.xsOnly
                 }`)
-                    v-img(src="/img/avatar-2017.jpg",
+                    v-img(src="/img/avatar-2017.webp",
                     alt="Аватар")
             .py-7.mt-4
                 p.

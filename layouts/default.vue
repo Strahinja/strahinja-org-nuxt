@@ -156,7 +156,7 @@
                                 a(href="https://creativecommons.org/licenses/by/4.0/",
                                 rel="license")
                                     img.inline-image(alt="Creative Commons License",
-                                    src="/img/80x15.png")
+                                    src="/img/80x15.webp")
                         v-row.ma-0
                             v-col.pa-0(:cols="12") Copyright © 1999-{{ currentYear }}
                         v-row.ma-0
@@ -170,7 +170,7 @@
                                     a(href="https://creativecommons.org/licenses/by/4.0/",
                                     rel="license")
                                         img.inline-image(alt="Creative Commons License",
-                                        src="/img/80x15.png")
+                                        src="/img/80x15.webp")
                                 .d-inline.mr-1 Copyright © 1999-{{ currentYear }}
                                 .d-inline Страхиња Радић (Strahinya Radich)
         v-bottom-sheet(v-model="showTextPopup"
@@ -345,7 +345,7 @@ export default {
             vuetify: this.$vuetify,
         }, { root: true });
         this.setHtmlClass(this.dark);
-        this.hideLoader();
+        //this.hideLoader();
     },
     head()
     {
@@ -354,7 +354,7 @@ export default {
             title: null,
             description: 'Лична веб страна Страхиње Радића',
             url: url,
-            image: `${url}/static/img/preview-home-strahinja-org.png`,
+            image: `${url}/static/img/preview-home-strahinja-org.webp`,
             imageAlt: 'Лого са иницијалима СР и текст //strahinja.org',
             imageWidth: 1127,
             imageHeight: 492,
@@ -478,16 +478,18 @@ export default {
                 }
             }
         },
-        hideLoader()
-        {
-            if (document)
-            {
-                document.getElementsByClassName('loader-wrapper')[0]
-                    .classList.add('hide');
-                document
-                    .getElementsByTagName('html')[0].classList.add('loader-hidden');
-            }
-        },
+        /*
+         *hideLoader()
+         *{
+         *    if (document)
+         *    {
+         *        document.getElementsByClassName('loader-wrapper')[0]
+         *            .classList.add('hide');
+         *        document
+         *            .getElementsByTagName('html')[0].classList.add('loader-hidden');
+         *    }
+         *},
+         */
         searchBtnClick()
         {
             if (!this.showSearch)

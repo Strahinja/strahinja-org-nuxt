@@ -4,7 +4,7 @@ export const state = () => ({
     apiAddUrl: '/users/add',
     apiUpdateUrl: '/users/update',
     apiSingleUserUrl: '/users/{0}',
-    avatarUrl: '/img/user/{0}/avatar.jpg',
+    avatarUrl: '/img/user/{0}/avatar.webp',
 });
 
 export const mutations = {

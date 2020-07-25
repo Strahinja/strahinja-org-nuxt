@@ -122,8 +122,8 @@ export default {
                 path: '/',
                 description: 'Item description',
                 short_desc: 'Short description',
-                image: 'untitled.png',
-                image_thumb: 'untitled_thumb.png',
+                image: 'untitled.webp',
+                image_thumb: 'untitled_thumb.webp',
             }, { root: true });
         },
 

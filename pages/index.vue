@@ -54,7 +54,8 @@
                             v-carousel-item(v-for=`(portfolioItem,
                             portfolioItemIndex) in portfolioItems`,
                             :key="portfolioItemIndex")
-                                img.splash-picture(:src="portfolioItem.image_thumb")
+                                img.splash-picture(:alt="portfolioItem.title"
+                                :src="portfolioItem.image_thumb")
                     v-col.text-left.align-self-center(cols=10,
                     md=4,
                     offset=1,
