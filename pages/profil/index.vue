@@ -47,10 +47,9 @@
                     = ' '
                     em Nuxt.js, Vue.js, Angular 2, Typescript, JavaScript, PHP
                     = ' '
-                    |  и #[em MySQL.]
-                    |  Мој циљ је да радим на занимљивим и
-                    | захтевним пројектима уз употребу постојећих и нових
-                    | технологија. Текући фокус: #[em Nuxt.js.]
+                    |  и #[em MySQL.] Мој циљ је да радим на занимљивим и
+                    |  захтевним пројектима уз употребу постојећих и нових
+                    |  технологија. Текући фокус: #[em Nuxt.js.]
 
                 //-Full-stack developer with a wide programming skill set.
                     Started coding with Basic in the 1990s and learned a
@@ -101,11 +100,13 @@
                             'mx-4': $breakpoint.is.xsOnly
                         }`)
                             v-btn.mr-5.mb-5(href="/gmail.gpg"
+                            target="_blank"
                             dark
                             color="primary")
                                 v-icon mdi-file-key
                                 | gmail.gpg
                             v-btn.mb-5(href="/strahinja-org.gpg"
+                            target="_blank"
                             dark
                             color="primary")
                                 v-icon mdi-file-key
