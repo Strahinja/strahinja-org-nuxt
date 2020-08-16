@@ -181,7 +181,7 @@ svg
     margin: 0 -50px
 
 .v-avatar
-    overflow: initial
+    overflow: initial !important
 
 .v-avatar .v-image__image
     z-index: 1
@@ -243,6 +243,10 @@ svg
 .v-application--is-ltr .v-list-item__action:first-child,
 .v-application--is-ltr .v-list-item__icon:first-child
     margin-right: .7em
+
+.v-list-item__avatar,
+.v-avatar.v-list-item__avatar
+    overflow: initial
 
 .v-list-item ::-webkit-scrollbar
     background: transparent

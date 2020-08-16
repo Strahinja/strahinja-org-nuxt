@@ -38,18 +38,21 @@
                     v-img(src="/img/avatar-2017.webp",
                     alt="Аватар")
             .py-7.mt-4
-                p.
-                    #[em Full-stack developer] са широким опсегом
-                    програмерских вештина. Почео сам да кодирам у
-                    #[em Basic]-у деведесетих и научио низ програмских
-                    језика и фрејмворка, укључујући најновије
-                    технологије, као што су
-                    #[em Nuxt.js, Vue.js, Angular 2, Typescript, JavaScript, PHP]
-                    и #[em MySQL.] Мој циљ је да радим на занимљивим и
-                    захтевним пројектима уз употребу постојећих и нових
-                    технологија. Текући фокус: #[em Nuxt.js.]
+                p
+                    em Full-stack developer
+                    |  са широким опсегом програмерских
+                    | вештина. Почео сам да кодирам у #[em Basic]-у деведесетих и
+                    | научио низ програмских језика и фрејмворка, укључујући
+                    | најновије технологије, као што су
+                    = ' '
+                    em Nuxt.js, Vue.js, Angular 2, Typescript, JavaScript, PHP
+                    = ' '
+                    |  и #[em MySQL.]
+                    |  Мој циљ је да радим на занимљивим и
+                    | захтевним пројектима уз употребу постојећих и нових
+                    | технологија. Текући фокус: #[em Nuxt.js.]
 
-                // Full-stack developer with a wide programming skill set.
+                //-Full-stack developer with a wide programming skill set.
                     Started coding with Basic in the 1990s and learned a
                     number of programming languages and frameworks, up to
                     and including modern technologies, like Nuxt.js, Vue.js,
@@ -60,8 +63,7 @@
 
                 v-divider.my-8/
 
-                h3(:class=`{
-                    title: true,
+                h3.title(:class=`{
                     'px-10': $breakpoint.is.smAndUp,
                     'px-4': $breakpoint.is.xsOnly
                 }`) Вештине
@@ -78,6 +80,37 @@
                 skills-category(title="Језици",
                 :items-left="languages",
                 :two-col="false")
+
+                v-divider.my-8/
+
+                h3.title(id="gpg-кључеви"
+                :class=`{
+                    'px-10': $breakpoint.is.smAndUp,
+                    'px-4': $breakpoint.is.xsOnly
+                }`) GPG кључеви
+
+                p
+                    | Ово су јавни GPG кључеви уз помоћ којих се може потврдити
+                    | аутентичност порука које шаљем епоштом. Они су ограниченог
+                    | рока трајања, а послао сам их и на неколико
+                    | најпопуларнијих сервера за GPG кључеве.
+                v-container
+                    v-row
+                        v-col.pl-0(:class=`{
+                            'mx-10': $breakpoint.is.smAndUp,
+                            'mx-4': $breakpoint.is.xsOnly
+                        }`)
+                            v-btn.mr-5.mb-5(href="/gmail.gpg"
+                            dark
+                            color="primary")
+                                v-icon mdi-file-key
+                                | gmail.gpg
+                            v-btn.mb-5(href="/strahinja-org.gpg"
+                            dark
+                            color="primary")
+                                v-icon mdi-file-key
+                                | strahinja-org.gpg
+
 </template>
 
 <script>

@@ -624,8 +624,10 @@ export default {
     z-index: 55 !important
     max-height: 100% !important
 
-.v-footer
-    z-index: 40
+.v-footer,
+.v-footer--absolute,
+.v-footer--fixed
+    z-index: 40 !important
 
 .v-footer button a
     text-decoration: none
