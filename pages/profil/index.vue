@@ -9,10 +9,11 @@
                 v-col.text-right(:cols="6")
                     v-tooltip(bottom=true)
                         template(v-slot:activator="{ on }")
-                            v-btn(color="accent",
-                            light,
-                            v-on="on",
-                            @click="openLink('/doku/cv-strahinja-radic.pdf')")
+                            v-btn(color="accent"
+                            light
+                            v-on="on"
+                            href="/doku/strahinja-radic-cv.pdf"
+                            target="_blank")
                                 v-icon mdi-file-pdf-box
                                 span.hidden-xs-only Преузми&nbsp;PDF
                         span Преузми PDF фајл
@@ -185,10 +186,6 @@ export default {
     },
     methods:
     {
-        openLink(url)
-        {
-            window.open(url, '_blank');
-        },
         pageTheme()
         {
             return this && this.$store
