@@ -339,7 +339,10 @@ export default {
             vuetify: this.$vuetify,
         }, { root: true });
         this.setHtmlClass(this.dark);
-        window.scrollTo(0,0);
+        if (window)
+        {
+            window.scrollTo(0,0);
+        }
         this.showCookieConsent = !this.$store.getters['cookies/cookieValueById'](
             cookieNames.COOKIE_STRAHINJA_ORG_COOKIE_CONSENT,
             false

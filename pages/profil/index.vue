@@ -18,7 +18,9 @@
                                 span.hidden-xs-only Преузми&nbsp;PDF
                         span Преузми PDF фајл
 
-        v-card.profile-card
+        v-card.profile-card(:class=`{
+            'sm-and-up': $breakpoint.is.smAndUp,
+        }`)
             v-toolbar(flat=true,
             :elevation="0",
             :color="pageTheme().cardTitleBackgroundColor")
@@ -270,5 +272,8 @@ export default {
     margin-top: -12px
 
 .v-application .profile-card p
+    margin: 8px 16px
+
+.v-application .profile-card.sm-and-up p
     margin: 1em 2em
 </style>

@@ -4,9 +4,10 @@
             'px-10': $breakpoint.is.smAndUp,
             'px-4': $breakpoint.is.xsOnly
         }`) {{ title }}
-        v-container(fluid=true,
-        no-gutters=true)
-            v-row(v-if="twoCol === true",
+        v-container.pa-0(fluid,
+        no-gutters)
+            v-row(v-if="twoCol === true"
+            no-gutters
             :class=`{
                 'px-10': $breakpoint.is.smAndUp,
                 'px-4': $breakpoint.is.xsOnly
@@ -16,8 +17,8 @@
                 :class=`{
                     'pr-10': $breakpoint.is.mdAndUp
                 }`)
-                    v-container.pa-0(fluid=true,
-                    no-gutters=true)
+                    v-container.pa-0(fluid,
+                    no-gutters)
                         v-row.mb-5.mx-0(v-for="(skill, skillIndex) in itemsLeft",
                         :key="skillIndex",
                         align="center")
@@ -32,8 +33,8 @@
                 :class=`{
                     'pl-10': $breakpoint.is.mdAndUp
                 }`)
-                    v-container.pa-0(fluid=true,
-                    no-gutters=true)
+                    v-container.pa-0(fluid
+                    no-gutters)
                         v-row.mb-5.mx-0(v-for="(skill, skillIndex) in itemsRight",
                         :key="skillIndex",
                         align="center")
@@ -43,8 +44,8 @@
                             :sm="9")
                                 v-progress-linear(:color="skill.color",
                                 :value="skill.percent")
-            v-row(v-else=true,
-            no-gutters=true,
+            v-row(v-else
+            no-gutters
             :class=`{
                 'px-10': $breakpoint.is.smAndUp,
                 'px-4': $breakpoint.is.xsOnly
@@ -53,8 +54,8 @@
                 :class=`{
                     'pr-10': $breakpoint.is.mdAndUp
                 }`)
-                    v-container.pa-0(fluid=true,
-                    no-gutters=true)
+                    v-container.pa-0(fluid
+                    no-gutters)
                         v-row.mb-5.mx-0(v-for="(skill, skillIndex) in itemsLeft",
                         :key="skillIndex",
                         align="center")
