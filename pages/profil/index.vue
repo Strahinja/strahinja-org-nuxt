@@ -96,8 +96,9 @@
                     | аутентичност порука које шаљем епоштом. Они су ограниченог
                     | рока трајања, а послао сам их и на неколико
                     | најпопуларнијих сервера за GPG кључеве.
-                v-container
-                    v-row
+                v-container.pa-0(fluid
+                no-gutters)
+                    v-row(no-gutters)
                         v-col.pl-0(:class=`{
                             'mx-10': $breakpoint.is.smAndUp,
                             'mx-4': $breakpoint.is.xsOnly
