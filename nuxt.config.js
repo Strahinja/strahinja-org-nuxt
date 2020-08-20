@@ -272,8 +272,8 @@ export default {
     },
     vue: {
         config: {
-            productionTip: false,
-            devtools: true,
+            productionTip: !appModeStaging,
+            devtools: appModeStaging,
         },
     },
     /*
