@@ -77,7 +77,8 @@
                     v-btn(color="accent",
                     x-large,
                     light,
-                    :to="selectedItem.zip")
+                    :href="selectedItem.zip"
+                    target="_blank")
                         v-icon mdi-package-down
                         | Преузми ZIP
 </template>
