@@ -1,14 +1,15 @@
 <template lang="pug">
-    subpage(splash,
-    source-url,
-    source-url-light)
+    subpage(
+    source-url)
         template(#header)
             h1.display-1 Портфолио
         v-progress-linear.my-5(v-if="portfolioLoading",
         indeterminate,
         :active="portfolioLoading")
         template(#outside-content)
-            fancy-grid(:items="portfolio")
+            three-dee-list(item-width="400"
+            item-height="500"
+            :items="portfolio")
 </template>
 
 <script>
