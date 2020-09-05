@@ -1,15 +1,14 @@
 <template lang="pug">
-    subpage(
-    source-url)
+    three-dee-list(item-width="400"
+    item-height="500"
+    :items="portfolio")
         template(#header)
-            h1.display-1 Портфолио
-        v-progress-linear.my-5(v-if="portfolioLoading",
-        indeterminate,
-        :active="portfolioLoading")
-        template(#outside-content)
-            three-dee-list(item-width="400"
-            item-height="500"
-            :items="portfolio")
+            subpage(source-url)
+                template(#header)
+                    h1.display-1 Портфолио
+                v-progress-linear.my-5(v-if="portfolioLoading",
+                indeterminate,
+                :active="portfolioLoading")
 </template>
 
 <script>

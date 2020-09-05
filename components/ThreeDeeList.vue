@@ -1,6 +1,16 @@
 <template lang="pug">
     .tdlist(ref="list")
-        v-img.tdlist-background(:src="selectedImage")
+        .tdlist-background
+            .tdlist-background-inner(:style=`{
+                'margin-left': backgroundMargin,
+            }`)
+                v-img(v-for="item,index in items"
+                :contain="false"
+                :width="clientWidth + unit"
+                :key="item"
+                :src="item.image")
+        .tdlist-header
+            slot(name="header")/
         .tdlist-inner(:style=`{
             'margin-left': listMargin,
             width: listWidth,
@@ -20,30 +30,37 @@
                 }`)
                     h2 {{ item.name }}
                     p {{ item.description }}
-                    v-btn(text
-                    large
-                    :href="item.image"
-                    target="_blank")
-                        v-icon mdi-image
-                        | Преглед слике
-                    v-btn(text
-                    large
-                    :href="item.path"
-                    target="_blank")
-                        v-icon mdi-open-in-new
-                        | Отвори
+                    .tdlist-item-actions
+                        v-btn(text
+                        large
+                        :href="item.image"
+                        target="_blank")
+                            v-icon mdi-image
+                            | Преглед слике
+                        v-btn(text
+                        large
+                        :href="item.path"
+                        target="_blank")
+                            v-icon mdi-open-in-new
+                            | Отвори
         .tdlist-navigation.prev
-            v-btn(fab small dark
-            :disabled="selectedItem==0"
-            color="primary"
-            @click="prevClick()")
-                v-icon mdi-chevron-left
+            v-tooltip(bottom)
+                template(#activator="{ on }")
+                    v-btn(fab small dark
+                    :disabled="selectedItem==0"
+                    color="primary"
+                    @click="prevClick()")
+                        v-icon mdi-chevron-left
+                span Претходни пројекат
         .tdlist-navigation.next
-            v-btn(fab small dark
-            :disabled="selectedItem==items.length-1"
-            color="primary"
-            @click="nextClick()")
-                v-icon mdi-chevron-right
+            v-tooltip(bottom)
+                template(#activator="{ on }")
+                    v-btn(fab small dark
+                    :disabled="selectedItem==items.length-1"
+                    color="primary"
+                    @click="nextClick()")
+                        v-icon mdi-chevron-right
+                span Следећи пројекат
 </template>
 
 <script>
@@ -82,35 +99,48 @@ export default {
             }
             return 0;
         },
-        selectedImage()
+        backgroundMargin()
         {
-            if (this.items && this.items[this.selectedItem])
+            if (this.clientWidth > 0)
             {
-                return this.items[this.selectedItem].image;
+                return ''
+                    + (-this.clientWidth * this.selectedItem)
+                    + this.unit;
             }
-            return '';
+            return 0;
         },
+        //selectedImage()
+        //{
+        //if (this.items && this.items[this.selectedItem])
+        //{
+        //return this.items[this.selectedItem].image;
+        //}
+        //return '';
+        //},
     },
     mounted()
     {
         this.clientWidth = this.$refs.list.clientWidth;
-        if (!this.keyupListener)
+        if (process.client)
         {
-            this.keyupListener = document.addEventListener('keyup', (event) =>
+            if (!this.keyupListener)
             {
-                this.onKeyup(event);
-            });
-        }
-        if (!this.onresizeListener)
-        {
-            this.onresizeListener = window.onresize = () =>
-            {
-                if (this.clientWidth)
+                this.keyupListener = document.addEventListener('keyup', (event) =>
                 {
-                    console.log('resize: recalculating clientWidth');
-                    this.clientWidth = this.$refs.list.clientWidth;
-                }
-            };
+                    this.onKeyup(event);
+                });
+            }
+            if (!this.onresizeListener)
+            {
+                this.onresizeListener = window.onresize = () =>
+                {
+                    if (this.clientWidth)
+                    {
+                        console.log('resize: recalculating clientWidth');
+                        this.clientWidth = this.$refs.list.clientWidth;
+                    }
+                };
+            }
         }
     },
     methods: {
@@ -167,7 +197,7 @@ export default {
     font-size: 80%
 
 .tdlist-navigation
-    position: absolute
+    position: fixed
     text-align: center
     top: 50%
     transform: translate(0 -50%)
@@ -186,6 +216,9 @@ export default {
     flex-direction: row
     transition: all 0.25s ease
 
+.tdlist-header
+    position: relative
+
 .tdlist-item
     display: inline-flex
     //-margin-left: .5em
@@ -203,10 +236,14 @@ export default {
 .tdlist-item-inner
     //-overflow: hidden
     padding: 1em
-    //-border: 1px solid #000
-       border-radius: 200px
+    border: 1px solid #000
+    border-radius: 20px
+    background: rgba(255,255,255,.25)
     transition: all 0.25s ease
     cursor: pointer
+
+.theme--dark .tdlist-item-inner
+    border-color: #fff
 
 .tdlist-item.left .tdlist-item-inner
     transform: scale(0.6) rotateY(-45deg)
@@ -214,9 +251,14 @@ export default {
 .tdlist-item.right .tdlist-item-inner
     transform: scale(0.6) rotateY(45deg)
 
+.tdlist-item-actions
+    position: absolute
+    bottom: 1em
+
 .tdlist-background
+    overflow: hidden
     //transform: translate(0, -50%)
-    filter: grayscale(1) contrast(.3)
+    filter: grayscale(1) contrast(.3) blur(5px)
     //top: 50%
     //left: 50%
     //width: 100%
@@ -225,5 +267,13 @@ export default {
     top: 0
     bottom: 0
     position: absolute
-    opacity: 0.2
+    opacity: 0.75
+
+.tdlist-background-inner
+    display: flex
+    position: absolute
+    justify-content: center
+    flex-direction: row
+    transition: all .25s ease
+
 </style>

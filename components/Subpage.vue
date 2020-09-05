@@ -148,7 +148,9 @@ export default {
     mounted()
     {
         this.scrollTop = 0;
-        this.windowHeight = window.innerHeight;
+        this.windowHeight = process.client
+            ? window.innerHeight
+            : 1024;
     },
     methods:
     {
