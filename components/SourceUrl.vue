@@ -1,7 +1,8 @@
 <template lang="pug">
-    a.source-url(target="_blank",
+    a.source-url(target="_blank"
+    :style="overrideStyle"
     :href="url")
-        v-icon mdi-xml
+        v-icon(:style="overrideStyle") mdi-xml
         | Изворни код
 
 </template>
@@ -9,13 +10,26 @@
 <script>
 export default {
     name: 'SourceUrl',
+    props: {
+        color: { type: String, default: null, required: false },
+    },
     computed: {
         url()
         {
             return this && this.$store
                 ? this.$store.getters['pages/sourceURL']
                 : null;
-        }
+        },
+        overrideStyle()
+        {
+            if (this.color)
+            {
+                return {
+                    color: this.color,
+                };
+            }
+            return null;
+        },
     }
 };
 </script>

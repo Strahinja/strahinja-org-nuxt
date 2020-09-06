@@ -1,9 +1,10 @@
 <template lang="pug">
-    three-dee-list(item-width="400"
-    item-height="500"
+    three-dee-list(item-width="330"
+    item-height="550"
     :items="portfolio")
         template(#header)
-            subpage(source-url)
+            subpage(source-url
+            color="#fff")
                 template(#header)
                     h1.display-1 Портфолио
                 v-progress-linear.my-5(v-if="portfolioLoading",
@@ -44,4 +45,9 @@ export default {
     },
 };
 </script>
+
+<style lang="sass">
+.tdlist.xs
+    margin-bottom: 50px
+</style>
 

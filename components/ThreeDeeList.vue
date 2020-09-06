@@ -1,5 +1,8 @@
 <template lang="pug">
-    .tdlist(ref="list")
+    .tdlist(ref="list"
+    :class=`{
+        xs: $breakpoint.is.xsOnly,
+    }`)
         .tdlist-background
             .tdlist-background-inner(:style=`{
                 'margin-left': backgroundMargin,
@@ -28,25 +31,27 @@
                     'min-width': '' + itemWidth + unit,
                     'min-height': '' + itemHeight + unit,
                 }`)
-                    h2 {{ item.name }}
-                    p {{ item.description }}
                     .tdlist-item-actions
                         v-btn(text
-                        large
+                        :disabled="item.image_active!='1'"
                         :href="item.image"
                         target="_blank")
                             v-icon mdi-image
-                            | Преглед слике
+                            | Слика екрана
                         v-btn(text
-                        large
+                        :disabled="item.path_active!='1'"
                         :href="item.path"
                         target="_blank")
                             v-icon mdi-open-in-new
                             | Отвори
+                    h2 {{ item.name }}
+                    p.description {{ item.description }}
+                    p.date {{ prettyDateRange(item.created, item.modified) }}
         .tdlist-navigation.prev
             v-tooltip(bottom)
                 template(#activator="{ on }")
-                    v-btn(fab small dark
+                    v-btn(v-on="on"
+                    fab small dark
                     :disabled="selectedItem==0"
                     color="primary"
                     @click="prevClick()")
@@ -55,7 +60,8 @@
         .tdlist-navigation.next
             v-tooltip(bottom)
                 template(#activator="{ on }")
-                    v-btn(fab small dark
+                    v-btn(v-on="on"
+                    fab small dark
                     :disabled="selectedItem==items.length-1"
                     color="primary"
                     @click="nextClick()")
@@ -183,18 +189,48 @@ export default {
                 }
             }
         },
+        prettyDate(dateStr)
+        {
+            if (dateStr && typeof(dateStr)==='string')
+            {
+                let [sdate/*, stime*/] = dateStr.split(' ');
+                let [year, month/*, day*/] = sdate.split('-');
+                //let [hour, minute, sec] = stime.split(':');
+                return '' + month + '.' + year;
+            }
+            else
+            {
+                return '';
+            }
+        },
+        prettyDateRange(startDate, endDate)
+        {
+            let startFormatted = this.prettyDate(startDate);
+            let endFormatted = this.prettyDate(endDate);
+            if (startFormatted === endFormatted)
+            {
+                return startFormatted;
+            }
+            else
+            {
+                return startFormatted + '-' + endFormatted;
+            }
+        },
     },
 };
 </script>
 
 <style lang="sass" scoped>
+@import '~/assets/sass/variables.sass'
+
 .tdlist
     position: relative
     //overflow-x: hidden
     //overflow-y: visible
     overflow: hidden
     padding: 2em 0
-    font-size: 80%
+    font-size: 85%
+    height: 100%
 
 .tdlist-navigation
     position: fixed
@@ -218,6 +254,7 @@ export default {
 
 .tdlist-header
     position: relative
+    color: #fff
 
 .tdlist-item
     display: inline-flex
@@ -236,14 +273,15 @@ export default {
 .tdlist-item-inner
     //-overflow: hidden
     padding: 1em
-    border: 1px solid #000
+    //border: 1px solid #000
     border-radius: 20px
-    background: rgba(255,255,255,.25)
+    background: $app-sheet-background-color
     transition: all 0.25s ease
     cursor: pointer
 
 .theme--dark .tdlist-item-inner
-    border-color: #fff
+    background: $app-sheet-background-color-dark
+    //border-color: #fff
 
 .tdlist-item.left .tdlist-item-inner
     transform: scale(0.6) rotateY(-45deg)
@@ -251,14 +289,20 @@ export default {
 .tdlist-item.right .tdlist-item-inner
     transform: scale(0.6) rotateY(45deg)
 
+.tdlist-item-inner p.date
+    font-weight: bold
+
 .tdlist-item-actions
-    position: absolute
-    bottom: 1em
+    margin-bottom: 1em
+    //position: absolute
+    //bottom: 1em
+
+.tdlist-item-actions .v-btn
+    font-size: 85%
 
 .tdlist-background
     overflow: hidden
     //transform: translate(0, -50%)
-    filter: grayscale(1) contrast(.3) blur(5px)
     //top: 50%
     //left: 50%
     //width: 100%
@@ -267,7 +311,16 @@ export default {
     top: 0
     bottom: 0
     position: absolute
-    opacity: 0.75
+
+.tdlist-background:after
+    content: ' '
+    position: absolute
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background: var(--v-primary-base)
+    opacity: .75
 
 .tdlist-background-inner
     display: flex
@@ -275,5 +328,6 @@ export default {
     justify-content: center
     flex-direction: row
     transition: all .25s ease
+    filter: grayscale(1) contrast(.3) blur(5px)
 
 </style>
