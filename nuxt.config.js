@@ -73,7 +73,7 @@ const sitemapConfig = {
 //console.log('nuxt.config.js: sitemap config = ', JSON.stringify(sitemapConfig));
 
 export default {
-    mode: 'universal',
+    //mode: 'universal',
     //target: 'server',
     target: 'static',
     /*

@@ -240,7 +240,7 @@ export default {
     width: 3em
     height: 3em
 
-.tdlist-navigation.prev
+//-.tdlist-navigation.prev
     left: 0
 
 .tdlist-navigation.next
