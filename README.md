@@ -1,3 +1,7 @@
+**NOTE: this repository is archived. I have switched my website to my own static generator 
+and switched git hosting to sourcehut. See** https://sr.ht/~strahinja/strahinja-org-slw
+
+  
 # strahinja-org
 
 [![CC BY 4.0][cc-by-shield]][cc-by]
